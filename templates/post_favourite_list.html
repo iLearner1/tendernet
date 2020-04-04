@@ -1,0 +1,115 @@
+{% include "blocks/header.html" %}
+{% block content %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-20">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>Избранные лоты</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Избранные лоты</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-md-6" style="display: none;">
+        <div class="breadcrumb-form">
+          <form action="#">
+            <input type="text" placeholder="Поиск по названию">
+            <button><i data-feather="search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- tender Listing -->
+<div class="alice-bg section-padding-bottom">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col-xl-12">
+        <div class=" ">
+          <div class="">
+
+            <div class="tender-view-controller-wrapper favorites-buttons"  >
+              <a href="{% url 'post_favourite_list' %}" class="favorites-buttons-tenders active"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
+              <a href="/favorites-search.html" class="favorites-buttons-search"><i class="fas fa-search"></i>&nbsp;Избранные поиски</a>
+            </div>
+
+            <div class="tender-filter-result xs-padding-0">
+
+              {% for p in favourite_posts %}
+
+                <div class="item">
+                  <div class="tender-list half-grid">
+                    <div class="body">
+                      <div class="content">
+                        <h4><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h4>
+                        <div class="info">
+                          <div class="row">
+                            <div class="col-md-5">
+                              Начало: <b>{{ p.date }}</b><br>
+                              Окончание: <b>00.00.0000</b>
+                            </div>
+                            <div class="col-md-7">
+                              <span class="office-location">Регион: <b>{{ p.city }}</b></span><br>
+                              <span class="deadline">До завершения: <b>0 д 00 ч 0 м</b></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="more">
+                        <span class="price"><b>Сумма:</b><br>{{ p.price }} тг</span><br>
+                        <div class="buttons">
+                          <a href="{{ p.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+                        </div>
+                        <div class="remove-button">
+                          <a href="#"><i class="fa fa-trash"></i>&nbsp;Удалить</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {% empty %}
+                  <ul>
+                    <li>Нет избранных поисков</li>
+                  </ul>
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <div class="pagination-list text-center" style="display: none;">
+              <nav class="navigation pagination">
+                <div class="nav-links">
+                  <a class="prev page-numbers" href="#"><i class="fas fa-angle-left"></i></a>
+                  <a class="page-numbers" href="#">1</a>
+                  <span aria-current="page" class="page-numbers current">2</span>
+                  <a class="page-numbers" href="#">3</a>
+                  <a class="page-numbers" href="#">4</a>
+                  <a class="next page-numbers" href="#"><i class="fas fa-angle-right"></i></a>
+                </div>
+              </nav>                
+            </div>
+          </div>
+
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- tender Listing End -->
+
+{% endblock %}
+
+{% include "blocks/footer.html" %}

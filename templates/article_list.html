@@ -1,0 +1,303 @@
+{% load widget_tweaks%}
+{% include "blocks/header.html" %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-10">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>Поиск лотов</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Поиск лотов</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="breadcrumb-form">
+          <form action="{% url 'post_list' %}">
+            <input type="text" placeholder="Поиск по названию" name="q">
+            <button><i data-feather="search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+    <!-- tender Listing -->
+    <div class="alice-bg section-padding-bottom">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col">
+            <div class="tender-listing-container">
+              <div class="filtered-tender-listing-wrapper">
+
+                <a href="javascript:void(0);" id="dop-filter-mobile-link" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-down"></i>&nbsp;Показать фильтр</a>
+                <a href="javascript:void(0);" id="dop-filter-mobile-link-hide" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть фильтр</a>
+
+                <script>
+                  jQuery(document).ready(function($){
+
+                    if ($(window).width() < 767) {
+
+                       $('#dop-filter-mobile-link').show();
+                       $('#dop-filter-mobile-link').click(function(){
+                        
+                          $('.dop-filter-mobile').slideToggle();
+                          $('#dop-filter-mobile-link').hide();
+                          $('#dop-filter-mobile-link-hide').show();
+                          $('#dop-filter-mobile-link-hide2').show();
+
+                       });
+
+                       $('#dop-filter-mobile-link-hide').click(function(){
+                        
+                          $('.dop-filter-mobile').slideToggle();
+                          $('#dop-filter-mobile-link-hide').hide();
+                          $('#dop-filter-mobile-link-hide2').hide();
+                          $('#dop-filter-mobile-link').show();
+
+                       });
+
+                       $('#dop-filter-mobile-link-hide2').click(function(){
+                        
+                          $('.dop-filter-mobile').slideToggle();
+                          $('#dop-filter-mobile-link-hide').hide();
+                          $('#dop-filter-mobile-link-hide2').hide();
+                          $('#dop-filter-mobile-link').show();
+
+                       });
+
+                    };
+                    
+                  });
+                </script>
+
+                <div class="dop-filter-mobile" style="display: none;">
+
+                  <div class="searchAndFilter-wrapper">
+                      <div class="searchAndFilter-block">
+                        <div class="searchAndFilter">
+
+                            <!-- {{ myFilter }} -->
+
+                            <form method="get">
+
+                              <h6 class="">Поиск по названию</h6>
+                              <div class="form-group">
+                                {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %}
+                              </div>
+
+                              <h6 class="">Заказчик</h6>
+                              <div class="form-group">
+                                {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %}
+                              </div>
+
+                              <div class="form-group">
+                                {% render_field myFilter.form.statzakup class="form-control" %}
+                              </div>
+
+                              <div class="form-group">
+                                {% render_field myFilter.form.city class="form-control" %}
+                              </div>
+
+                              <h6 class="">Сумма лота</h6>
+                              <div class="form-group">
+                                {% render_field myFilter.form.price class="form-control" placeholder="Сумма лота" %}
+                              </div>
+
+                              <h6 class="">Дата закрытия</h6>
+                              <div class="form-group">
+                                {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %}
+                              </div>
+
+                              <h6 class="">Поиск по ID</h6>
+                              <div class="form-group">
+                                {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %}
+                              </div>
+
+                              <div class="form-group">
+                                <button type="submit" class="button width-100 text-center">
+                                  <span class="glyphicon glyphicon-search"></span>
+                                  НАЙТИ
+                                </button>
+                              </div>
+
+                              <div style="text-align: center;">
+                                <a href="javascript:void(0);">Сохранить в избранные <i class="far fa-star"></i></a>
+                              </div>
+
+                            </form>
+
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+
+
+                <div class="tender-view-controller-wrapper">
+                  <div class="row">
+
+                    <div class="col-md-6">
+                      <div class="tender-view-controller">
+                        <div class="tender-view-filter">
+                          <div class="form-group">
+                            <select class="form-control" id="sel1">
+                              <option selected>Сортировать по</option>
+                              <option>Дата публикации</option>
+                              <option>Дата окончания</option>
+                              <option>По алфавиту</option>
+                              <option>По сумме</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 showing-number">
+                      <span>Показано 1–10 из 1029</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                
+                <div class="tender-filter-result xs-padding-0">
+                  {% for article in posts %}
+                  <div class="item">
+                    <div class="tender-list half-grid">
+                      <div class="body">
+                        <div class="content">
+                          <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                          <div class="info">
+                            <div class="row">
+                              <div class="col-md-5">
+                                
+                                Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
+                              </div>
+                              <div class="col-md-7">
+                                <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="more">
+                          <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
+                          <div class="buttons">
+                            <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% empty %}
+
+                  <div class="item">
+                    <p>Не найден соответсвующий тендер</p>
+                  </div>
+                  {% endfor %}
+
+                </div>
+
+
+
+                <div class="pagination-list text-center">
+                  <nav class="navigation pagination">
+                    <div class="nav-links">
+                      {% if posts.has_previous %}
+                      <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                      {% endif %}
+
+                      {% for p in posts.paginator.page_range %}
+                      {% if posts.number == p %}
+                      <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
+                      {% else %}
+                      <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+
+                      {% endif %}
+                      {% endfor %}
+
+
+                      {% if posts.has_next %}
+                      <a class="next page-numbers" href="?page={{ posts.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                      {% endif %}
+
+                    </div>
+                  </nav>                
+                </div>
+
+              </div>
+
+              <div class="tender-filter-wrapper pc-dop-filter">
+
+                <div data-id="tender-type" class="tender-filter tender-type same-pad">
+
+                  <form method="get">
+
+                    <h6 class="">Поиск по названию</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %}
+                    </div>
+
+                    <h6 class="">Заказчик</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %}
+                    </div>
+                    <h6 class="">Способ закупки</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.statzakup class="form-control" %}
+                    </div>
+                    <h6 class="">Регион</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.city class="form-control" %}
+                    </div>
+
+                    <h6 class="">Сумма лота</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.price class="form-control" %}
+                    </div>
+
+                    <h6 class="">Дата закрытия</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.date class="form-control"  %}
+                    </div>
+
+                    <h6 class="">Поиск по ID</h6>
+                    <div class="form-group">
+                      {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %}
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="button width-100 text-center">
+                        <span class="glyphicon glyphicon-search"></span>
+                        НАЙТИ
+                      </button>
+                    </div>
+
+                    <div style="text-align: center;">
+                      <a href="javascript:void(0);">Сохранить в избранные <i class="far fa-star"></i></a>
+                    </div>
+
+                  </form>
+
+                </div>
+
+              </div>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- tender Listing End -->
+
+
+{% include "blocks/footer.html" %}

@@ -1,0 +1,168 @@
+{% include "blocks/header.html" %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-top alice-bg padding-top-40 padding-bottom-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-area">
+          <h1>Услуга ПКО</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Услуга ПКО</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<div class="alice-bg section-padding-bottom tender-details-page">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="tender-listing-details">
+
+          <div class="details-information">
+
+            <div class="row">
+              <div class="col-lg-6 order-lg-2">
+                <div class="feature-thumb">
+                  <img src="/static/images/logoreg.png?v2" class="img-fluid" alt="">
+                </div>
+              </div>
+              <div class="col-lg-6 order-lg-1">
+                <div class="feature-content">
+                  <h3>Услуга ПКО</h3>
+                  <p>
+                    Предварительный квалификационный отбор (ПКО) — процесс оценки потенциальных поставщиков квалификационным требованиям по закупаемым товарам, работам, услугам.
+                  </p>
+                  <p>
+                    Что дает Вам прохождение ПКО?
+                  </p>
+                  <ul>
+                    <li>Допуск ко всем тендерам АО «Самрук Казына».</li>
+                    <li>Не нужно вносить 1% обеспечения заявки.</li>
+                    <li>Более высокая вероятность выиграша в тендерах.</li>
+                    <li>Минимальная конкуренция.</li>
+                    <li>Не нужно постоянно прикреплять учредительные и другие документы.</li>
+                  </ul>
+
+                  <p>
+                    7 шагов для участия в предварительном квалификационном отборе
+                  </p>
+                  <p>
+                    Для резидентов Республики Казахстан
+                  </p>
+                  <ul>
+                    <li>Получение ЭЦП в НУЦ</li>
+                    <li>Установка ЭЦП на компьютер</li>
+                    <li>Регистрация в системе ПКО</li>
+                    <li>Заполнение заявления и анкеты</li>
+                    <li>Осуществление оплаты за предоставляемые услуги</li>
+                    <li>Актуализация заявления и анкетных данных</li>
+                  </ul>
+
+                  <p>
+                    Для нерезидентов Республики Казахстан
+                  </p>
+                  <ul>
+                    <li>Получение ЭЦП в УЦ Гамма Технологии</li>
+                    <li>Установка ЭЦП на компьютер</li>
+                    <li>Регистрация в системе ПКО</li>
+                    <li>Заполнение заявления и анкеты</li>
+                    <li>Подписание договора</li>
+                    <li>Осуществление оплаты за предоставляемые услуги</li>
+                    <li>Актуализация заявления и анкетных данных</li>
+                  </ul>
+
+                  <hr>
+
+                  <style>
+                    .pko-form label{
+                      display: block!important;
+                    }
+                    .pko-form input, .pko-form select{
+                      height: auto;
+                      min-width: 300px;
+                      padding-left: 0px;
+                      border: 0;
+                      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                      transition: all .3s ease;
+                      outline: none;
+                      font-size: 14px;
+                      color: #000;
+                      background: #fff;
+                      box-shadow: none;
+                    }
+                    .pko-form input[type=submit]{
+                      display: block;
+                      width: 100%;
+                      text-align: center;
+                      margin-bottom: 10px;
+                      padding: 12px 30px;
+                      background: #eb3547;
+                      color: #ffffff;
+                      font-size: 14px;
+                    }
+                  </style>
+
+                  <form class="pko-form" method="POST">
+                    <!-- Very Important csrf Token -->
+                    {% csrf_token %}
+                    <div class = "form-group">
+                      <p>
+                      {% for field in form %}
+                      <div class="form-group">
+                        {{field.label_tag}}
+                        <div>{{field}}</div>
+                        <div class="error">{{field.errors}}</div>
+                      </div>
+                      {% endfor %}
+                      </p><br>
+                      <input type="submit" name="Subscribe" class = 'btn btn-primary btn-lg'>
+                    </div>
+                  </form>
+                                    <!-- Messages -->
+
+
+  <div>
+    {% if messages %}
+      {% for message in messages %}
+        <div style="border-radius:0;" {% if message.tags %} class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert" {% endif %}>
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <!-- End Messages -->
+
+
+
+
+
+                  
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% include "blocks/footer.html" %}
