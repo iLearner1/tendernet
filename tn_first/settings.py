@@ -171,7 +171,7 @@ LOGIN_REDIRECT_URL = 'home/'
 
 
 #uncomment
-#try:
- #   from .settings_prod1 import *
-#except:
-#    pass
+try:
+   from .settings_prod1 import *
+except:
+   pass
