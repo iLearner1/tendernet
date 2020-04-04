@@ -1,0 +1,116 @@
+{% include "blocks/header.html" %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-top alice-bg padding-top-40 padding-bottom-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>Изменить тариф</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Изменить тариф</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+{% block content %}
+
+
+<div class="alice-bg section-padding-bottom">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="tender-details">
+          <div class="title-and-info">
+            <div class="title">
+              <div class="title-body">
+                <h4>ID: {{ user.username }} </h4>
+                <div class="info">
+                  <span class="candidate-designation"><i class="fas fa-file"></i>&nbsp;Тариф "{{ user.profile.tarif }}"</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+        
+          <div class="details-information section-padding-20">
+            <div class="row">
+              <div class="col-xl-8 col-lg-8">
+
+                <div class="information">
+
+                  <style>
+                    .edit-tarif-form label{
+                      display: block!important;
+                    }
+                    .edit-tarif-form select{
+                      min-height: 50px;
+                      min-width: 300px;
+                      padding-left: 0px;
+                      border: 0;
+                      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                      transition: all .3s ease;
+                      outline: none;
+                      font-size: 14px;
+                      color: #000;
+                      background: #fff;
+                      box-shadow: none;
+                    }
+                    .edit-tarif-form input[type=submit]{
+                      display: block;
+                      width: 100%;
+                      text-align: center;
+                      margin-bottom: 10px;
+                      padding: 12px 30px;
+                      background: #eb3547;
+                      color: #ffffff;
+                      font-size: 14px;
+                    }
+                  </style>
+
+                  <form action="." method="post" enctype="multipart/form-data" class="edit-tarif-form">
+                    {% csrf_token %}
+                    {{ tarif_form.as_p }}
+                    <input type="submit" value="Сохранить" class="btn">
+                  </form>
+
+                </div>
+
+              </div>
+              <div class="col-xl-4 col-lg-4">
+
+                <div class="information-and-share">
+                  <div class="tender-summary">
+                    <div class="buttons">
+                      <a href="/profile" class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Личный кабинет</a>
+                      <a href="{% url 'post_favourite_list' %}" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
+                      <a href="javascript:void(0);" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-star"></i>&nbsp;Избранный поиск</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+{% include "blocks/footer.html" %}

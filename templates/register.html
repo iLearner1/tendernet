@@ -1,0 +1,71 @@
+{% include "blocks/header.html" %}
+
+{% block content %}
+
+<div class="padding-top-90 padding-bottom-90 access-page-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4 col-md-6">
+        <div class="access-form">
+          <div class="form-header">
+            <h5><i data-feather="edit"></i>Регистрация аккаунта на TENDERNET.KZ</h5>
+          </div>
+
+          <script type="text/javascript">
+            jQuery(function($){
+              $('#id_username').addClass('form-control');
+              $("#id_username").attr("placeholder", "Ваше имя");
+
+              $('#id_first_name').addClass('form-control');
+              $("#id_first_name").attr("placeholder", "Имя");
+
+              $('#id_last_name').addClass('form-control');
+              $("#id_last_name").attr("placeholder", "Фамилия");
+
+              $('#id_email').addClass('form-control');
+              $("#id_email").attr("placeholder", "Email");
+
+              $('#id_password').addClass('form-control');
+              $("#id_password").attr("placeholder", "Придумайте пароль");
+
+              $('#id_confirm_password').addClass('form-control');
+              $("#id_confirm_password").attr("placeholder", "Повторите пароль");
+            });
+          </script>
+
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="more-option terms">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" checked="checked">
+                <label class="form-check-label" for="defaultCheck2">
+                  Я согласен получать уведомления на свой телефон и почту
+                </label>
+              </div>
+            </div>
+            <input type="submit" value="Зарегистрироваться" class="button primary-bg btn-block">
+            {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+            {% endif %}
+          </form>
+          <div class="shortcut-login">
+            <p>Регистрируясь Вы соглашаетесь с <a href="/static/media/polzovatelskoe_soglashenie.pdf" style="display: inline; color: red;" target="_blank">пользовательским соглашением</a>.</p>
+            <p>У Вас уже есть аккаунт? <a href="{% url 'user_login' %}" style="color: red;">Войдите</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="d-xs-none col-xl-6 offset-xl-2 col-md-6 skyt">
+        <center><img class="center-block" src="/static/images/logoreg.png?v2" alt="" width="100%"></center>
+      </div>
+      <style> @media (max-width:991px){
+          .skyt {display:none;}
+        }
+      </style>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% include "blocks/footer.html" %}

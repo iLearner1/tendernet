@@ -1,0 +1,37 @@
+{% load widget_tweaks %}
+<form method="post" action="">
+  {% csrf_token %}
+
+ <div class="modal-header">
+    <h5 class="modal-title">Получить консультацию</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+          <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">
+      {% for error in form.non_field_errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+
+
+    {% for field in form %}
+      <div class="form-group{% if field.errors %} invalid{% endif %}">
+
+        {{ field }}
+
+          {% for error in field.errors %}
+          <p class="help-block">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="submit" class="submit-btn btn btn-primary button primary-bg btn-block">Отправить</button>
+  </div>
+
+</form>
