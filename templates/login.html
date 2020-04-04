@@ -43,7 +43,7 @@
 
 
 
-          <form class="login-form" action="{% url 'user_login' %}?next={{request.path}}" method="post">
+          <form class="login-form" action="{% url 'login' %}?next={{request.path}}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <div class="more-option">

@@ -82,7 +82,7 @@
                     <a class="apply" href="{% url 'favourite_post' slug=post.slug %}"><i class="far fa-star"></i> Добавить в избранное</a>
                     {% endif %}
                     {% else %}
-                    <a class="apply" href="{% url 'user_login' %}?next={{ request.path }}"><i class="far fa-star"></i> Добавить в избранное</a>
+                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}"><i class="far fa-star"></i> Добавить в избранное</a>
                     {% endif %}
                     <br>
                   </div>
@@ -124,7 +124,7 @@
                       <a href="{% url 'profile' %}" onclick="return uchastvovatFunction();"><button class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
                       {% else %}
-                      <a href="{% url 'user_login' %}?next={{ request.path }}" onclick="return uchastvovatFunction();"><button class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
+                      <a href="{% url 'login' %}?next={{ request.path }}" onclick="return uchastvovatFunction();"><button class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
                       <a href="{{ post.down.url }}" class="save" target="_blank" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-download"></i>&nbsp;Скачать документацию</a>
                     </div>
@@ -154,7 +154,7 @@
                       <a href="{% url 'profile' %}" onclick="return documentFunction();"><button class="button contact-button">Запросить документы</button></a>
                       {% endif %}
                       {% else %}
-                      <a href="{% url 'user_login' %}?next={{ request.path }}" onclick="return documentFunction();"><button class="button contact-button">Запросить документы</button></a>
+                      <a href="{% url 'login' %}?next={{ request.path }}" onclick="return documentFunction();"><button class="button contact-button">Запросить документы</button></a>
 
                       {% endif %}
                     </div>
