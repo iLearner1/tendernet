@@ -21,14 +21,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('lots/', include('lots.urls')), # new
     path('', include('home.urls')),
     path('', include('zakaz.urls')),
 
-
-    path('login/', views.user_login, name="user_login"),
-    path('logout/', views.user_logout, name="user_logout"),
+    path('', include('django.contrib.auth.urls')),
+    path('login/home/', views.index),
+    #path('login/', views.user_login, name="user_login"),
+    #path('logout/', views.user_logout, name="user_logout"),
     path('register/', views.register, name="register"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('profile/', views.profile, name="profile"),

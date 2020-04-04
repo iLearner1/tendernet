@@ -40,7 +40,7 @@ def pko(request):
         recepient = 'askar9315@gmail.com'
         send_mail(subject,
             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-        messages.success(request, 'Форма отправлено')
+        return render(request, 'success.html', {'recepient': recepient})
     return render(request, 'pko.html', {'form':sub})
 
 def iso(request):
@@ -52,6 +52,6 @@ def iso(request):
         recepient = 'askar9315@gmail.com'
         send_mail(subject,
             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-        messages.success(request, 'Форма отправлено')
+        return render(request, 'success.html', {'recepient': recepient})
     return render(request, 'iso.html', {'form':sub})
 

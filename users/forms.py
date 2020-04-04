@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-class UserLoginForm(forms.Form):
+class LoginForm(forms.Form):
     username = forms.CharField(label="")
     password = forms.CharField(label="", widget=forms.PasswordInput)
 
@@ -32,7 +32,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class UserEditForm(forms.ModelForm):
-    username = forms.CharField(label="Номер телефона", widget=forms.TextInput(attrs={ 'placeholder': 'Номер телефона','class': 'myclass'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={ 'placeholder': 'Номер телефона','class': 'myclass'}))
     email = forms.CharField(widget=forms.TextInput(attrs={ 'class':'form-control class',}))
 
     
@@ -49,7 +49,7 @@ class UserEditForm(forms.ModelForm):
 
 
 class ProfileEditForm(forms.ModelForm):
-    rassylka = forms.BooleanField(required=True, label="ПОЛУЧАТЬ РАССЫЛКУ")
+
     
     class Meta:
         model = Profile

@@ -7,44 +7,15 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 from lots.models import Article
 from django.contrib import messages
+from .models import Profile
+from lots.models import Article
+
 
 
 # Create your views here.
 def index(request):#создаем свою функцию
     context = {}#с помощью словаря можем передать модель и форму в шаблон HTML
     return render(request, 'index.html', context)#собственно вызываем шаблон HTML
-
-
-
-def user_login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(username=username, password=password)
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    if 'next'in  request.POST:
-                        return redirect(request.POST.get('next'))
-                    return HttpResponseRedirect(request.POST.get('next'))
-                else:
-                    messages.warning(request, 'Пользователь не активирован')
-            else:
-                messages.warning(request, 'Пользователь не найден')
-    else:
-        form = UserLoginForm()
-
-    context = {
-        'form': form,
-
-    }
-    return render(request, 'login.html', context)
-
-def user_logout(request):
-    logout(request)
-    return redirect('index')
 
 def register(request):
     if request.method == 'POST':

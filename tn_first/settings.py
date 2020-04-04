@@ -25,7 +25,8 @@ SECRET_KEY = '9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
+#ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
+ALLOWED_HOSTS = ['78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
 
 
 # Application definition
@@ -150,11 +151,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 EMAIL_HOST = 'smtp.gmail.com'          # Сервер для отправки сообщений
 EMAIL_HOST_USER = 'botnetkz@gmail.com'     # имя пользователя
-EMAIL_HOST_PASSWORD = 'Askarbay9315'       # пароль от ящика
+EMAIL_HOST_PASSWORD = 'Askar9315'      # пароль от ящика
 EMAIL_PORT = 587                        # порт для подключения
 EMAIL_USE_TLS = True                     # использование протокола шифрования
 DEFAULT_FROM_EMAIL = 'botnetkz@gmail.com'  # email, с которого будет отправлено письмо
 
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = 'home/'
+
+
+#uncomment
+# try:
+#     from .settings_prod1 import *
+# except:
+#     pass
 
 
 
