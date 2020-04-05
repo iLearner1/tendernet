@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import *
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from .models import Profile
 from lots.models import Article
 from django.contrib import messages
@@ -34,6 +34,7 @@ def register(request):
         'form': form,
     }
     return render(request, 'register.html', context)
+
 
 @login_required
 def edit_profile(request):

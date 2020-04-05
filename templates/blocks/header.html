@@ -89,7 +89,8 @@
                 <a class="dropdown-item" href="javascript:void(0);">Избранные поиски</a>
                 <a class="dropdown-item" href="/history_list">Мои действия</a>
                 <a class="dropdown-item" href="/basket_list">Мои заявки</a>
-                <a class="dropdown-item" href="{% url 'logout' %}?next={{ request.path }}">Выйти из аккаунта</a>
+                <a class="dropdown-item" href="{% url 'logout'%}">Выйти из аккаунта</a>
+
               </div>
 
               {% else %}
@@ -160,7 +161,7 @@
                 <li class="menu-item"><a href="javascript:void(0);">Избранные поиски</a></li>
                 <li class="menu-item"><a href="/history_list">Мои действия</a></li>
                 <li class="menu-item"><a href="/basket_list">Мои заявки</a></li>
-                <li class="menu-item"><a href="{% url 'logout' %}">Выйти из аккаунта</a></li>
+                <li class="menu-item"><a href="{% url 'logout'%}">Выйти из аккаунта</a></li>
               </ul>
             </li>
           </ul>

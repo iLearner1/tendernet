@@ -25,14 +25,15 @@ SECRET_KEY = '9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
-# ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
-
+#ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
+#ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
+ALLOWED_HOSTS = ['http://localhost','127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'users.apps.UsersConfig',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,11 +44,11 @@ INSTALLED_APPS = [
 
     'home.apps.HomeConfig',
     'lots.apps.LotsConfig',
-    'users.apps.UsersConfig',
+
     'zakaz.apps.ZakazConfig',
     'django_filters',
     'widget_tweaks',
-
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
@@ -156,19 +157,9 @@ EMAIL_PORT = 587                        # порт для подключения
 EMAIL_USE_TLS = True                     # использование протокола шифрования
 DEFAULT_FROM_EMAIL = 'botnetkz@gmail.com'  # email, с которого будет отправлено письмо
 
-LOGIN_URL = '/login/'
-LOGOUT_URL = '/logout/'
-LOGIN_REDIRECT_URL = 'home/'
-
-
-#uncomment
-# try:
-#     from .settings_prod1 import *
-# except:
-#     pass
-
-
-
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+#LOGOUT_REDIRECT_URL = '/'
 
 #uncomment
 try:

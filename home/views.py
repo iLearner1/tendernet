@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 
 from lots.models import Article
 
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from lots.filters import ArticleFilter
@@ -24,8 +25,9 @@ from django.urls import reverse
 
 def index(request):
     bbs = Article.objects.order_by('-published_at')
-
     myHomeFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
+
+
     bbs = myHomeFilter.qs
 
     paginator = Paginator(bbs, 10)
@@ -36,6 +38,7 @@ def index(request):
         bbs = paginator.page(1)
     except EmptyPage:
         bbs = paginator.page(paginator.num_pages)
+
 
     context = {'bbs': bbs, 'myHomeFilter': myHomeFilter}
     return render(request, 'index.html', context)

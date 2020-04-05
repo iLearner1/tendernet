@@ -1,5 +1,8 @@
-#DEBUG = False
+DEBUG = False
 ALLOWED_HOSTS = ['*']
+
+# to run on local server comment this whole page out. or run python manage.py runserver --settings=tn_first.settings
+
 
 #settings for db on server
 DATABASES = {

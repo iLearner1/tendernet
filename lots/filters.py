@@ -28,8 +28,6 @@ class MyRangeWidget2(RangeWidget):
 
 
 
-
-
 class ArticleFilter(django_filters.FilterSet):
 	date = DateFromToRangeFilter(widget=MyRangeWidget(
         from_attrs={'placeholder': 'Начало'},
@@ -43,4 +41,4 @@ class ArticleFilter(django_filters.FilterSet):
 
 	class Meta:
 		model = Article
-		fields = ('title','body','id', 'city','statzakup','date', 'price',)
+		fields = ('title','body','id', 'city','statzakup', 'date', 'price',)

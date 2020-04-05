@@ -2,8 +2,9 @@
 
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from django.contrib.auth.decorators import login_required
 from .filters import ArticleFilter
 from .models import Article
 from django.db.models import Q
@@ -74,9 +75,6 @@ def post_detail(request, id, slug,):
     dat7 = dat3 - dat6
     dat4 = post.date - datetime.datetime.now(timezone.utc)
 
-    
-    
-
 
     is_favourite = False
     if post.favourite.filter(id=request.user.id).exists():
@@ -95,6 +93,7 @@ def post_detail(request, id, slug,):
 def post_favourite_list(request):
     user = request.user
     favourite_posts = user.favourite.all()
+
     context = {
         'favourite_posts': favourite_posts,
     }
@@ -108,3 +107,12 @@ def favourite_post(request, slug):
     else:
         post.favourite.add(request.user)
     return HttpResponseRedirect(post.get_absolute_url())
+
+@login_required
+def post_delete(request, id, slug):
+    post = get_object_or_404(Article, slug=slug, id=id)
+    user = request.user
+
+    post.favourite.remove(user)
+
+    return redirect('post_favourite_list')
