@@ -1,3 +1,4 @@
+"""
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 
@@ -15,3 +16,4 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+"""
