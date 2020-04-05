@@ -161,11 +161,9 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 #LOGOUT_REDIRECT_URL = '/'
 
-"""
+
 #uncomment
 try:
    from .settings_prod1 import *
 except:
    pass
-#some temprary edit.
-"""
