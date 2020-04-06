@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users import views
-
 from django.conf import settings
 from django.conf.urls.static import static
+
+from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,19 +29,14 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('login/home/', views.index),
 
-    path('signup/', views.signup.as_view(), name='signup'),
-    path('activate/<str:uid>/<str:token>', views.activate.as_view(), name='activate'),
+    path('signup/', views.signup, name='register'),
+    path('activate/<uidb64>/<token>/', views.Activate.as_view(), name='activate'),
 
-    path('register/', views.register, name="register"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('profile/', views.profile, name="profile"),
     path('edit_tarif/', views.edit_tarif, name="edit_tarif"),
     path('basket_list/', views.basket_list, name="basket_list"),
     path('history_list/', views.history_list, name="history_list"),
-
-
-
-
 ]
 
 if settings.DEBUG:

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -144,18 +145,17 @@ STATICFILES_DIRS = (
   os.path.join(BASE_DIR, "static"),
 )
 
-
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 EMAIL_HOST = 'smtp.gmail.com'          # Сервер для отправки сообщений
-EMAIL_HOST_USER = 'botnetkz@gmail.com'     # имя пользователя
-EMAIL_HOST_PASSWORD = 'Askar9315'      # пароль от ящика
+EMAIL_HOST_USER = 'tendernet.kz@gmail.com'     # имя пользователя
+EMAIL_HOST_PASSWORD = 'tendernetkz2020'      # пароль от ящика
 EMAIL_PORT = 587                        # порт для подключения
 EMAIL_USE_TLS = True                     # использование протокола шифрования
-DEFAULT_FROM_EMAIL = 'botnetkz@gmail.com'  # email, с которого будет отправлено письмо
+DEFAULT_FROM_EMAIL = 'email@tendernet.kz'  # email, с которого будет отправлено письмо
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -163,7 +163,7 @@ LOGIN_REDIRECT_URL = '/'
 
 
 #uncomment
-try:
-   from .settings_prod1 import *
-except:
-   pass
+# try:
+#    from .settings_prod1 import *
+# except:
+#    pass
