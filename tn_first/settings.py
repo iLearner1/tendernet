@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_filters',
     'widget_tweaks',
     'django.contrib.admin',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
