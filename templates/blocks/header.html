@@ -56,10 +56,46 @@
     <script src="{% static 'assets/js/respond.min.js' %}"></script>
     <![endif]-->
 
+    <style>
+      .lds-facebook {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-facebook div {
+        display: inline-block;
+        position: absolute;
+        left: 8px;
+        width: 16px;
+        background: #dfc;
+        animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+      }
+      .lds-facebook div:nth-child(1) {
+        left: 8px;
+        animation-delay: -0.24s;
+      }
+      .lds-facebook div:nth-child(2) {
+        left: 32px;
+        animation-delay: -0.12s;
+      }
+      .lds-facebook div:nth-child(3) {
+        left: 56px;
+        animation-delay: 0;
+      }
+      @keyframes lds-facebook {
+        0% {
+          top: 8px;
+          height: 64px;
+        }
+        50%, 100% {
+          top: 24px;
+          height: 32px;
+        }
+      }
+    </style>
   </head>
   <body>
-
-
 
     <!-- Header -->
     <header class="fixed-top">
@@ -136,18 +172,13 @@
            <!-- <li class="menu-item post-tender"><a title="Получить консультацию" class="create-book btn " type="button" name="button"  ><i class="fas fa-phone-volume"></i>Получить консультацию</a></li>
             -->
 
+          <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
 
-
-<div class="modal fade" tabindex="-1" role="dialog" id="modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-    </div>
-  </div>
-</div>
-
-
-
+              </div>
+            </div>
+          </div>
             <li class="menu-item post-tender"><a title="Получить консультацию" href="javascript:void();" data-toggle="modal" data-target="#orderform"><i class="fas fa-phone-volume"></i>&nbsp;Получить консультацию</a></li>
 
           </ul>

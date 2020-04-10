@@ -23,16 +23,18 @@
 
               {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %}
               <button type="submit" id="pc-search-button" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
+
               {% if request.user.is_authenticated%}
                 <a href="#" class="text-danger ml-auto" id="save-query">Save To Favorite Search</a>
               {% else %}
                 <a href="{% url 'login' %}" class="text-danger ml-auto">Save To Favorite Search</a>
               {% endif %}
+
               <div class="dop-filter" style="display: none;">
 
                 <div class="row">
 
-                  <div class="col-md-6">
+                  <div class="col-md-4">
 
                     <h6 class="">Способ закупки</h6>
 
@@ -44,39 +46,24 @@
 
                   </div>
 
-                  <div class="col-md-6">
-
-                    <h6 class="">Предмет закупки</h6>
-
-                    <div class="form-group">
-
-                      {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %}
-                      
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <h6 class="">Сумма лота</h6>
                     <div class="form-row">
-                      <div class="col-6">
+                      <div class="col-12">
                         {% render_field myHomeFilter.form.price class="" placholder="Цена" %}
-                      </div>
-                      <div class="col-6">
-                        
                       </div>
                     </div>
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <h6 class="">Дата закрытия</h6>
                         <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
-                        <input type="text" name="date_min" placeholder="Start" class="form-control datepicker" id="id_date_0">
+                        <input type="text" name="date_min" placeholder="Start" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
                     </div>
                     <div class="form-group">
                       <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
-                      <input type="text" name="date_max" placeholder="the end" class="form-control datepicker" id="id_date_1">
+                      <input type="text" name="date_max" placeholder="the end" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
                     </div>
                   </div>
                 </div>

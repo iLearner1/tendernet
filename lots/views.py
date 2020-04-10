@@ -105,33 +105,32 @@ def favourite_post(request, slug):
 def post_delete(request, id, slug):
     post = get_object_or_404(Article, slug=slug, id=id)
     user = request.user
-
     post.favourite.remove(user)
-
     return redirect('post_favourite_list')
 
 
 def post_search(request):
     isValid = False
-    filters = request.GET
+    filters = {k: v for (k, v) in request.GET.items() if k != 'show_html' }
     for key in filters:
         if(filters[key]):
             isValid = True
 
     if(not isValid):
-        messages.add_message(request, messages.WARNING, 'Search Field Cannot Be Empty')
-        return redirect('/')
-    print(isValid)
-    myFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
+        return render(request, 'error.html')
+    myFilter = ArticleFilter(filters, queryset=Article.objects.all())
 
-    paginator = Paginator(myFilter.qs, 25)
+    paginator = Paginator(myFilter.qs.order_by('-id'), 25)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
-
     context = {
         'posts': posts
     }
-    return render(request, 'search_list.html', context)
+
+    if(request.GET.get('show_html')):
+        return render(request, 'search_list.html', context);
+
+    return render(request, 'search_content.html', context)
 
 @login_required
 def save_favorite_search(request):
@@ -141,7 +140,7 @@ def save_favorite_search(request):
 
 
 def favorite_search_list(request):
-    query = FavoriteSearch.objects.filter(user=request.user)
+    query = FavoriteSearch.objects.filter(user=request.user).order_by('-id')
     paginator = Paginator(query, 25)
     page_number = request.GET.get('page')
     favorite_searches = paginator.get_page(page_number)

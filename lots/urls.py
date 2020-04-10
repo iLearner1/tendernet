@@ -10,7 +10,7 @@ urlpatterns = [
     path('favourites/', views.post_favourite_list, name="post_favourite_list"),
     path('searches/', views.post_search, name='post_search'),
     path("favorite/search", views.save_favorite_search, name="save_favorite_search"),
-    path("favorite/serach/list", views.favorite_search_list, name="favorite_search_list"),
+    path("favorite/search/list", views.favorite_search_list, name="favorite_search_list"),
     path("remove/favorite/search/<int:id>", views.remove_favorite_search, name="remove_favorite_search")
 ]
 

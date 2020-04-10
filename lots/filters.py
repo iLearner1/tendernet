@@ -9,7 +9,6 @@ from lots.models import Article
 class MyRangeWidget(RangeWidget):
     def __init__(self, from_attrs=None, to_attrs=None, attrs=None):
         super(MyRangeWidget, self).__init__(attrs)
-
         if from_attrs:
             self.widgets[0].attrs.update(from_attrs)
         if to_attrs:
@@ -20,7 +19,6 @@ class MyRangeWidget(RangeWidget):
 class MyRangeWidget2(RangeWidget):
     def __init__(self, from_attrs=None, to_attrs=None, attrs=None):
         super(MyRangeWidget2, self).__init__(attrs)
-
         if from_attrs:
             self.widgets[0].attrs.update(from_attrs)
         if to_attrs:

@@ -60,10 +60,11 @@
                                          <input type="hidden" name="price_min" value="{{search.query.price_min}}">
                                          <input type="hidden" name="date_min" value="{{search.query.date_min}}">
                                          <input type="hidden" name="date_max" value="{{search.query.date_max}}">
+                                         <input type="hidden" name="show_html" value="true">
                                          <button class="btn btn-primary">Apply this to Search</button>
                                      </form>
                                      <div class="form-group">
-                                         <a href="{% url 'remove_favorite_search' search.id %}?next={% url 'favorite_search_list' %}" class="btn btn-danger">remove favorite search</a>
+                                         <a href="{% url 'remove_favorite_search' search.id %}?next={% url 'favorite_search_list' %}" class="btn btn-danger" onclick="return confirm('do you want to remove it')">remove favorite search</a>
                                      </div>
                                 </div>
                             </div>

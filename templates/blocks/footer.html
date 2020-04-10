@@ -47,7 +47,7 @@
    
     <script type="text/javascript">
       $(document).ready(function() {
-          //initialize date picker
+          //initialize date picker here it is
           $('.datepicker').datepicker({
               autoclose: true
           });
@@ -61,9 +61,11 @@
             e.preventDefault();
             let formData = $("#main-searchform").serializeArray();
             let data = {};
+            let isInvalid = true;
             for (const item of formData) {
                 data[item.name] = item.value;
             }
+
             var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
             $.ajax({
               method: "POST",
