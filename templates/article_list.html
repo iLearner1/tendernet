@@ -113,12 +113,14 @@
 
                               <h6 class="">Дата закрытия</h6>
                               <div class="form-group">
-                                {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %}
+                                <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
+                                <input type="text" name="date_min" placeholder="Start" class="form-control" id="id_date_0" data-toggle="datepicker">
                               </div>
 
                               <h6 class="">Поиск по ID</h6>
                               <div class="form-group">
-                                {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %}
+                                <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
+                                <input type="text" name="date_max" placeholder="the end" class="form-control" id="id_date_1" data-toggle="datepicker">
                               </div>
 
                               <div class="form-group">
@@ -266,7 +268,15 @@
 
                     <h6 class="">Дата закрытия</h6>
                     <div class="form-group">
-                      {% render_field myFilter.form.date class="form-control"  %}
+                      <!-- {% render_field myFilter.form.date class="form-control"  %} -->
+                      <input type="text" name="date_min" placeholder="Start" class="form-control datepicker">
+                      <!-- <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                        </font>
+                      </font> -->
+                    </div>
+                    <div class="form-group">
+                      <input type="text" name="date_max" placeholder="the end" class="form-control datepicker">
                     </div>
 
                     <h6 class="">Поиск по ID</h6>

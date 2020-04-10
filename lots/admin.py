@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article
+from .models import Article, FavoriteSearch
 from lots.models import Cities
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -9,3 +9,5 @@ class ArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Cities)
+
+admin.site.register(FavoriteSearch);

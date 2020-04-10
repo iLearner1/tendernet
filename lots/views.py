@@ -1,12 +1,12 @@
 # lots/views.py
 
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .filters import ArticleFilter
-from .models import Article
+from .models import Article, FavoriteSearch
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
@@ -14,13 +14,10 @@ import datetime
 
 def post_list(request):
     posts = Article.objects.order_by('-created')
-
-
-
     myFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
     posts = myFilter.qs
-
     query = request.GET.get('q')
+
     if query:
         posts = Article.objects.filter(
             Q(title__icontains=query) |
@@ -48,10 +45,6 @@ def post_list(request):
     context = {
         'posts': posts,
         'myFilter': myFilter,
-        
-
-
-
     }
 
     return render(request, 'article_list.html', context)
@@ -116,3 +109,48 @@ def post_delete(request, id, slug):
     post.favourite.remove(user)
 
     return redirect('post_favourite_list')
+
+
+def post_search(request):
+    isValid = False
+    filters = request.GET
+    for key in filters:
+        if(filters[key]):
+            isValid = True
+
+    if(not isValid):
+        messages.add_message(request, messages.WARNING, 'Search Field Cannot Be Empty')
+        return redirect('/')
+    print(isValid)
+    myFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
+
+    paginator = Paginator(myFilter.qs, 25)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
+
+    context = {
+        'posts': posts
+    }
+    return render(request, 'search_list.html', context)
+
+@login_required
+def save_favorite_search(request):
+    f_search = FavoriteSearch.create(request.POST, request.user);
+    f_search.save()
+    return JsonResponse({"status": 201, "message": "success"});
+
+
+def favorite_search_list(request):
+    query = FavoriteSearch.objects.filter(user=request.user)
+    paginator = Paginator(query, 25)
+    page_number = request.GET.get('page')
+    favorite_searches = paginator.get_page(page_number)
+    print(favorite_searches)
+    return render(request, 'favorite_search_list.html', {'favorite_searches': favorite_searches})
+
+@login_required
+def remove_favorite_search(request, id):
+    #deleting favorite search
+    FavoriteSearch.objects.filter(id=id).delete();
+    messages.add_message(request, messages.WARNING, 'Favorite Search Removed!')
+    return redirect(request.GET.get('next'));

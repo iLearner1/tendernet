@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.admin',
     'phonenumber_field',
+
+    #bootstrap modal forms
+     'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [
@@ -163,8 +166,10 @@ LOGIN_REDIRECT_URL = '/'
 #LOGOUT_REDIRECT_URL = '/'
 
 
+#it will need for show warning message if user seaech with empty value
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 #uncomment
-try:
-   from .settings_prod1 import *
-except:
-   pass
+# try:
+#    from .settings_prod1 import *
+# except:
+#    pass

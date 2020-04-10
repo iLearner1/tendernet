@@ -77,7 +77,8 @@
                   <div class="buttons">
                     {% if request.user.is_authenticated %}
                     {% if is_favourite %}
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="background: #ffe004; color: #000;"><i class="fas fa-star"></i> Добавлено в избранное</a>
+                    <!-- <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="background: #ffe004; color: #000;"><i class="fas fa-star"></i> Добавлено в избранное</a> -->
+                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="color: #ffe004;"><i class="fas fa-star"></i>удалить из Избранного</a>
                     {% else %}
                     <a class="apply" href="{% url 'favourite_post' slug=post.slug %}"><i class="far fa-star"></i> Добавить в избранное</a>
                     {% endif %}

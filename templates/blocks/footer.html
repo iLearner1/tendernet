@@ -24,6 +24,7 @@
     </div>
   </div>
 
+  {% csrf_token %}
 </footer>
 <!-- Footer End -->
 
@@ -41,25 +42,47 @@
     <script src="{% static 'assets/js/tinymce.min.js' %}"></script>
     <script src="{% static 'assets/js/slick.min.js' %}"></script>
     <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-
     <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+   
+    <script type="text/javascript">
+      $(document).ready(function() {
+          //initialize date picker
+          $('.datepicker').datepicker({
+              autoclose: true
+          });
 
-<script type="text/javascript">
-$(document).ready(function() {
+          $(".create-book").modalForm({
+              formURL: "{% url 'modal' %}"
+          });
 
-    $(".create-book").modalForm({
-        formURL: "{% url 'modal' %}"
-    });
+          //saving favorite search query
+          $("#save-query").on("click", function(e){
+            e.preventDefault();
+            let formData = $("#main-searchform").serializeArray();
+            let data = {};
+            for (const item of formData) {
+                data[item.name] = item.value;
+            }
+            var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+            $.ajax({
+              method: "POST",
+              url: "{% url 'save_favorite_search' %}",
+              data: {
+                ...data,
+                csrfmiddlewaretoken
+              },
+              success: function(response) {
+                alert('search added to favorite successfuly');
+              },
 
-
-});
-</script>
-
-
-
-
-
-
+              error: function(err) {
+                console.log(err.responseText);
+              }
+            })
+          });
+      });
+    </script>
 
   </body>
 </html>

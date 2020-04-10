@@ -1,0 +1,102 @@
+{% include "blocks/header.html" %}
+        <!-- Breadcrumb -->
+            <div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-20">
+                <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Favorite Search List</h1>
+                        <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Favorite Search List</li>
+                        </ol>
+                        </nav>
+                    </div>
+                    </div>
+                    <div class="col-md-6" style="display: none;">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                        <input type="text" placeholder="Поиск по названию">
+                        <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <!-- Breadcrumb End -->
+        <div class="container section-padding-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-12">
+                    {% for search in favorite_searches%}
+                        <div class="card p-4 mt-3">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p>lots name: {{search.query.title}}</p>
+                                    <p>customer: {{search.query.body}}</p>
+                                    <p>Lot id: {{search.query.id}}</p>
+                                    <p>Region: {{search.city}}</p>
+                                    <p>Purchase Method: {{search.query.statzakup}}</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <p>lots max-price: {{search.query.price_min}}</p>
+                                    <p>lots min-price: {{search.query.price_max}}</p>
+                                    <p>Start Date: {{search.query.date_min}}</p>
+                                    <p>End Date: {{search.query.date_max}}</p>
+                                </div>
+                                <div class="col-md-2">
+                                     <form action="{% url 'post_search' %}" method="get">
+                                         <input type="hidden" name="title" value="{{search.query.title}}">
+                                         <input type="hidden" name="body" value="{{search.query.body}}">
+                                         <input type="hidden" name="id" value="{{search.query.id}}">
+                                         <input type="hidden" name="city" value="{{search.city.id}}">
+                                         <input type="hidden" name="statzakup" value="{{search.query.statzakup}}">
+                                         <input type="hidden" name="price_min" value="{{search.query.price_min}}">
+                                         <input type="hidden" name="date_min" value="{{search.query.date_min}}">
+                                         <input type="hidden" name="date_max" value="{{search.query.date_max}}">
+                                         <button class="btn btn-primary">Apply this to Search</button>
+                                     </form>
+                                     <div class="form-group">
+                                         <a href="{% url 'remove_favorite_search' search.id %}?next={% url 'favorite_search_list' %}" class="btn btn-danger">remove favorite search</a>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                {% if favorite_searches.num_pages > 1 %}
+                    <div class="pagination-list text-center">
+                        <nav class="navigation pagination">
+                            <div class="nav-links">
+                            {% if favorite_searches.has_previous %}
+                            <a class="prev page-numbers" href="?page={{ favorite_searches.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                            {% endif %}
+
+                            {% for p in favorite_searches.paginator.page_range %}
+                            {% if favorite_searches.number == p %}
+                            <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
+                            {% else %}
+                            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+
+                            {% endif %}
+                            {% endfor %}
+
+
+                            {% if favorite_searches.has_next %}
+                            <a class="next page-numbers" href="?page={{ favorite_searches.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                            {% endif %}
+
+                            </div>
+                        </nav>                
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+{% include "blocks/footer.html" %}

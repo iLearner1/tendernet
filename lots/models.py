@@ -1,4 +1,5 @@
 # articles/models.py
+import json
 from django.db import models
 from django.template.defaultfilters import slugify # new
 from django.urls import reverse
@@ -51,4 +52,38 @@ class Cities(models.Model):
 		verbose_name_plural = 'Города'
 		verbose_name = 'Город'
 		ordering = ['name']
+
+
+class FavoriteSearch(models.Model):
+    #this model will hold user lots/Article Search prefarance
+    search_query = models.TextField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='search_query')
+
+    @property
+    def query(self):
+        #converting from text to python dict
+        if not self.search_query:
+            return None
+        return json.loads(self.search_query)
+
+    @classmethod
+    def create(cls, search_query, user=None):
+        #converting python object to json string for saving to database
+        search_query = json.dumps(cls.withOutKey(search_query))
+        favorite_search = cls(search_query=search_query, user=user)
+        return favorite_search
+    
+
+    def withOutKey(data=None, keys={'csrfmiddlewaretoken',}):
+        #keys should be a set
+        return {x: data[x] for x in data if x not in keys}
+    
+    @property
+    def city(self):
+        query = self.query
+        id = query.get('city')
+        if(id):
+            return Cities.objects.get(id=id);
+
+
 
