@@ -14,3 +14,9 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+
+SITE_ID = 1
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
