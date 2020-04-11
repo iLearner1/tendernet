@@ -1,0 +1,83 @@
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleControls" data-slide-to="1"></li>
+    <li data-target="#carouselExampleControls" data-slide-to="2"></li>
+  </ul>
+
+  <style>    
+    @font-face {
+      font-family: bebas; /* Гарнитура шрифта */
+      src: url(/static/fonts/BebasNeueBold.ttf); /* Путь к файлу со шрифтом */
+     }
+    .carousel-item {
+      height: 100%;
+      min-height: 250px;
+      background: no-repeat center center scroll;
+      background-size: cover;
+    }
+    .carousel-caption {
+      transform: translateY(-50%);
+      bottom: 0;
+      top: 50%; 
+     }
+    .carousel-indicators .active {
+      background-color: #eb3547;
+    }
+    .carousel-indicators li{
+      background-color: #979797;
+    }
+    .carcap1 {text-align:left;}
+    .carcap2 {right:auto;     text-align: right;}
+    .cv1 {color:#ffffff;}
+    .cv2 {color: #eb3547;}
+
+    .itembek1 {background:  url(/static/images/slide1v5.jpg?v3); background-size: cover; background-position: center;}
+    .itembek2 {background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),  url(/static/images/slide2v4.jpg?v2); background-size: cover; background-position: center;}
+    .itembek3 {background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),  url(/static/images/slide3v4.jpg?v2); background-size: cover; background-position: center;}
+
+
+    @media (max-width:991px) { 
+      .carcap1 {
+        text-align:center;
+      }
+      .itembek1 {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),  url(/static/images/slmob1-1v2.jpg); background-size: cover; background-position: center;
+      } 
+      .itembek2 {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),  url(/static/images/slmob1-2.jpg?v2); background-size: cover; background-position: center;
+      }
+      .itembek3 {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),  url(/static/images/slmob1-3.jpg?v2); background-size: cover; background-position: center;
+      }
+      .carcap2 {
+        right:15%; text-align:center;
+      }
+    }
+  </style>
+  <script>
+    jQuery(document).ready(function($){
+      $("#myCarousel").carousel();
+    });
+  </script>
+  <div class="carousel-inner">
+    <div class="carousel-item active itembek1"  >
+          <div class="carousel-caption d-md-block carcap2" >
+        <h1 class="cv1" style="font-family: bebas; " >Теперь вы можете следить и участвовать в тендерах</h1>
+        <h3 class="cv2" style="font-family: bebas; ">через мобильный телефон</h3>
+      </div>  
+    </div>
+    <div class="carousel-item itembek2"  >
+      <div class="carousel-caption d-md-block carcap1" >
+        <h3 class="cv1" style="font-family: bebas;  ">Пройди ПКО "САМРУК-КАЗЫНА"</h3> 
+        <h3 class="cv2" style="font-family: bebas; " >Оставь конкурентов позади</h3>
+      </div>  
+    </div>
+    <div class="carousel-item itembek3"  >
+      <div class="carousel-caption d-md-block">
+        <h3 class="cv1" style="font-family: bebas;  ">Тендера Казахстана - в твоих руках</h3>
+        <h3 class="cv2" style="font-family: bebas;  "> Поиск, участие и выигрыш <br>"Под ключ"</h3>
+      </div>  
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+{% include "blocks/header.html" %}
+
+{% block content %}
+
+<div class="padding-top-90 padding-bottom-90 access-page-bg">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-xl-4 col-md-6">
+        {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            Логин или пароль введены неверно!
+          </div>
+        {% endif %}
+        <div class="access-form">
+          <div class="form-header">
+            <h5><i data-feather="edit"></i>Войти в аккаунт TENDERNET.KZ</h5>
+          </div>
+
+          <script type="text/javascript">
+            jQuery(function($){
+              $('#id_username').addClass('form-control phone');
+              $("#id_username").attr("placeholder", "Ваш номер телефона");
+
+              $('#id_password').addClass('form-control');
+              $("#id_password").attr("placeholder", "Пароль");
+            });
+          </script>
+
+          <form class="login-form" action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="more-option">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
+                <label class="form-check-label" for="defaultCheck1" >
+                  Запомнить меня
+                </label>
+              </div>
+              <a href="javascript:void();">Забыли пароль?</a>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="submit" value="Войти" class="button primary-bg btn-block">
+
+
+          </form>
+          <div class="shortcut-login">
+            <p>У Вас нет аккаунта? <a href="{% url 'register' %}" style="color: red;">Зарегистрируйтесь</a></p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="d-xs-none col-xl-6 offset-xl-2 col-md-6 skyt">
+        <center><img class="center-block" src="/static/images/logoreg.png?v2" alt="" width="100%"></center>
+      </div>
+  
+      <style> @media (max-width:991px){
+          .skyt {display:none;}
+        }
+      </style>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% include "blocks/footer.html" %}

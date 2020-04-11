@@ -1,0 +1,112 @@
+{% include "blocks/header.html" %}
+{% block content %}
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-top alice-bg padding-top-40 padding-bottom-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="breadcrumb-area">
+          <h1>Мои заявки</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Мои заявки</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<div class="alice-bg section-padding-bottom">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="tender-details moi-cabinet">
+          <div class="title-and-info">
+            <div class="title">
+              <div class="title-body">
+                <h4>ID: {{ user.username }} </h4>
+                <div class="info">
+                  <span class="candidate-designation"><i class="fas fa-file"></i>&nbsp;Тариф "{{ user.profile.tarif }} "</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+        
+          <div class="details-information section-padding-20">
+            <div class="row">
+              <div class="col-xl-8 col-lg-8">
+
+                <div class="card-deck mb-12 edication-background details-section">
+                    <div class="card mb-12 box-shadow">
+                        <div class="card-header">
+                            <div class="edication-background details-section" style="background-color: #fff; padding: 0;">
+                              <h4><i data-feather="book"></i>Мои заявки</h4>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                          {% for p in basket_posts %}
+                            <div class="tender-label">
+                              <span class="study-year">{{ p.date }}</span>
+                              <h5><a href="{{ p.get_absolute_url }}">{{ p.lot.title }}</a></h5>
+                              <p style="font-weight: 700;">Статус: {{ p.get_status_display }}</p>
+                            </div>
+                          {% empty %}
+                            <ul>
+                              <li>Нет заявок</li>
+                            </ul>
+                          {% endfor %}
+                            
+
+                            <div class="pagination-list text-center" style="text-align: center; width: 100%;display: none;">
+                              <nav class="navigation pagination">
+                                <div class="nav-links">
+                                  <a class="prev page-numbers" href="javascript:void();"><i class="fas fa-angle-left"></i></a>
+                                  <span aria-current="page" class="page-numbers current">1</span>
+                                  <a class="page-numbers" href="javascript:void();">2</a>
+                                  <a class="page-numbers" href="javascript:void();">3</a>
+                                  <a class="page-numbers" href="javascript:void();">4</a>
+                                  <a class="next page-numbers" href="javascript:void();"><i class="fas fa-angle-right"></i></a>
+                                </div>
+                              </nav>
+                            </div>
+
+                        </div>
+                    </div>
+                  </div>
+
+              </div>
+              <div class="col-xl-4 col-lg-4">
+
+                <div class="information-and-share">
+                  <div class="tender-summary">
+                    <div class="buttons">
+                      <a href="/profile" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;">Личный кабинет</a>
+                      <a href="{% url 'edit_tarif' %}" class="button contact-button" data-toggle="modal" data-target="#" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Изменить тариф</a>
+                      <a href="{% url 'post_favourite_list' %}" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
+                      <a href="javascript:void(0);" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-star"></i>&nbsp;Избранный поиск</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% include "blocks/footer.html" %}

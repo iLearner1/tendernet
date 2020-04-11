@@ -1,0 +1,122 @@
+{% load widget_tweaks%}
+
+<!-- Search and Filter -->
+<div class="searchAndFilter-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} mt-4">{{message}}</div>
+        {% endfor %}
+    </div>
+      <div class="col">
+        <div class="searchAndFilter-block"  style="margin-top:20px;">
+          <div class="searchAndFilter">
+
+            <form method="get" class="search-form" action="{% url 'post_search' %}" id="main-searchform">
+
+              {% render_field myHomeFilter.form.title class="" placeholder="Наименование лота" %}
+
+              {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %}
+
+              {% render_field myHomeFilter.form.id class="" placeholder="ID лота" %}
+
+              {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %}
+              <button type="submit" id="pc-search-button" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
+
+              {% if request.user.is_authenticated%}
+                <a href="#" class="text-danger ml-auto" id="save-query">Save To Favorite Search</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="text-danger ml-auto">Save To Favorite Search</a>
+              {% endif %}
+
+              <div class="dop-filter" style="display: none;">
+
+                <div class="row">
+
+                  <div class="col-md-4">
+
+                    <h6 class="">Способ закупки</h6>
+
+                    <div class="form-group">
+
+                      {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %}
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-4">
+                    <h6 class="">Сумма лота</h6>
+                    <div class="form-row">
+                      <div class="col-12">
+                        {% render_field myHomeFilter.form.price class="" placholder="Цена" %}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <h6 class="">Дата закрытия</h6>
+                        <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
+                        <input type="text" name="date_min" placeholder="Start" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
+                    </div>
+                    <div class="form-group">
+                      <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
+                      <input type="text" name="date_max" placeholder="the end" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <button type="submit" id="mobile-search-button" class="button primary-bg display-none"><i class="fas fa-search"></i>Найти лоты</button>
+
+              <div class="filter-categories" style="text-align: center;">
+
+                <a href="javascript:void(0);" id="filter-more" style="padding: 10px;width: 100%;text-align: center;color: #fff;background: #1b1b1b;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-down"></i>&nbsp;Расширенный поиск</a>
+                <a href="javascript:void(0);" id="filter-hide" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #1b1b1b;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть расширенный поиск</a>
+
+              </div>
+
+              <script>
+                jQuery(document).ready(function($){
+                  $('#filter-more').click(function(){
+                    $('.dop-filter').slideToggle();
+                    $('#filter-more').hide();
+                    $('#filter-hide').show();
+                    if ($(window).width() < 767) {
+                      $('#mobile-search-button').show();
+                      $('#pc-search-button').hide();
+                    }
+                  });
+                  $('#filter-hide').click(function(){
+                    $('.dop-filter').slideToggle();
+                    $('#filter-hide').hide();
+                    $('#filter-more').show();
+                    //$('#filter-hide-mobile').hide();
+                    
+                    if ($(window).width() < 767) {
+                      $('#mobile-search-button').hide();
+                      $('#pc-search-button').show();
+                    }
+                    
+                  });
+                  // $('#filter-hide-mobile').click(function(){
+                  //   $('.dop-filter').slideToggle();
+                  //   $('#filter-hide').hide();
+                  //   $('#filter-more').show();
+                  //   $('#filter-hide-mobile').hide();
+                  // });
+                });
+              </script>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Search and Filter End -->
