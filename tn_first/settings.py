@@ -162,14 +162,14 @@ EMAIL_USE_TLS = True                     # использование прото
 DEFAULT_FROM_EMAIL = 'email@tendernet.kz'  # email, с которого будет отправлено письмо
 
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
-#LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 
 #it will need for show warning message if user seaech with empty value
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
-#uncomment
-# try:
-#    from .settings_prod1 import *
-# except:
-#    pass
+# uncomment for server/ comment for local server
+try:
+   from .settings_prod1 import *
+except:
+   pass
