@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
     #bootstrap modal forms
-    #'bootstrap_modal_forms',
+     'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [
