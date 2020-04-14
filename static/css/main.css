@@ -144,7 +144,9 @@ b{
   margin-top: 20px;
 }
 
-.dop-filter input{
+.dop-filter  input[type="text"],
+.dop-filter  input[type="email"],
+.dop-filter  input[type="number"]{
   width: 100%!important;
 }
 
@@ -933,7 +935,8 @@ b{
   #pc-search-button{
     display: none!important;
   }
-  #mobile-search-button{
+  #mobile-search-
+  {
     display: block!important;
   }
 }
@@ -961,7 +964,10 @@ b{
   box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.05);
 }
 
-.searchAndFilter input, .searchAndFilter select {
+.searchAndFilter input[type="text"],
+.searchAndFilter input[type="email"],
+.searchAndFilter input[type="number"],
+.searchAndFilter select{
   height: 60px;
   border: 1px solid #bfbfbf;
   /*border-bottom: 2px solid rgba(0, 0, 0, 0.08);*/
@@ -1180,7 +1186,7 @@ b{
 }
 
 .searchAndFilter .bootstrap-select .dropdown-menu .dropdown-item.selected {
-  color: #ffffff;
+  color: #212529;
 }
 
 .searchAndFilter-3 .bootstrap-select .dropdown-menu .dropdown-item {
@@ -1188,7 +1194,7 @@ b{
 }
 
 .searchAndFilter-3 .bootstrap-select .dropdown-menu .dropdown-item.selected {
-  color: #ffffff;
+  color: #3f3b3b;
 }
 
 .searchAndFilter.searchAndFilter-2 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
@@ -10813,4 +10819,8 @@ select::-ms-expand {
     
     .favorites-buttons-tenders {font-size: 11px;}
     
+}
+
+.text-warning {
+  color: #ffe004 !important;
 }

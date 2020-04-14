@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "tendernet\\Scripts\\python.exe"
+    "python.pythonPath": "tendernet\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
 }

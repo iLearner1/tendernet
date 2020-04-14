@@ -1,32 +1,41 @@
 # lots/views.py
-
-
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .filters import ArticleFilter
-from .models import Article, FavoriteSearch
+from .models import Article, FavoriteSearch, Cities
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
-import datetime
+import datetime, json
+from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 
 def post_list(request):
-    posts = Article.objects.order_by('-created')
-    myFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
-    posts = myFilter.qs
-    query = request.GET.get('q')
 
-    if query:
+    cities  = request.GET.getlist('city[]')
+    purchase_method  = request.GET.getlist('purchase_method[]')
+    statzakup  = request.GET.getlist('statzakup[]')
+
+    posts = Article.objects.all()
+    myFilter = {}
+    
+    filters = {k: v for (k, v) in request.GET.items() if k != 'city[]' or k != 'purchase_method[]' or k != 'statzakup[]' }
+
+    if(cities or purchase_method or statzakup):
         posts = Article.objects.filter(
-            Q(title__icontains=query) |
-            Q(body__icontains=query)
+            Q(city__id__in=cities) |
+            Q(statzakup__in=statzakup) |
+            Q(purchase_method__in = purchase_method)
         )
+        myFilter = ArticleFilter(filters, queryset=posts)
+        posts = myFilter.qs
 
+    cities = Cities.objects.all()
 
     paginator = Paginator(posts, 10)
     page = request.GET.get('page')
+
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -45,6 +54,9 @@ def post_list(request):
     context = {
         'posts': posts,
         'myFilter': myFilter,
+        'cities': cities,
+        'ZAKUP_CHOICES': ZAKUP_CHOICES,
+        'PURCHASE_CHOICES': PURCHASE_CHOICES
     }
 
     return render(request, 'article_list.html', context)
@@ -61,8 +73,6 @@ def proper_pagination(posts, index):
 
 def post_detail(request, id, slug,):
     post = get_object_or_404(Article, id=id, slug=slug)
-
-
     dat6 = datetime.timedelta(days=5)
     dat3 = post.date
     dat7 = dat3 - dat6
@@ -111,32 +121,71 @@ def post_delete(request, id, slug):
 
 def post_search(request):
     isValid = False
-    filters = {k: v for (k, v) in request.GET.items() if k != 'show_html' }
+    cities  = request.GET.getlist('city[]')
+    purchase_method  = request.GET.getlist('purchase_method[]')
+    statzakup  = request.GET.getlist('statzakup[]')
+
+    filters = {k: v for (k, v) in request.GET.items() if k  not in ('sortBy', 'city[]', 'purchase_method[]', 'statzakup[]')}
     for key in filters:
         if(filters[key]):
             isValid = True
 
-    if(not isValid):
-        return render(request, 'error.html')
-    myFilter = ArticleFilter(filters, queryset=Article.objects.all())
+    if(not isValid and not (cities or purchase_method or statzakup)):
+        #if no filter found only has sort value then onlye sort apply on this
+        
+        if request.GET.get('sortBy'):
+            myFilter = Article.objects.order_by(request.GET.get('sortBy'))
+            paginator = Paginator(myFilter, 25)
+            page_number = request.GET.get('page')
+            posts = paginator.get_page(page_number)
 
+            context = {
+                'posts': posts
+            }
+            return render(request, 'lots-filter-result.html', context);
+        return render(request, 'error.html')
+
+    #applying multiple value filters in 
+    queryset = Article.objects.filter(
+        Q(city__id__in=cities) |
+        Q(statzakup__in=statzakup) |
+        Q(purchase_method__in = purchase_method)
+        ).order_by(request.GET.get('sortBy', 'date'))
+
+    myFilter = ArticleFilter(filters, queryset=queryset)
     paginator = Paginator(myFilter.qs.order_by('-id'), 25)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
+
     context = {
         'posts': posts
     }
 
-    if(request.GET.get('show_html')):
-        return render(request, 'search_list.html', context);
-
-    return render(request, 'search_content.html', context)
+    if(request.GET.get('lots')):
+        return render(request, 'lots-filter-result.html', context);
+    return render(request, 'main_filter_result.html', context)
 
 @login_required
 def save_favorite_search(request):
-    f_search = FavoriteSearch.create(request.POST, request.user);
+    #deleting query from favorites
+    if(request.POST.get('delete_id')):
+        FavoriteSearch.objects.filter(id=request.POST.get('delete_id'), user=request.user).delete();
+        return JsonResponse({'status': 204, "messsage": 'success', 'id': None})
+
+    #saving favorites query
+    content = request.POST.dict()
+    if("city[]" in content):
+        content['city[]'] = request.POST.getlist('city[]')
+        
+    if("purchase_method[]" in content):
+        content['purchase_method[]'] = request.POST.getlist('purchase_method[]')
+
+    if("statzakup[]" in content):
+        content['statzakup[]'] = request.POST.getlist('statzakup[]')
+
+    f_search = FavoriteSearch.create(content, request.user);
     f_search.save()
-    return JsonResponse({"status": 201, "message": "success"});
+    return JsonResponse({"status": 201, "message": "success", 'id': f_search.id})
 
 
 def favorite_search_list(request):
@@ -144,7 +193,6 @@ def favorite_search_list(request):
     paginator = Paginator(query, 25)
     page_number = request.GET.get('page')
     favorite_searches = paginator.get_page(page_number)
-    print(favorite_searches)
     return render(request, 'favorite_search_list.html', {'favorite_searches': favorite_searches})
 
 @login_required

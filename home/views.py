@@ -2,31 +2,24 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 # pages/views.py
 from django.views.generic import TemplateView
-from lots.models import Article
+from lots.models import Article, Cities
 from . import views
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-
 from lots.models import Article
-
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from lots.filters import ArticleFilter
-
 from django.shortcuts import render, redirect
-
-
 from . import forms
 from django.core.mail import send_mail
 from tn_first.settings import EMAIL_HOST_USER
 from django.urls import reverse
-
+from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 
 def index(request):
     bbs = Article.objects.order_by('-published_at')
     myHomeFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
-
+    cities = Cities.objects.all()
 
     bbs = myHomeFilter.qs
 
@@ -39,8 +32,12 @@ def index(request):
     except EmptyPage:
         bbs = paginator.page(paginator.num_pages)
 
-
-    context = {'bbs': bbs, 'myHomeFilter': myHomeFilter}
+    context = {'bbs': bbs,
+        'myHomeFilter': myHomeFilter,
+        'cities': cities,
+        'ZAKUP_CHOICES': ZAKUP_CHOICES,
+        'PURCHASE_CHOICES': PURCHASE_CHOICES
+    }
     return render(request, 'index.html', context)
 
 

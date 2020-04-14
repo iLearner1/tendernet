@@ -4,14 +4,9 @@ from django.db import models
 from django.template.defaultfilters import slugify # new
 from django.urls import reverse
 from django.contrib.auth.models import User
+from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 
 class Article(models.Model):
-    ZAKUP_CHOICES = [
-    ('draft','Запрос ценовых предложении'),
-    ('win','Конкурс'),
-    ('sended','Аукцион')
-    ]
-
 
     title = models.CharField(max_length=255, verbose_name='Наименование лота')
     body = models.CharField(max_length=255, verbose_name='Заказчик:')
@@ -19,6 +14,7 @@ class Article(models.Model):
     numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
     price = models.FloatField(verbose_name='Цена', null=True)
     statzakup = models.CharField(max_length=10, choices=ZAKUP_CHOICES, default='draft', verbose_name='Способ закупки')
+    purchase_method = models.CharField(max_length=10, choices=PURCHASE_CHOICES, default='product', verbose_name='Предмет закупки')
     date = models.DateTimeField(verbose_name='Дата закрытия:', null=True)
     date_open = models.DateTimeField(verbose_name='Дата открытия:', null=True)
     yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
@@ -80,10 +76,22 @@ class FavoriteSearch(models.Model):
     
     @property
     def city(self):
-        query = self.query
-        id = query.get('city')
-        if(id):
-            return Cities.objects.get(id=id);
-
+        #this method creating a property as like his name and return city object
+        query = self.query.get('city[]')
+        if(query):
+            return Cities.objects.filter(id__in=query);
+    
+    @property
+    def purchase_method(self):
+        query = self.query.get('purchase_method[]')
+        if(query):
+            return query
+        
+    @property
+    def statzakup(self):
+        query = self.query.get('statzakup[]')
+        if(query):
+            return query
+        
 
 

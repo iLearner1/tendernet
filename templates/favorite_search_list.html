@@ -41,8 +41,30 @@
                                     <p>lots name: {{search.query.title}}</p>
                                     <p>customer: {{search.query.body}}</p>
                                     <p>Lot id: {{search.query.id}}</p>
-                                    <p>Region: {{search.city}}</p>
-                                    <p>Purchase Method: {{search.query.statzakup}}</p>
+                                    <p>Region:
+                                         {% if search.city %} 
+                                            {% for city in search.city %}
+                                                {{city.name}},
+                                            {% endfor %}
+                                         {%else%} 
+                                         'No Region Found' 
+                                        {% endif %}
+                                    </p>
+                                    <p>Purchase Method: 
+                                    {% if search.statzakup %}
+                                        {% for statzakup in search.statzakup %}
+                                           {{statzakup}},
+                                        {% endfor%}
+                                     {% endif %}
+                                    </p>
+                                    <p>
+                                        Purchase Subject:
+                                        {% if search.purchase_method %}
+                                            {% for purchase in search.purchase_method %}
+                                                {{purchase}},
+                                            {% endfor%}
+                                         {% endif %}
+                                    </p>
                                 </div>
                                 <div class="col-md-5">
                                     <p>lots max-price: {{search.query.price_min}}</p>
@@ -51,16 +73,34 @@
                                     <p>End Date: {{search.query.date_max}}</p>
                                 </div>
                                 <div class="col-md-2">
-                                     <form action="{% url 'post_search' %}" method="get">
+                                     <form action="{% url 'post_list' %}" method="get">
                                          <input type="hidden" name="title" value="{{search.query.title}}">
                                          <input type="hidden" name="body" value="{{search.query.body}}">
                                          <input type="hidden" name="id" value="{{search.query.id}}">
-                                         <input type="hidden" name="city" value="{{search.city.id}}">
-                                         <input type="hidden" name="statzakup" value="{{search.query.statzakup}}">
+
+                                         {% if search.city %}
+                                            {% for city in search.city %}
+                                                <input type="hidden" name="city[]" value="{{city.id}}">
+                                            {% endfor%}
+                                         {% endif %}
+
+                                         {% if search.purchase_method %}
+                                            {% for purchase in search.purchase_method %}
+                                                <input type="hidden" name="purchase_method[]" value="{{purchase}}">
+                                            {% endfor%}
+                                         {% endif %}
+
+                                         {% if search.statzakup %}
+                                            {% for statzakup in search.statzakup %}
+                                                <input type="hidden" name="statzakup[]" value="{{statzakup}}">
+                                            {% endfor%}
+                                         {% endif %}
+
                                          <input type="hidden" name="price_min" value="{{search.query.price_min}}">
+                                         <input type="hidden" name="price_max" value="{{search.query.price_max}}">
                                          <input type="hidden" name="date_min" value="{{search.query.date_min}}">
                                          <input type="hidden" name="date_max" value="{{search.query.date_max}}">
-                                         <input type="hidden" name="show_html" value="true">
+                                         <input type="hidden" name="item_id" value="{{search.id}}">
                                          <button class="btn btn-primary">Apply this to Search</button>
                                      </form>
                                      <div class="form-group">

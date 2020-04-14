@@ -1,4 +1,4 @@
-{% load widget_tweaks%}
+{% load widget_tweaks %}
 
 <!-- Search and Filter -->
 <div class="searchAndFilter-wrapper">
@@ -15,42 +15,72 @@
 
             <form method="get" class="search-form" action="{% url 'post_search' %}" id="main-searchform">
 
-              {% render_field myHomeFilter.form.title class="" placeholder="Наименование лота" %}
+                {% render_field myHomeFilter.form.title class="" placeholder="Наименование лота" %}
 
-              {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %}
+                {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %}
 
-              {% render_field myHomeFilter.form.id class="" placeholder="ID лота" %}
+                {% render_field myHomeFilter.form.id class="" placeholder="ID лота" type="text" %}
 
-              {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %}
-              <button type="submit" id="pc-search-button" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
+                <!-- {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %} -->
+                <select name="city" id="city_id" class="selectpicker multiselect"  multiple title="Регион">
+                    {% for city in cities %}
+                      <option value="{{city.id}}">{{city.name}}</option>
+                    {% endfor%}
+                </select>
 
-              {% if request.user.is_authenticated%}
-                <a href="#" class="text-danger ml-auto" id="save-query">Save To Favorite Search</a>
-              {% else %}
-                <a href="{% url 'login' %}" class="text-danger ml-auto">Save To Favorite Search</a>
-              {% endif %}
+                <button type="submit" id="pc-search-button" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>    
+               
+
+              <!-- action reset and save search query to db  -->
+              <div class="row mt-4">
+                  <div class="col-md-12">
+                    {% if request.user.is_authenticated%}
+                      <span id="save-query">
+                        <a href="javascript:void(0);">Сохранить в избранные</a>
+                        <i class="far fa-star"></i>
+                      </span>
+                    {% else %}
+                        <a href="{% url 'login' %}">Сохранить в избранные</a>
+                        <i class="far fa-star"></i>
+                    {% endif %}
+
+                    <button class="btn btn-lg btn-danger ml-2 py-2 px-4" type="reset">сбросить фильтр</button>
+                  </div>
+              </div>
 
               <div class="dop-filter" style="display: none;">
-
                 <div class="row">
-
                   <div class="col-md-4">
-
                     <h6 class="">Способ закупки</h6>
-
-                    <div class="form-group">
-
-                      {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %}
-
-                    </div>
-
+                      <div class="form-group">
+                        <!-- {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} -->
+                        <select name="statzakup" id="statzakup_id" class="selectpicker multiselect"  multiple title="Способ закупки">
+                          {% for choice in ZAKUP_CHOICES %}
+                            <option value="{{choice.0}}">{{choice.1}}</option>
+                          {% endfor%}
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <h6>Предмет закупки</h6>
+                        <select name="purchase_method" id="purchase_method" class="form-control selectpicker multiselect" title="Предмет закупки" multiple>
+                          {% for choice in PURCHASE_CHOICES %}
+                            <option value="{{choice.0}}">{{choice.1}}</option>
+                          {% endfor%}
+                        </select>
+                      </div>
                   </div>
 
                   <div class="col-md-4">
                     <h6 class="">Сумма лота</h6>
                     <div class="form-row">
                       <div class="col-12">
-                        {% render_field myHomeFilter.form.price class="" placholder="Цена" %}
+                        <!-- {% render_field myFilter.form.price class="form-control" %} -->
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="price_min" placeholder="Сумма от">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="price_max" placeholder="Сумма до">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -59,11 +89,11 @@
                     <div class="form-group">
                       <h6 class="">Дата закрытия</h6>
                         <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
-                        <input type="text" name="date_min" placeholder="Start" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
+                        <input type="text" name="date_min" placeholder="Начало приема заявок" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
                     </div>
                     <div class="form-group">
                       <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
-                      <input type="text" name="date_max" placeholder="the end" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
+                      <input type="text" name="date_max" placeholder="Окончание приема заявок" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
                     </div>
                   </div>
                 </div>

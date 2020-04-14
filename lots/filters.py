@@ -2,7 +2,7 @@ import django_filters
 from django_filters.widgets import RangeWidget, SuffixedMultiWidget
 from django_filters import DateFromToRangeFilter, RangeFilter
 from lots.models import Article
-
+from django.db import models
 
 
 
@@ -27,16 +27,16 @@ class MyRangeWidget2(RangeWidget):
 
 
 class ArticleFilter(django_filters.FilterSet):
-	date = DateFromToRangeFilter(widget=MyRangeWidget(
+    date = DateFromToRangeFilter(widget=MyRangeWidget(
         from_attrs={'placeholder': 'Начало'},
         to_attrs={'placeholder': 'Конец'},
     ) )
-	price = RangeFilter(widget=MyRangeWidget2(
+    price = RangeFilter(widget=MyRangeWidget2(
         from_attrs={'placeholder': 'Начало'},
         to_attrs={'placeholder': 'Конец'},
     ))
 
-
-	class Meta:
-		model = Article
-		fields = ('title','body','id', 'city','statzakup', 'date', 'price',)
+    class Meta:
+        model = Article
+        fields = ('title','body','id','statzakup', 'date', 'price',)
+        

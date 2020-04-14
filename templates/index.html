@@ -78,32 +78,3 @@
 {% endblock %}
 
 {% include "blocks/footer.html" %}
-
-<script>
-  $(document).ready(function(){
-      const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
-      $("#pc-search-button").click(function(e){
-          e.preventDefault();
-          const formData = $("#main-searchform").serializeArray();
-          let data = {};
-          for(let item of formData) {
-            data[item.name] = item.value;
-          }
-          $("#input-container").html(loader);
-          $.ajax({
-            method: 'GET',
-            url: "{% url 'post_search' %}",
-            data: {
-              ...data
-            },
-
-            success: function(resp) {
-                $("#input-container").html(resp);
-            },
-            error: function(err) {
-              console.log(err.responseText);
-            }
-          })
-      });
-  });
-</script>

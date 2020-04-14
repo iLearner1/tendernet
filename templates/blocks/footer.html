@@ -42,14 +42,35 @@
     <script src="{% static 'assets/js/tinymce.min.js' %}"></script>
     <script src="{% static 'assets/js/slick.min.js' %}"></script>
     <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/js/bootstrap-select.min.js"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
     <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
    
     <script type="text/javascript">
+        //translation of calender
+        $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+        $.fn.datepicker.dates['ru'] = {
+          days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+          daysShort: ["ВСК", "Пнд", "Вtp", "Срд", "ЧТВ", "ПТН", "СБТ"],
+          daysMin: ["Вс", "Пн", "Bt", "Ср", "Чт", "Пт", "Сб"],
+          months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+          monthsShort: ["Янв", "Фев", "Мар", "Апр", "May", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+          today: "Сегодня",
+          clear: "Чисто",
+          format: "yyyy-mm-dd",
+          titleFormat: "yyyy-mm-dd", /* Leverages same syntax as 'format' */
+          weekStart: 0
+      };
+
       $(document).ready(function() {
+          let savedId = null;
+
+          $(".multiselect").selectpicker();
+
           //initialize date picker here it is
           $('.datepicker').datepicker({
-              autoclose: true
+              autoclose: true,
+              language: 'ru'
           });
 
           $(".create-book").modalForm({
@@ -59,30 +80,167 @@
           //saving favorite search query
           $("#save-query").on("click", function(e){
             e.preventDefault();
+
+            //geting form data and saving to database
             let formData = $("#main-searchform").serializeArray();
-            let data = {};
-            let isInvalid = true;
-            for (const item of formData) {
-                data[item.name] = item.value;
+            let formatedData = {};
+            let isInvalid = false;
+
+            for(let item of formData) {
+              if(item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
+                formatedData[item.name] = formatedData[item.name] ? [...formatedData[item.name], item.value] : [item.value];
+              } else {
+                formatedData[item.name] = item.value;
+              }
+
+              if(item.value) {
+                isInvalid = true 
+              }
+
+            }
+ 
+            if(!isInvalid) {
+              return alert('you can\'t save empty form, please provide some data');
+            }
+
+
+            //what happening here? changing save to favorites text and class
+            const text = $(this).find('a').text();
+            $(this).find('a').html(text === 'Сохранить в избранные' ? 'Удалить из Избранного' : 'Сохранить в избранные');
+            $(this).toggleClass('text-warning');
+            $(this).find('i').toggleClass('far fas');
+
+            if(deleteFavorite()) {
+              return;
             }
 
             var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
             $.ajax({
-              method: "POST",
-              url: "{% url 'save_favorite_search' %}",
-              data: {
-                ...data,
-                csrfmiddlewaretoken
-              },
-              success: function(response) {
-                alert('search added to favorite successfuly');
-              },
+                method: "POST",
+                url: "{% url 'save_favorite_search' %}",
+                data: {
+                  ...formatedData,
+                  csrfmiddlewaretoken
+                },
+                success: function(response) {
+                  savedId = response.id;
+                  alert('search added to favorite successfuly');
+                },
 
+                error: function(err) {
+                  alert(err.responseText);
+                }
+            })
+          });
+
+          $("button[type='reset']").click(function(){
+              $("#save-query").removeClass('text-warning');
+              $("#save-query").find('a').text('Save to Favorites');
+              $("#save-query").find('i').removeClass('fas').addClass('far');
+              $('.multiselect').selectpicker('deselectAll');
+              savedId = null;
+
+          });
+
+          function deleteFavorite() {
+            var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+            if(!savedId) {
+              savedId = $('input#savedId').val();
+              $('input#savedId').val('');
+            }
+
+
+            if(savedId) {
+
+              $.ajax({
+                method: "POST",
+                url: "{% url 'save_favorite_search' %}",
+                data: {
+                  delete_id: savedId,
+                  csrfmiddlewaretoken
+                },
+                success: function(response) {
+                  savedId = response.id;
+                  alert('search query removed from favorites');
+                },
+
+                error: function(err) {
+                  alert(err.responseText);
+                }
+              });
+
+              return true;
+            }
+
+            return false;
+
+          }
+      });
+    </script>
+
+    <script>
+      $(document).ready(function(){
+          const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
+          let search_query = {};
+
+          $("#pc-search-button").click(function(e){
+              e.preventDefault();
+              const formData = $("#main-searchform").serializeArray();
+              let data = {};
+
+              //formating data for query
+              for(let item of formData) {
+                if(item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
+                  data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+                } else {
+                  data[item.name] = item.value;
+                }
+              }
+
+              //show loader
+              $("#input-container").html(loader);
+
+              //save query for future use
+              search_query = data;
+
+              //fetch data from server
+              $.ajax({
+                method: 'GET',
+                url: "{% url 'post_search' %}",
+                data: {
+                  ...data
+                },
+    
+                success: function(resp) {
+                    $("#input-container").html(resp);
+                },
+                error: function(err) {
+                  console.log(err.responseText);
+                }
+              })
+          });
+
+
+          $("#orderby").change(function(e){
+            let sortBy = this.value;
+            //show loader
+            $("#input-container").html(loader);
+            $.ajax({
+              method: 'GET',
+              url: "{% url 'post_search' %}",
+              data: {
+                ...search_query,
+                sortBy
+              },
+  
+              success: function(resp) {
+                  $("#input-container").html(resp);
+              },
               error: function(err) {
                 console.log(err.responseText);
               }
             })
-          });
+          })
       });
     </script>
 
