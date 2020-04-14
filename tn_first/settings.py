@@ -170,7 +170,7 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 #it will need for show warning message if user seaech with empty value
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # uncomment for server/ comment for local server
-# try:
-#    from .settings_prod1 import *
-# except:
-#    pass
+ try:
+    from .settings_prod1 import *
+ except:
+    pass
