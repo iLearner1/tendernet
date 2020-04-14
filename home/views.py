@@ -20,10 +20,9 @@ def index(request):
     bbs = Article.objects.order_by('-published_at')
     myHomeFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
     cities = Cities.objects.all()
-    ########## Developer needs to fix this filter  and then uncomment it#########
-    #bbs = myHomeFilter.qs
+
     bbs = myHomeFilter.qs
-    bbs = bbs.order_by('-id')
+
     paginator = Paginator(bbs, 10)
     page = request.GET.get('page')
     try:

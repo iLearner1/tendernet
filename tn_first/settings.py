@@ -147,7 +147,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/webapps/django_shop/tendernet/static'
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, "static_files"),
+  os.path.join(BASE_DIR, "static"),
 )
 
 # Media files
