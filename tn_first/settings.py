@@ -147,7 +147,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/webapps/django_shop/tendernet/static'
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, "static"),
+  os.path.join(BASE_DIR, "static_files"),
 )
 
 # Media files
@@ -170,8 +170,8 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 #it will need for show warning message if user seaech with empty value
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # uncomment for server/ comment for local server
-
-try:
-    from .settings_prod1 import *
-except:
-    pass
+#
+# try:
+#     from .settings_prod1 import *
+# except:
+#     pass
