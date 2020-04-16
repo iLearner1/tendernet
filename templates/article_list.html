@@ -33,313 +33,330 @@
 </div>
 <!-- Breadcrumb End -->
 
-    <!-- tender Listing -->
-    <div class="alice-bg section-padding-bottom">
-      <div class="container">
-        <div class="row no-gutters">
-          <div class="col">
-            <div class="tender-listing-container">
-              <div class="filtered-tender-listing-wrapper">
+<!-- tender Listing -->
+<div class="alice-bg section-padding-bottom">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col">
+        <div class="tender-listing-container">
+          <div class="filtered-tender-listing-wrapper">
 
-                <a href="javascript:void(0);" id="dop-filter-mobile-link" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-down"></i>&nbsp;Показать фильтр</a>
-                <a href="javascript:void(0);" id="dop-filter-mobile-link-hide" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть фильтр</a>
+            <a href="javascript:void(0);" id="dop-filter-mobile-link"
+              style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 20px;"><i
+                class="fa far fa-chevron-circle-down"></i>&nbsp;Показать фильтр</a>
+            <a href="javascript:void(0);" id="dop-filter-mobile-link-hide"
+              style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 20px;"><i
+                class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть фильтр</a>
 
-                <script>
-                  jQuery(document).ready(function($){
+            <script>
+              jQuery(document).ready(function ($) {
 
-                    if ($(window).width() < 767) {
+                if ($(window).width() < 767) {
 
-                       $('#dop-filter-mobile-link').show();
-                       $('#dop-filter-mobile-link').click(function(){
-                        
-                          $('.dop-filter-mobile').slideToggle();
-                          $('#dop-filter-mobile-link').hide();
-                          $('#dop-filter-mobile-link-hide').show();
-                          $('#dop-filter-mobile-link-hide2').show();
+                  $('#dop-filter-mobile-link').show();
+                  $('#dop-filter-mobile-link').click(function () {
 
-                       });
+                    $('.dop-filter-mobile').slideToggle();
+                    $('#dop-filter-mobile-link').hide();
+                    $('#dop-filter-mobile-link-hide').show();
+                    $('#dop-filter-mobile-link-hide2').show();
 
-                       $('#dop-filter-mobile-link-hide').click(function(){
-                        
-                          $('.dop-filter-mobile').slideToggle();
-                          $('#dop-filter-mobile-link-hide').hide();
-                          $('#dop-filter-mobile-link-hide2').hide();
-                          $('#dop-filter-mobile-link').show();
-
-                       });
-
-                       $('#dop-filter-mobile-link-hide2').click(function(){
-                        
-                          $('.dop-filter-mobile').slideToggle();
-                          $('#dop-filter-mobile-link-hide').hide();
-                          $('#dop-filter-mobile-link-hide2').hide();
-                          $('#dop-filter-mobile-link').show();
-
-                       });
-
-                    };
-                    
                   });
-                </script>
 
-                <div class="dop-filter-mobile" style="display: none;">
+                  $('#dop-filter-mobile-link-hide').click(function () {
 
-                  <div class="searchAndFilter-wrapper">
-                      <div class="searchAndFilter-block">
-                        <div class="searchAndFilter">
+                    $('.dop-filter-mobile').slideToggle();
+                    $('#dop-filter-mobile-link-hide').hide();
+                    $('#dop-filter-mobile-link-hide2').hide();
+                    $('#dop-filter-mobile-link').show();
 
-                            <!-- {{ myFilter }} -->
+                  });
 
-                            <form method="get">
+                  $('#dop-filter-mobile-link-hide2').click(function () {
 
-                              <h6 class="">Поиск по названию</h6>
-                              <div class="form-group">
-                                {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %}
-                              </div>
+                    $('.dop-filter-mobile').slideToggle();
+                    $('#dop-filter-mobile-link-hide').hide();
+                    $('#dop-filter-mobile-link-hide2').hide();
+                    $('#dop-filter-mobile-link').show();
 
-                              <h6 class="">Заказчик</h6>
-                              <div class="form-group">
-                                {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %}
-                              </div>
+                  });
 
-                              <div class="form-group">
-                                {% render_field myFilter.form.statzakup class="form-control" %}
-                              </div>
+                };
 
-                              <div class="form-group">
-                                {% render_field myFilter.form.city class="form-control" %}
-                              </div>
+              });
+            </script>
 
-                              <h6 class="">Сумма лота</h6>
-                              <div class="form-group">
-                                {% render_field myFilter.form.price class="form-control" placeholder="Сумма лота" %}
-                              </div>
+            <div class="dop-filter-mobile" style="display: none;">
 
-                              <h6 class="">Дата закрытия</h6>
-                              <div class="form-group">
-                                <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
-                                <input type="text" name="date_min" placeholder="Start" class="form-control" id="id_date_0" data-toggle="datepicker">
-                              </div>
+              <div class="searchAndFilter-wrapper">
+                <div class="searchAndFilter-block">
+                  <div class="searchAndFilter">
 
-                              <h6 class="">Поиск по ID</h6>
-                              <div class="form-group">
-                                <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
-                                <input type="text" name="date_max" placeholder="the end" class="form-control" id="id_date_1" data-toggle="datepicker">
-                              </div>
+                    <!-- {{ myFilter }} -->
 
-                              <div class="form-group">
-                                <button type="submit" class="button width-100 text-center">
-                                  <span class="glyphicon glyphicon-search"></span>
-                                  НАЙТИ
-                                </button>
-                              </div>
+                    <form method="get">
 
-                              <div style="text-align: center;">
-                                <a href="javascript:void(0);">Сохранить в избранные <i class="far fa-star"></i></a>
-                              </div>
-                            </form>
-
-                        </div>
+                      <h6 class="">Поиск по названию</h6>
+                      <div class="form-group">
+                        {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %}
                       </div>
-                    </div>
 
+                      <h6 class="">Заказчик</h6>
+                      <div class="form-group">
+                        {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %}
+                      </div>
+
+                      <div class="form-group">
+                        {% render_field myFilter.form.statzakup class="form-control" %}
+                      </div>
+
+                      <div class="form-group">
+                        {% render_field myFilter.form.city class="form-control" %}
+                      </div>
+
+                      <h6 class="">Сумма лота</h6>
+                      <div class="form-group">
+                        {% render_field myFilter.form.price class="form-control" placeholder="Сумма лота" %}
+                      </div>
+
+                      <h6 class="">Дата закрытия</h6>
+                      <div class="form-group">
+                        <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
+                        <input type="text" name="date_min" placeholder="Start" class="form-control" id="id_date_0"
+                          data-toggle="datepicker">
+                      </div>
+
+                      <h6 class="">Поиск по ID</h6>
+                      <div class="form-group">
+                        <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
+                        <input type="text" name="date_max" placeholder="the end" class="form-control" id="id_date_1"
+                          data-toggle="datepicker">
+                      </div>
+
+                      <div class="form-group">
+                        <button type="submit" class="button width-100 text-center">
+                          <span class="glyphicon glyphicon-search"></span>
+                          НАЙТИ
+                        </button>
+                      </div>
+
+                      <div style="text-align: center;">
+                        <a href="javascript:void(0);">Сохранить в избранные <i class="far fa-star"></i></a>
+                      </div>
+                    </form>
+
+                  </div>
                 </div>
+              </div>
+
+            </div>
 
 
-                <div class="tender-view-controller-wrapper">
-                  <div class="row">
+            <div class="tender-view-controller-wrapper">
+              <div class="row">
 
-                    <div class="col-md-6">
-                      <div class="tender-view-controller">
-                        <div class="tender-view-filter">
-                          <div class="form-group">
-                            <select class="form-control" id="orderby">
-                              <option value="">Сортировать по</option>
-                              <option value="-date_open">Дата публикации</option>
-                              <option value="-date">Дата окончания</option>
-                              <option value="-title">По алфавиту</option>
-                              <option value="-price">По сумме</option>
-                            </select>
-                          </div>
-                        </div>
+                <div class="col-md-6">
+                  <div class="tender-view-controller">
+                    <div class="tender-view-filter">
+                      <div class="form-group">
+                        <select class="form-control" id="orderby">
+                          <option value="">Сортировать по</option>
+                          <option value="-date_open">Дата публикации</option>
+                          <option value="-date">Дата окончания</option>
+                          <option value="-title">По алфавиту</option>
+                          <option value="-price">По сумме</option>
+                        </select>
                       </div>
-                    </div>
-
-                    <div class="col-md-6 showing-number">
-                      <span>Показано 1–10 из 1029</span>
                     </div>
                   </div>
                 </div>
 
-                <div id="input-container" class="mt-3">
-                  <!-- this place holder is required will be placed filtered result -->
-                  <div class="tender-filter-result xs-padding-0">
-                    {% for article in posts %}
-                      <div class="item">
-                        <div class="tender-list half-grid">
-                          <div class="body">
-                            <div class="content">
-                              <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
-                              <div class="info">
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
-                                  </div>
-                                  <div class="col-md-7">
-                                    <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
-                                  </div>
-                                </div>
-                              </div>
+                <div class="col-md-6 showing-number">
+                  <span>Показано 1–10 из 1029</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="input-container" class="mt-3">
+              <!-- this place holder is required will be placed filtered result -->
+              <div class="tender-filter-result xs-padding-0">
+                {% for article in posts %}
+                <div class="item">
+                  <div class="tender-list half-grid">
+                    <div class="body">
+                      <div class="content">
+                        <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                        <div class="info">
+                          <div class="row">
+                            <div class="col-md-5">
+                              Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
                             </div>
-                            <div class="more">
-                              <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
-                              <div class="buttons">
-                                <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
-                              </div>
+                            <div class="col-md-7">
+                              <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
                             </div>
                           </div>
                         </div>
                       </div>
-                      {% empty %}
-                      <div class="item">
-                        <p>Не найден соответсвующий тендер</p>
+                      <div class="more">
+                        <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
+                        <div class="buttons">
+                          <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+                        </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+                {% empty %}
+                <div class="item">
+                  <p>Не найден соответсвующий тендер</p>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="pagination-list text-center">
+                <nav class="navigation pagination">
+                  <div class="nav-links">
+                    {% if posts.has_previous %}
+                    <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}"><i
+                        class="fas fa-angle-left"></i></a>
+                    {% endif %}
+                    {% for p in posts.paginator.page_range %}
+                    {% if posts.number == p %}
+                    <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
+                    {% else %}
+                    <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                    {% endif %}
                     {% endfor %}
+                    {% if posts.has_next %}
+                    <a class="next page-numbers" href="?page={{ posts.next_page_number }}"><i
+                        class="fas fa-angle-right"></i></a>
+                    {% endif %}
                   </div>
-
-                  <div class="pagination-list text-center">
-                    <nav class="navigation pagination">
-                      <div class="nav-links">
-                        {% if posts.has_previous %}
-                          <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
-                        {% endif %}
-                        {% for p in posts.paginator.page_range %}
-                          {% if posts.number == p %}
-                            <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
-                          {% else %}
-                            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
-                          {% endif %}
-                        {% endfor %}
-                        {% if posts.has_next %}
-                          <a class="next page-numbers" href="?page={{ posts.next_page_number }}"><i class="fas fa-angle-right"></i></a>
-                        {% endif %}
-                      </div>
-                    </nav>                
-                  </div>
-
-                </div>
-
+                </nav>
               </div>
 
-              <div class="tender-filter-wrapper pc-dop-filter">
-                <div data-id="tender-type" class="tender-filter tender-type same-pad">
-                  <form method="get" id="main-searchform">
+            </div>
 
-                    <h6 class="">Поиск по названию</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %} -->
-                      <input type="text" class="form-control" name="title" value="{{request.GET.title}}" placeholder="Введите название лота">
-                    </div>
+          </div>
 
-                    <h6 class="">Заказчик</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %} -->
-                      <input type="text" class="form-control" name="body" value="{{request.GET.body}}" placeholder="Поиск по заказчику">
-                    </div>
-                    <div class="form-group">
-                      <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                      <select name="statzakup" id="statzakup_id" class="selectpicker multiselect"  multiple title="Способ закупки">
-                        {% for choice in ZAKUP_CHOICES %}
-                          {% checklist choice.0 request 'statzakup[]' as available %}
-                          <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
+          <div class="tender-filter-wrapper pc-dop-filter">
+            <div data-id="tender-type" class="tender-filter tender-type same-pad">
+              <form method="get" id="main-searchform">
 
-                    <div class="form-group">
-                      <select name="city" id="city_id" class="selectpicker multiselect"  multiple title="Регион">
-                        {% for city in cities %}
-                          {% checklist city.id request 'city[]' as available %}
-                          <option value="{{city.id}}" {% if available %} selected {% endif %}>{{city.name}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
-
-                    <div class="form-group">
-                      <select name="purchase_method" id="purchase_method" class="form-control selectpicker multiselect" title="Предмет закупки" multiple>
-                        {% for choice in PURCHASE_CHOICES %}
-                          {% checklist choice.0 request 'purchase_method[]' as available %}
-                          <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
-
-                    <h6 class="">Сумма лота</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                      <input type="text" class="form-control" name="price_min" value="{{requestt.GET.price_min}}" placeholder="Сумма от">
-                      <input type="text" class="form-control" name="price_max" value="{{requestt.GET.price_max}}" placeholder="Сумма до">
-                    </div>
-
-                    <h6 class="">Дата закрытия</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myFilter.form.date class="form-control"  %} -->
-                      <input type="text" name="date_min" placeholder="Начало приема заявок" class="form-control datepicker" value="{{request.GET.date_min}}" data-format="yyyy-mm-dd">
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="date_max" placeholder="Окончание приема заявок" class="form-control datepicker" value="{{request.GET.date_max}}"  data-format="yyyy-mm-dd">
-                    </div>
-
-                    <h6 class="">Поиск по ID</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
-                      <input type="text" class="form-control" placeholder="Введите номер лота" name="id" value="{{request.GET.id}}">
-                    </div>
-
-                    <!-- this will identified which paage result should be return main page or lots page  -->
-                    <input type="hidden" name="lots" value="true">
-
-                    <div class="form-group">
-                      <button type="submit" class="button width-100 text-center" id="pc-search-button">
-                        <span class="glyphicon glyphicon-search"></span>
-                        НАЙТИ
-                      </button>
-
-                      <button class="button width-100 primary mt-2" type="reset">сбросить фильтр</button>
-                    </div>
-
-                    <div style="text-align: center;">
-                      {% if request.user.is_authenticated%}
-                          <!-- is user authenticated  -->
-                          {% is_favorited request as is_favorite %}
-                          <!-- is this query favorites  -->
-                          {% if  is_favorite  %}
-                            <input type="hidden" id="savedId" value="{{request.GET.item_id}}">
-                            <span id="save-query" class="text-warning">
-                              <a href="javascript:void(0);">Удалить из Избранного</a>
-                              <i class="fas fa-star"></i>
-                            </span>
-                          {% else %}
-                            <span id="save-query">
-                              <a href="javascript:void(0);">Сохранить в избранные</a>
-                              <i class="far fa-star"></i>
-                            </span>
-                          {% endif %}
-                      {% else %}
-                        <a href="{% url 'login' %}">Сохранить в избранные <i class="far fa-star"></i></a>
-                      {% endif %}
-                    </div>
-                  </form>
+                <h6 class="">Поиск по названию</h6>
+                <div class="form-group">
+                  <!-- {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %} -->
+                  <input type="text" class="form-control" name="title" value="{{request.GET.title}}"
+                    placeholder="Введите название лота">
                 </div>
-              </div>
 
-              
+                <h6 class="">Заказчик</h6>
+                <div class="form-group">
+                  <!-- {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %} -->
+                  <input type="text" class="form-control" name="body" value="{{request.GET.body}}"
+                    placeholder="Поиск по заказчику">
+                </div>
+                <div class="form-group">
+                  <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
+                  <select name="statzakup" id="statzakup_id" class="selectpicker multiselect" multiple
+                    title="Способ закупки">
+                    {% for choice in ZAKUP_CHOICES %}
+                    {% checklist choice.0 request 'statzakup[]' as available %}
+                    <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
+                    {% endfor%}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <select name="city" id="city_id" class="selectpicker multiselect" multiple title="Регион">
+                    {% for city in cities %}
+                    {% checklist city.id request 'city[]' as available %}
+                    <option value="{{city.id}}" {% if available %} selected {% endif %}>{{city.name}}</option>
+                    {% endfor%}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <select name="purchase_method" id="purchase_method" class="form-control selectpicker multiselect"
+                    title="Предмет закупки" multiple>
+                    {% for choice in PURCHASE_CHOICES %}
+                    {% checklist choice.0 request 'purchase_method[]' as available %}
+                    <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
+                    {% endfor%}
+                  </select>
+                </div>
+
+                <h6 class="">Сумма лота</h6>
+                <div class="form-group">
+                  <!-- {% render_field myFilter.form.price class="form-control" %} -->
+                  <input type="text" class="form-control" name="price_min" value="{{requestt.GET.price_min}}"
+                    placeholder="Сумма от">
+                  <input type="text" class="form-control" name="price_max" value="{{requestt.GET.price_max}}"
+                    placeholder="Сумма до">
+                </div>
+
+                <h6 class="">Дата закрытия</h6>
+                <div class="form-group">
+                  <!-- {% render_field myFilter.form.date class="form-control"  %} -->
+                  <input type="text" name="date_min" placeholder="Начало приема заявок" class="form-control datepicker"
+                    value="{{request.GET.date_min}}" data-format="yyyy-mm-dd">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="date_max" placeholder="Окончание приема заявок"
+                    class="form-control datepicker" value="{{request.GET.date_max}}" data-format="yyyy-mm-dd">
+                </div>
+
+                <h6 class="">Поиск по ID</h6>
+                <div class="form-group">
+                  <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
+                  <input type="text" class="form-control" placeholder="Введите номер лота" name="id"
+                    value="{{request.GET.id}}">
+                </div>
+
+                <!-- this will identified which paage result should be return main page or lots page  -->
+                <input type="hidden" name="lots" value="true">
+
+                <div class="form-group">
+                  <button type="submit" class="button width-100 text-center" id="pc-search-button">
+                    <span class="glyphicon glyphicon-search"></span>
+                    НАЙТИ
+                  </button>
+
+                  <button class="button width-100 primary mt-2" type="reset">сбросить фильтр</button>
+                </div>
+
+                <div style="text-align: center;">
+                  {% if request.user.is_authenticated%}
+                  <!-- is user authenticated  -->
+                  {% is_favorited request as is_favorite %}
+                  <!-- is this query favorites  -->
+                  {% if  is_favorite  %}
+                  <input type="hidden" id="savedId" value="{{request.GET.item_id}}">
+                  <span id="save-query" class="text-warning">
+                    <a href="javascript:void(0);">Удалить из Избранного</a>
+                    <i class="fas fa-star"></i>
+                  </span>
+                  {% else %}
+                  <span id="save-query">
+                    <a href="javascript:void(0);">Сохранить в избранные</a>
+                    <i class="far fa-star"></i>
+                  </span>
+                  {% endif %}
+                  {% else %}
+                  <a href="{% url 'login' %}">Сохранить в избранные <i class="far fa-star"></i></a>
+                  {% endif %}
+                </div>
+              </form>
             </div>
           </div>
+
+
         </div>
       </div>
     </div>
-    <!-- tender Listing End -->
+  </div>
+</div>
+<!-- tender Listing End -->
 
 
 {% include "blocks/footer.html" %}

@@ -11,89 +11,86 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e'
+SECRET_KEY = "9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-#ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
-#ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
-ALLOWED_HOSTS = ['http://localhost','127.0.0.1']
+# ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
+# ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
 
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    
-
-    'home.apps.HomeConfig',
-    'lots.apps.LotsConfig',
-
-    'zakaz.apps.ZakazConfig',
-    'django_filters',
-    'widget_tweaks',
-    'django.contrib.admin',
-    'phonenumber_field',
-
-    #bootstrap modal forms
-     'bootstrap_modal_forms',
+    "users.apps.UsersConfig",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.humanize",
+    "home.apps.HomeConfig",
+    "lots.apps.LotsConfig",
+    "zakaz.apps.ZakazConfig",
+    "django_filters",
+    "widget_tweaks",
+    "django.contrib.admin",
+    "phonenumber_field",
+    # bootstrap modal forms
+    "bootstrap_modal_forms",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'tn_first.urls'
+ROOT_URLCONF = "tn_first.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [TEMPLATES_DIR],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'tn_first.wsgi.application'
+WSGI_APPLICATION = "tn_first.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 
@@ -103,17 +100,11 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 
@@ -129,9 +120,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = "ru-ru"
 
-TIME_ZONE = 'Asia/Almaty'
+TIME_ZONE = "Asia/Almaty"
 
 USE_I18N = True
 
@@ -144,33 +135,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 # Static files
-STATIC_URL = '/static/'
-STATIC_ROOT = '/webapps/django_shop/tendernet/static'
-STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, "static"),
-)
+STATIC_URL = "/static/"
+STATIC_ROOT = "/webapps/django_shop/tendernet/static"
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Media files
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-EMAIL_HOST = 'smtp.gmail.com'          # Сервер для отправки сообщений
-EMAIL_HOST_USER = 'tendernet.kz@gmail.com'     # имя пользователя
-EMAIL_HOST_PASSWORD = 'tendernetkz2020'      # пароль от ящика
-EMAIL_PORT = 587                        # порт для подключения
-EMAIL_USE_TLS = True                     # использование протокола шифрования
-DEFAULT_FROM_EMAIL = 'email@tendernet.kz'  # email, с которого будет отправлено письмо
+EMAIL_HOST = "smtp.gmail.com"  # Сервер для отправки сообщений
+EMAIL_HOST_USER = "tendernet.kz@gmail.com"  # имя пользователя
+EMAIL_HOST_PASSWORD = "tendernetkz2020"  # пароль от ящика
+EMAIL_PORT = 587  # порт для подключения
+EMAIL_USE_TLS = True  # использование протокола шифрования
+DEFAULT_FROM_EMAIL = "email@tendernet.kz"  # email, с которого будет отправлено письмо
 
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 
-#it will need for show warning message if user seaech with empty value
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
-# uncomment for server/ comment for local server
-# try:
-#    from .settings_prod1 import *
-# except:
-#    pass
+# it will need for show warning message if user seaech with empty value
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+if not DEBUG:
+    # uncomment for server/ comment for local server
+    # now user don't have to commnent uncomment above line everytime just have to change
+    # .env file values acroding to user need production or development
+    try:
+        from .settings_prod1 import *
+    except:
+        pass

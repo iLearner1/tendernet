@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
+
 # pages/views.py
 from django.views.generic import TemplateView
 from lots.models import Article, Cities
@@ -15,16 +16,18 @@ from django.core.mail import send_mail
 from tn_first.settings import EMAIL_HOST_USER
 from django.urls import reverse
 from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
+from django.utils import timezone
+
 
 def index(request):
-    bbs = Article.objects.order_by('-published_at')
-    myHomeFilter = ArticleFilter(request.GET, queryset=Article.objects.all())
+    myHomeFilter = ArticleFilter(
+        request.GET, queryset=Article.objects.filter(date__gt=timezone.now())
+    )
     cities = Cities.objects.all()
-
     bbs = myHomeFilter.qs
 
     paginator = Paginator(bbs, 10)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         bbs = paginator.page(page)
     except PageNotAnInteger:
@@ -32,22 +35,23 @@ def index(request):
     except EmptyPage:
         bbs = paginator.page(paginator.num_pages)
 
-    context = {'bbs': bbs,
-        'myHomeFilter': myHomeFilter,
-        'cities': cities,
-        'ZAKUP_CHOICES': ZAKUP_CHOICES,
-        'PURCHASE_CHOICES': PURCHASE_CHOICES
+    context = {
+        "bbs": bbs,
+        "myHomeFilter": myHomeFilter,
+        "cities": cities,
+        "ZAKUP_CHOICES": ZAKUP_CHOICES,
+        "PURCHASE_CHOICES": PURCHASE_CHOICES,
     }
-    return render(request, 'index.html', context)
+    return render(request, "index.html", context)
 
 
 def modal(request):
     sub = forms.BookForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         sub = forms.BookForm(request.POST)
-        subject = sub['name'].value()
-        message = sub['nomer'].value()
-        recepient = 'askar9315@gmail.com'
+        subject = sub["name"].value()
+        message = sub["nomer"].value()
+        recepient = "askar9315@gmail.com"
         send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently=False)
-        return HttpResponseRedirect('index')
-    return render(request, 'blocks/modal.html', {'form': sub})
+        return HttpResponseRedirect("index")
+    return render(request, "blocks/modal.html", {"form": sub})
