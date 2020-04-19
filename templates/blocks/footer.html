@@ -1,4 +1,4 @@
-    <!-- Footer -->
+<!-- Footer -->
 <footer class="footer-bg">
 
   <div class="footer-bottom-area">
@@ -8,9 +8,13 @@
           <div class="footer-bottom border-top">
             <div class="row">
               <div class="col-xl-6 col-lg-6 order-lg-1">
-                    <p class="copyright-text"><a href="javascript:void();">Tendernet.kz</a> | 2020 | г. Нур-Султан, Кенесары 40 (БЦ 7 Континент) офис №703,<br>
-                  <a href="tel:87172250700">8 (7172) 250-700</a>, <a href="tel:87783035500">8 (778) 303-55-00</a>, <a href="mailto:info@tendernet.kz">info@tendernet.kz</a> <br><a href="/static/media/polzovatelskoe_soglashenie.pdf" target="_blank" style="color:#eb3547;">Пользовательское соглашение</a> </p>
-        
+                <p class="copyright-text"><a href="javascript:void();">Tendernet.kz</a> | 2020 | г. Нур-Султан, Кенесары
+                  40 (БЦ 7 Континент) офис №703,<br>
+                  <a href="tel:87172250700">8 (7172) 250-700</a>, <a href="tel:87783035500">8 (778) 303-55-00</a>, <a
+                    href="mailto:info@tendernet.kz">info@tendernet.kz</a> <br><a
+                    href="/static/media/polzovatelskoe_soglashenie.pdf" target="_blank"
+                    style="color:#eb3547;">Пользовательское соглашение</a> </p>
+
               </div>
               <div class="col-xl-6 col-lg-6 order-lg-3">
                 <div class="back-to-top">
@@ -28,221 +32,263 @@
 </footer>
 <!-- Footer End -->
 
-    {% load static %}
-    <script src="{% static 'assets/js/popper.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/feather.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.nstSlider.min.js' %}"></script>
-    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'assets/js/visible.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.countTo.js' %}"></script>
-    <script src="{% static 'assets/js/chart.js' %}"></script>
-    <script src="{% static 'assets/js/plyr.js' %}"></script>
-    <script src="{% static 'assets/js/tinymce.min.js' %}"></script>
-    <script src="{% static 'assets/js/slick.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/js/bootstrap-select.min.js"></script>
-    <script src="{% static 'assets/js/custom.js' %}"></script>
-    <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
-   
-    <script type="text/javascript">
-        //translation of calender
-        $.fn.selectpicker.Constructor.BootstrapVersion = '4';
-        $.fn.datepicker.dates['ru'] = {
-          days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
-          daysShort: ["ВСК", "Пнд", "Вtp", "Срд", "ЧТВ", "ПТН", "СБТ"],
-          daysMin: ["Вс", "Пн", "Bt", "Ср", "Чт", "Пт", "Сб"],
-          months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-          monthsShort: ["Янв", "Фев", "Мар", "Апр", "May", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
-          today: "Сегодня",
-          clear: "Чисто",
-          format: "yyyy-mm-dd",
-          titleFormat: "yyyy-mm-dd", /* Leverages same syntax as 'format' */
-          weekStart: 0
-      };
+{% load static %}
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/feather.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.nstSlider.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/visible.js' %}"></script>
+<script src="{% static 'assets/js/jquery.countTo.js' %}"></script>
+<script src="{% static 'assets/js/chart.js' %}"></script>
+<script src="{% static 'assets/js/plyr.js' %}"></script>
+<script src="{% static 'assets/js/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/js/slick.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/js/bootstrap-select.min.js"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 
-      $(document).ready(function() {
-          let savedId = null;
+<script type="text/javascript">
+  //translation of calender
+  $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+  $.fn.datepicker.dates['ru'] = {
+    days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+    daysShort: ["ВСК", "Пнд", "Вtp", "Срд", "ЧТВ", "ПТН", "СБТ"],
+    daysMin: ["Вс", "Пн", "Bt", "Ср", "Чт", "Пт", "Сб"],
+    months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+    monthsShort: ["Янв", "Фев", "Мар", "Апр", "May", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+    today: "Сегодня",
+    clear: "Чисто",
+    format: "yyyy-mm-dd",
+    titleFormat: "yyyy-mm-dd", /* Leverages same syntax as 'format' */
+    weekStart: 0
+  };
 
-          $(".multiselect").selectpicker();
+  $(document).ready(function () {
+    let savedId = null;
 
-          //initialize date picker here it is
-          $('.datepicker').datepicker({
-              autoclose: true,
-              language: 'ru'
-          });
+    $(".multiselect").selectpicker();
 
-          $(".create-book").modalForm({
-              formURL: "{% url 'modal' %}"
-          });
+    //initialize date picker here it is
+    $('.datepicker').datepicker({
+      autoclose: true,
+      language: 'ru'
+    });
 
-          //saving favorite search query
-          $("#save-query").on("click", function(e){
-            e.preventDefault();
+    $(".create-book").modalForm({
+      formURL: "{% url 'modal' %}"
+    });
 
-            //geting form data and saving to database
-            let formData = $("#main-searchform").serializeArray();
-            let formatedData = {};
-            let isInvalid = false;
+    //saving favorite search query
+    $("#save-query").on("click", function (e) {
+      e.preventDefault();
 
-            for(let item of formData) {
-              if(item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
-                formatedData[item.name] = formatedData[item.name] ? [...formatedData[item.name], item.value] : [item.value];
-              } else {
-                formatedData[item.name] = item.value;
-              }
+      //geting form data and saving to database
+      let formData = $("#main-searchform").serializeArray();
+      let formatedData = {};
+      let isInvalid = false;
 
-              if(item.value) {
-                isInvalid = true 
-              }
+      for (let item of formData) {
+        if (item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
+          formatedData[item.name] = formatedData[item.name] ? [...formatedData[item.name], item.value] : [item.value];
+        } else {
+          formatedData[item.name] = item.value;
+        }
 
-            }
- 
-            if(!isInvalid) {
-              return alert('you can\'t save empty form, please provide some data');
-            }
+        if (item.value) {
+          isInvalid = true
+        }
 
+      }
 
-            //what happening here? changing save to favorites text and class
-            const text = $(this).find('a').text();
-            $(this).find('a').html(text === 'Сохранить в избранные' ? 'Удалить из Избранного' : 'Сохранить в избранные');
-            $(this).toggleClass('text-warning');
-            $(this).find('i').toggleClass('far fas');
-
-            if(deleteFavorite()) {
-              return;
-            }
-
-            var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-            $.ajax({
-                method: "POST",
-                url: "{% url 'save_favorite_search' %}",
-                data: {
-                  ...formatedData,
-                  csrfmiddlewaretoken
-                },
-                success: function(response) {
-                  savedId = response.id;
-                  alert('search added to favorite successfuly');
-                },
-
-                error: function(err) {
-                  alert(err.responseText);
-                }
-            })
-          });
-
-          $("button[type='reset']").click(function(){
-              $("#save-query").removeClass('text-warning');
-              $("#save-query").find('a').text('Save to Favorites');
-              $("#save-query").find('i').removeClass('fas').addClass('far');
-              $('.multiselect').selectpicker('deselectAll');
-              savedId = null;
-
-          });
-
-          function deleteFavorite() {
-            var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-            if(!savedId) {
-              savedId = $('input#savedId').val();
-              $('input#savedId').val('');
-            }
+      if (!isInvalid) {
+        return alert('you can\'t save empty form, please provide some data');
+      }
 
 
-            if(savedId) {
+      //what happening here? changing save to favorites text and class
+      const text = $(this).find('a').text();
+      $(this).find('a').html(text === 'Сохранить в избранные' ? 'Удалить из Избранного' : 'Сохранить в избранные');
+      $(this).toggleClass('text-warning');
+      $(this).find('i').toggleClass('far fas');
 
-              $.ajax({
-                method: "POST",
-                url: "{% url 'save_favorite_search' %}",
-                data: {
-                  delete_id: savedId,
-                  csrfmiddlewaretoken
-                },
-                success: function(response) {
-                  savedId = response.id;
-                  alert('search query removed from favorites');
-                },
+      if (deleteFavorite()) {
+        return;
+      }
 
-                error: function(err) {
-                  alert(err.responseText);
-                }
-              });
+      var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+      $.ajax({
+        method: "POST",
+        url: "{% url 'save_favorite_search' %}",
+        data: {
+          ...formatedData,
+          csrfmiddlewaretoken
+        },
+        success: function (response) {
+          savedId = response.id;
+          alert('search added to favorite successfuly');
+        },
 
-              return true;
-            }
+        error: function (err) {
+          alert(err.responseText);
+        }
+      })
+    });
 
-            return false;
+    $("button[type='reset']").click(function () {
+      $("#save-query").removeClass('text-warning');
+      $("#save-query").find('a').text('Save to Favorites');
+      $("#save-query").find('i').removeClass('fas').addClass('far');
+      $('.multiselect').selectpicker('deselectAll');
+      savedId = null;
 
+    });
+
+    function deleteFavorite() {
+      var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+      if (!savedId) {
+        savedId = $('input#savedId').val();
+        $('input#savedId').val('');
+      }
+
+
+      if (savedId) {
+
+        $.ajax({
+          method: "POST",
+          url: "{% url 'save_favorite_search' %}",
+          data: {
+            delete_id: savedId,
+            csrfmiddlewaretoken
+          },
+          success: function (response) {
+            savedId = response.id;
+            alert('search query removed from favorites');
+          },
+
+          error: function (err) {
+            alert(err.responseText);
           }
-      });
-    </script>
+        });
 
-    <script>
-      $(document).ready(function(){
-          const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
-          let search_query = {};
+        return true;
+      }
 
-          $("#pc-search-button").click(function(e){
-              e.preventDefault();
-              const formData = $("#main-searchform").serializeArray();
-              let data = {};
+      return false;
 
-              //formating data for query
-              for(let item of formData) {
-                if(item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
-                  data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
-                } else {
-                  data[item.name] = item.value;
-                }
-              }
+    }
+  });
+</script>
 
-              //show loader
-              $("#input-container").html(loader);
+<script>
+  $(document).ready(function () {
+    const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
+    let search_query = {};
 
-              //save query for future use
-              search_query = data;
+    $("#pc-search-button").click(function (e) {
+      e.preventDefault();
+      const formData = $("#main-searchform").serializeArray();
+      let data = {};
 
-              //fetch data from server
-              $.ajax({
-                method: 'GET',
-                url: "{% url 'post_search' %}",
-                data: {
-                  ...data
-                },
-    
-                success: function(resp) {
-                    $("#input-container").html(resp);
-                },
-                error: function(err) {
-                  console.log(err.responseText);
-                }
-              })
-          });
+      //formating data for query
+      for (let item of formData) {
+        if (item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
+          data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+        } else {
+          data[item.name] = item.value;
+        }
+      }
+
+      //show loader
+      $("#input-container").html(loader);
+
+      //save query for future use
+      search_query = data;
+
+      //fetch data from server
+      $.ajax({
+        method: 'GET',
+        url: "{% url 'post_search' %}",
+        data: {
+          ...data
+        },
+
+        success: function (resp) {
+          $("#input-container").html(resp);
+        },
+        error: function (err) {
+          console.log(err.responseText);
+        }
+      })
+    });
 
 
-          $("#orderby").change(function(e){
-            let sortBy = this.value;
-            //show loader
-            $("#input-container").html(loader);
-            $.ajax({
-              method: 'GET',
-              url: "{% url 'post_search' %}",
-              data: {
-                ...search_query,
-                sortBy
-              },
-  
-              success: function(resp) {
-                  $("#input-container").html(resp);
-              },
-              error: function(err) {
-                console.log(err.responseText);
-              }
-            })
-          })
-      });
-    </script>
+    $("#orderby").change(function (e) {
+      let sortBy = this.value;
+      //show loader
+      $("#input-container").html(loader);
+      $.ajax({
+        method: 'GET',
+        url: "{% url 'post_search' %}",
+        data: {
+          ...search_query,
+          sortBy
+        },
 
-  </body>
+        success: function (resp) {
+          $("#input-container").html(resp);
+        },
+        error: function (err) {
+          console.log(err.responseText);
+        }
+      })
+    })
+  });
+
+</script>
+
+
+<script>
+  //logout user if user in idle mode without any activity
+  //after 10 minutues with no activity user will loggedout by this script
+  let timerId;
+  //fisrt 1000 miliseconds 60 is convert to minutes 25 is convert 60 min ok
+  const interval = 1000 * 60 * 60;
+
+  function logout() {
+
+    let csrftoken = '{{ csrf_token }}';
+    let logout_url = "{% url 'logout' %}";
+    let login_url = "{% url 'login' %}";
+
+    $.ajax({
+      method: 'POST',
+      url: logout_url,
+      headers: { 'X-CSRFToken': csrftoken },
+      success: function (resp) {
+        console.log(resp)
+        window.location.assign(login_url);
+      },
+      error: function (resp) {
+        console.log(resp);
+      }
+    })
+  }
+
+  function reset() {
+    clearTimeout(timerId);
+    timerId = setTimeout(logout, interval);
+  }
+
+
+
+  {% if request.user.is_authenticated %}
+  timerId = setTimeout(logout, interval);
+  $('body').mousemove(reset).click(reset).scroll(reset);
+  {% endif %}
+</script>
+</body>
+
 </html>

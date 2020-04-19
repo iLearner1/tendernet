@@ -61,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'tn_first.middleware.SaveCurrentDomain'
 ]
 
 ROOT_URLCONF = "tn_first.urls"
@@ -102,9 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
 
@@ -144,12 +145,17 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"  # Сервер для отправки сообщений
 EMAIL_HOST_USER = "tendernet.kz@gmail.com"  # имя пользователя
 EMAIL_HOST_PASSWORD = "tendernetkz2020"  # пароль от ящика
 EMAIL_PORT = 587  # порт для подключения
 EMAIL_USE_TLS = True  # использование протокола шифрования
-DEFAULT_FROM_EMAIL = "email@tendernet.kz"  # email, с которого будет отправлено письмо
+# email, с которого будет отправлено письмо
+DEFAULT_FROM_EMAIL = "email@tendernet.kz"
+
+# revice mail after contact form submit
+CONTACT_MAIL_RECEIVER = 'nurzhol.t@gmail.com'
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "index"
@@ -158,6 +164,28 @@ LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 # it will need for show warning message if user seaech with empty value
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+# CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_CACHE_BACKEND = 'django-cache'
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
+
+# cache backend
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+
 if not DEBUG:
     # uncomment for server/ comment for local server
     # now user don't have to commnent uncomment above line everytime just have to change

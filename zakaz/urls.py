@@ -6,6 +6,6 @@ urlpatterns = [
     path('basket_adding_doc/', views.basket_adding_doc, name="basket_adding_doc"),
     path('pko/', views.pko, name="pko"),
     path('iso/', views.iso, name="iso"),
-
-
+    path('legal/', views.legal, name='legal'),
+    path('outsourcing/', views.outsourcing, name='outsourcing'),
 ]

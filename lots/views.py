@@ -8,7 +8,8 @@ from .models import Article, FavoriteSearch, Cities
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
-import datetime, json
+import datetime
+import json
 from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 
 
@@ -187,7 +188,8 @@ def save_favorite_search(request):
         content["city[]"] = request.POST.getlist("city[]")
 
     if "purchase_method[]" in content:
-        content["purchase_method[]"] = request.POST.getlist("purchase_method[]")
+        content["purchase_method[]"] = request.POST.getlist(
+            "purchase_method[]")
 
     if "statzakup[]" in content:
         content["statzakup[]"] = request.POST.getlist("statzakup[]")
@@ -203,7 +205,8 @@ def favorite_search_list(request):
     page_number = request.GET.get("page")
     favorite_searches = paginator.get_page(page_number)
     return render(
-        request, "favorite_search_list.html", {"favorite_searches": favorite_searches}
+        request, "favorite_search_list.html", {
+            "favorite_searches": favorite_searches}
     )
 
 
@@ -217,6 +220,14 @@ def remove_favorite_search(request, id):
 
 def archived_post(request):
     posts = Article.objects.filter(date__lt=timezone.now())
+    if request.GET.get('q'):
+        q = request.GET.get('q')
+        posts = Article.objects.filter(
+            (Q(title__icontains=q) |
+             Q(body__icontains=q) |
+             Q(city__name__icontains=q)) &
+            Q(date__lt=timezone.now())
+        )
     paginator = Paginator(posts, 10)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)

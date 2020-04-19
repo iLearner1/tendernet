@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Service Notification</h2>
+
+    <table>
+        <tr>
+            <th>Field 1</th>
+            <th>Field 2</th>
+            <th>Field 3</th>
+            <th>Phone</th>
+        </tr>
+        <tr>
+            <td>{{form.field}}</td>
+            <td>{{form.field2}}</td>
+            <td>{{form.field3}}</td>
+            <td>{{form.Phone}}</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

@@ -46,6 +46,10 @@
                         <td>{{ post.get_statzakup_display }}</td>
                       </tr>
                       <tr>
+                        <td><b>открытая дата:</b></td>
+                        <td>{{ post.date_open|date:"d.m.Y" }}</td>
+                      </tr>
+                      <tr>
                         <td><b>Дата закрытия:</b></td>
                         <td>{{ post.date|date:"d.m.Y" }}</td>
                       </tr>
@@ -82,17 +86,20 @@
                     {% if request.user.is_authenticated %}
                     {% if is_favourite %}
                     <!-- <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="background: #ffe004; color: #000;"><i class="fas fa-star"></i> Добавлено в избранное</a> -->
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="color: #ffe004;"><i class="fas fa-star"></i>удалить из Избранного</a>
+                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="color: #ffe004;"><i
+                        class="fas fa-star"></i>удалить из Избранного</a>
                     {% else %}
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}"><i class="far fa-star"></i> Добавить в избранное</a>
+                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}"><i class="far fa-star"></i>
+                      Добавить в избранное</a>
                     {% endif %}
                     {% else %}
-                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}"><i class="far fa-star"></i> Добавить в избранное</a>
+                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}"><i class="far fa-star"></i>
+                      Добавить в избранное</a>
                     {% endif %}
                     <br>
                   </div>
                   <div>
-                    <br> 
+                    <br>
                     <h6 class="margin-bottom-10">Поделиться в соц. сетях:</h6>
                     <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
                     <script src="https://yastatic.net/share2/share.js"></script>
@@ -107,59 +114,76 @@
                   <div class="tender-summary">
                     <div class="buttons">
 
-                      <script type = "text/javascript">
-                         function uchastvovatFunction() {
-                            if (confirm("Вы действительно желаете участвовать?")){
-                               // do stuff
-                            } else {
-                              return false;
-                            }
+                      <script type="text/javascript">
+                        function uchastvovatFunction() {
+                          if (confirm("Вы действительно желаете участвовать?")) {
+                            // do stuff
+                          } else {
+                            return false;
                           }
+                        }
                       </script>
 
                       {% if request.user.is_authenticated %}
                       {% if user.profile.tarif.id > 1 %}
-                      <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}" style="width: 100%;">
+                      <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}"
+                        style="width: 100%;">
                         {% csrf_token %}
-                        <button type="submit" id="submit_btn1" class="button contact-button" data-product_id1 = "{{ post.id }}" data-user_name1 ="{{ request.user.id }}" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;" onclick="return uchastvovatFunction();">
+                        <button type="submit" id="submit_btn1" class="button contact-button"
+                          data-product_id1="{{ post.id }}" data-user_name1="{{ request.user.id }}"
+                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                          onclick="return uchastvovatFunction();">
                           Участвовать
                         </button>
                       </form>
                       {% else %}
-                      <a href="{% url 'profile' %}" onclick="return uchastvovatFunction();"><button class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
+                      <a href="{% url 'profile' %}" onclick="return uchastvovatFunction();"><button
+                          class="button contact-button"
+                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
                       {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}" onclick="return uchastvovatFunction();"><button class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
+                      <a href="{% url 'login' %}?next={{ request.path }}"
+                        onclick="return uchastvovatFunction();"><button class="button contact-button"
+                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
-                      <a href="{{ post.down.url }}" class="save" target="_blank" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                      <a href="{{ post.down.url }}" class="save" target="_blank"
+                        style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                          class="fa fa-download"></i>&nbsp;Скачать документацию</a>
                     </div>
                   </div>
 
                   <div class="tender-summary" style="margin-top: 20px;">
                     <div class="buttons">
 
-                      <script type = "text/javascript">
-                         function documentFunction() {
-                            if (confirm("Вы заказываете аудит конкурсной документации, чтобы узнать полный перечень документов для участия в этом тендере.\nУслуга платная и составляет 9500 тенге.\nЕсли вы согласны, будете перенаправлены на страницу оплаты.")){
-                               // do stuff
-                            } else {
-                              return false;
-                            }
+                      <script type="text/javascript">
+                        function documentFunction() {
+                          if (confirm("Вы заказываете аудит конкурсной документации, чтобы узнать полный перечень документов для участия в этом тендере.\nУслуга платная и составляет 9500 тенге.\nЕсли вы согласны, будете перенаправлены на страницу оплаты.")) {
+                            // do stuff
+                          } else {
+                            return false;
                           }
+                        }
                       </script>
 
-                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы для участия</h6>
+                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы
+                        для участия</h6>
                       {% if request.user.is_authenticated %}
                       {% if user.profile.tarif.id > 1 %}
-                      <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}" style="width: 100%;">
+                      <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}"
+                        style="width: 100%;">
                         {% csrf_token %}
-                        <button type="submit" id="submit_btn_doc" class="button contact-button" data-product_id = "{{ post.id }}" data-user_name ="{{ request.user.id }}" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;" onclick="return documentFunction();">Запросить документы</button>
+                        <button type="submit" id="submit_btn_doc" class="button contact-button"
+                          data-product_id="{{ post.id }}" data-user_name="{{ request.user.id }}"
+                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                          onclick="return documentFunction();">Запросить документы</button>
                       </form>
                       {% else %}
-                      <a href="{% url 'profile' %}" onclick="return documentFunction();"><button class="button contact-button">Запросить документы</button></a>
+                      <a href="{% url 'profile' %}" onclick="return documentFunction();"><button
+                          class="button contact-button">Запросить документы</button></a>
                       {% endif %}
                       {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}" onclick="return documentFunction();"><button class="button contact-button">Запросить документы</button></a>
+                      <a href="{% url 'login' %}?next={{ request.path }}" onclick="return documentFunction();"><button
+                          class="button contact-button">Запросить документы</button></a>
 
                       {% endif %}
                     </div>
@@ -174,7 +198,8 @@
               <div class="personal-information details-section" style="width: 100%;">
                 <h4><i data-feather="align-left"></i> Список необходимых документов</h4>
 
-                <iframe width="100%" style="min-height: 400px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTQgmT2h0qcXRGmRsYrZ5U2CZIsje3pXdto43oiYNibrONBTemcIr_zSIO744nenq0dieGQbAcrNZEY/pubhtml?widget=true&amp;headers=false"></iframe>
+                <iframe width="100%" style="min-height: 400px"
+                  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTQgmT2h0qcXRGmRsYrZ5U2CZIsje3pXdto43oiYNibrONBTemcIr_zSIO744nenq0dieGQbAcrNZEY/pubhtml?widget=true&amp;headers=false"></iframe>
 
                 <div class="table-responsive" style="display: none;">
 
@@ -185,97 +210,97 @@
                       display: flex;
                       -webkit-box-orient: horizontal;
                       -webkit-box-direction: normal;
-                          -ms-flex-direction: row;
-                              flex-direction: row;
+                      -ms-flex-direction: row;
+                      flex-direction: row;
                     }
 
 
                     .table-responsive-stack td,
                     .table-responsive-stack th {
-                       display:block;
-                    /*      
+                      display: block;
+                      /*      
                        flex-grow | flex-shrink | flex-basis   */
-                       -ms-flex: 1 1 auto;
-                        flex: 1 1 auto;
+                      -ms-flex: 1 1 auto;
+                      flex: 1 1 auto;
                     }
 
                     .table-responsive-stack .table-responsive-stack-thead {
-                       font-weight: bold;
+                      font-weight: bold;
                     }
 
                     @media screen and (max-width: 768px) {
-                       .table-responsive-stack tr {
-                          -webkit-box-orient: vertical;
-                          -webkit-box-direction: normal;
-                              -ms-flex-direction: column;
-                                  flex-direction: column;
-                          border-bottom: 3px solid #ccc;
-                          display:block;
-                          
-                       }
-                       /*  IE9 FIX   */
-                       .table-responsive-stack td {
-                          float: left\9;
-                          width:100%;
-                       }
-                    }
+                      .table-responsive-stack tr {
+                        -webkit-box-orient: vertical;
+                        -webkit-box-direction: normal;
+                        -ms-flex-direction: column;
+                        flex-direction: column;
+                        border-bottom: 3px solid #ccc;
+                        display: block;
 
+                      }
+
+                      /*  IE9 FIX   */
+                      .table-responsive-stack td {
+                        float: left\9;
+                        width: 100%;
+                      }
+                    }
                   </style>
                   <script>
-                    $(document).ready(function() {
+                    $(document).ready(function () {
 
-                     // inspired by http://jsfiddle.net/arunpjohny/564Lxosz/1/
-                     $('.table-responsive-stack').find("th").each(function (i) {
-                        
-                        $('.table-responsive-stack td:nth-child(' + (i + 1) + ')').prepend('<div class="table-responsive-stack-thead">'+ $(this).text() + ':</div> ');
+                      // inspired by http://jsfiddle.net/arunpjohny/564Lxosz/1/
+                      $('.table-responsive-stack').find("th").each(function (i) {
+
+                        $('.table-responsive-stack td:nth-child(' + (i + 1) + ')').prepend('<div class="table-responsive-stack-thead">' + $(this).text() + ':</div> ');
                         $('.table-responsive-stack-thead').hide();
-                     });
-
-                      $( '.table-responsive-stack' ).each(function() {
-                        var thCount = $(this).find("th").length; 
-                         var rowGrow = 100 / thCount + '%';
-                         //console.log(rowGrow);
-                         $(this).find("th, td").css('flex-basis', rowGrow);   
                       });
-                         
-                         
-                         
-                         
-                      function flexTable(){
-                         if ($(window).width() < 768) {
-                            
-                         $(".table-responsive-stack").each(function (i) {
+
+                      $('.table-responsive-stack').each(function () {
+                        var thCount = $(this).find("th").length;
+                        var rowGrow = 100 / thCount + '%';
+                        //console.log(rowGrow);
+                        $(this).find("th, td").css('flex-basis', rowGrow);
+                      });
+
+
+
+
+                      function flexTable() {
+                        if ($(window).width() < 768) {
+
+                          $(".table-responsive-stack").each(function (i) {
                             $(this).find(".table-responsive-stack-thead").show();
                             $(this).find('thead').hide();
-                         });
-                            
-                          
-                         // window is less than 768px   
-                         } else {
-                            
-                            
-                         $(".table-responsive-stack").each(function (i) {
+                          });
+
+
+                          // window is less than 768px   
+                        } else {
+
+
+                          $(".table-responsive-stack").each(function (i) {
                             $(this).find(".table-responsive-stack-thead").hide();
                             $(this).find('thead').show();
-                         });
-                            
-                            
+                          });
 
-                         }
-                      // flextable   
-                      }      
-                       
+
+
+                        }
+                        // flextable   
+                      }
+
                       flexTable();
-                         
-                      window.onresize = function(event) {
-                          flexTable();
+
+                      window.onresize = function (event) {
+                        flexTable();
                       };
-                        
+
                       // document ready  
-                      });
+                    });
                   </script>
 
-                  <table class="table table-bordered table-striped table-responsive-stack"  id="tableOne">
+                  <table class="table table-bordered table-striped table-responsive-stack" id="tableOne">
                     <thead class="thead-dark">
                       <tr>
                         <th class="w-50">Наименование документа</th>
@@ -288,46 +313,59 @@
                         <td>Конкурсная документация</td>
                         <td>Нет</td>
                         <td>
-                          <a href="javascript:void(0);" class="save" style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть документацию</a>
+                          <a href="javascript:void(0);" class="save"
+                            style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть
+                            документацию</a>
                         </td>
                       </tr>
                       <tr>
                         <td>Проект договора об электронных закупках</td>
                         <td>Нет</td>
                         <td>
-                          <a href="javascript:void(0);" class="save" style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть документацию</a>
+                          <a href="javascript:void(0);" class="save"
+                            style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть
+                            документацию</a>
                         </td>
                       </tr>
                       <tr>
                         <td>Приложение 1 (Перечень лотов)</td>
                         <td>Да</td>
                         <td>
-                          <a href="javascript:void(0);" class="save" style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть документацию</a>
+                          <a href="javascript:void(0);" class="save"
+                            style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть
+                            документацию</a>
                         </td>
                       </tr>
                       <tr>
-                        <td>Приложение 1-4 (Квалификационные требования, предъявляемые к потенциальному поставщику при осуществлении государственных закупок услуг)</td>
+                        <td>Приложение 1-4 (Квалификационные требования, предъявляемые к потенциальному поставщику при
+                          осуществлении государственных закупок услуг)</td>
                         <td>Нет</td>
                         <td>
-                          <a href="javascript:void(0);" class="save" style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть документацию</a>
+                          <a href="javascript:void(0);" class="save"
+                            style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть
+                            документацию</a>
                         </td>
                       </tr>
                       <tr>
                         <td>Приложение 2-3 (Техническая спецификация)</td>
                         <td>Да</td>
                         <td>
-                          <a href="javascript:void(0);" class="save" style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть документацию</a>
+                          <a href="javascript:void(0);" class="save"
+                            style="display: block;width: 100%;margin-right: 0;"><i class="fa fa-eye"></i>&nbsp;Смотреть
+                            документацию</a>
                         </td>
                       </tr>
                       <tr>
-                        <td>Приложение 4 (Соглашение об участии в конкурсе) Да (/uploads/template/konkurs_application_4.docx)</td>
+                        <td>Приложение 4 (Соглашение об участии в конкурсе) Да
+                          (/uploads/template/konkurs_application_4.docx)</td>
                         <td>Да</td>
                         <td>
                           Нет действий
                         </td>
                       </tr>
                       <tr>
-                        <td>Приложение 6 (Сведения о квалификации Поставщика при закупках услуг) (/uploads/template/konkurs_application_6.docx)</td>
+                        <td>Приложение 6 (Сведения о квалификации Поставщика при закупках услуг)
+                          (/uploads/template/konkurs_application_6.docx)</td>
                         <td>Да</td>
                         <td>
                           Нет действий
@@ -341,7 +379,9 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>Приложение 10 (Сведения о субподрядчиках по выполнению работ (соисполнителях при оказании услуг)) / Документы по квалиф. требованиям Субподрядчиков (/uploads/template/konkurs_application_10.docx)</td>
+                        <td>Приложение 10 (Сведения о субподрядчиках по выполнению работ (соисполнителях при оказании
+                          услуг)) / Документы по квалиф. требованиям Субподрядчиков
+                          (/uploads/template/konkurs_application_10.docx)</td>
                         <td>Нет</td>
                         <td>
                           Нет действий
@@ -379,7 +419,7 @@
                   </table>
 
                 </div>
-                
+
               </div>
             </div>
 

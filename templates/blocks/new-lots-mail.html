@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Lots Notification</title>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div style="width: 700px; margin: 0 auto;">
+        <div style="text-align: center; width: 100%; padding: 10px; margin-bottom: 10px;">
+            <h3>New Lots published</h1>
+                <p>
+                    You may interested about this lot please check it out for details
+                </p>
+        </div>
+        <div class="tender-list half-grid" style="
+            width: 100%;
+            -webkit-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            transition: all .3s ease;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 30px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background: #ffffff;
+            margin-bottom: 10px;
+        ">
+            <div class="body" style="    
+            padding-left: 30px;
+            width: calc(100% - 82px);
+            width: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between">
+                <div class="content" style="width: 50%;">
+                    <h4 style="
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: #232630;
+                    margin-bottom: 15px;
+                    margin-left: 0px;">
+                        <a href="{{host_url}}{{ article.get_absolute_url }}">
+                            {{ article.title }}
+                        </a>
+                    </h4>
+                    <div class="info">
+                        <div class="row" style="
+                        display: -ms-flexbox;
+                        display: flex;
+                        -ms-flex-wrap: wrap;
+                        flex-wrap: wrap;
+                        margin-right: -15px;
+                        margin-left: -15px;
+                        overflow: hidden;">
+                            <div class="col-md-5" style="
+                            position: relative;
+                            width: 100%;
+                            min-height: 1px;
+                            padding-right: 15px;
+                            padding-left: 15px;">
+                                Окончание: <br><b>{{ article.date }}</b>
+                            </div>
+                            <div class="col-md-7" style="
+                            position: relative;
+                            width: 100%;
+                            min-height: 1px;
+                            padding-right: 15px;
+                            padding-left: 15px;">
+                                <span class="office-location" style="
+                                margin-right: 15px;
+                                font-size: 14px;
+                                color: #6f7484;
+                                color: #000;">Регион: <b>{{ article.city }}</b></span><br>
+                                <span class="deadline">До завершения: <b>{{ date4 }}</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="more" style="text-align: left;">
+                    <span class="price" style="font-size: 16px!important;">
+                        <b>Сумма:</b><br>
+                        {{ article.price }} тг.
+                    </span><br>
+                    <div class="buttons" style="display: block;">
+                        <a href="{{host_url}}{{ article.get_absolute_url }}" class="button" style='
+                        padding: 6px 20px;
+                        font-family: " Roboto", sans-serif; font-weight: 500; font-size: 14px; background: #eb3547;
+                            border: 1px solid rgba(0, 0, 0, 0.08); color: #ffffff;'>ПОДРОБНЕЕ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -40,16 +40,25 @@
                 <div class="feature-content">
                   <h3>Хотите выигрывать тендеры? Обращайтесь к нам!</h3>
                   <p>
-                    Система сертификации качества ISO (ИСО) или сертификация систем качества – это сертификация, которая проводится на соответствие международным стандартам, установленным Международной Организацией по Стандартизации (ISO, International Organization for Standardization).
+                    Система сертификации качества ISO (ИСО) или сертификация систем качества – это сертификация, которая
+                    проводится на соответствие международным стандартам, установленным Международной Организацией по
+                    Стандартизации (ISO, International Organization for Standardization).
                   </p>
                   <p>
-                    Самая известная линейка стандартов – ISO 9000. В общих чертах, это принятый участниками организации консенсус по поводу управленческих практик на производстве, которые нужны для обеспечения надлежащего качества товаров.
+                    Самая известная линейка стандартов – ISO 9000. В общих чертах, это принятый участниками организации
+                    консенсус по поводу управленческих практик на производстве, которые нужны для обеспечения
+                    надлежащего качества товаров.
                   </p>
                   <p>
-                    Чтобы получить сертификат, нужно разработать и внедрить систему менеджмента качества (СМК). Для этого необходимо подготовить документацию, разобраться с требованиями, написать проект, нанять консультанта или отправить на обучения своего сотрудника, настроить систему, пройти экспертизу в лицензированной организации.
+                    Чтобы получить сертификат, нужно разработать и внедрить систему менеджмента качества (СМК). Для
+                    этого необходимо подготовить документацию, разобраться с требованиями, написать проект, нанять
+                    консультанта или отправить на обучения своего сотрудника, настроить систему, пройти экспертизу в
+                    лицензированной организации.
                   </p>
                   <p>
-                    Выгоды от настройки на предприятии системы менеджмента качества принято делить на внутренние (организационные) и внешние. Согласно исследованию, внутренние преимущества расположились в следующем порядке (опрос управляющих):
+                    Выгоды от настройки на предприятии системы менеджмента качества принято делить на внутренние
+                    (организационные) и внешние. Согласно исследованию, внутренние преимущества расположились в
+                    следующем порядке (опрос управляющих):
                   </p>
 
                   <ul>
@@ -64,7 +73,8 @@
                   <p>Виды сертификатов ISO</p>
 
                   <ul>
-                    <li>Сертификация ISO 18001 (OHSAS 18001) — Система менеджмента профессиональной безопасности и здоровья</li>
+                    <li>Сертификация ISO 18001 (OHSAS 18001) — Система менеджмента профессиональной безопасности и
+                      здоровья</li>
                     <li>Сертификация ISO 22000 (XACCП) — Система менеджмента безопасности пищевой продукции</li>
                     <li>Сертификация ISO 50001 — Система энергоменеджмента</li>
                     <li>Сертификат ISO 14001 — Система экологического менеджмента</li>
@@ -75,10 +85,12 @@
                   <hr>
 
                   <style>
-                    .iso-form label{
-                      display: block!important;
+                    .iso-form label {
+                      display: block !important;
                     }
-                    .iso-form input, .iso-form select{
+
+                    .iso-form input,
+                    .iso-form select {
                       height: auto;
                       min-width: 300px;
                       padding-left: 0px;
@@ -91,7 +103,8 @@
                       background: #fff;
                       box-shadow: none;
                     }
-                    .iso-form input[type=submit]{
+
+                    .iso-form input[type=submit] {
                       display: block;
                       width: 100%;
                       text-align: center;
@@ -102,7 +115,6 @@
                       font-size: 14px;
                     }
                   </style>
-
                   <form class="iso-form" method="POST">
                     <!-- Very Important csrf Token -->
                     {% csrf_token %}
@@ -118,45 +130,33 @@
                       </p>
                     </div>
                     <br>
-                    <input type="submit" name="Subscribe" class = 'btn btn-primary btn-lg'>
+                    <input type="submit" name="Subscribe" class='btn btn-primary btn-lg'>
                   </form>
-                  
                   <!-- Messages -->
-
-
-  <div>
-    {% if messages %}
-      {% for message in messages %}
-        <div style="border-radius:0;" {% if message.tags %} class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert" {% endif %}>
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      {% endfor %}
-    {% endif %}
-  </div>
-  <!-- End Messages -->
-
-
-
-
-
-
-
+                  <div>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div style="border-radius:0;" {% if message.tags %}
+                      class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert"
+                      {% endif %}>
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                  </div>
+                  <!-- End Messages -->
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 {% endblock %}
 
 {% include "blocks/footer.html" %}

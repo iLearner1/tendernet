@@ -122,3 +122,7 @@ dmypy.json
 #Env file 
 .env
 # End of https://www.gitignore.io/api/django
+*.bak
+*.dat
+*.pid
+*.dir 

@@ -22,8 +22,8 @@
             </div>
             <div class="col-md-6">
                 <div class="breadcrumb-form">
-                    <form action="{% url 'post_list' %}">
-                        <input type="text" placeholder="Поиск по названию" name="title">
+                    <form action="{% url 'archived_post' %}">
+                        <input type="text" placeholder="Поиск по названию" name="q">
                         <button><i data-feather="search"></i></button>
                     </form>
                 </div>
@@ -62,7 +62,7 @@
                                                 <div class="info">
                                                     <div class="row">
                                                         <div class="col-md-5">
-                                                            Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
+                                                            Окончание:<br><b>{{ article.date|date:"d/m/y" }}</b>
                                                         </div>
                                                         <div class="col-md-7">
                                                             <span class="office-location">Регион:

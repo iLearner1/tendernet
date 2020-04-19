@@ -13,10 +13,11 @@ from lots.filters import ArticleFilter
 from django.shortcuts import render, redirect
 from . import forms
 from django.core.mail import send_mail
-from tn_first.settings import EMAIL_HOST_USER
+from tn_first.settings import CONTACT_MAIL_RECEIVER
 from django.urls import reverse
 from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 from django.utils import timezone
+from .tasks import send_query, send_consultation_query
 
 
 def index(request):
@@ -42,16 +43,34 @@ def index(request):
         "ZAKUP_CHOICES": ZAKUP_CHOICES,
         "PURCHASE_CHOICES": PURCHASE_CHOICES,
     }
+    print(request.user.is_authenticated)
     return render(request, "index.html", context)
 
 
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        user = 'Anymouse'
+        if request.user.is_authenticated:
+            user = request.user.username
+
+        if (not name) and (not email) and (not message):
+            return redirect(request.META.get('HTTP_REFERER'))
+        send_query.delay(name, email, message)
+        messages.add_message(request, messages.SUCCESS,
+                             'Successfully sent your query to our team, we will contact with you soon')
+        return redirect('index')
+
+    return render(request, 'contact-page.html')
+
+
 def modal(request):
-    sub = forms.BookForm()
+    user = 'Anymouse'
     if request.method == "POST":
-        sub = forms.BookForm(request.POST)
-        subject = sub["name"].value()
-        message = sub["nomer"].value()
-        recepient = "askar9315@gmail.com"
-        send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently=False)
-        return HttpResponseRedirect("index")
-    return render(request, "blocks/modal.html", {"form": sub})
+        if request.user.is_authenticated:
+            user = request.user.username
+        send_consultation_query.delay(
+            request.POST.get('name'), request.POST.get('number'), user)
+        return redirect('index')
