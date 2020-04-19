@@ -1,0 +1,7 @@
+#create a new file name .env 
+#in same directory with this file
+#change this file as your requirements
+
+DEBUG=True
+
+ALLOWED_HOSTS="http://localhost,127.0.0.1"
