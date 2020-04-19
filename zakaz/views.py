@@ -1,7 +1,7 @@
 from django.contrib import messages
 
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from zakaz.models import Zakaz, Zakazdoc
 from django.views import View
@@ -40,8 +40,8 @@ def pko(request):
         sub = forms.Pko(request.POST)
         subject = 'ПКО с сайта Tendernet.kz'
         notify_admin_service.delay(sub.data, subject)
-
-        return render(request, 'success.html')
+        messages.add_message(request, messages.SUCCESS, 'Success')
+        return redirect('pko')
     return render(request, 'pko.html', {'form': sub})
 
 
@@ -52,8 +52,8 @@ def iso(request):
         sub = forms.Iso(request.POST)
         subject = 'ПКО с сайта Tendernet.kz'
         notify_admin_service.delay(sub.data, subject)
-
-        return render(request, 'success.html')
+        messages.add_message(request, messages.SUCCESS, 'Success')
+        return redirect('iso')
     return render(request, 'iso.html', {'form': sub})
 
 
@@ -63,8 +63,8 @@ def legal(request):
 
         sub = forms.Iso(request.POST)
         notify_admin_service.delay(sub.data, 'legal')
-
-        return render(request, 'success.html')
+        messages.add_message(request, messages.SUCCESS, 'Success')
+        return redirect('legal')
     return render(request, 'legal.html', {'form': sub})
 
 
@@ -74,6 +74,6 @@ def outsourcing(request):
 
         sub = forms.Iso(request.POST)
         notify_admin_service.delay(sub.data, 'outsourcing')
-
-        return render(request, 'success.html')
+        messages.add_message(request, messages.SUCCESS, 'Success')
+        return redirect('outsourching')
     return render(request, 'outsourcing.html', {'form': sub})
