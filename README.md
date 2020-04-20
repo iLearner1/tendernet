@@ -17,7 +17,7 @@ then run migrations
 if you are using any of the mail related service please make sure
 you have installed **redis**
 
-and run this command
+and run this command on linux
 `celery -A tn_first worker -l info`
 if you are on windows then
 `celery -A tn_first worker -l info --pool=solo`
