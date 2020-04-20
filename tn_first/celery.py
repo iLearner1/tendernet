@@ -6,7 +6,7 @@ from django.conf import settings
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tn_first.settings")
 
-app = Celery("tn_first", broker="redis://localhost:6379")
+app = Celery("tn_first", broker=settings.CELERY_BROKER_URL)
 
 app.config_from_object("django.conf:settings")
 
