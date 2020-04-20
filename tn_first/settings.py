@@ -24,7 +24,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 SECRET_KEY = "9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 # ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
 # ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
