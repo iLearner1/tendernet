@@ -1,5 +1,23 @@
 #To run This project follow the instructions below
 
+create a virtualenv for this, i prefer to use virtualenvwrapper
+if you don't have installed then follow the instructions below
+
+for **linux**
+`pip install virtualenvwrapper`
+
+for **windows**
+`pip install virtualenvwrapper-win`
+
+to create virtualenv
+`mkvirtualenv yourenvname`
+
+to activate
+`workon yourenvname`
+
+to see list of virtualenv on your machine
+`workon`
+
 install required defedency
 
 ```
