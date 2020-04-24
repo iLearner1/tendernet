@@ -10,39 +10,27 @@ from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 
 
 class Article(models.Model):
+    xml_id = models.BigIntegerField('Внешний код для Api', null=True)
+    customer_bin = models.CharField('Бин организатора', null=True, max_length=255, )
+    totalLots = models.FloatField(verbose_name='Кол-во лотов в объявлении', null=True)
+    title = models.CharField(max_length=255, verbose_name='Наименование лота', null=True)
+    itemZakup = models.CharField(max_length=255, verbose_name='Предмет закупки', null=True)
+    address = models.CharField(max_length=255, verbose_name='Место поставки', null=True)
+    addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
+    body = models.CharField(max_length=255, verbose_name='Заказчик:', null=True)
+    city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, verbose_name='Город')
+    numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
+    price = models.FloatField(verbose_name='Цена', null=True)
+    statzakup = models.CharField(max_length=10, choices=ZAKUP_CHOICES, default='draft', verbose_name='Способ закупки')
 
-    title = models.CharField(max_length=255, verbose_name="Наименование лота")
-    body = models.CharField(max_length=255, verbose_name="Заказчик:")
-    city = models.ForeignKey(
-        "Cities", null=True, on_delete=models.PROTECT, verbose_name="Город"
-    )
-    numb = models.CharField(
-        max_length=150, verbose_name="Номер лота", null=True)
-    price = models.FloatField(verbose_name="Цена", null=True)
-    statzakup = models.CharField(
-        max_length=10,
-        choices=ZAKUP_CHOICES,
-        default="draft",
-        verbose_name="Способ закупки",
-    )
-    purchase_method = models.CharField(
-        max_length=10,
-        choices=PURCHASE_CHOICES,
-        default="product",
-        verbose_name="Предмет закупки",
-    )
-    date = models.DateTimeField(verbose_name="Дата закрытия:", null=True)
-    date_open = models.DateTimeField(verbose_name="Дата открытия:", null=True)
-    yst = models.URLField(max_length=255, verbose_name="Ссылка", null=True)
-    down = models.FileField(
-        upload_to="media/", verbose_name="Документы для закгрузки", null=True
-    )
-    status = models.BooleanField(
-        default=True, verbose_name="Опубликован", db_index=True
-    )
-    slug = models.SlugField(null=False, unique=True)
-    favourite = models.ManyToManyField(
-        User, related_name="favourite", blank=True)
+    date = models.DateTimeField(verbose_name='Дата закрытия:', null=True, default=True)
+    date_open = models.DateTimeField(verbose_name='Дата открытия:', null=True, default=True)
+    yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
+    sign_reason_doc_name = models.CharField('Наименование подтверждающего документа', max_length=255, null=True)
+    down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
+    status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
+    slug = models.SlugField(null=False, unique=False)
+    favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
     def __str__(self):
         return self.title
