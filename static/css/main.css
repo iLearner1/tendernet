@@ -26,7 +26,7 @@ h6 {
   margin-top: 0;
   margin-bottom: 0;
   color: inherit;
-        margin-left: 9px;
+  margin-left: 1px;
 }
 
 h1 a,
@@ -561,7 +561,7 @@ b{
 
   .dop-filter h6{
     text-align: left;
-          margin-left: 12px;
+    margin-left: 2px;
   }
 
   h1 {
@@ -613,6 +613,11 @@ b{
 
   .details-section{
     /*padding-left: 0!important;*/
+  }
+
+  .searchAndFilter input[type="text"]{
+    width: 100%!important;
+    margin-bottom: 0px;
   }
 
 }
@@ -978,6 +983,7 @@ b{
   font-size: 14px;
   color: #6f7484;
   padding-left: 12px;
+  margin-top: 10px;
 }
 
 .dop-filter select{
@@ -3632,6 +3638,10 @@ b{
   -webkit-box-shadow: none;
   box-shadow: none;
   margin-top: 10px;
+}
+
+.form-group select.form-control {
+  height: 64px!important;
 }
 
 .form-group input.form-control{

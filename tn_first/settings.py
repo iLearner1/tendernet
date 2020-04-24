@@ -156,7 +156,7 @@ EMAIL_USE_TLS = True  # использование протокола шифро
 DEFAULT_FROM_EMAIL = "email@tendernet.kz"
 
 # revice mail after contact form submit
-CONTACT_MAIL_RECEIVER = 'nurzhol.t@gmail.com'
+CONTACT_MAIL_RECEIVER = 'tendernetkz@mail.ru'
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "index"

@@ -20,7 +20,7 @@ def notify_subscriber_about_new_lots(lotId=None):
                             {'article': article, 'host_url': host_url})
 
     send_mail('new lots arrived', '', 'test@mail.com', [
-              'mdmotailab@gmail.com', CONTACT_MAIL_RECEIVER, *receiver], html_message=html, fail_silently=False)
+              'tendernetkz@mail.ru', CONTACT_MAIL_RECEIVER, *receiver], html_message=html, fail_silently=False)
 
 
 def findAllFavoriteSearchReceiver(article):
