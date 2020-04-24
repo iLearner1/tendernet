@@ -98,7 +98,7 @@ def post_detail(request, id, slug):
 
     return render(request, "article_detail.html", context)
 
-
+@login_required
 def post_favourite_list(request):
     user = request.user
     favourite_posts = user.favourite.all()
@@ -198,7 +198,7 @@ def save_favorite_search(request):
     f_search.save()
     return JsonResponse({"status": 201, "message": "success", "id": f_search.id})
 
-
+@login_required
 def favorite_search_list(request):
     query = FavoriteSearch.objects.filter(user=request.user).order_by("-id")
     paginator = Paginator(query, 25)

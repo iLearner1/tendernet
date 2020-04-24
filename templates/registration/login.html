@@ -37,7 +37,7 @@
                   Запомнить меня
                 </label>
               </div>
-              <a href="javascript:void();">Забыли пароль?</a>
+              <a href="{% url 'password_reset' %}">Забыли пароль?</a>
             </div>
             <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" value="Войти" class="button primary-bg btn-block">

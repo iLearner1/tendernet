@@ -35,6 +35,7 @@ ALLOWED_HOSTS = config(
 # Application definition
 
 INSTALLED_APPS = [
+    "django_crontab",
     "users.apps.UsersConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",

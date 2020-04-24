@@ -30,7 +30,7 @@ copy from data from **env-example** and paste inside `.env`
 then run migrations
 
 `python manage.py makemigrations`
-`python manage.py migrate`
+`python manage.py migrate` 
 
 if you are using any of the mail related service please make sure
 you have installed **redis**

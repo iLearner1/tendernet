@@ -17,5 +17,5 @@ def send_query(name=None, email=None, message=None, user=None):
 def send_consultation_query(name=None, phone=None, user=None):
     html = render_to_string('blocks/consultation-mail.html',
                             {'name': name, 'phone': phone, 'user': user})
-    send_mail('Получить консультацию/query', '', 'tendernet@mail.com',
+    send_mail('consultation/query', '', 'tendernet@mail.com',
               [CONTACT_MAIL_RECEIVER, 'tendernetkz@mail.ru'], html_message=html, fail_silently=False)
