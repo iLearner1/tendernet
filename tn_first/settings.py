@@ -25,12 +25,15 @@ SECRET_KEY = "9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-
-# ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz']
+DEBUG = False
+# ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz', 'https://www.tendernet.kz', 'https://tendernet.kz']
 # ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
+
+if DEBUG:
+    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22']
 
 # Application definition
 
@@ -139,7 +142,9 @@ USE_TZ = True
 # Static files
 STATIC_URL = "/static/"
 STATIC_ROOT = "/webapps/django_shop/tendernet/static"
+
 if DEBUG:
+    STATIC_ROOT = None
     STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Media files
