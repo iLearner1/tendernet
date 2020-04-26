@@ -132,8 +132,8 @@ b{
 .alice-bg {
   /*background: #f7f9fc;*/
   /*background: #1b1b1b;*/
-  /*background: #41728b;*/
-  background: #41728b;
+  /*background: #1b1b1b;*/
+  background: #1b1b1b;
 }
 
 .dop-filter{
@@ -951,7 +951,7 @@ b{
 ---------------------------------------------*/
 .searchAndFilter-wrapper {
   /*background: #f7f9fc;*/
-  background: #41728b;
+  background: #1b1b1b;
 }
 
 .searchAndFilter {
@@ -10833,18 +10833,4 @@ select::-ms-expand {
 
 .text-warning {
   color: #ffe004 !important;
-}
-
-.password-reset-form {
-  display: block;
-  width: 100%;
-  padding: .375rem .75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }

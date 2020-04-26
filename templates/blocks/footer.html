@@ -104,7 +104,8 @@
       }alert
 
       if (!isInvalid) {
-        return alert('you can\'t save empty form, please provide some data');
+        //return alert('you can\'t save empty form, please provide some data');
+        return alert('Вы не можете сохранить пустую форму, пожалуйста, предоставьте некоторые данные');
       }
 
 
@@ -128,7 +129,8 @@
         },
         success: function (response) {
           savedId = response.id;
-          alert('search added to favorite successfuly');
+          //alert('search added to favorite successfuly');
+          alert('Поиск успешно добавлен в избранное');
         },
 
         error: function (err) {
@@ -165,7 +167,8 @@
           },
           success: function (response) {
             savedId = response.id;
-            alert('search query removed from favorites');
+            //alert('search query removed from favorites');
+            alert('Поисковый запрос удален из избранного');
           },
 
           error: function (err) {

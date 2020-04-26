@@ -40,7 +40,7 @@ def pko(request):
         sub = forms.Pko(request.POST)
         subject = 'ПКО с сайта Tendernet.kz'
         notify_admin_service.delay(sub.data, subject)
-        messages.add_message(request, messages.SUCCESS, 'Success')
+        messages.add_message(request, messages.SUCCESS, 'Ваша заявка принята! В ближайшее время с вами свяжется менеджер.')
         return redirect('pko')
     return render(request, 'pko.html', {'form': sub})
 
@@ -52,7 +52,7 @@ def iso(request):
         sub = forms.Iso(request.POST)
         subject = 'ПКО с сайта Tendernet.kz'
         notify_admin_service.delay(sub.data, subject)
-        messages.add_message(request, messages.SUCCESS, 'Success')
+        messages.add_message(request, messages.SUCCESS, 'Ваша заявка принята! В ближайшее время с вами свяжется менеджер.')
         return redirect('iso')
     return render(request, 'iso.html', {'form': sub})
 
@@ -63,7 +63,7 @@ def legal(request):
 
         sub = forms.Iso(request.POST)
         notify_admin_service.delay(sub.data, 'legal')
-        messages.add_message(request, messages.SUCCESS, 'Success')
+        messages.add_message(request, messages.SUCCESS, 'Ваша заявка принята! В ближайшее время с вами свяжется менеджер.')
         return redirect('legal')
     return render(request, 'legal.html', {'form': sub})
 
@@ -74,6 +74,6 @@ def outsourcing(request):
 
         sub = forms.Iso(request.POST)
         notify_admin_service.delay(sub.data, 'outsourcing')
-        messages.add_message(request, messages.SUCCESS, 'Success')
+        messages.add_message(request, messages.SUCCESS, 'Ваша заявка принята! В ближайшее время с вами свяжется менеджер.')
         return redirect('outsourching')
     return render(request, 'outsourcing.html', {'form': sub})

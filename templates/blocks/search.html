@@ -22,8 +22,8 @@
 
                 <!-- {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %} -->
                 <select name="city" id="city_id" class=""  title="Регион">
+                    <option value="">Все регионы</option>
                     {% for city in cities %}
-                      <option value="">Все регионы</option>
                       <option value="{{city.id}}">{{city.name}}</option>
                     {% endfor%}
                 </select>
@@ -37,8 +37,8 @@
                     <div class="form-group">
                       <!-- {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} -->
                       <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                        {% for choice in ZAKUP_CHOICES %}
                           <option value="">Выбрать все</option>
+                        {% for choice in ZAKUP_CHOICES %}
                           <option value="{{choice.0}}">{{choice.1}}</option>
                         {% endfor%}
                       </select>
@@ -49,8 +49,8 @@
                     <h6>Предмет закупки</h6>
                     <div class="form-group">
                       <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">
-                        {% for choice in PURCHASE_CHOICES %}
                           <option value="">Выбрать все</option>
+                        {% for choice in PURCHASE_CHOICES %}
                           <option value="{{choice.0}}">{{choice.1}}</option>
                         {% endfor%}
                       </select>
@@ -62,24 +62,24 @@
                     <div class="form-row">
                       <!-- {% render_field myFilter.form.price class="form-control" %} -->
                       <div class="col-md-6">
-                        <input type="text" class="form-control" name="price_min" placeholder="Сумма от">
+                        <input type="number" min="0" class="form-control" name="price_min" placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                       </div>
                       <div class="col-md-6">
-                        <input type="text" class="form-control" name="price_max" placeholder="Сумма до">
+                        <input type="number" min="0" class="form-control" name="price_max" placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                       </div>
                     </div>
                   </div>
 
                   <div class="col-md-3">
-                    <h6 class="">Дата закрытия</h6>
+                    <h6 class="">Дата</h6>
                     <div class="form-row">
                     <div class="col-md-6">
                       <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
-                      <input type="text" name="date_min" placeholder="Начало" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
+                      <input type="text" name="date_min" placeholder="Начала" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
                     </div>
                     <div class="col-md-6">
                       <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
-                      <input type="text" name="date_max" placeholder="Окончание" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
+                      <input type="text" name="date_max" placeholder="Окончания" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
                     </div>
                     </div>
 

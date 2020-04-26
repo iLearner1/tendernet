@@ -38,6 +38,22 @@
               </div>
               <div class="col-lg-6 order-lg-1">
                 <div class="feature-content">
+                  <!-- Messages -->
+                  <div>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div style="border-radius:0;" {% if message.tags %}
+                      class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0"
+                      role="alert" {% endif %}>
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                  </div>
+                  <!-- End Messages -->
                   <h3>Услуга ПКО</h3>
                   <p>
                     Предварительный квалификационный отбор (ПКО) — процесс оценки потенциальных поставщиков
@@ -129,22 +145,6 @@
                         </div>
                         {% endfor %}
                       </p><br>
-                      <!-- Messages -->
-                      <div>
-                        {% if messages %}
-                        {% for message in messages %}
-                        <div style="border-radius:0;" {% if message.tags %}
-                          class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0"
-                          role="alert" {% endif %}>
-                          {{ message }}
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-                      </div>
-                      <!-- End Messages -->
                       <input type="submit" name="Subscribe" class='btn btn-primary btn-lg'>
                     </div>
                   </form>

@@ -38,6 +38,22 @@
               </div>
               <div class="col-lg-6 order-lg-1">
                 <div class="feature-content">
+                  <!-- Messages -->
+                  <div>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div style="border-radius:0;" {% if message.tags %}
+                      class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert"
+                      {% endif %}>
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                  </div>
+                  <!-- End Messages -->
                   <h3>Хотите выигрывать тендеры? Обращайтесь к нам!</h3>
                   <p>
                     Система сертификации качества ISO (ИСО) или сертификация систем качества – это сертификация, которая
@@ -130,22 +146,6 @@
                       </p>
                     </div>
                     <br>
-                    <!-- Messages -->
-                    <div>
-                      {% if messages %}
-                      {% for message in messages %}
-                      <div style="border-radius:0;" {% if message.tags %}
-                        class="alert alert-icon alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert"
-                        {% endif %}>
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      {% endfor %}
-                      {% endif %}
-                    </div>
-                    <!-- End Messages -->
                     <input type="submit" name="Subscribe" class='btn btn-primary btn-lg'>
                   </form>
                 </div>

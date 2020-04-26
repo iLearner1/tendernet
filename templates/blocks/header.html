@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/jquery.nstSlider.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v16.3">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v16.4">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
 
   <script src="{% static 'assets/js/jquery.min.js' %}"></script>
@@ -188,7 +188,7 @@
             <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
               aria-expanded="false">Услуги</a>
             <ul class="dropdown-menu">
-              <li class="menu-item"><a class="dropdown-item" href="{% url 'archived_post' %}">Archived Page</a></li>
+              <li class="menu-item"><a class="dropdown-item" href="{% url 'archived_post' %}">Архив лотов</a></li>
               <li class="menu-item"><a href="/pko">Прохождение ПКО</a></li>
               <li class="menu-item"><a href="/iso">Сертификаты ISO</a></li>
               <li class="menu-item"><a href="{% url 'legal' %}">Юридические услуги</a></li>
@@ -252,7 +252,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="{% url 'modal' %}" method="POST">
+              <form action="{% url 'modal' %}" method="POST" id="consultacia-form">
                 {% csrf_token %}
                 <div class="form-group">
                   <input type="text" placeholder="Ваше имя" class="form-control" name="name" required>
@@ -262,6 +262,14 @@
                 </div>
                 <button class="button primary-bg btn-block">Отправить</button>
               </form>
+              <script>
+                $(document).ready(function() {
+                    $("#consultacia-form").submit(function(e) {
+                        e.preventDefault();
+                        alert("Ваша заявка отправлена! В ближайшее время с вами свяжеться наш менеджер.");
+                    });
+                });
+              </script>
             </div>
           </div>
         </div>

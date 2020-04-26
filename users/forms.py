@@ -9,8 +9,8 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password Here...'}))
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password...'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль...'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль...'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
 
     class Meta:
@@ -21,13 +21,13 @@ class SignupForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
         if password != confirm_password:
-            raise forms.ValidationError("Password Mismatch")
+            raise forms.ValidationError("Пароли не совпадают")
         return confirm_password
 
     def clean(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise ValidationError("Email exists")
+            raise ValidationError("Такой Email уже существует")
         return self.cleaned_data
 
 class UserEditForm(forms.ModelForm):

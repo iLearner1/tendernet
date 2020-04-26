@@ -63,7 +63,7 @@ class Activate(View):
 
             return redirect('index')
         else:
-            return HttpResponse('Activation link is invalid!')
+            return HttpResponse('Ссылка на активации недействительна!')
 
 @login_required
 def edit_profile(request):
