@@ -19,6 +19,7 @@ class Article(models.Model):
     addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     body = models.CharField(max_length=255, verbose_name='Заказчик:', null=True)
     city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, verbose_name='Город')
+    purchase_method = models.CharField(max_length=255, verbose_name='Purchase Method', null=True)
     numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
     price = models.FloatField(verbose_name='Цена', null=True)
     statzakup = models.CharField(max_length=10, choices=ZAKUP_CHOICES, default='draft', verbose_name='Способ закупки')
