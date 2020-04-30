@@ -19,7 +19,10 @@ def post_list(request):
     purchase_method = request.GET.getlist("purchase_method[]")
     statzakup = request.GET.getlist("statzakup[]")
 
-    posts = Article.objects.filter()
+    posts = Article.objects.filter(
+        date__gte=timezone.now()
+    )
+
     myFilter = {}
 
     # dict compression
@@ -137,6 +140,10 @@ def post_search(request):
         for (k, v) in request.GET.items()
         if k not in ("sortBy", "city[]", "purchase_method[]", "statzakup[]")
     }
+
+    print("filters")
+    print(filters)
+
     for key in filters:
         if filters[key]:
             isValid = True
@@ -154,23 +161,104 @@ def post_search(request):
             return render(request, "lots-filter-result.html", context)
         return render(request, "error.html")
 
+    print("title")
+    print(request.GET.get('title'))
+
+
+
+    print("body")
+    print(request.GET.get('body'))
+
+    if request.GET.get('city[]'):
+        filters['id'] = request.GET.get('city[]')[0]
+
+    if request.GET.get('statzakup'):
+        filters['statzakup'] = request.GET.get('statzakup[]')[0]
+
+    if request.GET.get('purchase_method'):
+        filters['purchase_method'] = request.GET.get('purchase_method[]')[0]
+
+    print("filters")
+    print(filters)
+
     # applying multiple value filters in
-    queryset = Article.objects.filter(
-        Q(city__id__in=cities)
-        | Q(statzakup__in=statzakup)
-        | Q(purchase_method__in=purchase_method)
-    ).order_by(request.GET.get("sortBy", "date"))
+
+    queryset = Article.objects.filter(title__contains=request.GET.get('title')).order_by(request.GET.get("sortBy", "date"))
+
+    print(queryset.query)
 
     myFilter = ArticleFilter(filters, queryset=queryset)
+    print("myFilter")
+    print(myFilter)
+
+    print("myFilter.qs")
+    print(myFilter.qs)
+
     paginator = Paginator(myFilter.qs.order_by("-id"), 25)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
+
+    print(len(posts))
 
     context = {"posts": posts}
 
     if request.GET.get("lots"):
         return render(request, "lots-filter-result.html", context)
     return render(request, "main_filter_result.html", context)
+
+
+# def post_search(request):
+#     print("views.post_search")
+#     isValid = False
+#     cities = request.GET.getlist("city[]")
+#     purchase_method = request.GET.getlist("purchase_method[]")
+#     statzakup = request.GET.getlist("statzakup[]")
+#     print(request.GET)
+#
+#     filters = {
+#         k: v
+#         for (k, v) in request.GET.items()
+#         if k not in ("sortBy", "city[]", "purchase_method[]", "statzakup[]")
+#     }
+#     for key in filters:
+#         if filters[key]:
+#             isValid = True
+#
+#     if not isValid and not (cities or purchase_method or statzakup):
+#         # if no filter found only has sort value then onlye sort apply on this
+#
+#         if request.GET.get("sortBy"):
+#             myFilter = Article.objects.order_by(request.GET.get("sortBy"))
+#             paginator = Paginator(myFilter, 25)
+#             page_number = request.GET.get("page")
+#             posts = paginator.get_page(page_number)
+#
+#             context = {"posts": posts}
+#             return render(request, "lots-filter-result.html", context)
+#         return render(request, "error.html")
+#
+#     print("statzakup")
+#     print(statzakup)
+#     # applying multiple value filters in
+#     queryset = Article.objects.filter(
+#         Q(city__id__in=cities)
+#         | Q(statzakup__in=statzakup)
+#         | Q(purchase_method__in=purchase_method)
+#     ).order_by(request.GET.get("sortBy", "date"))
+#
+#     myFilter = ArticleFilter(filters, queryset=queryset)
+#     paginator = Paginator(myFilter.qs.order_by("-id"), 25)
+#     page_number = request.GET.get("page")
+#     posts = paginator.get_page(page_number)
+#
+#     print("posts")
+#     print(len(posts))
+#
+#     context = {"posts": posts}
+#
+#     if request.GET.get("lots"):
+#         return render(request, "lots-filter-result.html", context)
+#     return render(request, "main_filter_result.html", context)
 
 
 @login_required

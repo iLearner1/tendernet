@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 
@@ -18,6 +20,7 @@ from django.urls import reverse
 from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
 from django.utils import timezone
 from .tasks import send_query, send_consultation_query
+from tn_first import settings as tn_first_settings
 
 
 def index(request):
@@ -74,3 +77,15 @@ def modal(request):
         send_consultation_query.delay(
             request.POST.get('name'), request.POST.get('number'), user)
         return redirect('index')
+
+
+def sp_push_worker_fb_js(request):
+    file_path = tn_first_settings.BASE_DIR + '/static/js/sp-push-worker-fb.js'
+    file_content = open(file_path, "rb")
+    return HttpResponse(file_content)
+
+
+def sp_push_manifest_json(request):
+    file_path = tn_first_settings.BASE_DIR + '/static/json/sp-push-manifest.json'
+    file_content = open(file_path, "rb")
+    return HttpResponse(file_content)
