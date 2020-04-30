@@ -125,7 +125,7 @@
                       </div>
                     {% endfor %}
 
-                    <button type="button" class="btn btn-lg btn-block mt-auto button contact-button"><a href="{% url 'basket_list' %}" style="color:#fff;">Все заявки</a></button>
+                    <a href="{% url 'basket_list' %}" style="color:#fff;"><button type="button" class="btn btn-lg btn-block mt-auto button contact-button">Все заявки</button></a>
                   </div>
                 </div>
                 <div class="card col-md-6 box-shadow">
@@ -145,7 +145,7 @@
 
                       {% endfor %}
 
-                      <button type="button" class="btn btn-lg btn-block mt-auto button contact-button"><a href="{% url 'history_list' %}">Все действия</a></button>
+                      <a href="{% url 'history_list' %}"><button type="button" class="btn btn-lg btn-block mt-auto button contact-button">Все действия</button></a>
                     </div>
                 </div>
 
