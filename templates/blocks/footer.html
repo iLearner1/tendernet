@@ -193,6 +193,7 @@
     $("#pc-search-button").click(function (e) {
       e.preventDefault();
       const formData = $("#main-searchform").serializeArray();
+      console.log(formData)
       let data = {};
 
       //formating data for query
@@ -209,6 +210,9 @@
 
       //save query for future use
       search_query = data;
+      data['sortBy'] = $("#orderby options:selected").val();
+      console.log("data");
+      console.log(data);
 
       //fetch data from server
       $.ajax({
@@ -232,6 +236,8 @@
       let sortBy = this.value;
       //show loader
       $("#input-container").html(loader);
+      search_query['lots'] = true;
+
       $.ajax({
         method: 'GET',
         url: "{% url 'post_search' %}",

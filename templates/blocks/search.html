@@ -12,7 +12,8 @@
         <div class="searchAndFilter-block"  style="margin-top:20px;">
           <div class="searchAndFilter">
 
-            <form method="get" class="search-form" action="{% url 'post_search' %}" id="main-searchform">
+            <form method="POST" class="search-form" action="{% url 'post_list' %}" id="main-page-searchform">
+              {% csrf_token %}
 
                 {% render_field myHomeFilter.form.title class="" placeholder="Наименование лота" %}
 
@@ -28,7 +29,7 @@
                     {% endfor%}
                 </select>
 
-                <button type="submit" id="pc-search-button" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
+                <button type="submit" id="pc-search-button-main-page" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
 
               <div class="dop-filter" style="display: none;">
                 <div class="row">
@@ -88,7 +89,7 @@
 
               </div>
 
-              <button type="submit" id="mobile-search-button" class="button primary-bg display-none"><i class="fas fa-search"></i>Найти лоты</button>
+              <button type="submit" id="mobile-search-button-main-page" class="button primary-bg display-none"><i class="fas fa-search"></i>Найти лоты</button>
 
               <div class="filter-categories" style="text-align: center;">
 
@@ -121,8 +122,8 @@
                     $('#filter-more').hide();
                     $('#filter-hide').show();
                     if ($(window).width() < 767) {
-                      $('#mobile-search-button').show();
-                      $('#pc-search-button').hide();
+                      $('#mobile-search-button-main-page').show();
+                      $('#pc-search-button-main-page').hide();
                     }
                   });
                   $('#filter-hide').click(function(){
@@ -132,8 +133,8 @@
                     //$('#filter-hide-mobile').hide();
                     
                     if ($(window).width() < 767) {
-                      $('#mobile-search-button').hide();
-                      $('#pc-search-button').show();
+                      $('#mobile-search-button-main-page').hide();
+                      $('#pc-search-button-main-page').show();
                     }
                     
                   });
@@ -143,6 +144,15 @@
                   //   $('#filter-more').show();
                   //   $('#filter-hide-mobile').hide();
                   // });
+
+                  $("#pc-search-button-main-page").on('click', function() {
+                    $("#main-page-searchform").submit();
+                  });
+
+                  $("#mobile-search-button-main-page").on('click', function() {
+                    $("#main-page-searchform").submit();
+                  });
+
                 });
               </script>
 
