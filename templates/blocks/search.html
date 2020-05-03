@@ -39,7 +39,7 @@
                       <!-- {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} -->
                       <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
                         <option value="">Выбрать все</option>
-                        {% for choice in ZAKUP_CHOICES %}
+                        {% for choice in PURCHASE_METHOD_CHOICES %}
                           <option value="{{choice.0}}">{{choice.1}}</option>
                         {% endfor%}
                       </select>
@@ -49,9 +49,9 @@
                   <div class="col-md-3">
                     <h6>Предмет закупки</h6>
                     <div class="form-group">
-                      <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">
+                      <select name="subject_of_purchase" class="form-control" title="Предмет закупки">
                         <option value="">Выбрать все</option>
-                        {% for choice in PURCHASE_CHOICES %}
+                        {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
                           <option value="{{choice.0}}">{{choice.1}}</option>
                         {% endfor%}
                       </select>

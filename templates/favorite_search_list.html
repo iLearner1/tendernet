@@ -36,73 +36,132 @@
                 <div class="col-md-12">
                     {% for search in favorite_searches%}
 
-                    <div class="item">
-                      <div class="tender-list half-grid">
-                        <div class="body">
-                          <div class="content">
-                            <h4><a href="#">TITLE</a></h4>
-                            <div class="info">
-                              <div class="row">
-                                <div class="col-md-5">
-                                  Начало: <b>00.00.0000</b><br>
-                                  Окончание: <b>00.00.0000</b>
-                                </div>
-                                <div class="col-md-7">
-                                  <span class="office-location">Регион: <b>CITY</b></span><br>
-                                  <span class="deadline">До завершения: <b>0 д 00 ч 0 м</b></span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="more">
-                            <span class="price"><b>Сумма:</b><br>PRICE тг</span><br>
-                            <div class="buttons">
-                              <a href="#" class="button">ПОДРОБНЕЕ</a>
-                            </div>
-                            <div class="remove-button">
-                              <a href="#" class="confirmation"><i class="fa fa-trash"></i>&nbsp;Удалить</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+<!--                    <div class="item">-->
+<!--                      <div class="tender-list half-grid">-->
+<!--                        <div class="body">-->
+<!--                          <div class="content">-->
+<!--                            <h4><a href="#">TITLE</a></h4>-->
+<!--                            <div class="info">-->
+<!--                              <div class="row">-->
+<!--                                <div class="col-md-5">-->
+<!--                                  Начало: <b>00.00.0000</b><br>-->
+<!--                                  Окончание: <b>00.00.0000</b>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-7">-->
+<!--                                  <span class="office-location">Регион: <b>CITY</b></span><br>-->
+<!--                                  <span class="deadline">До завершения: <b>0 д 00 ч 0 м</b></span>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="more">-->
+<!--                            <span class="price"><b>Сумма:</b><br>PRICE тг</span><br>-->
+<!--                            <div class="buttons">-->
+<!--                              <a href="#" class="button">ПОДРОБНЕЕ</a>-->
+<!--                            </div>-->
+<!--                            <div class="remove-button">-->
+<!--                              <a href="#" class="confirmation"><i class="fa fa-trash"></i>&nbsp;Удалить</a>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
 
                         <div class="card p-4 mt-3">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p>lots name: {{search.query.title}}</p>
-                                    <p>customer: {{search.query.body}}</p>
-                                    <p>Lot id: {{search.query.id}}</p>
-                                    <p>Region:
-                                         {% if search.city %} 
+<!--                                    show title-->
+                                    {% if search.query.title %}
+                                        <p>Лоты имя: {{search.query.title}}</p>
+                                    {% else %}
+                                        <p>Лоты имя: Не выбран</p>
+                                    {% endif %}
+
+<!--                                    show customer-->
+                                    {% if search.query.customer %}
+                                        <p>Заказчик: {{search.query.customer}}</p>
+                                    {% else %}
+                                        <p>Заказчик: Не выбран</p>
+                                    {% endif %}
+
+<!--                                    show id -->
+                                    {% if search.query.id %}
+                                        <p>Лоты id: {{search.query.id}}</p>
+                                    {% else %}
+                                        <p>Лоты id: Не выбран</p>
+                                    {% endif %}
+
+<!--                                    show city-->
+                                    {% if search.city %}
+                                        <p>Город:
+                                         {% if search.city %}
                                             {% for city in search.city %}
                                                 {{city.name}},
                                             {% endfor %}
-                                         {%else%} 
-                                         'No Region Found' 
+                                         {%else%}
+                                         'Не выбран'
                                         {% endif %}
                                     </p>
-                                    <p>Purchase Method: 
+                                    {% else %}
+                                        <p>Город: Не выбран</p>
+                                    {% endif %}
+
+<!--                                    show purchase method-->
                                     {% if search.statzakup %}
-                                        {% for statzakup in search.statzakup %}
-                                           {{statzakup}},
-                                        {% endfor%}
-                                     {% endif %}
-                                    </p>
-                                    <p>
-                                        Purchase Subject:
-                                        {% if search.purchase_method %}
-                                            {% for purchase in search.purchase_method %}
-                                                {{purchase}},
+                                         <p>Способ закупки:
+                                        {% if search.statzakup %}
+                                            {% for statzakup in search.statzakup %}
+                                               {{statzakup}},
                                             {% endfor%}
+                                         {% else %}
+                                            'Не выбран'
                                          {% endif %}
-                                    </p>
+                                        </p>
+                                    {% else %}
+                                        <p>Способ закупки: Не выбран</p>
+                                    {% endif %}
+
+<!--                                    show subject of purchase-->
+                                    {% if search.itemZakup %}
+                                        <p>Предмет закупки:
+                                            {% if search.itemZakup %}
+                                                {% for purchase in search.itemZakup %}
+                                                    {{purchase}},
+                                                {% endfor%}
+                                            {% else %}
+                                                'Не выбран'
+                                            {% endif %}
+                                        </p>
+                                    {% else %}
+                                        <p>Предмет закупки: Не выбран</p>
+                                    {% endif %}
+
                                 </div>
                                 <div class="col-md-5">
-                                    <p>lots max-price: {{search.query.price_min}}</p>
-                                    <p>lots min-price: {{search.query.price_max}}</p>
-                                    <p>Start Date: {{search.query.date_min}}</p>
-                                    <p>End Date: {{search.query.date_max}}</p>
+                                    {% if search.query.price_min %}
+                                        <p>Лоты Максимум Цена: {{search.query.price_min}}</p>
+                                    {% else %}
+                                        <p>Лоты Максимум Цена: Не выбран</p>
+                                    {% endif %}
+
+                                    {% if search.query.price_max %}
+                                        <p>Лоты минимальный Цена: {{search.query.price_max}}</p>
+                                    {% else %}
+                                        <p>Лоты минимальный Цена: Не выбран</p>
+                                    {% endif %}
+
+                                    {% if search.query.date_min %}
+                                        <p>Начните Свидание: {{search.query.date_min}}</p>
+                                    {% else %}
+                                        <p>Начните Свидание: Не выбран</p>
+                                    {% endif %}
+
+                                    {% if search.query.date_max %}
+                                        <p>Конец Свидание: {{search.query.date_max}}</p>
+                                    {% else %}
+                                        <p>Конец Свидание: Не выбран</p>
+                                    {% endif %}
+
                                 </div>
                                 <div class="col-md-2">
                                      <form action="{% url 'post_list' %}" method="get">
@@ -116,15 +175,15 @@
                                             {% endfor%}
                                          {% endif %}
 
-                                         {% if search.purchase_method %}
-                                            {% for purchase in search.purchase_method %}
-                                                <input type="hidden" name="purchase_method[]" value="{{purchase}}">
-                                            {% endfor%}
-                                         {% endif %}
-
                                          {% if search.statzakup %}
                                             {% for statzakup in search.statzakup %}
                                                 <input type="hidden" name="statzakup[]" value="{{statzakup}}">
+                                            {% endfor%}
+                                         {% endif %}
+
+                                         {% if search.itemZakup %}
+                                            {% for subject in search.itemZakup %}
+                                                <input type="hidden" name="itemZakup[]" value="{{subject}}">
                                             {% endfor%}
                                          {% endif %}
 
@@ -133,6 +192,7 @@
                                          <input type="hidden" name="date_min" value="{{search.query.date_min}}">
                                          <input type="hidden" name="date_max" value="{{search.query.date_max}}">
                                          <input type="hidden" name="item_id" value="{{search.id}}">
+                                         <input type="hidden" name="lots" value="{{'lots'}}">
                                          <button class="btn btn-primary">Apply this to Search</button>
                                      </form>
                                      <div class="form-group">

@@ -6,26 +6,25 @@ from django.db import models
 from django.template.defaultfilters import slugify  # new
 from django.urls import reverse
 from django.contrib.auth.models import User
-from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
+from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOICES
 
 
 class Article(models.Model):
     xml_id = models.BigIntegerField('Внешний код для Api', null=True)
     customer_bin = models.CharField('Бин организатора', null=True, max_length=255, )
-    totalLots = models.FloatField(verbose_name='Кол-во лотов в объявлении', null=True)
+    totalLots = models.IntegerField(verbose_name='Кол-во лотов в объявлении', null=True)
     title = models.CharField(max_length=255, verbose_name='Наименование лота', null=True)
-    itemZakup = models.CharField(max_length=255, verbose_name='Предмет закупки', null=True)
+    itemZakup = models.CharField(max_length=255, choices=SUBJECT_OF_PURCHASE_CHOICES, default='product', verbose_name='Предмет закупки')
     address = models.CharField(max_length=255, verbose_name='Место поставки', null=True)
     addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
-    body = models.CharField(max_length=255, verbose_name='Заказчик:', null=True)
+    customer = models.CharField(max_length=255, verbose_name='Заказчик', null=True)
     city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, verbose_name='Город')
-    purchase_method = models.CharField(max_length=255, verbose_name='Purchase Method', null=True)
     numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
     price = models.FloatField(verbose_name='Цена', null=True)
-    statzakup = models.CharField(max_length=10, choices=ZAKUP_CHOICES, default='draft', verbose_name='Способ закупки')
+    statzakup = models.CharField(max_length=10, choices=PURCHASE_METHOD_CHOICES, default='draft', verbose_name='Способ закупки')
 
-    date = models.DateTimeField(verbose_name='Дата закрытия:', null=True)
-    date_open = models.DateTimeField(verbose_name='Дата открытия:', null=True)
+    date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
+    date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
     yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
     sign_reason_doc_name = models.CharField('Наименование подтверждающего документа', max_length=255, null=True)
     down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
@@ -98,14 +97,14 @@ class FavoriteSearch(models.Model):
             return Cities.objects.filter(id__in=query)
 
     @property
-    def purchase_method(self):
-        query = self.query.get("purchase_method[]")
+    def statzakup(self):
+        query = self.query.get("statzakup[]")
         if query:
             return query
 
     @property
-    def statzakup(self):
-        query = self.query.get("statzakup[]")
+    def itemZakup(self):
+        query = self.query.get("itemZakup[]")
         if query:
             return query
 

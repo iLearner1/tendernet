@@ -38,5 +38,5 @@ class ArticleFilter(django_filters.FilterSet):
 
     class Meta:
         model = Article
-        fields = ('title','body','id','statzakup', 'date', 'price',)
+        fields = ('title','customer','id','statzakup', 'date', 'price',)
         

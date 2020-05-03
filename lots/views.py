@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 import datetime
 import json
-from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
+from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOICES
 
 
 def post_list(request):
@@ -34,8 +34,16 @@ def post_list(request):
     print(request_object.items())
 
     cities = request_object.getlist("city[]")
-    purchase_method = request_object.getlist("purchase_method[]")
-    statzakup = request_object.getlist("statzakup[]")
+    print("cities")
+    print(cities)
+
+    purchase_method = request_object.getlist("statzakup[]")
+    print("purchase_method")
+    print(purchase_method)
+
+    purchase_subject = request_object.getlist("itemZakup[]")
+    print("purchase_subject")
+    print(purchase_subject)
 
     q = Q()
     q &= Q(date__gte=timezone.now())
@@ -58,17 +66,17 @@ def post_list(request):
     filters = {
         k: v
         for (k, v) in request_object.items()
-        if k != "city[]" or k != "purchase_method[]" or k != "statzakup[]"
+        if k != "city[]" or k != "itemZakup[]" or k != "statzakup[]"
     }
     print("filters")
     print(filters)
 
-    if cities or purchase_method or statzakup:
+    if cities or purchase_method or purchase_subject:
         print("if cities or purchase_method or statzakup:")
         posts = Article.objects.filter(
             Q(city__id__in=cities)
-            | Q(statzakup__in=statzakup)
-            | Q(purchase_method__in=purchase_method)
+            | Q(itemZakup__in=purchase_subject)
+            | Q(statzakup__in=purchase_method)
         )
         myFilter = ArticleFilter(filters, queryset=posts)
         posts = myFilter.qs
@@ -97,8 +105,8 @@ def post_list(request):
         "posts": posts,
         "myFilter": myFilter,
         "cities": cities,
-        "ZAKUP_CHOICES": ZAKUP_CHOICES,
-        "PURCHASE_CHOICES": PURCHASE_CHOICES,
+        "PURCHASE_METHOD_CHOICES": PURCHASE_METHOD_CHOICES,
+        "SUBJECT_OF_PURCHASE_CHOICES": SUBJECT_OF_PURCHASE_CHOICES
     }
 
     return render(request, "article_list.html", context)
@@ -170,8 +178,8 @@ def post_search(request):
             title_q |= Q(title__contains=keyword)
 
     body_q = Q()
-    if request.GET.get('body'):
-        body_tokens = request.GET.get('body').split()
+    if request.GET.get('customer'):
+        body_tokens = request.GET.get('customer').split()
         for keyword in body_tokens:
             body_q |= Q(body__contains=keyword)
 
@@ -237,10 +245,10 @@ def post_search(request):
                 stat_q |= Q(statzakup=stat)
             q &= stat_q
 
-        if request.GET.getlist('purchase_method[]'):
+        if request.GET.getlist('subject_of_purchase[]'):
             purch_meth = Q()
-            for pm in request.GET.getlist('purchase_method[]'):
-                purch_meth |= Q(purchase_method=pm)
+            for pm in request.GET.getlist('subject_of_purchase[]'):
+                purch_meth |= Q(itemZakup=pm)
             q &= purch_meth
 
         if request.GET.get('id'):
@@ -287,8 +295,8 @@ def post_search(request):
     if request.GET.get('statzakup'):
         q &= Q(statzakup=request.GET.get('statzakup[]')[0])
 
-    if request.GET.get('purchase_method'):
-        q &= Q(purchase_method=request.GET.get('purchase_method[]')[0])
+    if request.GET.get('subject_of_purchase'):
+        q &= Q(itemZakup=request.GET.get('subject_of_purchase[]')[0])
 
     if request.GET.get('title'):
         q &= title_q
@@ -333,60 +341,6 @@ def post_search(request):
     return render(request, "main_filter_result.html", context)
 
 
-# def post_search(request):
-#     print("views.post_search")
-#     isValid = False
-#     cities = request.GET.getlist("city[]")
-#     purchase_method = request.GET.getlist("purchase_method[]")
-#     statzakup = request.GET.getlist("statzakup[]")
-#     print(request.GET)
-#
-#     filters = {
-#         k: v
-#         for (k, v) in request.GET.items()
-#         if k not in ("sortBy", "city[]", "purchase_method[]", "statzakup[]")
-#     }
-#     for key in filters:
-#         if filters[key]:
-#             isValid = True
-#
-#     if not isValid and not (cities or purchase_method or statzakup):
-#         # if no filter found only has sort value then onlye sort apply on this
-#
-#         if request.GET.get("sortBy"):
-#             myFilter = Article.objects.order_by(request.GET.get("sortBy"))
-#             paginator = Paginator(myFilter, 25)
-#             page_number = request.GET.get("page")
-#             posts = paginator.get_page(page_number)
-#
-#             context = {"posts": posts}
-#             return render(request, "lots-filter-result.html", context)
-#         return render(request, "error.html")
-#
-#     print("statzakup")
-#     print(statzakup)
-#     # applying multiple value filters in
-#     queryset = Article.objects.filter(
-#         Q(city__id__in=cities)
-#         | Q(statzakup__in=statzakup)
-#         | Q(purchase_method__in=purchase_method)
-#     ).order_by(request.GET.get("sortBy", "date"))
-#
-#     myFilter = ArticleFilter(filters, queryset=queryset)
-#     paginator = Paginator(myFilter.qs.order_by("-id"), 25)
-#     page_number = request.GET.get("page")
-#     posts = paginator.get_page(page_number)
-#
-#     print("posts")
-#     print(len(posts))
-#
-#     context = {"posts": posts}
-#
-#     if request.GET.get("lots"):
-#         return render(request, "lots-filter-result.html", context)
-#     return render(request, "main_filter_result.html", context)
-
-
 @login_required
 def save_favorite_search(request):
     # deleting query from favorites
@@ -398,12 +352,15 @@ def save_favorite_search(request):
 
     # saving favorites query
     content = request.POST.dict()
+    print("request.POST.dict()")
+    print(content)
+
     if "city[]" in content:
         content["city[]"] = request.POST.getlist("city[]")
 
-    if "purchase_method[]" in content:
-        content["purchase_method[]"] = request.POST.getlist(
-            "purchase_method[]")
+    if "subject_of_purchase[]" in content:
+        content["subject_of_purchase[]"] = request.POST.getlist(
+            "subject_of_purchase[]")
 
     if "statzakup[]" in content:
         content["statzakup[]"] = request.POST.getlist("statzakup[]")
@@ -426,7 +383,7 @@ def favorite_search_list(request):
 
 @login_required
 def remove_favorite_search(request, id):
-    # deleting favorite search
+    print("# deleting favorite search")
     FavoriteSearch.objects.filter(id=id).delete()
     messages.add_message(request, messages.WARNING, "Favorite Search Removed!")
     return redirect(request.GET.get("next"))

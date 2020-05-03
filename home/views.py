@@ -17,7 +17,7 @@ from . import forms
 from django.core.mail import send_mail
 from tn_first.settings import CONTACT_MAIL_RECEIVER
 from django.urls import reverse
-from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
+from lots.utils.Choices import PURCHASE_METHOD_CHOICES as ZAKUP_CHOICES, SUBJECT_OF_PURCHASE_CHOICES as PURCHASE_CHOICES
 from django.utils import timezone
 from .tasks import send_query, send_consultation_query
 from tn_first import settings as tn_first_settings
@@ -43,8 +43,8 @@ def index(request):
         "bbs": bbs,
         "myHomeFilter": myHomeFilter,
         "cities": cities,
-        "ZAKUP_CHOICES": ZAKUP_CHOICES,
-        "PURCHASE_CHOICES": PURCHASE_CHOICES,
+        "PURCHASE_METHOD_CHOICES": ZAKUP_CHOICES,
+        "SUBJECT_OF_PURCHASE_CHOICES": PURCHASE_CHOICES,
     }
     print(request.user.is_authenticated)
     return render(request, "index.html", context)
