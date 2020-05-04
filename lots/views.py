@@ -15,76 +15,107 @@ from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOI
 
 def post_list(request):
 
-    print("request type")
-    print(request.method)
-
-    request_object = request.GET
-    title_q = Q()
-
-    if request.method == "POST":
+    if request.method == "GET":
+        # comes from /lots page OR "Apply to search"
+        request_object = request.GET
+    else:
+        # when it comes from main page with only title
         request_object = request.POST
 
-        if 'title' in request.POST:
-            if request.POST.get('title'):
-                title_tokens = request.POST.get('title').split()
-                for keyword in title_tokens:
-                    title_q |= Q(title__contains=keyword)
-
-    print("req object")
-    print(request_object.items())
-
-    cities = request_object.getlist("city[]")
-    print("cities")
-    print(cities)
-
-    purchase_method = request_object.getlist("statzakup[]")
-    print("purchase_method")
-    print(purchase_method)
-
-    purchase_subject = request_object.getlist("itemZakup[]")
-    print("purchase_subject")
-    print(purchase_subject)
-
     q = Q()
-    q &= Q(date__gte=timezone.now())
+    title_q = Q()
+
+    current_time_q = Q(date__gte=timezone.now())
+    q &= current_time_q
 
     myFilter = {}
 
-    if request.method == "POST":
+    if 'title' in request_object:
+        if request_object.get('title'):
+            title_tokens = request_object.get('title').split()
+            for keyword in title_tokens:
+                title_q |= Q(title__contains=keyword)
         q &= title_q
-        myFilter['title'] = request.POST.get('title')
+
+    customer_q = Q()
+    if 'customer' in request_object:
+        if request_object.get('customer'):
+            customer_tokens = request_object.get('customer').split()
+            for keyword in customer_tokens:
+                customer_q |= Q(customer__contains=keyword)
+        q &= customer_q
+
+    city_q = Q()
+    if request_object.getlist('city[]'):
+        for c in request_object.getlist('city[]'):
+            city_q |= Q(city__id=c)
+        q &= city_q
+
+    purchase_method_q = Q()
+    if request_object.getlist('statzakup[]'):
+        for stat in request_object.getlist('statzakup[]'):
+            purchase_method_q |= Q(statzakup=stat)
+        q &= purchase_method_q
+
+    purchase_subject_q = Q()
+    if request_object.getlist('subject_of_purchase[]'):
+        for pm in request_object.getlist('subject_of_purchase[]'):
+            purchase_subject_q |= Q(itemZakup=pm)
+        q &= purchase_subject_q
+
+    price_q = Q()
+    if 'price_min' in request_object:
+        if request_object.get('price_min'):
+            price_q &= Q(price__gte=float(request_object.get('price_min')))
+
+    if 'price_max' in request_object:
+        if request_object.get('price_max'):
+            price_q &= Q(price__lte=float(request_object.get('price_max')))
+
+    q &= price_q
+
+    date_min_q = Q()
+    if 'date_min' in request_object:
+        if request_object.get('date_min'):
+            d = datetime.datetime.strptime(request_object.get('date_min'), '%Y-%m-%d')
+            tz = timezone.utc
+            date_min = tz.localize(d)
+            if date_min > datetime.datetime.now(timezone.utc):
+                date_min = datetime.datetime.now(timezone.utc)
+            date_min_q &= Q(date__gte=date_min)
+        q &= date_min_q
+
+    date_max_q = Q()
+    if 'date_max' in request_object:
+        if request_object.get('date_max'):
+            d = datetime.datetime.strptime(request_object.get('date_max'), '%Y-%m-%d')
+            tz = timezone.utc
+            date_max = tz.localize(d)
+            if date_max > datetime.datetime.now(timezone.utc):
+                date_max = datetime.datetime.now(timezone.utc)
+            date_max_q &= Q(date__lte=date_max)
+        q &= date_max_q
+
+    id_q = Q()
+    if 'id' in request_object:
+        id_q &= Q(id=request_object.get('id'))
+        q &= id_q
+
+    filters = {}
 
     posts = Article.objects.filter(q)
+    myFilter = ArticleFilter(filters, queryset=posts)
 
-    print("posts")
-    print(posts)
-    print(len(posts))
-
-    myFilter = {}
-
-    # dict compression
-    filters = {
-        k: v
-        for (k, v) in request_object.items()
-        if k != "city[]" or k != "itemZakup[]" or k != "statzakup[]"
-    }
-    print("filters")
-    print(filters)
-
-    if cities or purchase_method or purchase_subject:
-        print("if cities or purchase_method or statzakup:")
-        posts = Article.objects.filter(
-            Q(city__id__in=cities)
-            | Q(itemZakup__in=purchase_subject)
-            | Q(statzakup__in=purchase_method)
-        )
-        myFilter = ArticleFilter(filters, queryset=posts)
-        posts = myFilter.qs
+    paginator = Paginator(posts.order_by("date"), 25)
+    page_number = request_object.get("page", 1)
+    posts = paginator.page(page_number)
 
     cities = Cities.objects.all()
 
-    paginator = Paginator(posts, 10)
-    page = request_object.get("page", 1)
+    # paginator = Paginator(posts, 10)
+    # page = request_object.get("page", 1)
+
+    page = page_number
 
     try:
         posts = paginator.page(page)
@@ -99,7 +130,7 @@ def post_list(request):
     else:
         (start_index, end_index) = proper_pagination(posts, index=4)
 
-    page_range = list(paginator.page_range)[start_index:end_index]
+    # page_range = list(paginator.page_range)[start_index:end_index]
 
     context = {
         "posts": posts,
@@ -171,17 +202,19 @@ def post_delete(request, id, slug):
 
 def post_search(request):
 
+    current_time_q = Q(date__gte=timezone.now())
+
     title_q = Q()
     if request.GET.get('title'):
         title_tokens = request.GET.get('title').split()
         for keyword in title_tokens:
             title_q |= Q(title__contains=keyword)
 
-    body_q = Q()
+    customer_q = Q()
     if request.GET.get('customer'):
         body_tokens = request.GET.get('customer').split()
         for keyword in body_tokens:
-            body_q |= Q(body__contains=keyword)
+            customer_q |= Q(body__contains=keyword)
 
     price_q = Q()
     if 'price_min' in request.GET:
@@ -226,9 +259,6 @@ def post_search(request):
             if lh_hl == "HL":
                 sort_field = "-" + sort_field
 
-    print("lots")
-    print(request.GET.get('lots'))
-
     if request.GET.get('lots'):
         print("lots page")
 
@@ -257,8 +287,8 @@ def post_search(request):
         if request.GET.get('title'):
             q &= title_q
 
-        if request.GET.get('body'):
-            q &= body_q
+        if request.GET.get('customer'):
+            q &= customer_q
 
         if ('price_min' in request.GET) | ('price_max' in request.GET):
             q &= price_q
@@ -266,11 +296,7 @@ def post_search(request):
         if ('date_min' in request.GET) | ('date_max' in request.GET):
             q &= date_min_q & date_max_q
 
-        print("All filter together")
-        print(q)
-
-        print("sort_field")
-        print(sort_field)
+        q &= current_time_q
 
         if (sort_field == 'title') | (sort_field == '-title'):
             queryset = Article.objects.filter(q)
@@ -301,8 +327,8 @@ def post_search(request):
     if request.GET.get('title'):
         q &= title_q
 
-    if request.GET.get('body'):
-        q &= body_q
+    if request.GET.get('customer'):
+        q &= customer_q
 
     if request.GET.get('id'):
         q &= id_q
@@ -313,11 +339,7 @@ def post_search(request):
     if ('date_min' in request.GET) | ('date_max' in request.GET):
         q &= date_min_q & date_max_q
 
-    print("All filter together")
-    print(q)
-
-    print("sort_field")
-    print(sort_field)
+    q &= current_time_q
 
     # applying multiple value filters in
     if (sort_field == 'title') | (sort_field == '-title'):

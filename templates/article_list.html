@@ -103,7 +103,7 @@
 
                       <h6 class="">Заказчик</h6>
                       <div class="form-group">
-                        {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %}
+                        {% render_field myFilter.form.customer class="form-control" placeholder="Поиск по заказчику" %}
                       </div>
 
                       <div class="form-group">
@@ -291,9 +291,9 @@
                 <h6 class="">Сумма лота</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                  <input type="text" class="form-control" name="price_min" value="{{requestt.GET.price_min}}"
+                  <input type="text" class="form-control" name="price_min" value="{{request.GET.price_min}}"
                     placeholder="Сумма от">
-                  <input type="text" class="form-control" name="price_max" value="{{requestt.GET.price_max}}"
+                  <input type="text" class="form-control" name="price_max" value="{{request.GET.price_max}}"
                     placeholder="Сумма до">
                 </div>
 
