@@ -211,6 +211,7 @@
       //save query for future use
       search_query = data;
       data['sortBy'] = $("#orderby options:selected").val();
+      history.pushState({}, null, location.href.split('?')[0]);
 
       //fetch data from server
       $.ajax({

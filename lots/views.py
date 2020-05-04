@@ -11,6 +11,8 @@ from django.utils import timezone
 import datetime
 import json
 from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOICES
+from lots.utils.config import PAGE_SIZE
+
 
 
 def post_list(request):
@@ -98,42 +100,34 @@ def post_list(request):
 
     id_q = Q()
     if 'id' in request_object:
-        id_q &= Q(id=request_object.get('id'))
-        q &= id_q
+        if request_object.get('id'):
+            id_q &= Q(id=request_object.get('id'))
+            q &= id_q
 
     filters = {}
 
     posts = Article.objects.filter(q)
     myFilter = ArticleFilter(filters, queryset=posts)
 
-    paginator = Paginator(posts.order_by("date"), 25)
+    paginator = Paginator(posts.order_by("date"), PAGE_SIZE)
     page_number = request_object.get("page", 1)
     posts = paginator.page(page_number)
 
     cities = Cities.objects.all()
 
-    # paginator = Paginator(posts, 10)
-    # page = request_object.get("page", 1)
+    total_posts = paginator.count
+    posts_start_index = 0
+    posts_end_index = 0
 
-    page = page_number
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    if page is None:
-        start_index = 0
-        end_index = 7
-    else:
-        (start_index, end_index) = proper_pagination(posts, index=4)
-
-    # page_range = list(paginator.page_range)[start_index:end_index]
+    if len(posts) > 0:
+        posts_start_index = (int(page_number) - 1) * PAGE_SIZE + 1
+        posts_end_index = (int(page_number) - 1) * PAGE_SIZE + len(posts)
 
     context = {
         "posts": posts,
+        "posts_start_index": posts_start_index,
+        "posts_end_index": posts_end_index,
+        "total_posts": total_posts,
         "myFilter": myFilter,
         "cities": cities,
         "PURCHASE_METHOD_CHOICES": PURCHASE_METHOD_CHOICES,
@@ -259,79 +253,33 @@ def post_search(request):
             if lh_hl == "HL":
                 sort_field = "-" + sort_field
 
-    if request.GET.get('lots'):
-        print("lots page")
-
-        q = Q()
-        if request.GET.getlist('city[]'):
-            city_q = Q()
-            for c in request.GET.getlist('city[]'):
-                city_q |= Q(city__id=c)
-            q &= city_q
-
-        if request.GET.getlist('statzakup[]'):
-            stat_q = Q()
-            for stat in request.GET.getlist('statzakup[]'):
-                stat_q |= Q(statzakup=stat)
-            q &= stat_q
-
-        if request.GET.getlist('subject_of_purchase[]'):
-            purch_meth = Q()
-            for pm in request.GET.getlist('subject_of_purchase[]'):
-                purch_meth |= Q(itemZakup=pm)
-            q &= purch_meth
-
-        if request.GET.get('id'):
-            q &= id_q
-
-        if request.GET.get('title'):
-            q &= title_q
-
-        if request.GET.get('customer'):
-            q &= customer_q
-
-        if ('price_min' in request.GET) | ('price_max' in request.GET):
-            q &= price_q
-
-        if ('date_min' in request.GET) | ('date_max' in request.GET):
-            q &= date_min_q & date_max_q
-
-        q &= current_time_q
-
-        if (sort_field == 'title') | (sort_field == '-title'):
-            queryset = Article.objects.filter(q)
-            if sort_field == '-title':
-                sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
-            else:
-                sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
-        else:
-            sorted_lots = Article.objects.filter(q).order_by(sort_field)
-
-        paginator = Paginator(sorted_lots, 25)
-        page_number = request.GET.get("page", 1)
-        posts = paginator.page(page_number)
-
-        context = {"posts": posts}
-        return render(request, "lots-filter-result.html", context)
-
     q = Q()
-    if request.GET.get('city[]'):
-        q &= Q(city__id=request.GET.get('city[]')[0])
+    if request.GET.getlist('city[]'):
+        city_q = Q()
+        for c in request.GET.getlist('city[]'):
+            city_q |= Q(city__id=c)
+        q &= city_q
 
-    if request.GET.get('statzakup'):
-        q &= Q(statzakup=request.GET.get('statzakup[]')[0])
+    if request.GET.getlist('statzakup[]'):
+        stat_q = Q()
+        for stat in request.GET.getlist('statzakup[]'):
+            stat_q |= Q(statzakup=stat)
+        q &= stat_q
 
-    if request.GET.get('subject_of_purchase'):
-        q &= Q(itemZakup=request.GET.get('subject_of_purchase[]')[0])
+    if request.GET.getlist('subject_of_purchase[]'):
+        purch_meth = Q()
+        for pm in request.GET.getlist('subject_of_purchase[]'):
+            purch_meth |= Q(itemZakup=pm)
+        q &= purch_meth
+
+    if request.GET.get('id'):
+        q &= id_q
 
     if request.GET.get('title'):
         q &= title_q
 
     if request.GET.get('customer'):
         q &= customer_q
-
-    if request.GET.get('id'):
-        q &= id_q
 
     if ('price_min' in request.GET) | ('price_max' in request.GET):
         q &= price_q
@@ -341,7 +289,6 @@ def post_search(request):
 
     q &= current_time_q
 
-    # applying multiple value filters in
     if (sort_field == 'title') | (sort_field == '-title'):
         queryset = Article.objects.filter(q)
         if sort_field == '-title':
@@ -351,16 +298,72 @@ def post_search(request):
     else:
         sorted_lots = Article.objects.filter(q).order_by(sort_field)
 
-    paginator = Paginator(sorted_lots, 25)
+    paginator = Paginator(sorted_lots, PAGE_SIZE)
     page_number = request.GET.get("page", 1)
     posts = paginator.page(page_number)
 
-    print("posts.len")
-    print(len(posts))
+    total_posts = paginator.count
+    posts_start_index = 0
+    posts_end_index = 0
 
-    context = {"posts": posts}
+    if len(posts) > 0:
+        posts_start_index = (page_number - 1) * PAGE_SIZE + 1
+        posts_end_index = (page_number - 1) * PAGE_SIZE + len(posts)
 
-    return render(request, "main_filter_result.html", context)
+    context = {"posts": posts,
+               "total_posts": total_posts,
+               "posts_start_index": posts_start_index,
+               "posts_end_index": posts_end_index
+            }
+    return render(request, "lots-filter-result.html", context)
+
+    # q = Q()
+    # if request.GET.get('city[]'):
+    #     q &= Q(city__id=request.GET.get('city[]')[0])
+    #
+    # if request.GET.get('statzakup'):
+    #     q &= Q(statzakup=request.GET.get('statzakup[]')[0])
+    #
+    # if request.GET.get('subject_of_purchase'):
+    #     q &= Q(itemZakup=request.GET.get('subject_of_purchase[]')[0])
+    #
+    # if request.GET.get('title'):
+    #     q &= title_q
+    #
+    # if request.GET.get('customer'):
+    #     q &= customer_q
+    #
+    # if request.GET.get('id'):
+    #     q &= id_q
+    #
+    # if ('price_min' in request.GET) | ('price_max' in request.GET):
+    #     q &= price_q
+    #
+    # if ('date_min' in request.GET) | ('date_max' in request.GET):
+    #     q &= date_min_q & date_max_q
+    #
+    # # q &= current_time_q
+    #
+    # # applying multiple value filters in
+    # if (sort_field == 'title') | (sort_field == '-title'):
+    #     queryset = Article.objects.filter(q)
+    #     if sort_field == '-title':
+    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
+    #     else:
+    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
+    # else:
+    #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
+    #
+    # paginator = Paginator(sorted_lots, 2)
+    # page_number = request.GET.get("page", 1)
+    # posts = paginator.page(page_number)
+    #
+    # print("posts.len")
+    # print(len(posts))
+    #
+    # context = {"posts": posts}
+    #
+    # return render(request, "main_filter_result.html", context)
 
 
 @login_required
