@@ -9,7 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dob = models.DateTimeField(auto_now_add=True, null=True)
     tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф', default='1', )
-    rassylka = models.BooleanField(default=True)
+    rassylka = models.BooleanField(verbose_name='Подписаться на email рассылку', default=True)
 
     def __str__(self):
         return "Профиль пользователя {}".format(self.user.username)

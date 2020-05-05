@@ -1,5 +1,6 @@
 
 # Create your views here.
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
@@ -61,7 +62,7 @@ class Activate(View):
             user.save()
             login(request, user)
 
-            return redirect('index')
+            return render(request, 'email_activate.html')
         else:
             return HttpResponse('Ссылка на активации недействительна!')
 
@@ -74,7 +75,6 @@ def edit_profile(request):
 
             user_form.save()
             profile_form.save()
-
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)

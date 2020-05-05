@@ -173,6 +173,7 @@ def post_favourite_list(request):
 
     context = {
         "favourite_posts": favourite_posts,
+        "current_date": datetime.datetime.now(timezone.utc)
     }
     return render(request, "post_favourite_list.html", context)
 
