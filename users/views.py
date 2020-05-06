@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
-from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm
+from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm, LoginForm
 from users.models import Profile
 from lots.models import Article
 
@@ -22,6 +22,57 @@ from lots.models import Article
 def index(request)  :  # создаем свою функцию
     context = {}  # с помощью словаря можем передать модель и форму в шаблон HTML
     return render(request, 'index.html', context)  # собственно вызываем шаблон HTML
+
+
+def authenticate_user(user_or_email, password):
+
+    try:
+        user = User.objects.get(email=user_or_email)
+    except User.DoesNotExist:
+        user = None
+
+    if user is None:
+        try:
+            user = User.objects.get(username=user_or_email)
+        except User.DoesNotExist:
+            user = None
+
+    if user is None:
+        return user
+    else:
+        if user.check_password(password):
+            return user
+
+    return None
+
+
+class LoginView(View):
+
+    def get(self, request):
+        form = LoginForm()
+        return render(request, "registration/login.html", {"form": form})
+
+    def post(self, request):
+
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate_user(username, password)
+
+        context = {}
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                return redirect(self.request.GET.get('next', '/'))
+            else:
+                context['error_message'] = "user is not active"
+        else:
+            context['error_message'] = "email or password not correct"
+
+        context['form'] = LoginForm()
+        return render(request, 'registration/login.html', context)
+
 
 def signup(request):
     if request.method == 'POST':
