@@ -1,4 +1,3 @@
-
 # Create your views here.
 from django.contrib import messages
 from django.http import HttpResponse
@@ -14,29 +13,45 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
-from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm, LoginForm
+from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm, LoginForm, PasswordResetForm
 from users.models import Profile
 from lots.models import Article
 
 
-def index(request)  :  # создаем свою функцию
+def index(request):  # создаем свою функцию
     context = {}  # с помощью словаря можем передать модель и форму в шаблон HTML
     return render(request, 'index.html', context)  # собственно вызываем шаблон HTML
 
 
-def authenticate_user(user_or_email, password):
-
+def find_user_by_email(email):
+    user = None
     try:
-        user = User.objects.get(email=user_or_email)
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return None
+
+    return user
+
+
+def find_user_by_username(username):
+    user = None
+    try:
+        user = User.objects.get(username=username)
     except User.DoesNotExist:
         user = None
+    return user
+
+
+def authenticate_user(user_or_email):
+    user = find_user_by_email(user_or_email)
 
     if user is None:
-        try:
-            user = User.objects.get(username=user_or_email)
-        except User.DoesNotExist:
-            user = None
+        user = find_user_by_username(user_or_email)
 
+    return user
+
+
+def check_pass(user, password):
     if user is None:
         return user
     else:
@@ -92,7 +107,7 @@ def signup(request):
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+                mail_subject, message, to=[to_email]
             )
             email.send()
             return render(request, 'confirm_registration.html')
@@ -117,13 +132,13 @@ class Activate(View):
         else:
             return HttpResponse('Ссылка на активации недействительна!')
 
+
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
         user_form = UserEditForm(data=request.POST or None, instance=request.user)
         profile_form = ProfileEditForm(data=request.POST or None, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
-
             user_form.save()
             profile_form.save()
     else:
@@ -135,6 +150,7 @@ def edit_profile(request):
         'profile_form': profile_form,
     }
     return render(request, 'edit_profile.html', context)
+
 
 def profile(request):
     user = request.user
@@ -161,6 +177,7 @@ def edit_tarif(request):
     }
     return render(request, 'edit_tarif.html', context)
 
+
 def basket_list(request):
     basket_list = Article.objects.all()
     user = request.user
@@ -172,9 +189,7 @@ def basket_list(request):
     return render(request, 'basket_list.html', context)
 
 
-
 def history_list(request):
-
     user = request.user
     history_list = user.klyent.all()
 
