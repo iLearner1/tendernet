@@ -21,40 +21,45 @@ class SignupForm(forms.ModelForm):
     def clean_confirm_password(self):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
+        errors = []
 
         # password length check
         if (len(password) < 8) | (len(password) > 20):
-            raise forms.ValidationError("Пароль должен содержать от 8 до 20 символов")
+            errors.append("Пароль должен содержать от 8 до 20 символов")
 
         # lowercase check
         lc_regex = re.compile("[a-z]+")
         lc = lc_regex.findall(password)
         if not lc:
-            raise forms.ValidationError("Должен включать строчные буквы")
+            errors.append("Пароль должен содержать строчные буквы")
 
         # uppercase check
         uc_regex = re.compile("[A-Z]+")
         uc = uc_regex.findall(password)
         if not uc:
-            raise forms.ValidationError("Должен включать заглавные буквы")
+            errors.append("Пароль должен содержать заглавные буквы")
 
         # digit check
         digit_regex = re.compile("\d")
         isDigit = digit_regex.search(password)
 
         if not isDigit:
-            raise forms.ValidationError("Должен включать заглавные буквы")
+            errors.append("Пароль должен содержать цифры")
 
         # whitespace check
         wsp = password.strip()
         wsp = wsp.replace(" ", "")
 
         if len(wsp) != len(password):
-            raise forms.ValidationError("Пароль не может содержать пробелы")
+            errors.append("Пароль не может содержать пробелы")
 
         # check password matches
         if password != confirm_password:
-            raise forms.ValidationError("Пароли не совпадают")
+            errors.append("Пароли не совпадают")
+
+        if len(errors) > 0:
+            raise forms.ValidationError(errors)
+
         return confirm_password
 
     def clean(self):
