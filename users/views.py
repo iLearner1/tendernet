@@ -71,7 +71,11 @@ class LoginView(View):
 
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate_user(username, password)
+        user = authenticate_user(username)
+
+        if user is not None:
+            user = check_pass(user, password)
+
 
         context = {}
 
