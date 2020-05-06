@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from django.core.exceptions import ValidationError
+import re
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="")
@@ -20,6 +21,38 @@ class SignupForm(forms.ModelForm):
     def clean_confirm_password(self):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
+
+        # password length check
+        if (len(password) < 8) | (len(password) > 20):
+            raise forms.ValidationError("Пароль должен содержать от 8 до 20 символов")
+
+        # lowercase check
+        lc_regex = re.compile("[a-z]+")
+        lc = lc_regex.findall(password)
+        if not lc:
+            raise forms.ValidationError("Должен включать строчные буквы")
+
+        # uppercase check
+        uc_regex = re.compile("[A-Z]+")
+        uc = uc_regex.findall(password)
+        if not uc:
+            raise forms.ValidationError("Должен включать заглавные буквы")
+
+        # digit check
+        digit_regex = re.compile("\d")
+        isDigit = digit_regex.search(password)
+
+        if not isDigit:
+            raise forms.ValidationError("Должен включать заглавные буквы")
+
+        # whitespace check
+        wsp = password.strip()
+        wsp = wsp.replace(" ", "")
+
+        if len(wsp) != len(password):
+            raise forms.ValidationError("Пароль не может содержать пробелы")
+
+        # check password matches
         if password != confirm_password:
             raise forms.ValidationError("Пароли не совпадают")
         return confirm_password
