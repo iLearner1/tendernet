@@ -26,6 +26,11 @@ class SignupForm(forms.ModelForm):
 
     def clean(self):
         email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("Такой Username уже существует")
+
         if User.objects.filter(email=email).exists():
             raise ValidationError("Такой Email уже существует")
         return self.cleaned_data
