@@ -91,8 +91,9 @@
       let isValid = false;
 
       for (let item of formData) {
+
         if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
-          formatedData[item.name] = formatedData[item.name] ? [...formatedData[item.name], item.value] : [item.value];
+          console.log('fetched items in below');
         } else {
           formatedData[item.name] = item.value;
         }
@@ -100,6 +101,32 @@
         if (item.name != "lots" && item.value) {
           isValid = true
         }
+      }
+
+      formatedData['statzakup'] = [];
+      let purchase_methods = $('select[name=statzakup]').find('option:selected');
+      purchase_methods.each(function(i, item) {
+        if($(item).text() !="---------")
+        {
+          formatedData['statzakup'].push($(item).val());
+        }
+      });
+
+      formatedData['city'] = [];
+      let cities = $('select[name=city]').find('option:selected');
+      cities.each(function(i, item) {
+        formatedData['city'].push($(item).val());
+      });
+
+      formatedData['subject_of_purchase'] = [];
+      let subjects = $('select[name=subject_of_purchase]').find('option:selected');
+      subjects.each(function(i, item) {
+        formatedData['subject_of_purchase'].push($(item).val());
+      });
+
+      if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
+      {
+        isValid = true;
       }
 
       if (!isValid) {
@@ -191,11 +218,15 @@
 
     $("#pc-search-button").click(function (e) {
       e.preventDefault();
+
+      // deselect save to favourite button
+      $("#save-query").removeClass('text-warning');
+      $("#save-query").find('a').text('Save to Favorites');
+      $("#save-query").find('i').removeClass('fas').addClass('far');
+      savedId = null;
+
       const formData = $("#main-searchform").serializeArray();
       let data = {};
-
-      console.log("formData");
-      console.log(formData);
 
       //formating data for query
       for (let item of formData) {

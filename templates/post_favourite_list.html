@@ -44,6 +44,7 @@
 
             <div class="tender-filter-result xs-padding-0">
 
+          {% if favourite_posts %}
               {% for p in favourite_posts %}
 
                 <div class="item">
@@ -77,11 +78,12 @@
                   </div>
                 </div>
 
-                {% empty %}
-                  <ul>
-                    <li>Нет избранных поисков</li>
-                  </ul>
                 {% endfor %}
+              {% else %}
+                <ul>
+                  <li style="color:white;">У вас нет любимых лотов</li>
+                </ul>
+              {% endif %}
 
 
             </div>

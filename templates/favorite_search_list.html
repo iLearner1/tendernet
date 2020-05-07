@@ -34,6 +34,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-md-12">
+                {% if favorite_searches %}
                     {% for search in favorite_searches%}
 
 <!--                    <div class="item">-->
@@ -107,11 +108,11 @@
                                     {% endif %}
 
 <!--                                    show purchase method-->
-                                    {% if search.statzakup %}
+                                    {% if search.statzakup_obj %}
                                          <p>Способ закупки:
-                                        {% if search.statzakup %}
-                                            {% for statzakup in search.statzakup %}
-                                               {{statzakup}},
+                                        {% if search.statzakup_obj %}
+                                            {% for statzakup in search.statzakup_obj %}
+                                               {{statzakup.1}},
                                             {% endfor%}
                                          {% else %}
                                             'Не выбран'
@@ -122,11 +123,11 @@
                                     {% endif %}
 
 <!--                                    show subject of purchase-->
-                                    {% if search.itemZakup %}
+                                    {% if search.subject_of_purchase_obj %}
                                         <p>Предмет закупки:
-                                            {% if search.itemZakup %}
-                                                {% for purchase in search.itemZakup %}
-                                                    {{purchase}},
+                                            {% if search.subject_of_purchase_obj %}
+                                                {% for purchase in search.subject_of_purchase_obj %}
+                                                    {{purchase.1}},
                                                 {% endfor%}
                                             {% else %}
                                                 'Не выбран'
@@ -166,7 +167,7 @@
                                 <div class="col-md-2">
                                      <form action="{% url 'post_list' %}" method="get">
                                          <input type="hidden" name="title" value="{{search.query.title}}">
-                                         <input type="hidden" name="body" value="{{search.query.body}}">
+                                         <input type="hidden" name="body" value="{{search.query.customer}}">
                                          <input type="hidden" name="id" value="{{search.query.id}}">
 
                                          {% if search.city %}
@@ -175,15 +176,15 @@
                                             {% endfor%}
                                          {% endif %}
 
-                                         {% if search.statzakup %}
-                                            {% for statzakup in search.statzakup %}
-                                                <input type="hidden" name="statzakup[]" value="{{statzakup}}">
+                                         {% if search.statzakup_obj %}
+                                            {% for statzakup in search.statzakup_obj %}
+                                                <input type="hidden" name="statzakup[]" value="{{statzakup.0}}">
                                             {% endfor%}
                                          {% endif %}
 
-                                         {% if search.itemZakup %}
-                                            {% for subject in search.itemZakup %}
-                                                <input type="hidden" name="itemZakup[]" value="{{subject}}">
+                                         {% if search.subject_of_purchase_obj %}
+                                            {% for subject in search.subject_of_purchase_obj %}
+                                                <input type="hidden" name="itemZakup[]" value="{{subject.0}}">
                                             {% endfor%}
                                          {% endif %}
 
@@ -202,6 +203,9 @@
                             </div>
                         </div>
                     {% endfor %}
+                {% else %}
+                     <p>У вас нет любимых предметов поиска</p>
+                {% endif %}
 
                 {% if favorite_searches.num_pages > 1 %}
                     <div class="pagination-list text-center">
