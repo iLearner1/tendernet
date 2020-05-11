@@ -163,6 +163,7 @@ DEFAULT_FROM_EMAIL = "email@tendernet.kz"
 
 # revice mail after contact form submit
 CONTACT_MAIL_RECEIVER = 'tendernetkz@mail.ru'
+CONTACT_MAIL_SENDER = 'tendernet.kz@gmail.com'
 
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "index"

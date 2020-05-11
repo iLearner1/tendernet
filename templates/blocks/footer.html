@@ -155,6 +155,8 @@
         },
         success: function (response) {
           savedId = response.id;
+          console.log("savedId: " + savedId);
+          $('input#savedId').val(savedId);
           //alert('search added to favorite successfuly');
           alert('Поиск успешно добавлен в избранное');
         },
@@ -176,10 +178,8 @@
 
     function deleteFavorite() {
       var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-      if (!savedId) {
-        savedId = $('input#savedId').val();
-        $('input#savedId').val('');
-      }
+      savedId = $('input#savedId').val();
+      $('input#savedId').val('');
 
 
       if (savedId) {
@@ -192,7 +192,8 @@
             csrfmiddlewaretoken
           },
           success: function (response) {
-            savedId = response.id;
+<!--            savedId = response.id;-->
+            savedId = null;
             // alert('search query removed from favorites');
             alert('Поисковый запрос удален из избранного');
           },
@@ -224,6 +225,7 @@
       $("#save-query").find('a').text('Save to Favorites');
       $("#save-query").find('i').removeClass('fas').addClass('far');
       savedId = null;
+      $('input#savedId').val('');
 
       const formData = $("#main-searchform").serializeArray();
       let data = {};
