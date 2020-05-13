@@ -1,11 +1,20 @@
 import datetime
 from celery import shared_task, task
+from celery.schedules import crontab
+from celery.task import periodic_task
 from django.core.mail import send_mail
 from django.utils import timezone
 from .models import Article, FavoriteSearch
 from django.template.loader import render_to_string
 from tn_first.settings import CONTACT_MAIL_RECEIVER
 from django.core.cache import cache
+
+#
+# @periodic_task(run_every=(crontab(minute='*/1')), name="test_task")
+# def test_task():
+#     print('this is test task')
+
+
 
 
 @shared_task
@@ -46,8 +55,60 @@ def handleDate(obj1, obj2):
     return (datetime.datetime.strptime(obj1['date_max'], '%Y-%m-%d').date() >= obj2.date_open.date() and datetime.datetime.strptime(obj1['date_min'], '%Y-%m-%d').date() <= obj2.date.date())
 
 
-def handlePrice(obj1, obj2):
-    if not (obj1['price_max'] or obj1['price_min']):
-        return False
-    return (float(favorite.query['price_max']) <= article.price and float(favorite.query['price_min']) >= article.price)
+# def handlePrice(obj1, obj2):
+#     if not (obj1['price_max'] or obj1['price_min']):
+#         return False
+#     return (float(favorite.query['price_max']) <= article.price and float(favorite.query['price_min']) >= article.price)
+#
 
+# @periodic_task(run_every=(crontab(minute='*/5')), name="fetch_lots_from_goszakup")
+# def fetch_lots_from_goszakup():
+#     # api-endpoint
+#     print("calling goszakup API")
+    # URL = "https://ows.goszakup.gov.kz/v3/lots"
+    #
+    # # defining a params dict for the parameters to be sent to the API
+    # token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    # bearer_token = 'Bearer ' + token
+    # header = {'Authorization': bearer_token}
+    #
+    # # sending get request and saving the response as response object
+    # r = None
+    # try:
+    #     r = requests.get(url=URL, headers=header, verify=False)
+    # except Exception as e:
+    #     print(e)
+    #
+    # if r:
+    #     print(r.json())
+    # data = None
+    # if False:
+    #     data = r.json()
+    #     print("data.len")
+    #     print(len(data['items']))
+    #
+    # else:
+    #     print("no data")URL = "https://ows.goszakup.gov.kz/v3/lots"
+    #     #
+    #     # # defining a params dict for the parameters to be sent to the API
+    #     # token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    #     # bearer_token = 'Bearer ' + token
+    #     # header = {'Authorization': bearer_token}
+    #     #
+    #     # # sending get request and saving the response as response object
+    #     # r = None
+    #     # try:
+    #     #     r = requests.get(url=URL, headers=header, verify=False)
+    #     # except Exception as e:
+    #     #     print(e)
+    #     #
+    #     # if r:
+    #     #     print(r.json())
+    #     # data = None
+    #     # if False:
+    #     #     data = r.json()
+    #     #     print("data.len")
+    #     #     print(len(data['items']))
+    #     #
+    #     # else:
+    #     #     print("no data")

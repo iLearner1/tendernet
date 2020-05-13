@@ -5,6 +5,10 @@ from django.template.loader import render_to_string
 from tn_first.settings import CONTACT_MAIL_RECEIVER
 
 
+@shared_task()
+def test():
+    print('test task')
+
 @shared_task
 def send_query(name=None, email=None, message=None, user=None):
     html = render_to_string('blocks/contact-mail.html',
