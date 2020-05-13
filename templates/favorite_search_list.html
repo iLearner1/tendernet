@@ -35,7 +35,7 @@
                       {% endfor %}
                   </div>
                   <div class="col-md-12 tender-filter-result">
-                    
+
                       {% for search in favorite_searches%}
 
                       <div class="item">
@@ -43,7 +43,7 @@
                           <div class="body">
                             <div class="content">
                               <h4>
-                                Поиск по названию: 
+                                Поиск по названию:
                                 {% if search.query.title %}
                                   <b>{{search.query.title}}</b>
                                 {%else%}
@@ -54,21 +54,21 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     {% if search.query.body %}
-                                      Заказчик: 
+                                      Заказчик:
                                       <b>{{search.query.body}}</b>
                                       <br>
                                     {% endif %}
 
                                     {% if search.statzakup %}
-                                      Способ закупки: 
+                                      Способ закупки:
                                       {% for statzakup in search.statzakup %}
                                          <b>{{statzakup}}</b>&nbsp;
                                       {% endfor%}
                                       <br>
                                     {% endif %}
 
-                                    {% if search.city %} 
-                                      Регион: 
+                                    {% if search.city %}
+                                      Регион:
                                       {% for city in search.city %}
                                         <b>{{city.name}}</b>&nbsp;
                                       {% endfor %}
@@ -76,7 +76,7 @@
                                     {% endif %}
 
                                     {% if search.purchase_method %}
-                                      Предмет закупки: 
+                                      Предмет закупки:
                                       {% for purchase in search.purchase_method %}
                                           <b>{{purchase}}</b>&nbsp;
                                       {% endfor%}
@@ -86,31 +86,31 @@
                                   </div>
                                   <div class="col-md-6">
                                     {% if search.query.price_min %}
-                                      Сумма от: 
+                                      Сумма от:
                                       <b>{{search.query.price_min}}</b>
                                       <br>
                                     {% endif %}
-                                    
+
                                     {% if search.query.price_max %}
-                                      Сумма до: 
+                                      Сумма до:
                                       <b>{{search.query.price_max}}</b>
                                       <br>
                                     {% endif %}
 
                                     {% if search.query.date_min %}
-                                      Дата начала приема заявок: 
+                                      Дата начала приема заявок:
                                       <b>{{search.query.date_min}}</b></b>
                                       <br>
                                     {% endif %}
-                                    
+
                                     {% if search.query.date_max %}
-                                      Дата окончания приема заявок: 
+                                      Дата окончания приема заявок:
                                       <b>{{search.query.date_max}}</b></b>
                                       <br>
                                     {% endif %}
 
                                     {% if search.query.id %}
-                                      ID лота: 
+                                      ID лота:
                                       <b>{{search.query.id}}</b></b>
                                     {% endif %}
 
@@ -187,7 +187,7 @@
                               {% endif %}
 
                               </div>
-                          </nav>                
+                          </nav>
                       </div>
                       {% endif %}
                   </div>

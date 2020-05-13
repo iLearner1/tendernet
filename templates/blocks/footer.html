@@ -88,23 +88,22 @@
       //geting form data and saving to database
       let formData = $("#main-searchform").serializeArray();
       let formatedData = {};
-      let isInvalid = false;
+      let isValid = false;
 
       for (let item of formData) {
-        if (item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
+        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
           formatedData[item.name] = formatedData[item.name] ? [...formatedData[item.name], item.value] : [item.value];
         } else {
           formatedData[item.name] = item.value;
         }
 
-        if (item.value) {
-          isInvalid = true
+        if (item.name != "lots" && item.value) {
+          isValid = true
         }
+      }
 
-      }alert
-
-      if (!isInvalid) {
-        //return alert('you can\'t save empty form, please provide some data');
+      if (!isValid) {
+        // return alert('you can\'t save empty form, please provide some data');
         return alert('Вы не можете сохранить пустую форму, пожалуйста, предоставьте некоторые данные');
       }
 
@@ -167,7 +166,7 @@
           },
           success: function (response) {
             savedId = response.id;
-            //alert('search query removed from favorites');
+            // alert('search query removed from favorites');
             alert('Поисковый запрос удален из избранного');
           },
 
@@ -195,20 +194,24 @@
       const formData = $("#main-searchform").serializeArray();
       let data = {};
 
+      console.log("formData");
+      console.log(formData);
+
       //formating data for query
       for (let item of formData) {
-        if (item.name == 'city' || item.name == 'purchase_method' || item.name == 'statzakup') {
+        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
           data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
         } else {
           data[item.name] = item.value;
         }
       }
-
       //show loader
       $("#input-container").html(loader);
 
       //save query for future use
       search_query = data;
+      data['sortBy'] = $("#orderby options:selected").val();
+      history.pushState({}, null, location.href.split('?')[0]);
 
       //fetch data from server
       $.ajax({
@@ -230,8 +233,28 @@
 
     $("#orderby").change(function (e) {
       let sortBy = this.value;
+
+      const formData = $("#main-searchform").serializeArray();
+      console.log("formData");
+      console.log(formData);
+
+      let data = {};
+
+       //formating data for query
+      for (let item of formData) {
+        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+          data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+        } else {
+          data[item.name] = item.value;
+        }
+      }
+
+      search_query = data;
+
       //show loader
       $("#input-container").html(loader);
+      search_query['lots'] = true;
+
       $.ajax({
         method: 'GET',
         url: "{% url 'post_search' %}",

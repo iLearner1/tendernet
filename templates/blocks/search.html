@@ -12,7 +12,8 @@
         <div class="searchAndFilter-block"  style="margin-top:20px;">
           <div class="searchAndFilter">
 
-            <form method="get" class="search-form" action="{% url 'post_search' %}" id="main-searchform">
+            <form method="POST" class="search-form" action="{% url 'post_list' %}" id="main-page-searchform">
+              {% csrf_token %}
 
               <div class="row">
                 <div class="col-md-10">

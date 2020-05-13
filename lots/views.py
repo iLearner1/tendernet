@@ -10,63 +10,128 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 import datetime
 import json
-from lots.utils.Choices import ZAKUP_CHOICES, PURCHASE_CHOICES
+from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOICES
+from lots.utils.config import PAGE_SIZE
+
 
 
 def post_list(request):
 
-    cities = request.GET.getlist("city[]")
-    purchase_method = request.GET.getlist("purchase_method[]")
-    statzakup = request.GET.getlist("statzakup[]")
+    if request.method == "GET":
+        # comes from /lots page OR "Apply to search"
+        request_object = request.GET
+    else:
+        # when it comes from main page with only title
+        request_object = request.POST
 
-    posts = Article.objects.filter(
-        date__gte=timezone.now()
-    )
+    q = Q()
+    title_q = Q()
+
+    current_time_q = Q(date__gte=timezone.now())
+    q &= current_time_q
 
     myFilter = {}
 
-    # dict compression
-    filters = {
-        k: v
-        for (k, v) in request.GET.items()
-        if k != "city[]" or k != "purchase_method[]" or k != "statzakup[]"
-    }
+    if 'title' in request_object:
+        if request_object.get('title'):
+            title_tokens = request_object.get('title').split()
+            for keyword in title_tokens:
+                title_q |= Q(title__contains=keyword)
+        q &= title_q
 
-    if cities or purchase_method or statzakup:
-        posts = Article.objects.filter(
-            Q(city__id__in=cities)
-            | Q(statzakup__in=statzakup)
-            | Q(purchase_method__in=purchase_method)
-        )
-        myFilter = ArticleFilter(filters, queryset=posts)
-        posts = myFilter.qs
+    customer_q = Q()
+    if 'customer' in request_object:
+        if request_object.get('customer'):
+            customer_tokens = request_object.get('customer').split()
+            for keyword in customer_tokens:
+                customer_q |= Q(customer__contains=keyword)
+        q &= customer_q
+
+    city_q = Q()
+    if request_object.getlist('city[]'):
+        for c in request_object.getlist('city[]'):
+            city_q |= Q(city__id=c)
+        q &= city_q
+
+    purchase_method_q = Q()
+    if request_object.getlist('statzakup[]'):
+        for stat in request_object.getlist('statzakup[]'):
+            purchase_method_q |= Q(statzakup=stat)
+        q &= purchase_method_q
+
+    purchase_subject_q = Q()
+    if request_object.getlist('subject_of_purchase[]'):
+        for pm in request_object.getlist('subject_of_purchase[]'):
+            purchase_subject_q |= Q(itemZakup=pm)
+        q &= purchase_subject_q
+
+    price_q = Q()
+    if 'price_min' in request_object:
+        if request_object.get('price_min'):
+            price_q &= Q(price__gte=float(request_object.get('price_min')))
+
+    if 'price_max' in request_object:
+        if request_object.get('price_max'):
+            price_q &= Q(price__lte=float(request_object.get('price_max')))
+
+    q &= price_q
+
+    date_min_q = Q()
+    if 'date_min' in request_object:
+        if request_object.get('date_min'):
+            d = datetime.datetime.strptime(request_object.get('date_min'), '%Y-%m-%d')
+            tz = timezone.utc
+            date_min = tz.localize(d)
+            if date_min > datetime.datetime.now(timezone.utc):
+                date_min = datetime.datetime.now(timezone.utc)
+            date_min_q &= Q(date__gte=date_min)
+        q &= date_min_q
+
+    date_max_q = Q()
+    if 'date_max' in request_object:
+        if request_object.get('date_max'):
+            d = datetime.datetime.strptime(request_object.get('date_max'), '%Y-%m-%d')
+            tz = timezone.utc
+            date_max = tz.localize(d)
+            if date_max > datetime.datetime.now(timezone.utc):
+                date_max = datetime.datetime.now(timezone.utc)
+            date_max_q &= Q(date__lte=date_max)
+        q &= date_max_q
+
+    id_q = Q()
+    if 'id' in request_object:
+        if request_object.get('id'):
+            id_q &= Q(id=request_object.get('id'))
+            q &= id_q
+
+    filters = {}
+
+    posts = Article.objects.filter(q)
+    myFilter = ArticleFilter(filters, queryset=posts)
+
+    paginator = Paginator(posts.order_by("date"), PAGE_SIZE)
+    page_number = request_object.get("page", 1)
+    posts = paginator.page(page_number)
 
     cities = Cities.objects.all()
 
-    paginator = Paginator(posts, 10)
-    page = request.GET.get("page")
+    total_posts = paginator.count
+    posts_start_index = 0
+    posts_end_index = 0
 
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    if page is None:
-        start_index = 0
-        end_index = 7
-    else:
-        (start_index, end_index) = proper_pagination(posts, index=4)
-
-    page_range = list(paginator.page_range)[start_index:end_index]
+    if len(posts) > 0:
+        posts_start_index = (int(page_number) - 1) * PAGE_SIZE + 1
+        posts_end_index = (int(page_number) - 1) * PAGE_SIZE + len(posts)
 
     context = {
         "posts": posts,
+        "posts_start_index": posts_start_index,
+        "posts_end_index": posts_end_index,
+        "total_posts": total_posts,
         "myFilter": myFilter,
         "cities": cities,
-        "ZAKUP_CHOICES": ZAKUP_CHOICES,
-        "PURCHASE_CHOICES": PURCHASE_CHOICES,
+        "PURCHASE_METHOD_CHOICES": PURCHASE_METHOD_CHOICES,
+        "SUBJECT_OF_PURCHASE_CHOICES": SUBJECT_OF_PURCHASE_CHOICES
     }
 
     return render(request, "article_list.html", context)
@@ -130,135 +195,175 @@ def post_delete(request, id, slug):
 
 
 def post_search(request):
-    isValid = False
-    cities = request.GET.getlist("city[]")
-    purchase_method = request.GET.getlist("purchase_method[]")
-    statzakup = request.GET.getlist("statzakup[]")
 
-    filters = {
-        k: v
-        for (k, v) in request.GET.items()
-        if k not in ("sortBy", "city[]", "purchase_method[]", "statzakup[]")
-    }
+    current_time_q = Q(date__gte=timezone.now())
 
-    print("filters")
-    print(filters)
+    title_q = Q()
+    if request.GET.get('title'):
+        title_tokens = request.GET.get('title').split()
+        for keyword in title_tokens:
+            title_q |= Q(title__contains=keyword)
 
-    for key in filters:
-        if filters[key]:
-            isValid = True
+    customer_q = Q()
+    if request.GET.get('customer'):
+        body_tokens = request.GET.get('customer').split()
+        for keyword in body_tokens:
+            customer_q |= Q(body__contains=keyword)
 
-    if not isValid and not (cities or purchase_method or statzakup):
-        # if no filter found only has sort value then onlye sort apply on this
+    price_q = Q()
+    if 'price_min' in request.GET:
+        if request.GET.get('price_min'):
+            price_q &= Q(price__gte=float(request.GET.get('price_min')))
 
-        if request.GET.get("sortBy"):
-            myFilter = Article.objects.order_by(request.GET.get("sortBy"))
-            paginator = Paginator(myFilter, 25)
-            page_number = request.GET.get("page")
-            posts = paginator.get_page(page_number)
+    if 'price_max' in request.GET:
+        if request.GET.get('price_max'):
+            price_q &= Q(price__lte=float(request.GET.get('price_max')))
 
-            context = {"posts": posts}
-            return render(request, "lots-filter-result.html", context)
-        return render(request, "error.html")
+    date_min_q = Q()
+    if 'date_min' in request.GET:
+        if request.GET.get('date_min'):
+            d = datetime.datetime.strptime(request.GET.get('date_min'), '%Y-%m-%d')
+            tz = timezone.utc
+            date_min = tz.localize(d)
+            if date_min > datetime.datetime.now(timezone.utc):
+                date_min = datetime.datetime.now(timezone.utc)
+            date_min_q &= Q(date__gte=date_min)
 
-    print("title")
-    print(request.GET.get('title'))
+    date_max_q = Q()
+    if 'date_max' in request.GET:
+        if request.GET.get('date_max'):
+            d = datetime.datetime.strptime(request.GET.get('date_max'), '%Y-%m-%d')
+            tz = timezone.utc
+            date_max = tz.localize(d)
+            if date_max > datetime.datetime.now(timezone.utc):
+                date_max = datetime.datetime.now(timezone.utc)
+            date_max_q &= Q(date__lte=date_max)
 
+    id_q = Q()
+    if request.GET.get('id'):
+        id_q &= Q(numb=request.GET.get('id'))
 
+    sort_field = "date"
+    if 'sortBy' in request.GET:
+        if request.GET.get('sortBy'):
+            sort_by = request.GET.get('sortBy')
+            sort_field = sort_by.split('-')[0]
+            lh_hl = sort_by.split('-')[1]
 
-    print("body")
-    print(request.GET.get('body'))
+            if lh_hl == "HL":
+                sort_field = "-" + sort_field
 
-    if request.GET.get('city[]'):
-        filters['id'] = request.GET.get('city[]')[0]
+    q = Q()
+    if request.GET.getlist('city[]'):
+        city_q = Q()
+        for c in request.GET.getlist('city[]'):
+            city_q |= Q(city__id=c)
+        q &= city_q
 
-    if request.GET.get('statzakup'):
-        filters['statzakup'] = request.GET.get('statzakup[]')[0]
+    if request.GET.getlist('statzakup[]'):
+        stat_q = Q()
+        for stat in request.GET.getlist('statzakup[]'):
+            stat_q |= Q(statzakup=stat)
+        q &= stat_q
 
-    if request.GET.get('purchase_method'):
-        filters['purchase_method'] = request.GET.get('purchase_method[]')[0]
+    if request.GET.getlist('subject_of_purchase[]'):
+        purch_meth = Q()
+        for pm in request.GET.getlist('subject_of_purchase[]'):
+            purch_meth |= Q(itemZakup=pm)
+        q &= purch_meth
 
-    print("filters")
-    print(filters)
+    if request.GET.get('id'):
+        q &= id_q
 
-    # applying multiple value filters in
+    if request.GET.get('title'):
+        q &= title_q
 
-    queryset = Article.objects.filter(title__contains=request.GET.get('title')).order_by(request.GET.get("sortBy", "date"))
+    if request.GET.get('customer'):
+        q &= customer_q
 
-    print(queryset.query)
+    if ('price_min' in request.GET) | ('price_max' in request.GET):
+        q &= price_q
 
-    myFilter = ArticleFilter(filters, queryset=queryset)
-    print("myFilter")
-    print(myFilter)
+    if ('date_min' in request.GET) | ('date_max' in request.GET):
+        q &= date_min_q & date_max_q
 
-    print("myFilter.qs")
-    print(myFilter.qs)
+    q &= current_time_q
 
-    paginator = Paginator(myFilter.qs.order_by("-id"), 25)
-    page_number = request.GET.get("page")
-    posts = paginator.get_page(page_number)
+    if (sort_field == 'title') | (sort_field == '-title'):
+        queryset = Article.objects.filter(q)
+        if sort_field == '-title':
+            sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
+        else:
+            sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
+    else:
+        sorted_lots = Article.objects.filter(q).order_by(sort_field)
 
-    print(len(posts))
+    paginator = Paginator(sorted_lots, PAGE_SIZE)
+    page_number = request.GET.get("page", 1)
+    posts = paginator.page(page_number)
 
-    context = {"posts": posts}
+    total_posts = paginator.count
+    posts_start_index = 0
+    posts_end_index = 0
 
-    if request.GET.get("lots"):
-        return render(request, "lots-filter-result.html", context)
-    return render(request, "main_filter_result.html", context)
+    if len(posts) > 0:
+        posts_start_index = (page_number - 1) * PAGE_SIZE + 1
+        posts_end_index = (page_number - 1) * PAGE_SIZE + len(posts)
 
+    context = {"posts": posts,
+               "total_posts": total_posts,
+               "posts_start_index": posts_start_index,
+               "posts_end_index": posts_end_index
+            }
+    return render(request, "lots-filter-result.html", context)
 
-# def post_search(request):
-#     print("views.post_search")
-#     isValid = False
-#     cities = request.GET.getlist("city[]")
-#     purchase_method = request.GET.getlist("purchase_method[]")
-#     statzakup = request.GET.getlist("statzakup[]")
-#     print(request.GET)
-#
-#     filters = {
-#         k: v
-#         for (k, v) in request.GET.items()
-#         if k not in ("sortBy", "city[]", "purchase_method[]", "statzakup[]")
-#     }
-#     for key in filters:
-#         if filters[key]:
-#             isValid = True
-#
-#     if not isValid and not (cities or purchase_method or statzakup):
-#         # if no filter found only has sort value then onlye sort apply on this
-#
-#         if request.GET.get("sortBy"):
-#             myFilter = Article.objects.order_by(request.GET.get("sortBy"))
-#             paginator = Paginator(myFilter, 25)
-#             page_number = request.GET.get("page")
-#             posts = paginator.get_page(page_number)
-#
-#             context = {"posts": posts}
-#             return render(request, "lots-filter-result.html", context)
-#         return render(request, "error.html")
-#
-#     print("statzakup")
-#     print(statzakup)
-#     # applying multiple value filters in
-#     queryset = Article.objects.filter(
-#         Q(city__id__in=cities)
-#         | Q(statzakup__in=statzakup)
-#         | Q(purchase_method__in=purchase_method)
-#     ).order_by(request.GET.get("sortBy", "date"))
-#
-#     myFilter = ArticleFilter(filters, queryset=queryset)
-#     paginator = Paginator(myFilter.qs.order_by("-id"), 25)
-#     page_number = request.GET.get("page")
-#     posts = paginator.get_page(page_number)
-#
-#     print("posts")
-#     print(len(posts))
-#
-#     context = {"posts": posts}
-#
-#     if request.GET.get("lots"):
-#         return render(request, "lots-filter-result.html", context)
-#     return render(request, "main_filter_result.html", context)
+    # q = Q()
+    # if request.GET.get('city[]'):
+    #     q &= Q(city__id=request.GET.get('city[]')[0])
+    #
+    # if request.GET.get('statzakup'):
+    #     q &= Q(statzakup=request.GET.get('statzakup[]')[0])
+    #
+    # if request.GET.get('subject_of_purchase'):
+    #     q &= Q(itemZakup=request.GET.get('subject_of_purchase[]')[0])
+    #
+    # if request.GET.get('title'):
+    #     q &= title_q
+    #
+    # if request.GET.get('customer'):
+    #     q &= customer_q
+    #
+    # if request.GET.get('id'):
+    #     q &= id_q
+    #
+    # if ('price_min' in request.GET) | ('price_max' in request.GET):
+    #     q &= price_q
+    #
+    # if ('date_min' in request.GET) | ('date_max' in request.GET):
+    #     q &= date_min_q & date_max_q
+    #
+    # # q &= current_time_q
+    #
+    # # applying multiple value filters in
+    # if (sort_field == 'title') | (sort_field == '-title'):
+    #     queryset = Article.objects.filter(q)
+    #     if sort_field == '-title':
+    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
+    #     else:
+    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
+    # else:
+    #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
+    #
+    # paginator = Paginator(sorted_lots, 2)
+    # page_number = request.GET.get("page", 1)
+    # posts = paginator.page(page_number)
+    #
+    # print("posts.len")
+    # print(len(posts))
+    #
+    # context = {"posts": posts}
+    #
+    # return render(request, "main_filter_result.html", context)
 
 
 @login_required
@@ -272,12 +377,15 @@ def save_favorite_search(request):
 
     # saving favorites query
     content = request.POST.dict()
+    print("request.POST.dict()")
+    print(content)
+
     if "city[]" in content:
         content["city[]"] = request.POST.getlist("city[]")
 
-    if "purchase_method[]" in content:
-        content["purchase_method[]"] = request.POST.getlist(
-            "purchase_method[]")
+    if "subject_of_purchase[]" in content:
+        content["subject_of_purchase[]"] = request.POST.getlist(
+            "subject_of_purchase[]")
 
     if "statzakup[]" in content:
         content["statzakup[]"] = request.POST.getlist("statzakup[]")
@@ -300,7 +408,7 @@ def favorite_search_list(request):
 
 @login_required
 def remove_favorite_search(request, id):
-    # deleting favorite search
+    print("# deleting favorite search")
     FavoriteSearch.objects.filter(id=id).delete()
     messages.add_message(request, messages.WARNING, "Favorite Search Removed!")
     return redirect(request.GET.get("next"))
