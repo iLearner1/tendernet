@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from users.forms import EmailValidationOnForgotPassword, CustomEmailValidationOnForgotPassword
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 
 from users import views
 
@@ -26,6 +28,9 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('zakaz.urls')),
 
+    path('accounts/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(form_class=CustomEmailValidationOnForgotPassword), name='password_reset_confirm'),
+    path('accounts/password_reset/', PasswordResetView.as_view(form_class=EmailValidationOnForgotPassword), name='password_reset'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('login/home/', views.index),
 

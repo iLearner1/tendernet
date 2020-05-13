@@ -7,16 +7,15 @@
     <div class="row">
 
       <div class="col-xl-4 col-md-6">
+        {% if error_message %}
+          <div class="alert alert-danger" role="alert">
+            Логин или пароль введены неверно!
+          </div>
+        {% endif %}
         <div class="access-form">
           <div class="form-header">
             <h5><i data-feather="edit"></i>Войти в аккаунт TENDERNET.KZ</h5>
           </div>
-
-          {% if form.errors %}
-            <div class="alert alert-danger" role="alert">
-              Логин или пароль введены неверно!
-            </div>
-          {% endif %}
 
           <script type="text/javascript">
             jQuery(function($){

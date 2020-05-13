@@ -35,7 +35,7 @@
                       {% endfor %}
                   </div>
                   <div class="col-md-12 tender-filter-result">
-
+                {% if favorite_searches %}
                       {% for search in favorite_searches%}
 
                       <div class="item">
@@ -67,6 +67,7 @@
                                       <br>
                                     {% endif %}
 
+<!--                                    show city-->
                                     {% if search.city %}
                                       Регион:
                                       {% for city in search.city %}
@@ -75,43 +76,53 @@
                                       <br>
                                     {% endif %}
 
-                                    {% if search.purchase_method %}
-                                      Предмет закупки:
-                                      {% for purchase in search.purchase_method %}
-                                          <b>{{purchase}}</b>&nbsp;
-                                      {% endfor%}
-                                      <br>
+                                      {% if search.statzakup_obj %}
+                                         Предмет закупки:
+                                        {% if search.statzakup_obj %}
+                                            {% for statzakup in search.statzakup_obj %}
+
+                                                <b>{{statzakup.1}}</b>&nbsp;
+                                            {% endfor%}
+                                         {% else %}
+                                            'Не выбран'
+                                         {% endif %}
+
+                                    {% else %}
+                                        Способ закупки: Не выбран
                                     {% endif %}
 
                                   </div>
                                   <div class="col-md-6">
                                     {% if search.query.price_min %}
-                                      Сумма от:
+                                         Сумма от:
                                       <b>{{search.query.price_min}}</b>
                                       <br>
+                                    {% else %}
+                                        Лоты Максимум Цена: Не выбран
                                     {% endif %}
 
                                     {% if search.query.price_max %}
-                                      Сумма до:
+                                        Сумма до:
                                       <b>{{search.query.price_max}}</b>
                                       <br>
+                                    {% else %}
+                                        Лоты минимальный Цена: Не выбран
                                     {% endif %}
 
                                     {% if search.query.date_min %}
-                                      Дата начала приема заявок:
+                                        Дата начала приема заявок:
                                       <b>{{search.query.date_min}}</b></b>
                                       <br>
+                                    {% else %}
+                                        Начните Свидание: Не выбран
                                     {% endif %}
 
                                     {% if search.query.date_max %}
-                                      Дата окончания приема заявок:
+                                        Дата окончания приема заявок:
                                       <b>{{search.query.date_max}}</b></b>
                                       <br>
-                                    {% endif %}
-
-                                    {% if search.query.id %}
-                                      ID лота:
-                                      <b>{{search.query.id}}</b></b>
+                                    {% else %}
+                                        Конец Свидание: Не выбран
                                     {% endif %}
 
                                   </div>
@@ -123,7 +134,7 @@
                               <div class="buttons">
                               <form action="{% url 'post_list' %}" method="get">
                                  <input type="hidden" name="title" value="{{search.query.title}}">
-                                 <input type="hidden" name="body" value="{{search.query.body}}">
+                                 <input type="hidden" name="body" value="{{search.query.customer}}">
                                  <input type="hidden" name="id" value="{{search.query.id}}">
 
                                  {% if search.city %}
@@ -132,15 +143,15 @@
                                     {% endfor%}
                                  {% endif %}
 
-                                 {% if search.purchase_method %}
-                                    {% for purchase in search.purchase_method %}
-                                        <input type="hidden" name="purchase_method[]" value="{{purchase}}">
+                                 {% if search.statzakup_obj %}
+                                    {% for purchase in search.statzakup_obj %}
+                                        <input type="hidden" name="statzakup[]" value="{{statzakup.0}}">
                                     {% endfor%}
                                  {% endif %}
 
-                                 {% if search.statzakup %}
-                                    {% for statzakup in search.statzakup %}
-                                        <input type="hidden" name="statzakup[]" value="{{statzakup}}">
+                                 {% if search.subject_of_purchase_obj %}
+                                    {% for statzakup in search.subject_of_purchase_obj %}
+                                        <input type="hidden" name="itemZakup[]" value="{{subject.0}}">
                                     {% endfor%}
                                  {% endif %}
 
@@ -163,6 +174,9 @@
                       </div>
 
                       {% endfor %}
+                      {% else %}
+                     <p>У вас нет любимых предметов поиска</p>
+                {% endif %}
 
                       {% if favorite_searches.num_pages > 1 %}
                       <div class="pagination-list text-center">

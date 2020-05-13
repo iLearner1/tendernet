@@ -44,6 +44,7 @@
 
             <div class="tender-filter-result xs-padding-0">
 
+          {% if favourite_posts %}
               {% for p in favourite_posts %}
 
                 <div class="item">
@@ -54,12 +55,12 @@
                         <div class="info">
                           <div class="row">
                             <div class="col-md-5">
-                              Начало: <b>{{ p.date }}</b><br>
-                              Окончание: <b>00.00.0000</b>
+                              Начало: <b>{{ p.date_open|date:"d.m.Y" }}</b><br>
+                              Окончание: <b>{{ p.date|date:"d.m.Y" }}</b>
                             </div>
                             <div class="col-md-7">
                               <span class="office-location">Регион: <b>{{ p.city }}</b></span><br>
-                              <span class="deadline">До завершения: <b>0 д 00 ч 0 м</b></span>
+                              <span class="deadline">До завершения: <b>{{ p.date|timeuntil:current_date }}</b></span>
                             </div>
                           </div>
                         </div>
@@ -77,11 +78,12 @@
                   </div>
                 </div>
 
-                {% empty %}
-                  <ul>
-                    <li>Нет избранных поисков</li>
-                  </ul>
                 {% endfor %}
+              {% else %}
+                <ul>
+                  <li style="color:white;">У вас нет любимых лотов</li>
+                </ul>
+              {% endif %}
 
 
             </div>

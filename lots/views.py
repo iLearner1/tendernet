@@ -173,6 +173,7 @@ def post_favourite_list(request):
 
     context = {
         "favourite_posts": favourite_posts,
+        "current_date": datetime.datetime.now(timezone.utc)
     }
     return render(request, "post_favourite_list.html", context)
 
@@ -235,8 +236,6 @@ def post_search(request):
             d = datetime.datetime.strptime(request.GET.get('date_max'), '%Y-%m-%d')
             tz = timezone.utc
             date_max = tz.localize(d)
-            if date_max > datetime.datetime.now(timezone.utc):
-                date_max = datetime.datetime.now(timezone.utc)
             date_max_q &= Q(date__lte=date_max)
 
     id_q = Q()
@@ -317,54 +316,6 @@ def post_search(request):
             }
     return render(request, "lots-filter-result.html", context)
 
-    # q = Q()
-    # if request.GET.get('city[]'):
-    #     q &= Q(city__id=request.GET.get('city[]')[0])
-    #
-    # if request.GET.get('statzakup'):
-    #     q &= Q(statzakup=request.GET.get('statzakup[]')[0])
-    #
-    # if request.GET.get('subject_of_purchase'):
-    #     q &= Q(itemZakup=request.GET.get('subject_of_purchase[]')[0])
-    #
-    # if request.GET.get('title'):
-    #     q &= title_q
-    #
-    # if request.GET.get('customer'):
-    #     q &= customer_q
-    #
-    # if request.GET.get('id'):
-    #     q &= id_q
-    #
-    # if ('price_min' in request.GET) | ('price_max' in request.GET):
-    #     q &= price_q
-    #
-    # if ('date_min' in request.GET) | ('date_max' in request.GET):
-    #     q &= date_min_q & date_max_q
-    #
-    # # q &= current_time_q
-    #
-    # # applying multiple value filters in
-    # if (sort_field == 'title') | (sort_field == '-title'):
-    #     queryset = Article.objects.filter(q)
-    #     if sort_field == '-title':
-    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
-    #     else:
-    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
-    # else:
-    #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
-    #
-    # paginator = Paginator(sorted_lots, 2)
-    # page_number = request.GET.get("page", 1)
-    # posts = paginator.page(page_number)
-    #
-    # print("posts.len")
-    # print(len(posts))
-    #
-    # context = {"posts": posts}
-    #
-    # return render(request, "main_filter_result.html", context)
-
 
 @login_required
 def save_favorite_search(request):
@@ -377,8 +328,6 @@ def save_favorite_search(request):
 
     # saving favorites query
     content = request.POST.dict()
-    print("request.POST.dict()")
-    print(content)
 
     if "city[]" in content:
         content["city[]"] = request.POST.getlist("city[]")
