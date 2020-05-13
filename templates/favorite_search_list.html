@@ -5,11 +5,11 @@
                 <div class="row">
                     <div class="col-md-6">
                     <div class="breadcrumb-area">
-                        <h1>Favorite Search List</h1>
+                        <h1>Избранные поиски</h1>
                         <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Favorite Search List</li>
+                            <li class="breadcrumb-item active" aria-current="page">Избранные поиски</li>
                         </ol>
                         </nav>
                     </div>
@@ -26,150 +26,172 @@
                 </div>
             </div>
         <!-- Breadcrumb End -->
-        <div class="container section-padding-bottom">
-            <div class="row">
-                <div class="col-md-12">
-                    {% for message in messages %}
-                        <div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
-                    {% endfor %}
-                </div>
-                <div class="col-md-12">
-                    {% for search in favorite_searches%}
+        <div class="section-padding-bottom alice-bg favorite-search-page">
+          <div class="container section-padding-bottom">
+              <div class="row" style="margin-left: 0; margin-right: 0;">
+                  <div class="col-md-12">
+                      {% for message in messages %}
+                          <div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
+                      {% endfor %}
+                  </div>
+                  <div class="col-md-12 tender-filter-result">
+                    
+                      {% for search in favorite_searches%}
 
-                    <div class="item">
-                      <div class="tender-list half-grid">
-                        <div class="body">
-                          <div class="content">
-                            <h4><a href="#">TITLE</a></h4>
-                            <div class="info">
-                              <div class="row">
-                                <div class="col-md-5">
-                                  Начало: <b>00.00.0000</b><br>
-                                  Окончание: <b>00.00.0000</b>
-                                </div>
-                                <div class="col-md-7">
-                                  <span class="office-location">Регион: <b>CITY</b></span><br>
-                                  <span class="deadline">До завершения: <b>0 д 00 ч 0 м</b></span>
+                      <div class="item">
+                        <div class="tender-list half-grid">
+                          <div class="body">
+                            <div class="content">
+                              <h4>
+                                Поиск по названию: 
+                                {% if search.query.title %}
+                                  <b>{{search.query.title}}</b>
+                                {%else%}
+                                <span style="color: #b5b5b5;">Ничего не введено</span>
+                                {% endif %}
+                              </h4>
+                              <div class="info">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    {% if search.query.body %}
+                                      Заказчик: 
+                                      <b>{{search.query.body}}</b>
+                                      <br>
+                                    {% endif %}
+
+                                    {% if search.statzakup %}
+                                      Способ закупки: 
+                                      {% for statzakup in search.statzakup %}
+                                         <b>{{statzakup}}</b>&nbsp;
+                                      {% endfor%}
+                                      <br>
+                                    {% endif %}
+
+                                    {% if search.city %} 
+                                      Регион: 
+                                      {% for city in search.city %}
+                                        <b>{{city.name}}</b>&nbsp;
+                                      {% endfor %}
+                                      <br>
+                                    {% endif %}
+
+                                    {% if search.purchase_method %}
+                                      Предмет закупки: 
+                                      {% for purchase in search.purchase_method %}
+                                          <b>{{purchase}}</b>&nbsp;
+                                      {% endfor%}
+                                      <br>
+                                    {% endif %}
+
+                                  </div>
+                                  <div class="col-md-6">
+                                    {% if search.query.price_min %}
+                                      Сумма от: 
+                                      <b>{{search.query.price_min}}</b>
+                                      <br>
+                                    {% endif %}
+                                    
+                                    {% if search.query.price_max %}
+                                      Сумма до: 
+                                      <b>{{search.query.price_max}}</b>
+                                      <br>
+                                    {% endif %}
+
+                                    {% if search.query.date_min %}
+                                      Дата начала приема заявок: 
+                                      <b>{{search.query.date_min}}</b></b>
+                                      <br>
+                                    {% endif %}
+                                    
+                                    {% if search.query.date_max %}
+                                      Дата окончания приема заявок: 
+                                      <b>{{search.query.date_max}}</b></b>
+                                      <br>
+                                    {% endif %}
+
+                                    {% if search.query.id %}
+                                      ID лота: 
+                                      <b>{{search.query.id}}</b></b>
+                                    {% endif %}
+
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="more">
-                            <span class="price"><b>Сумма:</b><br>PRICE тг</span><br>
-                            <div class="buttons">
-                              <a href="#" class="button">ПОДРОБНЕЕ</a>
+                            <div class="more">
+
+                              <div class="buttons">
+                              <form action="{% url 'post_list' %}" method="get">
+                                 <input type="hidden" name="title" value="{{search.query.title}}">
+                                 <input type="hidden" name="body" value="{{search.query.body}}">
+                                 <input type="hidden" name="id" value="{{search.query.id}}">
+
+                                 {% if search.city %}
+                                    {% for city in search.city %}
+                                        <input type="hidden" name="city[]" value="{{city.id}}">
+                                    {% endfor%}
+                                 {% endif %}
+
+                                 {% if search.purchase_method %}
+                                    {% for purchase in search.purchase_method %}
+                                        <input type="hidden" name="purchase_method[]" value="{{purchase}}">
+                                    {% endfor%}
+                                 {% endif %}
+
+                                 {% if search.statzakup %}
+                                    {% for statzakup in search.statzakup %}
+                                        <input type="hidden" name="statzakup[]" value="{{statzakup}}">
+                                    {% endfor%}
+                                 {% endif %}
+
+                                 <input type="hidden" name="price_min" value="{{search.query.price_min}}">
+                                 <input type="hidden" name="price_max" value="{{search.query.price_max}}">
+                                 <input type="hidden" name="date_min" value="{{search.query.date_min}}">
+                                 <input type="hidden" name="date_max" value="{{search.query.date_max}}">
+                                 <input type="hidden" name="item_id" value="{{search.id}}">
+                                 <button class="button">Открыть поиск</button>
+                             </form>
                             </div>
-                            <div class="remove-button">
-                              <a href="#" class="confirmation"><i class="fa fa-trash"></i>&nbsp;Удалить</a>
+
+                             <div class="remove-button" style="text-align: center; margin-top: 10px;">
+                                 <a href="{% url 'remove_favorite_search' search.id %}?next={% url 'favorite_search_list' %}" class="confirmation" onclick="return confirm('Вы действительно хотите удалить этот поиск?')"><i class="fa fa-trash"></i>&nbsp;Удалить</a>
+                             </div>
+
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                        <div class="card p-4 mt-3">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p>lots name: {{search.query.title}}</p>
-                                    <p>customer: {{search.query.body}}</p>
-                                    <p>Lot id: {{search.query.id}}</p>
-                                    <p>Region:
-                                         {% if search.city %} 
-                                            {% for city in search.city %}
-                                                {{city.name}},
-                                            {% endfor %}
-                                         {%else%} 
-                                         'No Region Found' 
-                                        {% endif %}
-                                    </p>
-                                    <p>Purchase Method: 
-                                    {% if search.statzakup %}
-                                        {% for statzakup in search.statzakup %}
-                                           {{statzakup}},
-                                        {% endfor%}
-                                     {% endif %}
-                                    </p>
-                                    <p>
-                                        Purchase Subject:
-                                        {% if search.purchase_method %}
-                                            {% for purchase in search.purchase_method %}
-                                                {{purchase}},
-                                            {% endfor%}
-                                         {% endif %}
-                                    </p>
-                                </div>
-                                <div class="col-md-5">
-                                    <p>lots max-price: {{search.query.price_min}}</p>
-                                    <p>lots min-price: {{search.query.price_max}}</p>
-                                    <p>Start Date: {{search.query.date_min}}</p>
-                                    <p>End Date: {{search.query.date_max}}</p>
-                                </div>
-                                <div class="col-md-2">
-                                     <form action="{% url 'post_list' %}" method="get">
-                                         <input type="hidden" name="title" value="{{search.query.title}}">
-                                         <input type="hidden" name="body" value="{{search.query.body}}">
-                                         <input type="hidden" name="id" value="{{search.query.id}}">
+                      {% endfor %}
 
-                                         {% if search.city %}
-                                            {% for city in search.city %}
-                                                <input type="hidden" name="city[]" value="{{city.id}}">
-                                            {% endfor%}
-                                         {% endif %}
+                      {% if favorite_searches.num_pages > 1 %}
+                      <div class="pagination-list text-center">
+                          <nav class="navigation pagination">
+                              <div class="nav-links">
+                              {% if favorite_searches.has_previous %}
+                              <a class="prev page-numbers" href="?page={{ favorite_searches.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+                              {% endif %}
 
-                                         {% if search.purchase_method %}
-                                            {% for purchase in search.purchase_method %}
-                                                <input type="hidden" name="purchase_method[]" value="{{purchase}}">
-                                            {% endfor%}
-                                         {% endif %}
+                              {% for p in favorite_searches.paginator.page_range %}
+                              {% if favorite_searches.number == p %}
+                              <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
+                              {% else %}
+                              <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
 
-                                         {% if search.statzakup %}
-                                            {% for statzakup in search.statzakup %}
-                                                <input type="hidden" name="statzakup[]" value="{{statzakup}}">
-                                            {% endfor%}
-                                         {% endif %}
-
-                                         <input type="hidden" name="price_min" value="{{search.query.price_min}}">
-                                         <input type="hidden" name="price_max" value="{{search.query.price_max}}">
-                                         <input type="hidden" name="date_min" value="{{search.query.date_min}}">
-                                         <input type="hidden" name="date_max" value="{{search.query.date_max}}">
-                                         <input type="hidden" name="item_id" value="{{search.id}}">
-                                         <button class="btn btn-primary">Apply this to Search</button>
-                                     </form>
-                                     <div class="form-group">
-                                         <a href="{% url 'remove_favorite_search' search.id %}?next={% url 'favorite_search_list' %}" class="btn btn-danger" onclick="return confirm('do you want to remove it')">remove favorite search</a>
-                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                {% if favorite_searches.num_pages > 1 %}
-                    <div class="pagination-list text-center">
-                        <nav class="navigation pagination">
-                            <div class="nav-links">
-                            {% if favorite_searches.has_previous %}
-                            <a class="prev page-numbers" href="?page={{ favorite_searches.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
-                            {% endif %}
-
-                            {% for p in favorite_searches.paginator.page_range %}
-                            {% if favorite_searches.number == p %}
-                            <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
-                            {% else %}
-                            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
-
-                            {% endif %}
-                            {% endfor %}
+                              {% endif %}
+                              {% endfor %}
 
 
-                            {% if favorite_searches.has_next %}
-                            <a class="next page-numbers" href="?page={{ favorite_searches.next_page_number }}"><i class="fas fa-angle-right"></i></a>
-                            {% endif %}
+                              {% if favorite_searches.has_next %}
+                              <a class="next page-numbers" href="?page={{ favorite_searches.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+                              {% endif %}
 
-                            </div>
-                        </nav>                
-                    </div>
-                {% endif %}
-                </div>
-            </div>
+                              </div>
+                          </nav>                
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
         </div>
 {% include "blocks/footer.html" %}

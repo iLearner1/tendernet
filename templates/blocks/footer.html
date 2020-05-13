@@ -112,7 +112,7 @@
       //what happening here? changing save to favorites text and class
       const text = $(this).find('a').text();
       $(this).find('a').html(text === 'Сохранить в избранные' ? 'Удалить из Избранного' : 'Сохранить в избранные');
-      $(this).toggleClass('text-warning');
+      // $(this).toggleClass('text-warning');
       $(this).find('i').toggleClass('far fas');
 
       if (deleteFavorite()) {
@@ -140,7 +140,7 @@
     });
 
     $("button[type='reset']").click(function () {
-      $("#save-query").removeClass('text-warning');
+      // $("#save-query").removeClass('text-warning');
       $("#save-query").find('a').text('Save to Favorites');
       $("#save-query").find('i').removeClass('fas').addClass('far');
       $('.multiselect').selectpicker('deselectAll');

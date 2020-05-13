@@ -6,10 +6,10 @@
 {% include "blocks/header.html" %}
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-10">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="breadcrumb-area">
                     <h1>Архив лотов</h1>
                     <nav aria-label="breadcrumb">
@@ -20,7 +20,7 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="display: none;">
                 <div class="breadcrumb-form">
                     <form action="{% url 'archived_post' %}">
                         <input type="text" placeholder="Поиск по названию" name="q">
@@ -34,7 +34,7 @@
 <!-- Breadcrumb End -->
 
 <!-- tender Listing -->
-<div class="alice-bg section-padding-bottom">
+<div class="alice-bg section-padding-bottom tender-details-page">
     <div class="container">
         <div class="row no-gutters">
             <div class="col">
@@ -62,7 +62,7 @@
                                                 <div class="info">
                                                     <div class="row">
                                                         <div class="col-md-5">
-                                                            Окончание:<br><b>{{ article.date|date:"d/m/y" }}</b>
+                                                            Окончание:&nbsp;<b>{{ article.date|date:"d/m/y" }}</b>
                                                         </div>
                                                         <div class="col-md-7">
                                                             <span class="office-location">Регион:

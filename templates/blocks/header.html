@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/jquery.nstSlider.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v16.4">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v17.6">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
 
   <script src="{% static 'assets/js/jquery.min.js' %}"></script>
@@ -152,7 +152,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="{% url 'profile' %}">Личный кабинет</a>
               <a class="dropdown-item" href="/lots/favourites">Избранные лоты</a>
-              <a class="dropdown-item" href="javascript:void(0);">Избранные поиски</a>
+              <a class="dropdown-item" href="{% url 'favorite_search_list' %}">Избранные поиски</a>
               <a class="dropdown-item" href="/history_list">Мои действия</a>
               <a class="dropdown-item" href="/basket_list">Мои заявки</a>
               <a class="dropdown-item" href="{% url 'logout'%}">Выйти из аккаунта</a>
@@ -176,6 +176,7 @@
         <ul class="navbar-nav ml-auto main-nav">
           <li class="menu-item active"><a href="{% url 'index' %}">Главная</a></li>
           <li class="menu-item"><a href="{% url 'post_list' %}">Поиск лотов</a></li>
+          <li class="menu-item"><a href="{% url 'archived_post' %}">Архив лотов</a></li>
 
           <!-- <li class="menu-item"><a href="{% url 'contact' %}">contact us</a></li> comment out this if you want to show contact-us page -->
 
@@ -190,14 +191,13 @@
               <li class="menu-item"><a href="/basket_list">Мои заявки</a></li>
               <li class="menu-item"><a href="javascript:void(0);">Архив</a></li>
               <li class="menu-item"><a href="/lots/favourites">Избранные лоты</a></li>
-              <li class="menu-item"><a href="javascript:void(0);">Избранные поиски</a></li>
+              <li class="menu-item"><a href="{% url 'favorite_search_list' %}">Избранные поиски</a></li>
             </ul>
           </li>
           <li class="menu-item dropdown">
             <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
               aria-expanded="false">Услуги</a>
             <ul class="dropdown-menu">
-              <li class="menu-item"><a class="dropdown-item" href="{% url 'archived_post' %}">Архив лотов</a></li>
               <li class="menu-item"><a href="/pko">Прохождение ПКО</a></li>
               <li class="menu-item"><a href="/iso">Сертификаты ISO</a></li>
               <li class="menu-item"><a href="{% url 'legal' %}">Юридические услуги</a></li>
@@ -276,6 +276,7 @@
                     $("#consultacia-form").submit(function(e) {
                         e.preventDefault();
                         alert("Ваша заявка отправлена! В ближайшее время с вами свяжеться наш менеджер.");
+                        $('#orderform').modal('hide');
                     });
                 });
               </script>

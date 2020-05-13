@@ -16,6 +16,7 @@
               $('#id_username').addClass('form-control');
               $("#id_username").attr("placeholder", "8xxxxxxxxxx (Номер телефона)");
               $('label[for=id_username]').text("Номер телефона");
+              $("#id_username").attr("onkeydown", "javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))");
 
               $('#id_first_name').addClass('form-control');
               $("#id_first_name").attr("placeholder", "Имя");
@@ -33,6 +34,7 @@
               $('#id_confirm_password').addClass('form-control');
               $("#id_confirm_password").attr("placeholder", "Повторите пароль");
               $('label[for=id_confirm_password]').text("Повторите пароль");
+
             });
           </script>
 

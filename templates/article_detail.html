@@ -3,7 +3,7 @@
 <!-- article_detail.html -->
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-40 padding-bottom-30">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -66,7 +66,7 @@
                         <td>{{ post.city }}</td>
                       </tr>
                       <tr>
-                        <td><b>Purchase Subject:</b></td>
+                        <td><b>Предмет закупки:</b></td>
                         <td>{{ post.purchase_method }}</td>
                       </tr>
                       <tr>
@@ -86,14 +86,13 @@
                     {% if request.user.is_authenticated %}
                     {% if is_favourite %}
                     <!-- <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="background: #ffe004; color: #000;"><i class="fas fa-star"></i> Добавлено в избранное</a> -->
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="color: #ffe004;"><i
-                        class="fas fa-star"></i>удалить из Избранного</a>
+                    <a class="apply bg-yellow-btn" href="{% url 'favourite_post' slug=post.slug %}" style="font-weight: 400;"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного</a>
                     {% else %}
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}"><i class="far fa-star"></i>
+                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="font-weight: 400;"><i class="far fa-star"></i>
                       Добавить в избранное</a>
                     {% endif %}
                     {% else %}
-                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}"><i class="far fa-star"></i>
+                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}" style="font-weight: 400;"><i class="far fa-star"></i>
                       Добавить в избранное</a>
                     {% endif %}
                     <br>

@@ -12,12 +12,6 @@
             <h5><i data-feather="edit"></i>Войти в аккаунт TENDERNET.KZ</h5>
           </div>
 
-          {% if form.errors %}
-            <div class="alert alert-danger" role="alert">
-              Логин или пароль введены неверно!
-            </div>
-          {% endif %}
-
           <script type="text/javascript">
             jQuery(function($){
               $('#id_username').addClass('form-control phone');
@@ -28,7 +22,7 @@
             });
           </script>
 
-          <form class="login-form" action="{% url 'login' %}" method="post">
+          <form class="login-form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <div class="more-option">
@@ -38,12 +32,9 @@
                   Запомнить меня
                 </label>
               </div>
-              <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+              <a href="javascript:void();">Забыли пароль?</a>
             </div>
-            <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" value="Войти" class="button primary-bg btn-block">
-
-
           </form>
           <div class="shortcut-login">
             <p>У Вас нет аккаунта? <a href="{% url 'register' %}" style="color: red;">Зарегистрируйтесь</a></p>

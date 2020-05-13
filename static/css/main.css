@@ -133,7 +133,7 @@ b{
   /*background: #f7f9fc;*/
   /*background: #1b1b1b;*/
   /*background: #1b1b1b;*/
-  background: #1b1b1b;
+  background: #111c2b!important;
 }
 
 .dop-filter{
@@ -332,8 +332,8 @@ b{
   margin-bottom: 0!important;
 }
 
-#carouselExampleControls, .breadcrumb-top{
-  margin-top: 80px;
+.breadcrumb-top{
+  margin-top: 100px;
 }
 
 .dop-filter .bootstrap-select{
@@ -355,7 +355,12 @@ b{
 }
 
 .navbar-brand{
-  margin-left: 50%;
+  margin-left: 90px;
+}
+
+header nav .navbar-center{
+  width: 30%;
+  text-align: left;
 }
 
 .tender-list .price{
@@ -368,6 +373,7 @@ b{
 
 .favorites-buttons{
   text-align: center;
+  width: 100%;
 }
 .favorites-buttons .favorites-buttons-tenders  {
   margin-right: 20px;
@@ -389,7 +395,7 @@ b{
     color: #fff;
     padding: 10px; 
 }
-}   
+   
 
 
 .remove-button{
@@ -413,6 +419,40 @@ b{
   padding-bottom: 16px;
 }
 
+.lots-page-form-mobile{
+  max-width: 100%!important;
+}
+
+.tender-list .body .more .buttons .button:hover{
+  background: #eb3547!important;
+  color: #fff!important;
+}
+
+.favorite-search-page .tender-list .body .content{
+  width: 60%!important;
+}
+
+.favorite-search-page .tender-list:hover .body .content h4 {
+  color: #000!important;
+}
+
+#carouselExampleControls{
+  margin-bottom: 20px;
+}
+
+.lots-page-form-mobile{
+  display: none;
+}
+
+.card-deck .card{
+  margin-bottom: 10px!important;
+}
+
+.bg-yellow-btn{
+  background: #FFC107!important;
+  color: #000!important;
+}
+
 /*------------------------------------------
 	Responsive
 -------------------------------------------*/
@@ -426,6 +466,50 @@ b{
 }
 
 @media all and (max-width: 767px) {
+
+  .tender-view-controller-wrapper.article-list-page{
+    background: transparent;
+    color: #fff;
+  }
+
+  .details-information .information-and-share h6{
+    color: #000;
+  }
+
+  .tender-listing-details .details-information .information-and-share{
+    margin-top: 20px!important;
+  }
+
+  .client-profile-page .tender-details .details-section{
+    margin-top: 0!important;
+    padding-top: 10px!important;
+  }
+
+  .client-profile-page .details-information .information-and-share .tender-summary{
+    margin-bottom: 0!important;
+    margin-top: 10px;
+  }
+
+  .client-profile-page .information h4{
+    border-bottom: none;
+    margin-bottom: 0!important;
+  }
+
+  .tender-view-controller-wrapper .showing-number{
+    text-align: center!important;
+  }
+
+  .searchAndFilter-wrapper{
+    margin-top: 80px!important;
+  }
+
+  .dop-filter-mobile .searchAndFilter-wrapper{
+    margin-top: 0px!important;
+  }
+
+  .lots-page-form-mobile{
+    display: block!important;
+  }
 
   .tender-list .body .content{
     width: 100%;
@@ -445,11 +529,13 @@ b{
     top: 0;
     right: 0;
     margin-top: -18px;
+    text-align: right;
+    margin-right: 20px;
   }
 
-  .tender-view-controller-wrapper .showing-number{
+  /*.tender-view-controller-wrapper .showing-number{
     text-align: left!important;
-  }
+  }*/
 
   .favorites-list .row{
     width: auto!important;
@@ -478,7 +564,7 @@ b{
     display: block;
   }
 
-  #carouselExampleControls, .breadcrumb-top{
+  .breadcrumb-top{
     margin-top: 70px;
   }
 
@@ -618,6 +704,11 @@ b{
   .searchAndFilter input[type="text"]{
     width: 100%!important;
     margin-bottom: 0px;
+  }
+
+  .searchAndFilter {
+    padding-bottom: 10px!important;
+    margin-bottom: 5px!important;
   }
 
 }
@@ -938,11 +1029,12 @@ b{
     margin-bottom: 20px;
   }
   #pc-search-button{
-    display: none!important;
+    /*display: none!important;*/
+    margin-top: 10px;
   }
-  #mobile-search-
+  #mobile-search-button
   {
-    display: block!important;
+    /*display: block!important;*/
   }
 }
 
@@ -950,13 +1042,15 @@ b{
 	03.0 Search Style
 ---------------------------------------------*/
 .searchAndFilter-wrapper {
-  /*background: #f7f9fc;*/
-  background: #1b1b1b;
+  background: #fff;
+  margin-top: 150px;
+  /*background: #f7f9fc;
+  background: #1b1b1b;*/
 }
 
 .searchAndFilter {
   /*padding: 30px 30px 35px;*/
-  padding: 40px 20px;
+  padding: 20px 20px;
   margin-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.03);
   background: #ffffff;
@@ -978,12 +1072,12 @@ b{
   /*border-bottom: 2px solid rgba(0, 0, 0, 0.08);*/
   background: transparent;
   outline: none;
-  width: calc(25% - 78px);
+  /*width: calc(25% - 78px);*/
   margin-right: 25px;
   font-size: 14px;
   color: #6f7484;
   padding-left: 12px;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
 }
 
 .dop-filter select{
@@ -1825,7 +1919,8 @@ b{
 .filtered-tender-listing-wrapper, .filtered-candidate-wrapper, .filtered-employer-wrapper {
   padding: 0;
   padding-left: 5px;
-  background: #161616;
+  /*background: #161616;*/
+  background: #111c2b;
 }
 
 .listing-with-map .tender-listing-container .filtered-tender-listing-wrapper, .listing-with-map .candidate-container .filtered-tender-listing-wrapper, .listing-with-map .employer-container .filtered-tender-listing-wrapper, .listing-with-map .tender-listing-container .filtered-candidate-wrapper, .listing-with-map .candidate-container .filtered-candidate-wrapper, .listing-with-map .employer-container .filtered-candidate-wrapper, .listing-with-map .tender-listing-container .filtered-employer-wrapper, .listing-with-map .candidate-container .filtered-employer-wrapper, .listing-with-map .employer-container .filtered-employer-wrapper {
@@ -2118,8 +2213,10 @@ b{
 }
 
 .tender-view-controller-wrapper .showing-number{
-  text-align: right;
-  margin-top: 25px;
+  /*text-align: right;
+  margin-top: 25px;*/
+  text-align: left;
+  margin-top: 0px;
 }
 
 .tender-view-controller-wrapper .showing-number span{
@@ -2864,10 +2961,10 @@ b{
 }
 
 .tender-list:hover {
-  background: #ffffff;
+  /*background: #ffffff;
   border-top-color: transparent;
   -webkit-box-shadow: 0px 15px 40px 0px rgba(237, 237, 237, 0.4);
-  box-shadow: 0px 15px 40px 0px rgba(237, 237, 237, 0.4);
+  box-shadow: 0px 15px 40px 0px rgba(237, 237, 237, 0.4);*/
 }
 
 .tender-list:hover + .tender-list {
@@ -4164,11 +4261,20 @@ b{
 
 @media all and (max-width: 767px) {
 
+  hr{
+    display: none;
+  }
+
+  .card-deck.details-section{
+    margin-top: 0!important;
+  }
+
   .details-information .information-and-share{
-    margin-top: 10px!important;
+    margin-top: 0px!important;
   }
   .details-information .information-and-share .tender-summary{
     margin-bottom: 10px;
+    background: #fff;
   }
 
   .filtered-tender-listing-wrapper{
@@ -4200,6 +4306,8 @@ b{
   .tender-list .body .more .buttons .button {
     margin-left: 0;
     /*margin-right: 20px;*/
+    display: block;
+    width: 100%
   }
   .tender-list .body .more .deadline {
     text-align: center;
@@ -4250,7 +4358,7 @@ b{
     display: block;
   }
   .tender-view-controller-wrapper .showing-number, .candidate-view-controller-wrapper .showing-number, .employer-view-controller-wrapper .showing-number {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
   }
 }
 
@@ -5211,6 +5319,8 @@ b{
   .title-and-info {
     display: block;
     padding: 20px;
+    background: #fff;
+    border-radius: 4px;
   }
   .title-and-info .change-tarif {
     margin-top: 30px;
@@ -5227,6 +5337,7 @@ b{
   }
   .tender-details {
     padding: 0px;
+    background: transparent!important;
   }
   .tender-details .details-section{
     padding: 15px;
@@ -5239,6 +5350,7 @@ b{
   }
   .details-information{
     background: #111c2b;
+    padding-top: 10px!important;
   }
   .tender-listing-details .details-information{
     background: #fff;

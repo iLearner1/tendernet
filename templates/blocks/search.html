@@ -14,21 +14,28 @@
 
             <form method="get" class="search-form" action="{% url 'post_search' %}" id="main-searchform">
 
-                {% render_field myHomeFilter.form.title class="" placeholder="Наименование лота" %}
+              <div class="row">
+                <div class="col-md-10">
+                {% render_field myHomeFilter.form.title class="" style="width: 100%;" placeholder="Наименование лота" %}
+                </div>
 
-                {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %}
+                <!-- {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %} -->
 
-                {% render_field myHomeFilter.form.id class="" placeholder="ID лота" type="text" %}
+                <!-- {% render_field myHomeFilter.form.id class="" placeholder="ID лота" type="text" %} -->
 
                 <!-- {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %} -->
-                <select name="city" id="city_id" class=""  title="Регион">
+                <!-- <select name="city" id="city_id" class=""  title="Регион">
                   <option value="">Все регионы</option>
                   {% for city in cities %}
                       <option value="{{city.id}}">{{city.name}}</option>
                     {% endfor%}
-                </select>
+                </select> -->
 
+                <div class="col-md-2">
                 <button type="submit" id="pc-search-button" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
+                </div>
+
+              </div>
 
               <div class="dop-filter" style="display: none;">
                 <div class="row">
@@ -90,14 +97,14 @@
 
               <button type="submit" id="mobile-search-button" class="button primary-bg display-none"><i class="fas fa-search"></i>Найти лоты</button>
 
-              <div class="filter-categories" style="text-align: center;">
+              <!--<div class="filter-categories" style="text-align: center; display: none;">
 
                 <a href="javascript:void(0);" id="filter-more" style="padding: 10px;width: 100%;text-align: center;color: #fff;background: #1b1b1b;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-down"></i>&nbsp;Расширенный поиск</a>
                 <a href="javascript:void(0);" id="filter-hide" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #1b1b1b;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть расширенный поиск</a>
 
-              </div>
+              </div>-->
 
-              <!-- action reset and save search query to db  -->
+              <!-- action reset and save search query to db
               <div class="row" style="text-align: center;">
                   <div class="col-md-12">
                     {% if request.user.is_authenticated%}
@@ -110,12 +117,12 @@
                         <i class="far fa-star"></i>
                     {% endif %}
 
-                    <button class="btn btn-lg btn-danger ml-2 py-2 px-4" type="reset">!!!Сбросить фильтр</button>
+                    <button class="btn btn-lg btn-danger ml-2 py-2 px-4" type="reset">Сбросить фильтр</button>
                   </div>
-              </div>
+              </div>  -->
 
               <script>
-                jQuery(document).ready(function($){
+                /*jQuery(document).ready(function($){
                   $('#filter-more').click(function(){
                     $('.dop-filter').slideToggle();
                     $('#filter-more').hide();
@@ -143,7 +150,7 @@
                   //   $('#filter-more').show();
                   //   $('#filter-hide-mobile').hide();
                   // });
-                });
+                });*/
               </script>
 
             </form>
