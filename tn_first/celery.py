@@ -11,5 +11,13 @@ app = Celery("tn_first", broker=settings.CELERY_BROKER_URL)
 app.config_from_object("django.conf:settings")
 
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+
+# add to celery beat
+app.conf.CELERYBEAT_SCHEDULE = {
+    'fetch-lots-from-goszakup-every-30-minutes': {
+            'task': 'lots.tasks.fetch_lots_from_goszakup',
+            'schedule':timedelta(minutes=30)
+        }
+    }
 # if __name__ == "__main__":
 #     app.start()

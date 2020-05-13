@@ -11,6 +11,64 @@ from django.core.cache import cache
 
 
 @shared_task
+def fetch_lots_from_goszakup():
+    # defining a params dict for the parameters to be sent to the API
+    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    bearer_token = 'Bearer ' + token
+    header = {'Authorization': bearer_token}
+
+    # api-endpoint
+    print("calling goszakup API")
+    URL = "https://ows.goszakup.gov.kz/v3/lots"
+    articles = Article.objects.all()
+    print("articlees.len: ", len(articles))
+
+    numbs = []
+    for a in articles:
+        if a.numb not in numbs:
+            numbs.append(a.numb)
+    print('numbs: ', numbs)
+
+    response = None
+    try:
+        response = requests.get(url=URL, headers=header, verify=False)
+    except Exception as e:
+        print(e)
+
+    count = 0
+    data = None
+    if response:
+        data = response.json()
+        print("data.len: ", len(data['items']))
+
+        for item in data["items"]:
+            count = count + 1
+            # insert 5 lots in each API call
+            if item["lot_number"] not in numbs and count < 6:
+                numbs.append(item["lot_number"])
+                print('inserting lot with lot_number: ', item['lot_number'])
+
+                article = Article(
+                    customer_bin=item["customer_bin"],
+                    title=item["name_ru"],
+                    customer=item["description_ru"],
+                    price=item["amount"],
+                    totalLots=item["count"],
+                    statzakup=item["ref_trade_methods_id"],
+                    numb=item["lot_number"],
+                    itemZakup='product',
+                    date=datetime.datetime.now(),
+                    date_open=datetime.datetime.now(),
+                    city=None,
+                    addressFull=None,
+                    yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])
+                )
+                article.save()
+    else:
+        print("no data found from goszakup API")
+
+
+@shared_task
 def notify_subscriber_about_new_lots(lotId=None):
     article = Article.objects.get(id=lotId)  # new lots
     # searching all users favorites list and try to match with there likes
