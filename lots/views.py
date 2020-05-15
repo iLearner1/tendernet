@@ -209,7 +209,7 @@ def post_search(request):
     if request.GET.get('customer'):
         body_tokens = request.GET.get('customer').split()
         for keyword in body_tokens:
-            customer_q |= Q(body__contains=keyword)
+            customer_q |= Q(customer__contains=keyword)
 
     price_q = Q()
     if 'price_min' in request.GET:
@@ -240,7 +240,8 @@ def post_search(request):
 
     id_q = Q()
     if request.GET.get('id'):
-        id_q &= Q(numb=request.GET.get('id'))
+        if request.GET.get('id') != '':
+            id_q &= Q(numb=request.GET.get('id'))
 
     sort_field = "date"
     if 'sortBy' in request.GET:
@@ -256,20 +257,24 @@ def post_search(request):
     if request.GET.getlist('city[]'):
         city_q = Q()
         for c in request.GET.getlist('city[]'):
-            city_q |= Q(city__id=c)
+            if c != '':
+                city_q |= Q(city__id=c)
         q &= city_q
 
     if request.GET.getlist('statzakup[]'):
         stat_q = Q()
         for stat in request.GET.getlist('statzakup[]'):
-            stat_q |= Q(statzakup=stat)
+            if stat != '':
+                stat_q |= Q(statzakup=stat)
         q &= stat_q
 
     if request.GET.getlist('subject_of_purchase[]'):
-        purch_meth = Q()
+        purch_subject = Q()
         for pm in request.GET.getlist('subject_of_purchase[]'):
-            purch_meth |= Q(itemZakup=pm)
-        q &= purch_meth
+            if pm != '':
+                purch_subject |= Q(itemZakup=pm)
+        q &= purch_subject
+
 
     if request.GET.get('id'):
         q &= id_q

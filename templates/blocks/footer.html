@@ -66,208 +66,109 @@
     weekStart: 0
   };
 
-  $(document).ready(function () {
-    let savedId = null;
+  $(document).ready(function() {
 
-    $(".multiselect").selectpicker();
-
-    //initialize date picker here it is
-    $('.datepicker').datepicker({
-      autoclose: true,
-      language: 'ru'
-    });
-
-    $(".create-book").modalForm({
-      formURL: "{% url 'modal' %}"
-    });
-
-    //saving favorite search query
-    $("#save-query").on("click", function (e) {
-      e.preventDefault();
-
-      //geting form data and saving to database
-      let formData = $("#main-searchform").serializeArray();
-      let formatedData = {};
-      let isValid = false;
-
-      for (let item of formData) {
-
-        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
-          console.log('fetched items in below');
-        } else {
-          formatedData[item.name] = item.value;
-        }
-
-        if (item.name != "lots" && item.value) {
-          isValid = true
-        }
-      }
-
-      formatedData['statzakup'] = [];
-      let purchase_methods = $('select[name=statzakup]').find('option:selected');
-      purchase_methods.each(function(i, item) {
-        if($(item).text() !="---------")
-        {
-          formatedData['statzakup'].push($(item).val());
-        }
-      });
-
-      formatedData['city'] = [];
-      let cities = $('select[name=city]').find('option:selected');
-      cities.each(function(i, item) {
-        formatedData['city'].push($(item).val());
-      });
-
-      formatedData['subject_of_purchase'] = [];
-      let subjects = $('select[name=subject_of_purchase]').find('option:selected');
-      subjects.each(function(i, item) {
-        formatedData['subject_of_purchase'].push($(item).val());
-      });
-
-      if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
-      {
-        isValid = true;
-      }
-
-      if (!isValid) {
-        // return alert('you can\'t save empty form, please provide some data');
-        return alert('Вы не можете сохранить пустую форму, пожалуйста, предоставьте некоторые данные');
-      }
-
-
-      //what happening here? changing save to favorites text and class
-      const text = $(this).find('a').text();
-      $(this).find('a').html(text === 'Сохранить в избранные' ? 'Удалить из Избранного' : 'Сохранить в избранные');
-      // $(this).toggleClass('text-warning');
-      $(this).find('i').toggleClass('far fas');
-
-      if (deleteFavorite()) {
-        return;
-      }
-
-      var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-      $.ajax({
-        method: "POST",
-        url: "{% url 'save_favorite_search' %}",
-        data: {
-          ...formatedData,
-          csrfmiddlewaretoken
-        },
-        success: function (response) {
-          savedId = response.id;
-          console.log("savedId: " + savedId);
-          $('input#savedId').val(savedId);
-          //alert('search added to favorite successfuly');
-          alert('Поиск успешно добавлен в избранное');
-        },
-
-        error: function (err) {
-          alert(err.responseText);
-        }
-      })
-    });
-
-    $("button[type='reset']").click(function () {
-      // $("#save-query").removeClass('text-warning');
-      $("#save-query").find('a').text('Save to Favorites');
-      $("#save-query").find('i').removeClass('fas').addClass('far');
-      $('.multiselect').selectpicker('deselectAll');
-      savedId = null;
-
-    });
-
-    function deleteFavorite() {
-      var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-      savedId = $('input#savedId').val();
-      $('input#savedId').val('');
-
-
-      if (savedId) {
-
-        $.ajax({
-          method: "POST",
-          url: "{% url 'save_favorite_search' %}",
-          data: {
-            delete_id: savedId,
-            csrfmiddlewaretoken
-          },
-          success: function (response) {
-<!--            savedId = response.id;-->
-            savedId = null;
-            // alert('search query removed from favorites');
-            alert('Поисковый запрос удален из избранного');
-          },
-
-          error: function (err) {
-            alert(err.responseText);
-          }
-        });
-
-        return true;
-      }
-
-      return false;
-
-    }
   });
-</script>
 
-<script>
   $(document).ready(function () {
-    const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
-    let search_query = {};
 
-    $("#pc-search-button").click(function (e) {
-      e.preventDefault();
 
-      // deselect save to favourite button
-      $("#save-query").removeClass('text-warning');
-      $("#save-query").find('a').text('Save to Favorites');
-      $("#save-query").find('i').removeClass('fas').addClass('far');
-      savedId = null;
-      $('input#savedId').val('');
+     const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
+      let search_query = {};
 
-      const formData = $("#main-searchform").serializeArray();
-      let data = {};
+      $('.lots-search-button-pc').click(function() {
+        console.log('lots-search-button-pc clicked');
+        submit_pc_search_form("pc");
+      });
 
-      //formating data for query
-      for (let item of formData) {
-        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
-          data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
-        } else {
-          data[item.name] = item.value;
-        }
+      $('.lots-search-button-mobile').click(function() {
+        console.log('lots-search-button-mobile clicked');
+        submit_pc_search_form("mobile");
+      });
+
+      function submit_pc_search_form(device) {
+          console.log('pc-search-button event handler');
+
+          // deselect save to favourite button
+          // $("#main-searchform-" + device).find("#save-query-" + device).removeClass('text-warning');
+          // $("#main-searchform-" + device).find("#save-query-" + device).find('a').text('Save to Favorites');
+          // $("#main-searchform-" + device).find("#save-query-" + device).find('i').removeClass('fas').addClass('far');
+          savedId = null;
+          $("#main-searchform-" + device).find('input#savedId').val('');
+
+          const text = $("#save-query-" + device).find('a').text();
+          console.log('text: ' + text);
+
+          if(text == 'Сохранить в избранные') {
+            console.log('text= ' + 'save to favourite');
+          }
+          else
+          {
+            console.log('text= ' + 'remove query');
+            $("#save-query-" + device).find('a').html('Сохранить в избранные');
+            $("#save-query-" + device).find('i').toggleClass('far fas');
+          }
+
+          const formData = $("#main-searchform-" + device).serializeArray();
+
+          let data = {};
+          console.log("formData");
+          console.log(formData);
+
+          //formating data for query
+          for (let item of formData) {
+            console.log('item.name: ' + item.name);
+            console.log('item.value: ' + item.value);
+            if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+              data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+            } else {
+              data[item.name] = item.value;
+            }
+          }
+          //show loader
+          $("#input-container").html(loader);
+
+          //save query for future use
+          search_query = data;
+
+          data['sortBy'] = $("#orderby-mobile options:selected").val() || $("#orderby-pc options:selected").val();
+          console.log('sortBy: ' + data['sortBy']);
+          history.pushState({}, null, location.href.split('?')[0]);
+
+          console.log('data');
+          console.log(data);
+
+          //fetch data from server
+          $.ajax({
+            method: 'GET',
+            url: "{% url 'post_search' %}",
+            data: {
+              ...data
+            },
+
+            success: function (resp) {
+              $("#input-container").html(resp);
+            },
+            error: function (err) {
+              console.log(err.responseText);
+            }
+          })
       }
-      //show loader
-      $("#input-container").html(loader);
-
-      //save query for future use
-      search_query = data;
-      data['sortBy'] = $("#orderby options:selected").val();
-      history.pushState({}, null, location.href.split('?')[0]);
-
-      //fetch data from server
-      $.ajax({
-        method: 'GET',
-        url: "{% url 'post_search' %}",
-        data: {
-          ...data
-        },
-
-        success: function (resp) {
-          $("#input-container").html(resp);
-        },
-        error: function (err) {
-          console.log(err.responseText);
-        }
-      })
+    $("#orderby-pc").change(function(e) {
+      console.log('orderby-pc clicked');
+      orderby_eventHandler(this.value, "pc");
     });
 
+    $("#orderby-mobile").change(function (e) {
+      console.log('orderby-mobile clicked');
+      orderby_eventHandler(this.value, "mobile");
+    });
 
-    $("#orderby").change(function (e) {
-      let sortBy = this.value;
+    function orderby_eventHandler(sortBy, device) {
+      // let sortBy = this.value;
+      console.log("sortBy: " + sortBy);
 
-      const formData = $("#main-searchform").serializeArray();
+      const formData = $("#main-searchform-" + device).serializeArray();
       console.log("formData");
       console.log(formData);
 
@@ -275,6 +176,8 @@
 
        //formating data for query
       for (let item of formData) {
+        console.log('item.name: ' + item.name);
+        console.log('item.value: ' + item.value);
         if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
           data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
         } else {
@@ -303,8 +206,207 @@
           console.log(err.responseText);
         }
       })
-    })
+    }
+
+
+    let savedId = null;
+
+    $(".multiselect").selectpicker();
+
+    //initialize date picker here it is
+    $('.datepicker').datepicker({
+      autoclose: true,
+      language: 'ru'
+    });
+
+    $(".create-book").modalForm({
+      formURL: "{% url 'modal' %}"
+    });
+
+    $("#save-query-pc").on("click", function(e) {
+      console.log("save-query-pc clicked");
+      e.preventDefault();
+      save_query("pc");
+    });
+
+    $("#save-query-mobile").on("click", function(e) {
+      console.log("save-query-mobile clicked");
+      e.preventDefault();
+      save_query("mobile");
+    });
+
+    //saving favorite search query
+    function save_query(save_query_device) {
+
+      console.log("device: " + save_query_device);
+      //geting form data and saving to database
+      let formData = $("#main-searchform-" + save_query_device).serializeArray();
+      let formatedData = {};
+      let isValid = false;
+
+      console.log("formData");
+      console.log(formData);
+
+      for (let item of formData) {
+
+        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+          console.log('fetched items in below');
+        } else {
+          formatedData[item.name] = item.value;
+        }
+
+        if (item.name != "lots" && item.value) {
+          isValid = true
+        }
+      }
+
+      formatedData['statzakup'] = [];
+      let purchase_methods = $("#main-searchform-" + save_query_device).find('select[name=statzakup]').find('option:selected');
+      purchase_methods.each(function(i, item) {
+        if($(item).text() !="---------")
+        {
+          formatedData['statzakup'].push($(item).val());
+        }
+      });
+
+      formatedData['city'] = [];
+      let cities = $("#main-searchform-" + save_query_device).find('select[name=city]').find('option:selected');
+      cities.each(function(i, item) {
+        formatedData['city'].push($(item).val());
+      });
+
+      formatedData['subject_of_purchase'] = [];
+      let subjects = $("#main-searchform-" + save_query_device).find('select[name=subject_of_purchase]').find('option:selected');
+      subjects.each(function(i, item) {
+        formatedData['subject_of_purchase'].push($(item).val());
+      });
+
+      if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
+      {
+        isValid = true;
+      }
+
+      if (!isValid) {
+        // return alert('you can\'t save empty form, please provide some data');
+        return alert('Вы не можете сохранить пустую форму, пожалуйста, предоставьте некоторые данные');
+      }
+
+
+      //what happening here? changing save to favorites text and class
+      // const text = $(this).find('a').text();
+      const text = $("#save-query-" + save_query_device).find('a').text();
+      console.log('text: ' + text);
+
+      if(text == 'Сохранить в избранные') {
+        console.log('text= ' + 'save query');
+        $("#save-query-" + save_query_device).find('a').html('<i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного');
+      }
+      else
+      {
+        console.log('text= ' + 'remove query');
+        $("#save-query-" + save_query_device).find('a').html('Сохранить в избранные');
+      }
+
+
+      // $(this).toggleClass('text-warning');
+      $("#save-query-" + save_query_device).find('i').toggleClass('far fas');
+
+      if (deleteFavorite(save_query_device)) {
+        return;
+      }
+
+      console.log("formatedData");
+      console.log(formatedData);
+
+      var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+      console.log('csrfmiddlewaretoken: ' + csrfmiddlewaretoken)
+      $.ajax({
+        method: "POST",
+        url: "{% url 'save_favorite_search' %}",
+        data: {
+          ...formatedData,
+          csrfmiddlewaretoken
+        },
+        success: function (response) {
+          savedId = response.id;
+          console.log("savedId from backend: " + savedId);
+
+          console.log('savedId in frontend before set: ' + $("#main-searchform-" + save_query_device).find('input#savedId').val());
+
+          $("#main-searchform-" + save_query_device).find('input#savedId').val(savedId);
+          console.log('savedId in frontend after set: ' + $("#main-searchform-" + save_query_device).find('input#savedId').val());
+          //alert('search added to favorite successfuly');
+          alert('Поиск успешно добавлен в избранное');
+        },
+
+        error: function (err) {
+          alert(err.responseText);
+        }
+      })
+    }
+
+    $('.reset-pc').click(function() {
+      console.log('reset-pc clicked');
+      reset_search("pc");
+    });
+
+    $('.reset-mobile').click(function() {
+      console.log('reset-mobile clicked');
+      reset_search("mobile");
+    });
+
+    function reset_search(device) {
+        $("#main-searchform-" + device).find("#save-query-" + device).find('a').text('Сохранить в избранные');
+        $("#main-searchform-" + device).find("#save-query-" + device).find('i').removeClass('fas').addClass('far');
+        $("#main-searchform-" + device).find('.multiselect').selectpicker('deselectAll');
+        $('#main-searchform-' + device).find('input#savedId').val('');
+        savedId = null;
+    }
+
+    function deleteFavorite(save_query_device) {
+      console.log('func -> deleteFavorite');
+      var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+      console.log('csrfmiddlewaretoken: ' + csrfmiddlewaretoken);
+      savedId = $('#main-searchform-' + save_query_device).find('input#savedId').val();
+      console.log('savedId: ' + savedId);
+      $('#main-searchform-' + save_query_device).find('input#savedId').val('');
+
+
+      if (savedId) {
+        console.log('if (savedId)');
+        $.ajax({
+          method: "POST",
+          url: "{% url 'save_favorite_search' %}",
+          data: {
+            delete_id: savedId,
+            csrfmiddlewaretoken
+          },
+          success: function (response) {
+<!--            savedId = response.id;-->
+            savedId = null;
+            // alert('search query removed from favorites');
+            alert('Поисковый запрос удален из избранного');
+          },
+
+          error: function (err) {
+            alert(err.responseText);
+          }
+        });
+
+        return true;
+      }
+      else {
+        console.log('not if (savedId)');
+      }
+
+      return false;
+
+    }
   });
+</script>
+
+<script>
+
 
 </script>
 

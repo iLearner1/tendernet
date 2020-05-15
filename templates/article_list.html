@@ -104,15 +104,19 @@
 
                     <!-- {{ myFilter }} -->
 
-                    <form method="get" id="main-searchform">
+                    <form method="get" id="main-searchform-mobile" onsubmit="return false;">
 
                       <div class="form-group">
-                        <select class="form-control" id="orderby">
+                        <select class="form-control" id="orderby-mobile">
                           <option value="">Сортировать по</option>
-                          <option value="-date_open">Дата публикации</option>
-                          <option value="-date">Дата окончания</option>
-                          <option value="-title">По алфавиту</option>
-                          <option value="-price">По сумме</option>
+                          <option value="title-LH">По алфавиту (Снизу вверх)</option>
+                          <option value="title-HL">По алфавиту (По убыванию)</option>
+
+                          <option value="date-LH">Свидание (Снизу вверх)</option>
+                          <option value="date-HL">Свидание (По убыванию)</option>
+
+                          <option value="price-LH">По сумме (Снизу вверх)</option>
+                          <option value="price-HL">По сумме (По убыванию)</option>
                         </select>
                       </div>
 
@@ -126,16 +130,16 @@
                       <h6 class="">Заказчик</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %} -->
-                        <input type="text" class="form-control" name="body" value="{{request.GET.body}}"
+                        <input type="text" class="form-control" name="customer" value="{{request.GET.customer}}"
                           placeholder="Поиск по заказчику">
                       </div>
 
                       <h6 class="">Способ закупки</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                        <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                          <option value="" {% if available %} selected {% endif %}>Все</option>
-                          {% for choice in ZAKUP_CHOICES %}
+                        <select name="statzakup" id="statzakup_id" class="form-control selectpicker multiselect" title="Способ закупки" multiple>
+<!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                          {% for choice in PURCHASE_METHOD_CHOICES %}
                           {% checklist choice.0 request 'statzakup[]' as available %}
                           <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
                           {% endfor%}
@@ -144,8 +148,8 @@
 
                       <h6 class="">Регион</h6>
                       <div class="form-group">
-                        <select name="city" id="city_id" class="form-control" title="Регион">
-                          <option value="" {% if available %} selected {% endif %}>Все</option>
+                        <select name="city" id="city_id" class="form-control selectpicker multiselect" title="Регион" multiple>
+<!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
                           {% for city in cities %}
                           {% checklist city.id request 'city[]' as available %}
                           <option value="{{city.id}}" {% if available %} selected {% endif %}>{{city.name}}</option>
@@ -155,10 +159,10 @@
 
                       <h6 class="">Предмет закупки</h6>
                       <div class="form-group">
-                        <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">
-                          <option value="" {% if available %} selected {% endif %}>Все</option>
-                          {% for choice in PURCHASE_CHOICES %}
-                          {% checklist choice.0 request 'purchase_method[]' as available %}
+                        <select name="subject_of_purchase" id="subject_of_purchase" class="form-control selectpicker multiselect" title="Предмет закупки" multiple>
+<!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                          {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
+                          {% checklist choice.0 request 'subject_of_purchase[]' as available %}
                           <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
                           {% endfor%}
                         </select>
@@ -195,12 +199,12 @@
                       <input type="hidden" name="lots" value="true">
 
                       <div class="form-group">
-                        <button type="submit" class="button width-100 text-center" id="pc-search-button">
+                        <button type="submit" class="button width-100 text-center lots-search-button-mobile">
                           <span class="glyphicon glyphicon-search"></span>
                           НАЙТИ
                         </button>
 
-                        <button class="button width-100 primary mt-2" type="reset">Сбросить фильтр</button>
+                        <button class="button width-100 primary mt-2 reset-mobile" type="reset">Сбросить фильтр</button>
                       </div>
 
                       <div style="text-align: center; margin-bottom: 20px;">
@@ -208,14 +212,15 @@
                         <!-- is user authenticated  -->
                         {% is_favorited request as is_favorite %}
                         <!-- is this query favorites  -->
-                        {% if  is_favorite  %}
                         <input type="hidden" id="savedId" value="{{request.GET.item_id}}">
-                        <span id="save-query">
+                          {% if  is_favorite  %}
+
+                        <span id="save-query-mobile">
                           <a href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного</a>
                           <i class="fas fa-star"></i>
                         </span>
                         {% else %}
-                        <span id="save-query">
+                        <span id="save-query-mobile">
                           <a href="javascript:void(0);">Сохранить в избранные</a>
                           <i class="far fa-star"></i>
                         </span>
@@ -242,10 +247,14 @@
                       <div class="form-group">
                         <select class="form-control" id="orderby">
                           <option value="">Сортировать по</option>
-                          <option value="-date_open">Дата публикации</option>
-                          <option value="-date">Дата окончания</option>
-                          <option value="-title">По алфавиту</option>
-                          <option value="-price">По сумме</option>
+                          <option value="title-LH">По алфавиту (Снизу вверх)</option>
+                            <option value="title-HL">По алфавиту (По убыванию)</option>
+
+                            <option value="date-LH">Свидание (Снизу вверх)</option>
+                            <option value="date-HL">Свидание (По убыванию)</option>
+
+                            <option value="price">По сумме (Снизу вверх)</option>
+                            <option value="price">По сумме (По убыванию)</option>
                         </select>
                       </div>
                     </div>
@@ -253,7 +262,7 @@
                 </div>
 
                 <div class="col-md-12 showing-number">
-                  <span>Показано 1–10 из 1029</span>
+                  <span>Показано {{posts_start_index}}–{{posts_end_index}} из {{total_posts}}</span>
                 </div>
               </div>
             </div>
@@ -324,15 +333,21 @@
 
           <div class="tender-filter-wrapper pc-dop-filter">
             <div data-id="tender-type" class="tender-filter tender-type same-pad">
-              <form method="get" id="main-searchform">
+              <form method="get" id="main-searchform-pc" onsubmit="return false;">
+
 
                 <div class="form-group">
-                  <select class="form-control" id="orderby">
+                  <select class="form-control" id="orderby-pc">
                     <option value="">Сортировать по</option>
-                    <option value="-date_open">Дата публикации</option>
-                    <option value="-date">Дата окончания</option>
-                    <option value="-title">По алфавиту</option>
-                    <option value="-price">По сумме</option>
+
+                    <option value="title-LH">По алфавиту (Снизу вверх)</option>
+                    <option value="title-HL">По алфавиту (По убыванию)</option>
+
+                    <option value="date-LH">Свидание (Снизу вверх)</option>
+                    <option value="date-HL">Свидание (По убыванию)</option>
+
+                    <option value="price-LH">По сумме (Снизу вверх)</option>
+                    <option value="price-HL">По сумме (По убыванию)</option>
                   </select>
                 </div>
 
@@ -346,16 +361,16 @@
                 <h6 class="">Заказчик</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %} -->
-                  <input type="text" class="form-control" name="body" value="{{request.GET.body}}"
+                  <input type="text" class="form-control" name="customer" value="{{request.GET.customer}}"
                     placeholder="Поиск по заказчику">
                 </div>
 
                 <h6 class="">Способ закупки</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                  <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                    <option value="" {% if available %} selected {% endif %}>Все</option>
-                    {% for choice in ZAKUP_CHOICES %}
+                  <select name="statzakup" id="statzakup_id" class="form-control selectpicker multiselect" title="Способ закупки" multiple>
+<!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                    {% for choice in PURCHASE_METHOD_CHOICES %}
                     {% checklist choice.0 request 'statzakup[]' as available %}
                     <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
                     {% endfor%}
@@ -364,8 +379,8 @@
 
                 <h6 class="">Регион</h6>
                 <div class="form-group">
-                  <select name="city" id="city_id" class="form-control" title="Регион">
-                    <option value="" {% if available %} selected {% endif %}>Все</option>
+                  <select name="city" id="city_id" class="form-control selectpicker multiselect" title="Регион" multiple>
+<!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                     {% for city in cities %}
                     {% checklist city.id request 'city[]' as available %}
                     <option value="{{city.id}}" {% if available %} selected {% endif %}>{{city.name}}</option>
@@ -375,10 +390,10 @@
 
                 <h6 class="">Предмет закупки</h6>
                 <div class="form-group">
-                  <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">
-                    <option value="" {% if available %} selected {% endif %}>Все</option>
-                    {% for choice in PURCHASE_CHOICES %}
-                    {% checklist choice.0 request 'purchase_method[]' as available %}
+                  <select name="subject_of_purchase" id="subject_of_purchase" class="form-control selectpicker multiselect" title="Предмет закупки" multiple>
+<!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                    {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
+                    {% checklist choice.0 request 'subject_of_purchase[]' as available %}
                     <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
                     {% endfor%}
                   </select>
@@ -415,12 +430,12 @@
                 <input type="hidden" name="lots" value="true">
 
                 <div class="form-group">
-                  <button type="submit" class="button width-100 text-center" id="pc-search-button">
+                  <button type="submit" class="button width-100 text-center lots-search-button-pc">
                     <span class="glyphicon glyphicon-search"></span>
                     НАЙТИ
                   </button>
 
-                  <button class="button width-100 primary mt-2" type="reset">Сбросить фильтр</button>
+                  <button class="button width-100 primary mt-2 reset-pc" type="reset">Сбросить фильтр</button>
                 </div>
 
                 <div style="text-align: center;">
@@ -428,14 +443,15 @@
                   <!-- is user authenticated  -->
                   {% is_favorited request as is_favorite %}
                   <!-- is this query favorites  -->
-                  {% if  is_favorite  %}
                   <input type="hidden" id="savedId" value="{{request.GET.item_id}}">
-                  <span id="save-query">
+                    {% if  is_favorite  %}
+
+                  <span id="save-query-pc">
                     <a href="javascript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного</a>
                     <i class="fas fa-star"></i>
                   </span>
                   {% else %}
-                  <span id="save-query">
+                  <span id="save-query-pc">
                     <a href="javascript:void(0);">Сохранить в избранные</a>
                     <i class="far fa-star"></i>
                   </span>

@@ -53,18 +53,20 @@
                               <div class="info">
                                 <div class="row">
                                   <div class="col-md-6">
-                                    {% if search.query.body %}
+                                    {% if search.query.customer %}
                                       Заказчик:
-                                      <b>{{search.query.body}}</b>
+                                      <b>{{search.query.customer}}</b>
                                       <br>
                                     {% endif %}
 
-                                    {% if search.statzakup %}
+                                    {% if search.statzakup_obj %}
                                       Способ закупки:
-                                      {% for statzakup in search.statzakup %}
-                                         <b>{{statzakup}}</b>&nbsp;
+                                      {% for statzakup in search.statzakup_obj %}
+                                         <b>{{statzakup.1}}</b>&nbsp;
                                       {% endfor%}
                                       <br>
+                                      {% else %}
+                                      Способ закупки: Не выбран<br>
                                     {% endif %}
 
 <!--                                    show city-->
@@ -74,22 +76,20 @@
                                         <b>{{city.name}}</b>&nbsp;
                                       {% endfor %}
                                       <br>
+                                      {% else %}
+                                      Регион: Не выбран <br>
                                     {% endif %}
 
-                                      {% if search.statzakup_obj %}
-                                         Предмет закупки:
-                                        {% if search.statzakup_obj %}
-                                            {% for statzakup in search.statzakup_obj %}
+                                  {% if search.subject_of_purchase_obj %}
+                                      Предмет закупки:
+                                    {% for subject in search.subject_of_purchase_obj %}
 
-                                                <b>{{statzakup.1}}</b>&nbsp;
-                                            {% endfor%}
-                                         {% else %}
-                                            'Не выбран'
-                                         {% endif %}
-
-                                    {% else %}
-                                        Способ закупки: Не выбран
-                                    {% endif %}
+                                        <b>{{subject.1}}</b>&nbsp;
+                                    {% endfor%}
+                                      <br>
+                                 {% else %}
+                                    Предмет закупки: Не выбран <br>
+                                 {% endif %}
 
                                   </div>
                                   <div class="col-md-6">
@@ -98,7 +98,7 @@
                                       <b>{{search.query.price_min}}</b>
                                       <br>
                                     {% else %}
-                                        Лоты Максимум Цена: Не выбран
+                                        Лоты Максимум Цена: Не выбран <br>
                                     {% endif %}
 
                                     {% if search.query.price_max %}
@@ -106,23 +106,23 @@
                                       <b>{{search.query.price_max}}</b>
                                       <br>
                                     {% else %}
-                                        Лоты минимальный Цена: Не выбран
+                                        Лоты минимальный Цена: Не выбран <br>
                                     {% endif %}
 
                                     {% if search.query.date_min %}
                                         Дата начала приема заявок:
-                                      <b>{{search.query.date_min}}</b></b>
+                                      <b>{{search.query.date_min}}</b>
                                       <br>
                                     {% else %}
-                                        Начните Свидание: Не выбран
+                                        Начните Свидание: Не выбран <br>
                                     {% endif %}
 
                                     {% if search.query.date_max %}
                                         Дата окончания приема заявок:
-                                      <b>{{search.query.date_max}}</b></b>
+                                      <b>{{search.query.date_max}}</b>
                                       <br>
                                     {% else %}
-                                        Конец Свидание: Не выбран
+                                        Конец Свидание: Не выбран <br>
                                     {% endif %}
 
                                   </div>
@@ -134,7 +134,7 @@
                               <div class="buttons">
                               <form action="{% url 'post_list' %}" method="get">
                                  <input type="hidden" name="title" value="{{search.query.title}}">
-                                 <input type="hidden" name="body" value="{{search.query.customer}}">
+                                 <input type="hidden" name="customer" value="{{search.query.customer}}">
                                  <input type="hidden" name="id" value="{{search.query.id}}">
 
                                  {% if search.city %}
@@ -144,13 +144,13 @@
                                  {% endif %}
 
                                  {% if search.statzakup_obj %}
-                                    {% for purchase in search.statzakup_obj %}
+                                    {% for statzakup in search.statzakup_obj %}
                                         <input type="hidden" name="statzakup[]" value="{{statzakup.0}}">
                                     {% endfor%}
                                  {% endif %}
 
                                  {% if search.subject_of_purchase_obj %}
-                                    {% for statzakup in search.subject_of_purchase_obj %}
+                                    {% for subject in search.subject_of_purchase_obj %}
                                         <input type="hidden" name="itemZakup[]" value="{{subject.0}}">
                                     {% endfor%}
                                  {% endif %}
@@ -175,7 +175,10 @@
 
                       {% endfor %}
                       {% else %}
-                     <p>У вас нет любимых предметов поиска</p>
+
+                       <ul>
+                          <li style="color:white;">У вас нет любимых предметов поиска</li>
+                        </ul>
                 {% endif %}
 
                       {% if favorite_searches.num_pages > 1 %}
