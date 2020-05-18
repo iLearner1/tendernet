@@ -48,9 +48,9 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
         try:
             print('start_date: ', response_json['start_date'])
             print('end_date: ', response_json['end_date'])
-            start_date = datetime.datetime.strptime(response_json['start_date'], '%Y-%m-%d %H:%M:%S')
-            end_date = datetime.datetime.strptime(response_json['end_date'], '%Y-%m-%d %H:%M:%S')
-            Article.objects.filter(numb=lot_number).update(date=timezone.utc.localize(end_date), date_open=timezone.utc.localize(start_date))
+            start_date = timezone.utc.localize(datetime.datetime.strptime(response_json['start_date'], '%Y-%m-%d %H:%M:%S'))
+            end_date = timezone.utc.localize(datetime.datetime.strptime(response_json['end_date'], '%Y-%m-%d %H:%M:%S'))
+            Article.objects.filter(numb=lot_number).update(date=end_date, date_open=start_date)
         except Exception as e:
             print('exception in date update')
 

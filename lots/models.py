@@ -29,7 +29,7 @@ class Article(models.Model):
     sign_reason_doc_name = models.CharField('Наименование подтверждающего документа', max_length=255, null=True)
     down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
-    slug = models.SlugField(null=False, unique=False)
+    slug = models.SlugField(max_length=255, null=False, unique=False)
     favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
     def __str__(self):
