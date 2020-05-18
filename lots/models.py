@@ -16,7 +16,6 @@ class Article(models.Model):
     totalLots = models.IntegerField(verbose_name='Кол-во лотов в объявлении', null=True)
     title = models.CharField(max_length=255, verbose_name='Наименование лота', null=True)
     itemZakup = models.CharField(max_length=255, choices=SUBJECT_OF_PURCHASE_CHOICES, default='product', verbose_name='Предмет закупки')
-    address = models.CharField(max_length=255, verbose_name='Место поставки', null=True)
     addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     customer = models.CharField(max_length=255, verbose_name='Заказчик', null=True)
     city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, default=2, verbose_name='Город')
