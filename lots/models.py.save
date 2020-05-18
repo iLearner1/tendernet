@@ -43,7 +43,7 @@ class Article(models.Model):
         print("title: ", self.title)
         print("slug: ", self.slug)
         if not self.slug:
-            self.slug = slugify(cyrtranslit.to_latin(self.title).encode('UTF-8', 'ignore'), allow_unicode=True)
+            self.slug = slugify(cyrtranslit.to_latin(self.title).encode('ascii', 'ignore'), allow_unicode=True)
         print("slug after: ", self.slug)
         return super().save(*args, **kwargs)
 

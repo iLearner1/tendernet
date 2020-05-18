@@ -1,13 +1,58 @@
 import datetime
+import celery
 from celery import shared_task, task
 from celery.schedules import crontab
 from celery.task import periodic_task
 from django.core.mail import send_mail
 from django.utils import timezone
-from .models import Article, FavoriteSearch
+from .models import Article, FavoriteSearch, Cities
 from django.template.loader import render_to_string
 from tn_first.settings import CONTACT_MAIL_RECEIVER
 from django.core.cache import cache
+import requests
+from django.template.defaultfilters import slugify
+
+
+@shared_task
+def fetch_date_from_goszakup(trd_buy_id, lot_number):
+    print("trd_buy_id: ", trd_buy_id)
+    print("lot_number: ", lot_number)
+    try:
+        print('slugify - test: ', slugify('asd'))
+    except Exception as e:
+        print('slugify exception')
+
+    try:
+        print('slugify test 2: ', slugify('asd 123'))
+    except Exception as e:
+        print('slugify test 2 exception')
+
+    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    bearer_token = 'Bearer ' + token
+    header = {'Authorization': bearer_token}
+
+    trd_buy_id_response = None
+    trd_buy_id_url = "https://ows.goszakup.gov.kz/v3/trd-buy/" + str(trd_buy_id)
+
+    try:
+        trd_buy_id_response = requests.get(url=trd_buy_id_url, headers=header, verify=False)
+    except Exception as e:
+        print('failed trd_buy_id API call')
+
+
+    if trd_buy_id_response:
+        print('trd_buy_id_response')
+        print(trd_buy_id_response.json())
+        response_json = trd_buy_id_response.json()
+
+        try:
+            print('start_date: ', response_json['start_date'])
+            print('end_date: ', response_json['end_date'])
+            start_date = datetime.datetime.strptime(response_json['start_date'], '%Y-%m-%d %H:%M:%S')
+            end_date = datetime.datetime.strptime(response_json['end_date'], '%Y-%m-%d %H:%M:%S')
+            Article.objects.filter(numb=lot_number).update(date=timezone.utc.localize(end_date), date_open=timezone.utc.localize(start_date))
+        except Exception as e:
+            print('exception in date update')
 
 
 @shared_task
@@ -44,11 +89,15 @@ def fetch_lots_from_goszakup():
         for item in data["items"]:
             count = count + 1
             # insert 5 lots in each API call
-            if item["lot_number"] not in numbs and count < 6:
+            if item['lot_number'] not in numbs and  count < 6:
+                count = count + 1
                 numbs.append(item["lot_number"])
                 print('inserting lot with lot_number: ', item['lot_number'])
+                print('title: ', item['name_ru'])
+                print('slugify - title: ', slugify(item['name_ru']))
 
                 article = Article(
+                    xml_id=item['lot_number'],
                     customer_bin=item["customer_bin"],
                     title=item["name_ru"],
                     customer=item["description_ru"],
@@ -59,11 +108,16 @@ def fetch_lots_from_goszakup():
                     itemZakup='product',
                     date=datetime.datetime.now(),
                     date_open=datetime.datetime.now(),
-                    city=None,
-                    addressFull=None,
+                    city=Cities.objects.all()[0],
+                    addressFull=item['lot_number'],
                     yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])
                 )
                 article.save()
+
+                try:
+                    celery.execute.send_task('lots.tasks.fetch_date_from_goszakup', (item['trd_buy_id'], item['lot_number']))
+                except Exception as e:
+                    print('exception in sending task ')
     else:
         print("no data found from goszakup API")
 

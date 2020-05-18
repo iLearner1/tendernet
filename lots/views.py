@@ -12,6 +12,8 @@ import datetime
 import json
 from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOICES
 from lots.utils.config import PAGE_SIZE
+import logging 
+logging.basicConfig(level='DEBUG')
 
 
 
@@ -27,8 +29,10 @@ def post_list(request):
     q = Q()
     title_q = Q()
 
-    current_time_q = Q(date__gte=timezone.now())
+    #current_time_q = Q(date__gte=timezone.now())
+    current_time_q = Q()
     q &= current_time_q
+    print('post list')
 
     myFilter = {}
 
@@ -109,7 +113,7 @@ def post_list(request):
     posts = Article.objects.filter(q)
     myFilter = ArticleFilter(filters, queryset=posts)
 
-    paginator = Paginator(posts.order_by("date"), PAGE_SIZE)
+    paginator = Paginator(posts.order_by("date"), 25)
     page_number = request_object.get("page", 1)
     posts = paginator.page(page_number)
 
@@ -120,8 +124,8 @@ def post_list(request):
     posts_end_index = 0
 
     if len(posts) > 0:
-        posts_start_index = (int(page_number) - 1) * PAGE_SIZE + 1
-        posts_end_index = (int(page_number) - 1) * PAGE_SIZE + len(posts)
+        posts_start_index = (int(page_number) - 1) * 25 + 1
+        posts_end_index = (int(page_number) - 1) * 25 + len(posts)
 
     context = {
         "posts": posts,
@@ -197,7 +201,8 @@ def post_delete(request, id, slug):
 
 def post_search(request):
 
-    current_time_q = Q(date__gte=timezone.now())
+    #current_time_q = Q(date__gte=timezone.now())
+    current_time_q = Q()
 
     title_q = Q()
     if request.GET.get('title'):
@@ -302,7 +307,7 @@ def post_search(request):
     else:
         sorted_lots = Article.objects.filter(q).order_by(sort_field)
 
-    paginator = Paginator(sorted_lots, PAGE_SIZE)
+    paginator = Paginator(sorted_lots, 25)
     page_number = request.GET.get("page", 1)
     posts = paginator.page(page_number)
 
@@ -311,8 +316,8 @@ def post_search(request):
     posts_end_index = 0
 
     if len(posts) > 0:
-        posts_start_index = (page_number - 1) * PAGE_SIZE + 1
-        posts_end_index = (page_number - 1) * PAGE_SIZE + len(posts)
+        posts_start_index = (page_number - 1) * 25 + 1
+        posts_end_index = (page_number - 1) * 25 + len(posts)
 
     context = {"posts": posts,
                "total_posts": total_posts,

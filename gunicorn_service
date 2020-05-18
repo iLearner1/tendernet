@@ -2,7 +2,7 @@
 
 NAME="tn_first"                                 # Name of the application 
 DJANGODIR=/webapps/django_shop/tendernet            # Django project directory 
-#SOCKFILE=/webapps/django_shop/tendernet/run/gunicorn.sock # we will communicte using this unix socket 
+SOCKFILE=unix:/webapps/django_shop/tendernet/tendernet.sock # we will communicte using this unix socket 
 USER=root                                       # the user to run as 
 GROUP=root                                    # the group to run as 
 NUM_WORKERS=3                                    # how many worker processes should Gunicorn spawn 
@@ -24,11 +24,11 @@ export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
 # Start your Django Unicorn 
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon) 
-exec /webapps/django_shop/django_env/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \ 
+exec /webapps/django_shop/django_env/bin/gunicorn --access-logfile /webapps/django_shop/tendernet/app.log --capture-output --enable-stdio-inheritance ${DJANGO_WSGI_MODULE}:application \ 
  --name $NAME \ 
  --workers $NUM_WORKERS \ 
  --user=$USER --group=$GROUP \ 
-# --bind=$SOCKFILE \ 
- --bind=localhost:8000
+ --bind=$SOCKFILE \ 
+# --bind=localhost:8000
  --log-level=debug \ 
- --log-file=-
+ --log-file=/webapps/django_shop/tendernet/app.log

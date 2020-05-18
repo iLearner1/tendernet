@@ -145,9 +145,16 @@
                         onclick="return uchastvovatFunction();"><button class="button contact-button"
                           style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
-                      <a href="{{ post.down.url }}" class="save" target="_blank"
+{% if post.down %}                      
+<a href="{{ post.down.url }}" class="save" target="_blank"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+{% else %}
+<a href="/media/media/email-activated-dummy.png" class="save" target="_blank"
+                        style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                          class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+
+{% endif %}
                     </div>
                   </div>
 
