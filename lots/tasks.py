@@ -102,7 +102,6 @@ def fetch_lots_from_goszakup():
                     title=item["name_ru"],
                     customer=item["customer_name_ru"],
                     price=item["amount"],
-                    totalLots=item["count"],
                     statzakup=item["ref_trade_methods_id"],
                     numb=item["lot_number"],
                     itemZakup='product',
