@@ -14,6 +14,7 @@ from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOI
 from lots.utils.config import PAGE_SIZE
 import logging 
 logging.basicConfig(level='DEBUG')
+import requests
 
 
 
@@ -388,3 +389,39 @@ def archived_post(request):
     posts = paginator.get_page(page_number)
 
     return render(request, "archived.html", {"posts": posts})
+
+
+def api_interface(request):
+
+    if request.method == 'GET':
+        api_url = request.GET['api_url']
+
+        print('api_url: ', api_url)
+
+        token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+        bearer_token = 'Bearer ' + token
+        header = {'Authorization': bearer_token}
+
+        response = None
+
+        try:
+            response = requests.get(url=api_url, headers=header, verify=False)
+        except Exception as e:
+            print(e)
+
+        print("response")
+        print(response)
+        if response is None:
+            return HttpResponse({'status': 'error'})
+        else:
+            try:
+                data = response.json()
+                print("data")
+                print(data)
+            except Exception as e:
+                print('error in json conversion')
+                return HttpResponse({'status': 'error'})
+
+            return HttpResponse({'status': 'success', 'data': data})
+
+    return HttpResponse({'status': 'error'})
