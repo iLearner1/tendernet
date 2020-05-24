@@ -14,6 +14,7 @@ class Article(models.Model):
     xml_id = models.CharField('Внешний код для Api', null=True, max_length=255)
     customer_bin = models.CharField('Бин организатора', null=True, max_length=255, )
     title = models.CharField(max_length=255, verbose_name='Наименование лота', null=True)
+    lotFullName = models.CharField(max_length=255, verbose_name='Полное имя лота', null=True)
     itemZakup = models.CharField(max_length=255, choices=SUBJECT_OF_PURCHASE_CHOICES, default='product', verbose_name='Предмет закупки')
     addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     customer = models.CharField(max_length=255, verbose_name='Заказчик', null=True)

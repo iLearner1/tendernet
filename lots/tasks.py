@@ -100,6 +100,7 @@ def fetch_lots_from_goszakup():
                     xml_id=item['lot_number'],
                     customer_bin=item["customer_bin"],
                     title=item["name_ru"],
+                    lotFullName=item['description_ru'],
                     customer=item["customer_name_ru"],
                     price=item["amount"],
                     statzakup=item["ref_trade_methods_id"],
