@@ -396,8 +396,6 @@ def api_interface(request):
     if request.method == 'GET':
         api_url = request.GET['api_url']
 
-        print('api_url: ', api_url)
-
         token = 'bb28b5ade7629ef512a8b7b9931d04ad'
         bearer_token = 'Bearer ' + token
         header = {'Authorization': bearer_token}
@@ -408,20 +406,9 @@ def api_interface(request):
             response = requests.get(url=api_url, headers=header, verify=False)
         except Exception as e:
             print(e)
+            return JsonResponse({'status': 'error'})
 
-        print("response")
-        print(response)
-        if response is None:
-            return HttpResponse({'status': 'error'})
-        else:
-            try:
-                data = response.json()
-                print("data")
-                print(data)
-            except Exception as e:
-                print('error in json conversion')
-                return HttpResponse({'status': 'error'})
+        if response:
+            return JsonResponse({'status': 'success', 'data': response.json()})
 
-            return HttpResponse({'status': 'success', 'data': data})
-
-    return HttpResponse({'status': 'error'})
+    return JsonResponse({'status': 'error'})
