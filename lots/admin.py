@@ -8,6 +8,11 @@ class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)} # new
     list_per_page = 30
 
+    class Media:
+        css = {
+            'all': ('css/admin-styles.css',)
+        }
+
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Cities)
 
