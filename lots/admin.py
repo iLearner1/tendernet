@@ -1,11 +1,12 @@
 from django.contrib import admin
 
 from .models import Article, FavoriteSearch
-from lots.models import Cities
+from lots.models import Cities, Regions
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst','down',)
     prepopulated_fields = {'slug': ('title',)} # new
+    autocomplete_fields = ["city", "region"]
     list_per_page = 30
 
     class Media:
@@ -13,7 +14,16 @@ class ArticleAdmin(admin.ModelAdmin):
             'all': ('css/admin-styles.css',)
         }
 
+class CitiesAdmin(admin.ModelAdmin):
+    ordering = ["name"]
+    search_fields = ["name"]
+
+class RegionsAdmin(admin.ModelAdmin):
+    ordering = ["name"]
+    search_fields = ["name"]
+
 admin.site.register(Article, ArticleAdmin)
-admin.site.register(Cities)
+admin.site.register(Cities, CitiesAdmin)
+admin.site.register(Regions, RegionsAdmin)
 
 admin.site.register(FavoriteSearch);

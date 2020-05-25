@@ -5,12 +5,47 @@ from celery.schedules import crontab
 from celery.task import periodic_task
 from django.core.mail import send_mail
 from django.utils import timezone
-from .models import Article, FavoriteSearch, Cities
+from .models import Article, FavoriteSearch, Cities, Regions
 from django.template.loader import render_to_string
 from tn_first.settings import CONTACT_MAIL_RECEIVER
 from django.core.cache import cache
 import requests
 from django.template.defaultfilters import slugify
+
+@shared_task
+def fetch_region_location_from_goszak(customer_bin, lot_number):
+    print("customer_bin: ", customer_bin)
+    print("lot_number: ", lot_number)
+    api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/"+ customer_bin +"/address"
+
+    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    bearer_token = 'Bearer ' + token
+    header = {'Authorization': bearer_token}
+
+    response = None
+
+    try:
+        response = requests.get(url=api_url, headers=header, verify=False)
+    except Exception as e:
+        print('failed address API call')
+
+    if response:
+        response_json = response.json()
+
+        try:
+            item = response_json["items"][0]
+            kato_code = item["kato_code"]
+            print("kato_code: ", kato_code)
+
+            region_code = kato_code[0:1] + "0000000"
+            location_code = kato_code
+
+            location = Cities.objects.filter(code=location_code)
+            region = Regions.objects.filter(code=region_code)
+
+            Article.objects.filter(numb=lot_number).update(region=region, city=location)
+        except Exception as e:
+            print("exeption in updating region/location")
 
 
 @shared_task
@@ -108,7 +143,6 @@ def fetch_lots_from_goszakup():
                     itemZakup='product',
                     date=datetime.datetime.now(),
                     date_open=datetime.datetime.now(),
-                    city=Cities.objects.all()[0],
                     addressFull=item['lot_number'],
                     yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])
                 )
@@ -118,6 +152,11 @@ def fetch_lots_from_goszakup():
                     celery.execute.send_task('lots.tasks.fetch_date_from_goszakup', (item['trd_buy_id'], item['lot_number']))
                 except Exception as e:
                     print('exception in sending task ')
+
+                try:
+                    celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number']))
+                except Exception as e:
+                    print('exception in sending fetch_region_location_from_goszak task')
     else:
         print("no data found from goszakup API")
 

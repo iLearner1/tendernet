@@ -18,7 +18,8 @@ class Article(models.Model):
     itemZakup = models.CharField(max_length=255, choices=SUBJECT_OF_PURCHASE_CHOICES, default='product', verbose_name='Предмет закупки')
     addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     customer = models.CharField(max_length=255, verbose_name='Заказчик', null=True)
-    city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, default=2, verbose_name='Город')
+    region = models.ForeignKey('Regions', null=True, on_delete=models.PROTECT, verbose_name='Область')
+    city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, verbose_name='Город')
     numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
     price = models.FloatField(verbose_name='Цена', null=True)
     statzakup = models.CharField(max_length=10, choices=PURCHASE_METHOD_CHOICES, default='draft', verbose_name='Способ закупки')
@@ -51,9 +52,22 @@ class Article(models.Model):
         verbose_name = "Лот"
 
 
+class Regions(models.Model):
+    code = models.CharField(max_length=30, verbose_name="Код", default=None)
+    name = models.CharField(max_length=30, db_index=True, verbose_name="Название")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "районы"
+        verbose_name = "Область"
+        ordering = ["name"]
+
+
 class Cities(models.Model):
-    name = models.CharField(max_length=30, db_index=True,
-                            verbose_name="Название")
+    code = models.CharField(max_length=30, verbose_name="Код", default=None)
+    name = models.CharField(max_length=30, db_index=True, verbose_name="Название")
 
     def __str__(self):
         return self.name
