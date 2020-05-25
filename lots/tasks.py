@@ -39,11 +39,12 @@ def fetch_region_location_from_goszak(customer_bin, lot_number):
 
             region_code = kato_code[0:1] + "0000000"
             location_code = kato_code
+            address = response_json["address"]
 
             location = Cities.objects.filter(code=location_code)
             region = Regions.objects.filter(code=region_code)
 
-            Article.objects.filter(numb=lot_number).update(region=region, city=location)
+            Article.objects.filter(numb=lot_number).update(region=region, city=location, addressFull=address)
         except Exception as e:
             print("exeption in updating region/location")
 
@@ -143,7 +144,6 @@ def fetch_lots_from_goszakup():
                     itemZakup='product',
                     date=datetime.datetime.now(),
                     date_open=datetime.datetime.now(),
-                    addressFull=item['lot_number'],
                     yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])
                 )
                 article.save()
