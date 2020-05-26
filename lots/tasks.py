@@ -46,7 +46,8 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             if location:
                 Article.objects.filter(numb=lot_number).update(city=location[0])
             else:
-                if location_code in kato_list.keys():
+                kato_list_keys = list(kato_list.keys())
+                if location_code in kato_list_keys:
                     city = Cities()
                     city.name = kato_list[location_code]
                     city.code = location_code
@@ -56,6 +57,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             region = Regions.objects.filter(code=region_code)
             if region:
                 Article.objects.filter(numb=lot_number).update(region=region[0])
+
+                if kato_code in ["710000000", "750000000", "790000000"]:
+                    Article.objects.filter(numb=lot_number).update(city=region[0])
 
             address = item["address"]
             if address:

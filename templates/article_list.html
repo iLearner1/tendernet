@@ -278,11 +278,14 @@
                         <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
                         <div class="info">
                           <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                               Окончание:<br><b>{{ article.date|date:"d.m.Y:h:m" }}</b>
                             </div>
-                            <div class="col-md-7">
-                              <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
+                            <div class="col-md-4">
+                              <span class="office-region">Область: <b>{{ article.region }}</b></span><br>
+                            </div>
+                              <div class="col-md-4">
+                              <span class="office-location">Местоположение: <b>{{ article.city }}</b></span><br>
                             </div>
                           </div>
                         </div>
