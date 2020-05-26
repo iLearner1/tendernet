@@ -11,10 +11,11 @@ from tn_first.settings import CONTACT_MAIL_RECEIVER
 from django.core.cache import cache
 import requests
 from django.template.defaultfilters import slugify
+from lots.insert_region_location import read_xls
 
 
 @shared_task
-def fetch_region_location_from_goszak(customer_bin, lot_number):
+def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
     print("customer_bin: ", customer_bin)
     print("lot_number: ", lot_number)
     api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/"+ customer_bin +"/address"
@@ -44,6 +45,13 @@ def fetch_region_location_from_goszak(customer_bin, lot_number):
             location = Cities.objects.filter(code=location_code)
             if location:
                 Article.objects.filter(numb=lot_number).update(city=location[0])
+            else:
+                if location_code in kato_list.keys():
+                    city = Cities()
+                    city.name = kato_list[location_code]
+                    city.code = location_code
+                    city.save()
+                    Article.objects.filter(numb=lot_number).update(city=city)
 
             region = Regions.objects.filter(code=region_code)
             if region:
@@ -117,6 +125,8 @@ def fetch_lots_from_goszakup():
             numbs.append(a.numb)
     print('numbs: ', numbs)
 
+    kato_list = read_xls()
+
     response = None
     try:
         response = requests.get(url=URL, headers=header, verify=False)
@@ -161,7 +171,7 @@ def fetch_lots_from_goszakup():
                     print('exception in sending task ')
 
                 try:
-                    celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number']))
+                    celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number'], kato_list))
                 except Exception as e:
                     print('exception in sending fetch_region_location_from_goszak task')
     else:
