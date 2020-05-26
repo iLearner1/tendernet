@@ -12,6 +12,7 @@ from django.core.cache import cache
 import requests
 from django.template.defaultfilters import slugify
 
+
 @shared_task
 def fetch_region_location_from_goszak(customer_bin, lot_number):
     print("customer_bin: ", customer_bin)
@@ -37,14 +38,20 @@ def fetch_region_location_from_goszak(customer_bin, lot_number):
             kato_code = item["kato_code"]
             print("kato_code: ", kato_code)
 
-            region_code = kato_code[0:1] + "0000000"
+            region_code = kato_code[0:2] + "0000000"
             location_code = kato_code
-            address = response_json["address"]
 
             location = Cities.objects.filter(code=location_code)
-            region = Regions.objects.filter(code=region_code)
+            if location:
+                Article.objects.filter(numb=lot_number).update(city=location[0])
 
-            Article.objects.filter(numb=lot_number).update(region=region, city=location, addressFull=address)
+            region = Regions.objects.filter(code=region_code)
+            if region:
+                Article.objects.filter(numb=lot_number).update(region=region[0])
+
+            address = item["address"]
+            if address:
+                Article.objects.filter(numb=lot_number).update(addressFull=address)
         except Exception as e:
             print("exeption in updating region/location")
 
@@ -153,10 +160,10 @@ def fetch_lots_from_goszakup():
                 except Exception as e:
                     print('exception in sending task ')
 
-                try:
-                    celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number']))
-                except Exception as e:
-                    print('exception in sending fetch_region_location_from_goszak task')
+                # try:
+                #     celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number']))
+                # except Exception as e:
+                #     print('exception in sending fetch_region_location_from_goszak task')
     else:
         print("no data found from goszakup API")
 
