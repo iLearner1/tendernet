@@ -160,10 +160,10 @@ def fetch_lots_from_goszakup():
                 except Exception as e:
                     print('exception in sending task ')
 
-                # try:
-                #     celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number']))
-                # except Exception as e:
-                #     print('exception in sending fetch_region_location_from_goszak task')
+                try:
+                    celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number']))
+                except Exception as e:
+                    print('exception in sending fetch_region_location_from_goszak task')
     else:
         print("no data found from goszakup API")
 
