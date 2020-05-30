@@ -167,6 +167,11 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+def tariff(request):
+    return render(request, "tariff.html")
+
+
+
 def edit_tarif(request):
     if request.method == 'POST':
         tarif_form = TarifEditForm(data=request.POST or None, instance=request.user.profile)

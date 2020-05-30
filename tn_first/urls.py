@@ -39,6 +39,7 @@ urlpatterns = [
 
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('profile/', views.profile, name="profile"),
+    path('tariff/', views.tariff, name="tariff"),
     path('edit_tarif/', views.edit_tarif, name="edit_tarif"),
     path('basket_list/', views.basket_list, name="basket_list"),
     path('history_list/', views.history_list, name="history_list"),
