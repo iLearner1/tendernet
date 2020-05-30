@@ -24,8 +24,8 @@ class Article(models.Model):
     price = models.FloatField(verbose_name='Цена', null=True)
     statzakup = models.CharField(max_length=10, choices=PURCHASE_METHOD_CHOICES, default='draft', verbose_name='Способ закупки')
 
-    date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
     date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
+    date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
     yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
     down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
