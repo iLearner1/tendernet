@@ -27,7 +27,6 @@ class Article(models.Model):
     date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
     date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
     yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
-    sign_reason_doc_name = models.CharField('Наименование подтверждающего документа', max_length=255, null=True)
     down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
     slug = models.SlugField(max_length=255, null=False, unique=False)
