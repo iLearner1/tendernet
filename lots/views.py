@@ -412,3 +412,12 @@ def api_interface(request):
             return JsonResponse({'status': 'success', 'data': response.json()})
 
     return JsonResponse({'status': 'error'})
+
+
+def delete_lots(request):
+    try:
+        delete = Article.objects.all()
+        delete.delete()
+        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error'})

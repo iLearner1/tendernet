@@ -5,6 +5,7 @@ urlpatterns = [
     path("<slug:slug>/favourite_post/", views.favourite_post, name="favourite_post"),
     path("", views.post_list, name="post_list"),
     path("api_interface", views.api_interface, name="api_interface"),
+    path("delete_lots", views.delete_lots, name="delete_lots"),
     path("<int:id>/<slug:slug>/", views.post_detail, name="post_detail"),
     path("<int:id>/<slug:slug>/delete/", views.post_delete, name="post_delete"),
     path("favourites/", views.post_favourite_list, name="post_favourite_list"),
