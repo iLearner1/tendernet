@@ -12,7 +12,7 @@ from django.core.cache import cache
 import requests
 from django.template.defaultfilters import slugify
 from lots.insert_region_location import read_xls
-
+from time import sleep
 
 @shared_task
 def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
@@ -41,31 +41,61 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
 
             region_code = kato_code[0:2] + "0000000"
             location_code = kato_code
+            print("region_code: ", region_code)
+            print("location_code: ", location_code)
 
             location = Cities.objects.filter(code=location_code)
+            print("location: ", location)
             if location:
-                Article.objects.filter(numb=lot_number).update(city=location[0])
+                location = location[0]
+                Article.objects.filter(numb=lot_number).update(city=location)
             else:
+                print("else location")
                 kato_list_keys = list(kato_list.keys())
                 if location_code in kato_list_keys:
+                    print("if location_code in kato_list_keys")
                     city = Cities()
                     city.name = kato_list[location_code]
                     city.code = location_code
                     city.save()
+                    print("city: ", city)
+                    location = city
                     Article.objects.filter(numb=lot_number).update(city=city)
 
             region = Regions.objects.filter(code=region_code)
             if region:
+                print("if region")
+                print("region_code: ", region_code)
                 Article.objects.filter(numb=lot_number).update(region=region[0])
-
+                print("kato_code.type: ", type(kato_code))
                 if kato_code in ["710000000", "750000000", "790000000"]:
-                    Article.objects.filter(numb=lot_number).update(city=region[0])
+                    print("kato_code: ", kato_code)
+                    print("region[0]: ", region[0])
+                    print("region.code: ", region[0].code)
+                    print("region.name: ", region[0].name)
+                    city = Cities()
+                    city.code = region[0].code
+                    city.name = region[0].name
+                    city.save()
+                    Article.objects.filter(numb=lot_number).update(city=city)
 
             address = item["address"]
             if address:
+                address_split = item["address"].split(",")
+                for item in address_split:
+                   print("address.part: ", item)
+                if '0' in address_split[0]:
+                    address_split = address_split[1:]
+                    print("address without city: ", address_split)
+                    if location:
+                        address = location.name + ", " + ", ".join(address_split)
+                print("final address: ", address)
                 Article.objects.filter(numb=lot_number).update(addressFull=address)
+
+            return True
         except Exception as e:
             print("exeption in updating region/location")
+            return False
 
 
 @shared_task
@@ -139,6 +169,8 @@ def fetch_lots_from_goszakup():
 
     count = 0
     data = None
+    lot_trd_list = []
+    lot_bin_pair_list = []
     if response:
         data = response.json()
         print("data.len: ", len(data['items']))
@@ -146,12 +178,11 @@ def fetch_lots_from_goszakup():
         for item in data["items"]:
             count = count + 1
             # insert 5 lots in each API call
-            if item['lot_number'] not in numbs and  count < 6:
+            if item['lot_number'] not in numbs:
                 count = count + 1
                 numbs.append(item["lot_number"])
+                print("count: ", count)
                 print('inserting lot with lot_number: ', item['lot_number'])
-                print('title: ', item['name_ru'])
-                print('slugify - title: ', slugify(item['name_ru']))
 
                 article = Article(
                     xml_id=item['lot_number'],
@@ -168,16 +199,30 @@ def fetch_lots_from_goszakup():
                     yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])
                 )
                 article.save()
+                lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
+                lot_bin_pair_list.append((item['customer_bin'], item['lot_number']))
 
-                try:
-                    celery.execute.send_task('lots.tasks.fetch_date_from_goszakup', (item['trd_buy_id'], item['lot_number']))
-                except Exception as e:
-                    print('exception in sending task ')
+        if len(lot_trd_list)>0:
+            while len(lot_trd_list)>0:
+                print("creating trd task")
+                result = fetch_date_from_goszakup.delay(lot_trd_list[0][0],lot_trd_list[0][1])
+                while not result.ready():
+                    print("sleeping for 0.5s")
+                    sleep(0.5)
+                print("returned from task")
+                lot_trd_list = lot_trd_list[1:]
+                print("lot_trd_list.len: ", len(lot_trd_list))
 
-                try:
-                    celery.execute.send_task('lots.tasks.fetch_region_location_from_goszak', (item['customer_bin'], item['lot_number'], kato_list))
-                except Exception as e:
-                    print('exception in sending fetch_region_location_from_goszak task')
+        if len(lot_bin_pair_list) > 0:
+            while len(lot_bin_pair_list) > 0:
+                print("creating task")
+                result = fetch_region_location_from_goszak.delay(lot_bin_pair_list[0][0],lot_bin_pair_list[0][1], kato_list)
+                while not result.ready():
+                    print("sleeping for 0.5s")
+                    sleep(0.5)
+                print("returned from task")
+                lot_bin_pair_list = lot_bin_pair_list[1:]
+                print("lot_bin_pair_list.len: ", len(lot_bin_pair_list))
     else:
         print("no data found from goszakup API")
 
@@ -193,8 +238,8 @@ def notify_subscriber_about_new_lots(lotId=None):
     html = render_to_string('blocks/new-lots-mail.html',
                             {'article': article, 'host_url': host_url})
 
-    send_mail('new lots arrived', '', 'test@mail.com', [
-              'tendernetkz@mail.ru', CONTACT_MAIL_RECEIVER, *receiver], html_message=html, fail_silently=False)
+#    send_mail('new lots arrived', '', 'test@mail.com', [
+#              'tendernetkz@mail.ru', CONTACT_MAIL_RECEIVER, *receiver], html_message=html, fail_silently=False)
 
 
 def findAllFavoriteSearchReceiver(article):

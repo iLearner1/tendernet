@@ -16,7 +16,7 @@ app.autodiscover_tasks()
 app.conf.CELERYBEAT_SCHEDULE = {
     'fetch-lots-from-goszakup-every-30-minutes': {
             'task': 'lots.tasks.fetch_lots_from_goszakup',
-            'schedule':timedelta(minutes=2)
+            'schedule':timedelta(minutes=10)
         }
     }
 # if __name__ == "__main__":
