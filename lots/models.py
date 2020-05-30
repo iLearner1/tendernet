@@ -30,7 +30,6 @@ class Article(models.Model):
     down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
     slug = models.SlugField(max_length=255, null=False, unique=False)
-    favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
     def __str__(self):
         return self.title
