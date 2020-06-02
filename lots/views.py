@@ -37,11 +37,23 @@ def post_list(request):
 
     myFilter = {}
 
+    print("request_object")
+    print(request_object)
+
     if 'title' in request_object:
         if request_object.get('title'):
             title_tokens = request_object.get('title').split()
             for keyword in title_tokens:
-                title_q |= Q(title__contains=keyword)
+                title_q |= Q(title__contains=keyword.capitalize())
+                title_q |= Q(title__contains=keyword.lower())
+                title_q |= Q(title__contains=keyword.upper())
+
+                if request_object.get('searchby3char-home'):
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+
         q &= title_q
 
     customer_q = Q()
@@ -207,7 +219,19 @@ def post_search(request):
     if request.GET.get('title'):
         title_tokens = request.GET.get('title').split()
         for keyword in title_tokens:
-            title_q |= Q(title__contains=keyword)
+            title_q |= Q(title__contains=keyword.capitalize())
+            title_q |= Q(title__contains=keyword.lower())
+            title_q |= Q(title__contains=keyword.upper())
+
+            print("3char: ", request.GET.get('searchby3char'))
+            if request.GET.get('searchby3char') == "1":
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+
+    print("title_q")
+    print(title_q)
 
     customer_q = Q()
     if request.GET.get('customer'):

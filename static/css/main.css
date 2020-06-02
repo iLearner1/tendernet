@@ -10949,3 +10949,8 @@ select::-ms-expand {
 .text-warning {
   color: #ffe004 !important;
 }
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

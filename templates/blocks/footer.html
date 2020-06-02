@@ -115,6 +115,9 @@
           console.log("formData");
           console.log(formData);
 
+          let search_by_3char = $("#searchby3char").is(":checked");
+          console.log("search_by_3char: " + search_by_3char);
+
           //formating data for query
           for (let item of formData) {
             console.log('item.name: ' + item.name);
@@ -125,6 +128,12 @@
               data[item.name] = item.value;
             }
           }
+
+          data["searchby3char"] = "0";
+          if(search_by_3char) {
+            data["searchby3char"] = "1";
+          }
+
           //show loader
           $("#input-container").html(loader);
 
@@ -172,6 +181,9 @@
       console.log("formData");
       console.log(formData);
 
+      let search_by_3char = $("#searchby3char").is(":checked");
+      console.log("search_by_3char: " + search_by_3char);
+
       let data = {};
 
        //formating data for query
@@ -183,6 +195,11 @@
         } else {
           data[item.name] = item.value;
         }
+      }
+
+      data["searchby3char"] = "0";
+      if(search_by_3char) {
+        data["searchby3char"] = "1";
       }
 
       search_query = data;
@@ -247,6 +264,9 @@
       console.log("formData");
       console.log(formData);
 
+      let search_by_3char = $("#searchby3char").is(":checked");
+      console.log("search_by_3char: " + search_by_3char);
+
       for (let item of formData) {
 
         if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
@@ -280,6 +300,11 @@
       subjects.each(function(i, item) {
         formatedData['subject_of_purchase'].push($(item).val());
       });
+
+      formatedData["searchby3char"] = "0";
+      if(search_by_3char) {
+        formatedData["searchby3char"] = "1";
+      }
 
       if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
       {
@@ -360,6 +385,7 @@
         $("#main-searchform-" + device).find("#save-query-" + device).find('i').removeClass('fas').addClass('far');
         $("#main-searchform-" + device).find('.multiselect').selectpicker('deselectAll');
         $('#main-searchform-' + device).find('input#savedId').val('');
+        $( "#searchby3char" ).prop( "checked", false );
         savedId = null;
     }
 
