@@ -100,6 +100,7 @@ def signup(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
+            user.set_password(request.POST.get('password'))
             user.save()
             Profile.objects.create(user=user)
             current_site = get_current_site(request)
