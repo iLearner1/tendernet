@@ -156,6 +156,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"  # Сервер для отправки сообщений
 EMAIL_HOST_USER = "tendernet.kz@gmail.com"  # имя пользователя
+EMAIL_MANAGER = "tendernet.kz@gmail.com"
 EMAIL_HOST_PASSWORD = "tendernetkz2020"  # пароль от ящика
 EMAIL_PORT = 587  # порт для подключения
 EMAIL_USE_TLS = True  # использование протокола шифрования

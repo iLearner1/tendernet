@@ -16,6 +16,7 @@ from django.views.generic import View
 from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm, LoginForm, PasswordResetForm
 from users.models import Profile
 from lots.models import Article
+from tn_first.settings import EMAIL_MANAGER
 
 
 def index(request):  # создаем свою функцию
@@ -102,6 +103,10 @@ def signup(request):
             user.save()
             Profile.objects.create(user=user)
             current_site = get_current_site(request)
+
+            print("user")
+            print(user)
+
             mail_subject = 'Активируйте пожалуйста Ваш аккаунт на tendernet.kz'
             message = render_to_string('acc_active_email.html', {
                 'user': user,
@@ -109,11 +114,30 @@ def signup(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
+            print("form")
+            print(form)
+
             to_email = form.cleaned_data.get('email')
+            print("form.cleaned_data")
+            print(form.cleaned_data)
+
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
             email.send()
+
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            mail_subject = 'новый пользователь активировал электронную почту'
+            message = render_to_string('new_user_registration_email_to_manager.html', {
+                'username': username,
+                'email': email,
+            })
+            email = EmailMessage(
+                mail_subject, message, to=[EMAIL_MANAGER]
+            )
+            email.send()
+
             return render(request, 'confirm_registration.html')
     else:
         form = SignupForm()
