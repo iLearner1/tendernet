@@ -1,12 +1,18 @@
 from django.contrib import admin
 
 from .models import Article, FavoriteSearch
-from lots.models import Cities, Regions
+from lots.models import Cities, Regions, LotFile
+
+
+class LotFileAdmin(admin.StackedInline):
+    model = LotFile
+
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst','down',)
+    list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst',)
     prepopulated_fields = {'slug': ('title',)} # new
     autocomplete_fields = ["city", "region"]
+    inlines = [LotFileAdmin]
     list_per_page = 30
 
     class Media:
@@ -14,13 +20,20 @@ class ArticleAdmin(admin.ModelAdmin):
             'all': ('css/admin-styles.css',)
         }
 
+
 class CitiesAdmin(admin.ModelAdmin):
     ordering = ["name"]
     search_fields = ["name"]
 
+
 class RegionsAdmin(admin.ModelAdmin):
     ordering = ["name"]
     search_fields = ["name"]
+
+
+@admin.register(LotFile)
+class LotFileAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Cities, CitiesAdmin)

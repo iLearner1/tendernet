@@ -159,8 +159,6 @@ def post_detail(request, id, slug):
     dat4 = post.date - datetime.datetime.now(timezone.utc)
 
     is_favourite = False
-    if post.favourite.filter(id=request.user.id).exists():
-        is_favourite = True
 
     context = {
         "post": post,
