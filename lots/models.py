@@ -112,14 +112,15 @@ class FavoriteSearch(models.Model):
     def city(self):
         # this method creating a property as like his name and return city object
         query = self.query.get("city[]")
-        if query != '':
+        if type(query) == list:
             return Cities.objects.filter(id__in=query)
 
     @property
     def statzakup_obj(self):
         query = self.query.get("statzakup[]")
+        print("query: ", query)
         q = []
-        if query != '':
+        if type(query) == list:
             for i in query:
                 for j in PURCHASE_METHOD_CHOICES:
                     if i in j:
@@ -136,7 +137,7 @@ class FavoriteSearch(models.Model):
     def subject_of_purchase_obj(self):
         query = self.query.get("subject_of_purchase[]")
         q = []
-        if query != '':
+        if type(query) == list:
             for i in query:
                 for j in SUBJECT_OF_PURCHASE_CHOICES:
                     if i in j:
@@ -146,7 +147,7 @@ class FavoriteSearch(models.Model):
     @property
     def subject_of_purchase(self):
         query = self.query.get("subject_of_purchase[]")
-        if query !='':
+        if type(query) == list:
             return query
 
 
