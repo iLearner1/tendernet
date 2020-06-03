@@ -87,35 +87,51 @@
 
                                     <style>
                                         .iso-form label {
-                                            display: block !important;
+                                          display: block !important;
                                         }
 
                                         .iso-form input,
                                         .iso-form select {
-                                            height: auto;
-                                            min-width: 300px;
-                                            padding-left: 0px;
-                                            border: 0;
-                                            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-                                            transition: all .3s ease;
-                                            outline: none;
-                                            font-size: 14px;
-                                            color: #000;
-                                            background: #fff;
-                                            box-shadow: none;
+                                          height: auto;
+                                          width: 100%;
+                                          padding-left: 0px;
+                                          padding: 15px;
+                                          border: 0;
+                                          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                                          transition: all .3s ease;
+                                          outline: none;
+                                          font-size: 14px;
+                                          color: #000;
+                                          background: #fff;
+                                          box-shadow: none;
+                                        }
+
+                                        .iso-form input{
+                                          width: 100%;
+                                          padding: 15px;
+                                          border: 1px solid rgba(0, 0, 0, 0.08)!important;
                                         }
 
                                         .iso-form input[type=submit] {
-                                            display: block;
-                                            width: 100%;
-                                            text-align: center;
-                                            margin-bottom: 10px;
-                                            padding: 12px 30px;
-                                            background: #eb3547;
-                                            color: #ffffff;
-                                            font-size: 14px;
+                                          display: block;
+                                          width: 100%;
+                                          text-align: center;
+                                          margin-bottom: 10px;
+                                          padding: 12px 30px;
+                                          background: #eb3547;
+                                          color: #ffffff;
+                                          font-size: 14px;
                                         }
-                                    </style>
+                                      </style>
+                                      <script>
+
+                                        $(document).ready(function(){
+                                          $("#id_Phone").attr("placeholder", "Введите номер телефона");
+                                          $("label[for='id_Phone']").html("Номер телефона");
+                                        });
+
+                                      </script>
+
                                     <form class="iso-form" method="POST">
                                         <!-- Very Important csrf Token -->
                                         {% csrf_token %}
