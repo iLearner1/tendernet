@@ -83,7 +83,7 @@
                       </tr>
                       <tr>
                         <td><b>Ссылка:</b></td>
-                        <td><a href="{{ post.yst }}" style="color: #eb3547;">{{ post.yst }}</a></td>
+                        <td><a href="{{ post.yst }}" style="color: #007bff;">{{ post.yst }}</a></td>
                       </tr>
                       <tr>
                         <td><b>Номер лота:</b></td>
@@ -112,9 +112,19 @@
                   <div>
                     <br>
                     <h6 class="margin-bottom-10">Поделиться в соц. сетях:</h6>
-                    <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
-                    <script src="https://yastatic.net/share2/share.js"></script>
-                    <div class="ya-share2" data-services="whatsapp,telegram"></div>
+
+                    <script type="text/javascript">(function(w,doc) {
+                    if (!w.__utlWdgt ) {
+                        w.__utlWdgt = true;
+                        var d = doc, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                        s.src = ('https:' == w.location.protocol ? 'https' : 'http')  + '://w.uptolike.com/widgets/v1/uptolike.js';
+                        var h=d[g]('body')[0];
+                        h.appendChild(s);
+                    }})(window,document);
+                    </script>
+                    <div data-mobile-view="true" data-share-size="30" data-like-text-enable="false" data-background-alpha="0.0" data-pid="1883085" data-mode="share" data-background-color="#ffffff" data-share-shape="rectangle" data-share-counter-size="12" data-icon-color="#ffffff" data-mobile-sn-ids="fb.vk.tw.ok.wh.tm.vb." data-text-color="#000000" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-type="disable" data-orientation="horizontal" data-following-enable="false" data-sn-ids="wh.tm.em." data-preview-mobile="false" data-selection-enable="false" data-exclude-show-more="true" data-share-style="1" data-counter-background-alpha="1.0" data-top-button="false" class="uptolike-buttons" ></div>
+
                   </div>
                 </div>
 
@@ -128,7 +138,7 @@
                       <script type="text/javascript">
                         function uchastvovatFunction() {
                           if (confirm("Вы действительно желаете участвовать?")) {
-                            // do stuff
+                            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
                           } else {
                             return false;
                           }
@@ -157,7 +167,7 @@
                         onclick="return uchastvovatFunction();"><button class="button contact-button"
                           style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
-{% if post.down %}                      
+{% if post.down %}
 <a href="{{ post.down.url }}" class="save" target="_blank"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
@@ -175,8 +185,8 @@
 
                       <script type="text/javascript">
                         function documentFunction() {
-                          if (confirm("Вы заказываете аудит конкурсной документации, чтобы узнать полный перечень документов для участия в этом тендере.\nУслуга платная и составляет 9500 тенге.\nЕсли вы согласны, будете перенаправлены на страницу оплаты.")) {
-                            // do stuff
+                          if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
+                            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
                           } else {
                             return false;
                           }
@@ -193,17 +203,18 @@
                         <button type="submit" id="submit_btn_doc" class="button contact-button"
                           data-product_id="{{ post.id }}" data-user_name="{{ request.user.id }}"
                           style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                          onclick="return documentFunction();">Запросить документы</button>
+                          onclick="return documentFunction();">Запросить аудит</button>
                       </form>
                       {% else %}
                       <a href="{% url 'profile' %}" onclick="return documentFunction();"><button
-                          class="button contact-button">Запросить документы</button></a>
+                          class="button contact-button">Запросить аудит</button></a>
                       {% endif %}
                       {% else %}
                       <a href="{% url 'login' %}?next={{ request.path }}" onclick="return documentFunction();"><button
-                          class="button contact-button">Запросить документы</button></a>
+                          class="button contact-button">Запросить аудит</button></a>
 
                       {% endif %}
+                      <a href="#" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
                     </div>
                   </div>
 
@@ -236,7 +247,7 @@
                     .table-responsive-stack td,
                     .table-responsive-stack th {
                       display: block;
-                      /*      
+                      /*
                        flex-grow | flex-shrink | flex-basis   */
                       -ms-flex: 1 1 auto;
                       flex: 1 1 auto;
@@ -293,7 +304,7 @@
                           });
 
 
-                          // window is less than 768px   
+                          // window is less than 768px
                         } else {
 
 
@@ -305,7 +316,7 @@
 
 
                         }
-                        // flextable   
+                        // flextable
                       }
 
                       flexTable();
@@ -314,7 +325,7 @@
                         flexTable();
                       };
 
-                      // document ready  
+                      // document ready
                     });
                   </script>
 
