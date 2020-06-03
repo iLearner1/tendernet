@@ -6,7 +6,7 @@
 {% include "blocks/header.html" %}
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30 xs-padding-bottom-5">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="breadcrumb-form">
+        <div class="breadcrumb-form breadcrumb-form-mobile" style="">
           <form action="{% url 'post_list' %}" class="lots-page-form-mobile">
             <input type="text" placeholder="Поиск по названию" class="searchform-name-input" name="title">
             <button><i data-feather="search"></i></button>
@@ -36,6 +36,14 @@
               // });
             });
           </script>
+
+          <a href="javascript:void(0);" id="dop-filter-mobile-link"
+              style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 5px; margin-top: 10px;"><i
+                class="fa far fa-chevron-circle-down"></i>&nbsp;Показать фильтр</a>
+            <a href="javascript:void(0);" id="dop-filter-mobile-link-hide"
+              style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 5px; margin-top: 10px;"><i
+                class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть фильтр</a>
+
         </div>
       </div>
     </div>
@@ -51,12 +59,7 @@
         <div class="tender-listing-container">
           <div class="filtered-tender-listing-wrapper">
 
-            <a href="javascript:void(0);" id="dop-filter-mobile-link"
-              style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 5px; margin-top: 10px;"><i
-                class="fa far fa-chevron-circle-down"></i>&nbsp;Показать фильтр</a>
-            <a href="javascript:void(0);" id="dop-filter-mobile-link-hide"
-              style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #eb3547;margin-bottom: 5px; margin-top: 10px;"><i
-                class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть фильтр</a>
+
 
             <script>
               jQuery(document).ready(function ($) {
@@ -112,8 +115,8 @@
                           <option value="title-LH">По алфавиту (Снизу вверх)</option>
                           <option value="title-HL">По алфавиту (По убыванию)</option>
 
-                          <option value="date-LH">Свидание (Снизу вверх)</option>
-                          <option value="date-HL">Свидание (По убыванию)</option>
+                          <option value="date-LH">По дате (Снизу вверх)</option>
+                          <option value="date-HL">По дате (По убыванию)</option>
 
                           <option value="price-LH">По сумме (Снизу вверх)</option>
                           <option value="price-HL">По сумме (По убыванию)</option>
@@ -131,18 +134,18 @@
                         <label class="form-check-label" for="searchby3charmobile">search by 3 character</label>
                       </div>
 
-                      <h6 class="">Заказчик</h6>
+                      <h6 class="">Заказчик, БИН</h6>
                       <div class="form-group">
-                        <!-- {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %} -->
+                        <!-- {% render_field myFilter.form.body class="form-control" placeholder="Заказчик, БИН" %} -->
                         <input type="text" class="form-control" name="customer" value="{{request.GET.customer}}"
-                          placeholder="Поиск по заказчику">
+                          placeholder="Заказчик, БИН">
                       </div>
 
                       <h6 class="">Способ закупки</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                        <select name="statzakup" id="statzakup_id" class="form-control selectpicker multiselect" title="Способ закупки" multiple>
-<!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                        <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
+                          <option value="" {% if available %} selected {% endif %}>Выберите способ закупки</option>
                           {% for choice in PURCHASE_METHOD_CHOICES %}
                           {% checklist choice.0 request 'statzakup[]' as available %}
                           <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
@@ -152,7 +155,7 @@
 
                       <h6 class="">Регион</h6>
                       <div class="form-group">
-                        <select name="city" id="city_id" class="form-control selectpicker multiselect" title="Регион" multiple>
+                        <select name="city" id="city_id" class="form-control" title="Регион">
 <!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
                           {% for city in cities %}
                           {% checklist city.id request 'city[]' as available %}
@@ -163,8 +166,8 @@
 
                       <h6 class="">Предмет закупки</h6>
                       <div class="form-group">
-                        <select name="subject_of_purchase" id="subject_of_purchase" class="form-control selectpicker multiselect" title="Предмет закупки" multiple>
-<!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                        <select name="subject_of_purchase" id="subject_of_purchase" class="form-control" title="Предмет закупки">
+                          <option value="" {% if available %} selected {% endif %}>Выберите предмет закупки</option>
                           {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
                           {% checklist choice.0 request 'subject_of_purchase[]' as available %}
                           <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
@@ -184,15 +187,15 @@
                       <h6 class="">Дата</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.date class="form-control"  %} -->
-                        <input type="text" name="date_min" placeholder="Начало приема заявок" class="form-control datepicker"
+                        <input type="date" name="date_min" placeholder="Начало приема заявок" class="form-control"
                           value="{{request.GET.date_min}}" data-format="yyyy-mm-dd">
                       </div>
                       <div class="form-group">
-                        <input type="text" name="date_max" placeholder="Окончание приема заявок"
-                          class="form-control datepicker" value="{{request.GET.date_max}}" data-format="yyyy-mm-dd">
+                        <input type="date" name="date_max" placeholder="Окончание приема заявок"
+                          class="form-control" value="{{request.GET.date_max}}" data-format="yyyy-mm-dd">
                       </div>
 
-                      <h6 class="">Поиск по ID</h6>
+                      <h6 class="">Поиск лота</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
                         <input type="text" class="form-control" placeholder="Введите номер лота" name="id"
@@ -254,8 +257,8 @@
                           <option value="title-LH">По алфавиту (Снизу вверх)</option>
                             <option value="title-HL">По алфавиту (По убыванию)</option>
 
-                            <option value="date-LH">Свидание (Снизу вверх)</option>
-                            <option value="date-HL">Свидание (По убыванию)</option>
+                            <option value="date-LH">По дате (Снизу вверх)</option>
+                            <option value="date-HL">По дате (По убыванию)</option>
 
                             <option value="price">По сумме (Снизу вверх)</option>
                             <option value="price">По сумме (По убыванию)</option>
@@ -275,34 +278,68 @@
               <!-- this place holder is required will be placed filtered result -->
               <div class="tender-filter-result xs-padding-0">
                 {% for article in posts %}
+
                 <div class="item">
-                  <div class="tender-list half-grid">
-                    <div class="body">
-                      <div class="content">
-                        <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
-                        <div class="info">
-                          <div class="row">
-                            <div class="col-md-4">
-                              Окончание:<br><b>{{ article.date|date:"d.m.Y:h:m:s" }}</b>
-                            </div>
-                            <div class="col-md-4">
-                              <span class="office-region">Область: <b>{{ article.region }}</b></span><br>
-                            </div>
-                              <div class="col-md-4">
-                              <span class="office-location">Местоположение: <b>{{ article.city }}</b></span><br>
-                            </div>
+                  <div class="tender-list half-grid" style="display: block;">
+
+                      <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-9">
+                          <h4 class="lot-name"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                        </div>
+                        <div class="col-md-3">
+                          <span class="price">{{ article.price }} тг</span>
+                        </div>
+                      </div>
+
+                      <div style="clear: both;"></div>
+
+                      <div class="row">
+
+                        <div class="col-md-9">
+
+                          <table class="table table-borderless">
+                            <tbody>
+
+                              <tr>
+                                <td>Дата начала:</td>
+                                <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m" }}</td>
+                              </tr>
+
+                              <tr>
+                                <td>Дата завершения:</td>
+                                <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m" }}</td>
+                              </tr>
+
+                              <tr>
+                                <td>Место поставки:</td>
+                                <td style="text-align: right;">{{ article.region }} {{ article.city }}</td>
+                              </tr>
+
+                              <tr style="font-style: italic;">
+                                <td>До завершения:</td>
+                                <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m" }}</td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                          <div class="buttons">
+                            <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
+                            <a href="#" class="featured-button">В избранные</a>
                           </div>
+
                         </div>
+
                       </div>
-                      <div class="more">
-                        <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
-                        <div class="buttons">
-                          <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
-                        </div>
-                      </div>
-                    </div>
+
                   </div>
                 </div>
+
+
                 {% empty %}
                 <div class="item">
                   <p>Не найден соответсвующий тендер</p>
@@ -311,6 +348,7 @@
               </div>
 
               <div class="pagination-list text-center">
+
                 <nav class="navigation pagination">
                   <div class="nav-links">
                     {% if posts.has_previous %}
@@ -369,18 +407,18 @@
                     <label class="form-check-label" for="searchby3char">search by 3 character</label>
                   </div>
 
-                <h6 class="">Заказчик</h6>
+                <h6 class="">Заказчик, БИН</h6>
                 <div class="form-group">
-                  <!-- {% render_field myFilter.form.body class="form-control" placeholder="Поиск по заказчику" %} -->
+                  <!-- {% render_field myFilter.form.body class="form-control" placeholder="Заказчик, БИН" %} -->
                   <input type="text" class="form-control" name="customer" value="{{request.GET.customer}}"
-                    placeholder="Поиск по заказчику">
+                    placeholder="Заказчик, БИН">
                 </div>
 
                 <h6 class="">Способ закупки</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                  <select name="statzakup" id="statzakup_id" class="form-control selectpicker multiselect" title="Способ закупки" multiple>
-<!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                  <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
+                    <option value="" {% if available %} selected {% endif %}>Выберите способ закупки</option>
                     {% for choice in PURCHASE_METHOD_CHOICES %}
                     {% checklist choice.0 request 'statzakup[]' as available %}
                     <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
@@ -390,7 +428,7 @@
 
                 <h6 class="">Регион</h6>
                 <div class="form-group">
-                  <select name="city" id="city_id" class="form-control selectpicker multiselect" title="Регион" multiple>
+                  <select name="city" id="city_id" class="form-control" title="Регион">
 <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                     {% for city in cities %}
                     {% checklist city.id request 'city[]' as available %}
@@ -401,8 +439,8 @@
 
                 <h6 class="">Предмет закупки</h6>
                 <div class="form-group">
-                  <select name="subject_of_purchase" id="subject_of_purchase" class="form-control selectpicker multiselect" title="Предмет закупки" multiple>
-<!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                  <select name="subject_of_purchase" id="subject_of_purchase" class="form-control" title="Предмет закупки">
+                    <option value="" {% if available %} selected {% endif %}>Выберите предмет закупки</option>
                     {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
                     {% checklist choice.0 request 'subject_of_purchase[]' as available %}
                     <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
@@ -422,15 +460,15 @@
                 <h6 class="">Дата</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.date class="form-control"  %} -->
-                  <input type="text" name="date_min" placeholder="Начало приема заявок" class="form-control datepicker"
+                  <input type="date" name="date_min" placeholder="Начало приема заявок" class="form-control"
                     value="{{request.GET.date_min}}" data-format="yyyy-mm-dd">
                 </div>
                 <div class="form-group">
-                  <input type="text" name="date_max" placeholder="Окончание приема заявок"
-                    class="form-control datepicker" value="{{request.GET.date_max}}" data-format="yyyy-mm-dd">
+                  <input type="date" name="date_max" placeholder="Окончание приема заявок"
+                    class="form-control" value="{{request.GET.date_max}}" data-format="yyyy-mm-dd">
                 </div>
 
-                <h6 class="">Поиск по ID</h6>
+                <h6 class="">Поиск лота</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
                   <input type="text" class="form-control" placeholder="Введите номер лота" name="id"
