@@ -14,6 +14,7 @@ class ArticleAdmin(admin.ModelAdmin):
     autocomplete_fields = ["city", "region"]
     inlines = [LotFileAdmin]
     list_per_page = 30
+    exclude = ('favourite',)
 
     class Media:
         css = {
