@@ -40,7 +40,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             print("kato_code: ", kato_code)
 
             region_code = kato_code[0:2] + "0000000"
-            location_code = kato_code
+            location_code = kato_code[0:4]
             print("region_code: ", region_code)
             print("location_code: ", location_code)
 

@@ -22,7 +22,7 @@ def read_xls():
         if len(code) == 9:
             if code[2:9] != "0000000":
                 if not code in kato_list.keys():
-                    kato_list[code] = name
+                    kato_list[code[0:4]] = name
 
     for row in range(sheet_1.nrows):
 
@@ -32,6 +32,6 @@ def read_xls():
         if len(code) == 9:
             if code[2:9] != "0000000":
                 if not code in kato_list.keys():
-                    kato_list[code] = name
+                    kato_list[code[0:4]] = name
 
     return kato_list
