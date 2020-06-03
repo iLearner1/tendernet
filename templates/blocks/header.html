@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/jquery.nstSlider.min.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v17.6">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v19.1">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
 
   <script src="{% static 'assets/js/jquery.min.js' %}"></script>
@@ -153,7 +153,6 @@
               <a class="dropdown-item" href="{% url 'profile' %}">Личный кабинет</a>
               <a class="dropdown-item" href="/lots/favourites">Избранные лоты</a>
               <a class="dropdown-item" href="{% url 'favorite_search_list' %}">Избранные поиски</a>
-              <a class="dropdown-item" href="/history_list">Мои действия</a>
               <a class="dropdown-item" href="/basket_list">Мои заявки</a>
               <a class="dropdown-item" href="{% url 'logout'%}">Выйти из аккаунта</a>
 
@@ -174,9 +173,10 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto main-nav">
-          <li class="menu-item active"><a href="{% url 'index' %}">Главная</a></li>
+          <li class="menu-item" style="display: none;"><a href="{% url 'index' %}">Главная</a></li>
           <li class="menu-item"><a href="{% url 'post_list' %}">Поиск лотов</a></li>
           <li class="menu-item"><a href="{% url 'archived_post' %}">Архив лотов</a></li>
+          <li class="menu-item"><a href="/tariff">Тарифы</a></li>
 
           <!-- <li class="menu-item"><a href="{% url 'contact' %}">contact us</a></li> comment out this if you want to show contact-us page -->
 
@@ -187,7 +187,6 @@
               <li class="menu-item"><a href="{% url 'post_list' %}">Список лотов</a></li>
               <li class="menu-item"><a href="javascript:void(0);">Страница лота</a></li>
               <li class="menu-item"><a href="{% url 'profile' %}">Кабинет клиента</a></li>
-              <li class="menu-item"><a href="/history_list">Мои действия</a></li>
               <li class="menu-item"><a href="/basket_list">Мои заявки</a></li>
               <li class="menu-item"><a href="javascript:void(0);">Архив</a></li>
               <li class="menu-item"><a href="/lots/favourites">Избранные лоты</a></li>
@@ -228,7 +227,6 @@
               <li class="menu-item"><a href="{% url 'profile' %}">Личный кабинет</a></li>
               <li class="menu-item"><a href="/lots/favourites">Избранные лоты</a></li>
               <li class="menu-item"><a href="{% url 'favorite_search_list' %}">Избранные поиски</a></li>
-              <li class="menu-item"><a href="/history_list">Мои действия</a></li>
               <li class="menu-item"><a href="/basket_list">Мои заявки</a></li>
               <li class="menu-item"><a href="{% url 'logout'%}">Выйти из аккаунта</a></li>
             </ul>
@@ -274,7 +272,7 @@
                 $(document).ready(function() {
                     $("#consultacia-form").submit(function(e) {
                         e.preventDefault();
-                        alert("Ваша заявка отправлена! В ближайшее время с вами свяжеться наш менеджер.");
+                        alert("Спасибо за обращение. В ближайшее время с вами свяжется менеджер.");
                         $('#orderform').modal('hide');
                     });
                 });
