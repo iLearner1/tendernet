@@ -34,6 +34,12 @@
                           <div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
                       {% endfor %}
                   </div>
+
+                  <div class="tender-view-controller-wrapper favorites-buttons buttons">
+                    <a href="{% url 'post_favourite_list' %}" class="favorites-buttons-tenders save"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
+                    <a href="{% url 'favorite_search_list' %}" class="favorites-buttons-search save active"><i class="fas fa-search"></i>&nbsp;Избранные поиски</a>
+                  </div>
+
                   <div class="col-md-12 tender-filter-result">
                 {% if favorite_searches %}
                       {% for search in favorite_searches%}
@@ -98,7 +104,7 @@
                                       <b>{{search.query.price_min}}</b>
                                       <br>
                                     {% else %}
-                                        Лоты Максимум Цена: Не выбран <br>
+                                        Сумма от: Не выбран <br>
                                     {% endif %}
 
                                     {% if search.query.price_max %}
@@ -106,23 +112,23 @@
                                       <b>{{search.query.price_max}}</b>
                                       <br>
                                     {% else %}
-                                        Лоты минимальный Цена: Не выбран <br>
+                                        Сумма до: Не выбран <br>
                                     {% endif %}
 
                                     {% if search.query.date_min %}
-                                        Дата начала приема заявок:
+                                        Дата начала:
                                       <b>{{search.query.date_min}}</b>
                                       <br>
                                     {% else %}
-                                        Начните Свидание: Не выбран <br>
+                                        Дата начала: Не выбран <br>
                                     {% endif %}
 
                                     {% if search.query.date_max %}
-                                        Дата окончания приема заявок:
+                                        Дата окончания:
                                       <b>{{search.query.date_max}}</b>
                                       <br>
                                     {% else %}
-                                        Конец Свидание: Не выбран <br>
+                                        Дата окончания: Не выбран <br>
                                     {% endif %}
 
                                   </div>
