@@ -51,7 +51,7 @@ class Article(models.Model):
 
 
 class LotFile(models.Model):
-    case = models.ForeignKey(Article, on_delete=models.CASCADE) # When a Case is deleted, upload models are also deleted
+    article = models.ForeignKey(Article, on_delete=models.CASCADE) # When a Case is deleted, upload models are also deleted
     file = models.FileField(upload_to="media/", null = True, blank = True)
 
 class Regions(models.Model):
