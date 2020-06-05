@@ -7,6 +7,7 @@ from lots.models import Cities, Regions, LotFile
 class LotFileAdmin(admin.StackedInline):
     model = LotFile
 
+admin.site.register(LotFile)
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst',)
@@ -32,12 +33,11 @@ class RegionsAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-@admin.register(LotFile)
-class LotFileAdmin(admin.ModelAdmin):
-    pass
-
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Cities, CitiesAdmin)
 admin.site.register(Regions, RegionsAdmin)
 
-admin.site.register(FavoriteSearch);
+
+
+
+admin.site.register(FavoriteSearch)
