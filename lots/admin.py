@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Article, FavoriteSearch
-from lots.models import Cities, Regions
+from lots.models import Cities, Regions, Unit
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst',)
@@ -11,10 +11,13 @@ class ArticleAdmin(admin.ModelAdmin):
     exclude = ('favourite',)
 
     class Media:
-        css = {
-            'all': ('css/admin-styles.css',)
-        }
+        css = { 'all': ('css/admin-styles.css',) }
+        js = ('admin/js/custom-js.js',)
 
+
+class UnitAdmin(admin.ModelAdmin):
+    ordering = ["name"]
+    search_fields = ["name"]
 
 class CitiesAdmin(admin.ModelAdmin):
     ordering = ["name"]
@@ -29,6 +32,7 @@ class RegionsAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Cities, CitiesAdmin)
 admin.site.register(Regions, RegionsAdmin)
+admin.site.register(Unit, UnitAdmin)
 
 
 

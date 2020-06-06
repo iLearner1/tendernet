@@ -22,6 +22,8 @@ class Article(models.Model):
     addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
     price = models.FloatField(verbose_name='Цена', null=True)
+    count = models.IntegerField(verbose_name='Количество', null=True)
+    unit = models.ForeignKey('Unit', null=True, on_delete=models.PROTECT, verbose_name='Единица измерения')
     statzakup = models.CharField(max_length=10, choices=PURCHASE_METHOD_CHOICES, default='draft', verbose_name='Способ закупки')
 
     date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
@@ -49,6 +51,15 @@ class Article(models.Model):
         verbose_name_plural = "Лоты"
         verbose_name = "Лот"
 
+
+class Unit(models.Model):
+    name = models.CharField(max_length=99, verbose_name='Единица измерения', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
 
 class Regions(models.Model):
     code = models.CharField(max_length=30, verbose_name="Код", default=None)
