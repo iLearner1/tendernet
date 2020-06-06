@@ -61,7 +61,7 @@ def post_list(request):
         if request_object.get('customer'):
             customer_tokens = request_object.get('customer').split()
             for keyword in customer_tokens:
-                customer_q |= Q(customer__contains=keyword)
+                customer_q |= Q(customer_bin__contains=keyword)
         q &= customer_q
 
     city_q = Q()
@@ -237,7 +237,7 @@ def post_search(request):
     if request.GET.get('customer'):
         body_tokens = request.GET.get('customer').split()
         for keyword in body_tokens:
-            customer_q |= Q(customer__contains=keyword)
+            customer_q |= Q(customer_bin__contains=keyword)
 
     price_q = Q()
     if 'price_min' in request.GET:
