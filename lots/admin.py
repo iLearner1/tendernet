@@ -1,19 +1,12 @@
 from django.contrib import admin
 
 from .models import Article, FavoriteSearch
-from lots.models import Cities, Regions, LotFile
-
-
-class LotFileAdmin(admin.StackedInline):
-    model = LotFile
-
-admin.site.register(LotFile)
+from lots.models import Cities, Regions
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst',)
     prepopulated_fields = {'slug': ('title',)} # new
     autocomplete_fields = ["city", "region"]
-    inlines = [LotFileAdmin]
     list_per_page = 30
     exclude = ('favourite',)
 

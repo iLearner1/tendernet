@@ -50,10 +50,6 @@ class Article(models.Model):
         verbose_name = "Лот"
 
 
-class LotFile(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE) # When a Case is deleted, upload models are also deleted
-    file = models.FileField(upload_to="media/", null = True, blank = True)
-
 class Regions(models.Model):
     code = models.CharField(max_length=30, verbose_name="Код", default=None)
     name = models.CharField(max_length=30, db_index=True, verbose_name="Название")
