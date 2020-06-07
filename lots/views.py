@@ -15,6 +15,7 @@ from lots.utils.config import PAGE_SIZE
 import logging 
 logging.basicConfig(level='DEBUG')
 import requests
+from users.models import Profile, Price
 
 
 
@@ -171,11 +172,24 @@ def post_detail(request, id, slug):
 
     is_favourite = False
 
+    tariff = "free"
+    try:
+        tarif_id = Profile.objects.filter(user__id=request.user.id).values('tarif_id')[0]
+        tariff = Price.objects.get(id=tarif_id['tarif_id'])
+    except Exception as e:
+        print("profile/tarif not found")
+
+    istariff = False
+    if tariff.name == "free":
+        istariff = True
+
+
     context = {
         "post": post,
         "is_favourite": is_favourite,
         "dat3": dat3,
         "dat4": dat4,
+        "istariff": istariff
     }
 
     return render(request, "article_detail.html", context)

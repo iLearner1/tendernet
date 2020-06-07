@@ -53,10 +53,17 @@
                         <td><b>Единица измерения:</b></td>
                         <td>{{ post.unit }} </td>
                       </tr>
+                      {% if istariff %}
+                      <tr>
+                        <td><b>Способ закупки:</b></td>
+                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                      </tr>
+                      {% else %}
                       <tr>
                         <td><b>Способ закупки:</b></td>
                         <td>{{ post.get_statzakup_display }}</td>
                       </tr>
+                      {% endif %}
                       <tr>
                         <td><b>Дата старта:</b></td>
                         <td>{{ post.date_open|date:"d.m.Y h:m:s" }}</td>
@@ -69,10 +76,17 @@
                         <td><b>До завершения:</b></td>
                         <td>{{ dat3|naturaltime }}</td>
                       </tr>
+                      {% if istariff %}
+                      <tr>
+                        <td><b>Заказчик:</b></td>
+                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                      </tr>
+                      {% else %}
                       <tr>
                         <td><b>Заказчик:</b></td>
                         <td>{{ post.customer }}</td>
                       </tr>
+                      {% endif %}
                       <tr>
                         <td><b>Область:</b></td>
                         <td>{{ post.region }}</td>
@@ -81,10 +95,17 @@
                         <td><b>Местоположение:</b></td>
                         <td>{{ post.city }}</td>
                       </tr>
+                      {% if istariff %}
                       <tr>
                         <td><b>Адрес:</b></td>
+                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td><b>Заказчик:</b></td>
                         <td>{{ post.addressFull }}</td>
                       </tr>
+                      {% endif %}
                       <tr>
                         <td><b>Предмет закупки:</b></td>
                         <td>{{ post.itemZakup }}</td>
@@ -172,11 +193,11 @@
                           style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
 {% if post.yst %}
-<a href="{{ post.yst }}" class="save" target="_blank"
+<a href="{{ post.yst }}" class="save doc-download" target="_blank" data-tariff="{% url 'tariff' %}"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
 {% else %}
-<a href="/media/media/email-activated-dummy.png" class="save" target="_blank"
+<a href="/media/media/email-activated-dummy.png" class="save doc-download" target="_blank" data-tariff="{% url 'tariff' %}"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
 
@@ -188,6 +209,20 @@
                     <div class="buttons">
 
                       <script type="text/javascript">
+
+                        $(document).ready(function() {
+                          $("a.doc-download").on("click", function() {
+                            if(confirm("Чтобы посмотреть детали, поменяйте ваш тариф"))
+                            {
+                                window.location = $(this).attr('data-tariff');
+                            }
+                            else
+                            {
+                              window.location = $(this).attr('href');
+                            }
+                          });
+                        });
+
                         function documentFunction() {
                           if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
                             alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
@@ -295,9 +330,6 @@
                         //console.log(rowGrow);
                         $(this).find("th, td").css('flex-basis', rowGrow);
                       });
-
-
-
 
                       function flexTable() {
                         if ($(window).width() < 768) {

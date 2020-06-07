@@ -5,20 +5,6 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    dob = models.DateTimeField(auto_now_add=True, null=True)
-    tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф', default='1', )
-    rassylka = models.BooleanField(verbose_name='Подписаться на email рассылку', default=True)
-
-    def __str__(self):
-        return "Профиль пользователя {}".format(self.user.username)
-
-    class Meta:
-        verbose_name_plural = 'Профили пользователей'
-        verbose_name = 'Профиль пользователя'
-
-
 class Price(models.Model):
     name = models.CharField(max_length=30, db_index=True, verbose_name='Название')
     price = models.FloatField(verbose_name='Цена', null=True)
@@ -30,3 +16,17 @@ class Price(models.Model):
         verbose_name_plural = 'Тарифы'
         verbose_name = 'Тариф'
         ordering = ['name']
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dob = models.DateTimeField(auto_now_add=True, null=True)
+    tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф', default=Price.objects.filter(name='free')[0].id, )
+    rassylka = models.BooleanField(verbose_name='Подписаться на email рассылку', default=True)
+
+    def __str__(self):
+        return "Профиль пользователя {}".format(self.user.username)
+
+    class Meta:
+        verbose_name_plural = 'Профили пользователей'
+        verbose_name = 'Профиль пользователя'
