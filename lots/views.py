@@ -30,8 +30,7 @@ def post_list(request):
     q = Q()
     title_q = Q()
 
-    #current_time_q = Q(date__gte=timezone.now())
-    current_time_q = Q()
+    current_time_q = Q(date__gte=timezone.now())
     q &= current_time_q
     print('post list')
 
