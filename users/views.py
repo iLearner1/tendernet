@@ -17,7 +17,11 @@ from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm
 from users.models import Profile
 from lots.models import Article
 from tn_first.settings import EMAIL_MANAGER
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from users.tasks import task_tariff_change_email
+import datetime
+from users.models import Price
 
 def index(request):  # создаем свою функцию
     context = {}  # с помощью словаря можем передать модель и форму в шаблон HTML
@@ -195,6 +199,26 @@ def profile(request):
 def tariff(request):
     return render(request, "tariff.html")
 
+
+@csrf_exempt
+def schedule_tariff_change_email(request):
+    tariff_id = request.POST.get('id')
+    current_tariff = None
+    change_tariff = None
+
+    try:
+        profile = Profile.objects.filter(user=request.user)
+        current_tariff = profile[0].tarif.name
+
+        user_email = profile[0].user.email
+        price = Price.objects.filter(id=tariff_id)
+        change_tariff = price[0].name
+    except Exception as e:
+        print("exception in finding user/tariff")
+
+    if current_tariff != None and change_tariff != None and change_tariff != current_tariff:
+        task_tariff_change_email.apply_async(args=[user_email, 3], eta=datetime.datetime.now() + datetime.timedelta(minutes=1))
+    return HttpResponse(200)
 
 
 def edit_tarif(request):
