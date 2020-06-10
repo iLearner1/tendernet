@@ -216,8 +216,20 @@ def schedule_tariff_change_email(request):
     except Exception as e:
         print("exception in finding user/tariff")
 
-    if current_tariff != None and change_tariff != None and change_tariff != current_tariff:
-        task_tariff_change_email.apply_async(args=[user_email, 3], eta=datetime.datetime.now() + datetime.timedelta(minutes=1))
+    if '3' in change_tariff:
+        print("3 months")
+        months = 3
+    elif '6' in change_tariff:
+        print("6 months")
+        months = 6
+    else:
+        print("12 months")
+        months = 12
+
+    if current_tariff != None and change_tariff != None and change_tariff != current_tariff and change_tariff != "free":
+        task_tariff_change_email.apply_async(args=[user_email, months], eta=datetime.datetime.now() + datetime.timedelta(days=30))
+        task_tariff_change_email.apply_async(args=[user_email, months],
+                                             eta=datetime.datetime.now() + datetime.timedelta(days=27))
     return HttpResponse(200)
 
 

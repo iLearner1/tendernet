@@ -95,7 +95,7 @@
             }
             http.send(params);
         }
-    document.querySelector("#id_tarif").onchange = function() {
+    document.querySelector("#profile_form").onsubmit = function() {
         if(confirm("Do you want to change tariff"))
         {
             schedule_tariff_change_email(document.querySelector("#id_tarif").value);
