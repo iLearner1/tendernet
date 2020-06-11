@@ -1,15 +1,851 @@
 {% include "blocks/header.html" %}
+
 {% block content %}
 
-<div class="padding-top-90 padding-bottom-90 access-page-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">This is tariff page</div>
+<!-- Breadcrumb -->
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="breadcrumb-area">
+          <h1>Тарифы</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Тарифы</li>
+            </ol>
+          </nav>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<div class="alice-bg section-padding-bottom tender-details-page">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="tender-listing-details">
+
+          <div class="details-information">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="feature-content">
+
+                	<script type="text/javascript">
+                		$(document).ready(function(){
+                			$('.tariff-table-block a').click(function(){
+                				if (confirm("Вы действительно желаете заказать данную услугу?")) {
+			                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер.');
+			                      } else {
+			                        return false;
+			                      }
+                			});
+
+                			$('.tariff-table-block-mobile a').click(function(){
+                				if (confirm("Вы действительно желаете заказать данную услугу?")) {
+			                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер.');
+			                      } else {
+			                        return false;
+			                      }
+                			});
+
+                		});
+	                </script>
+
+                	<!-- Тариф "Мониторинг" -->
+                	<div class="table-responsive tariff-table-block">
+
+	                	<table class="tariff-table table table-bordered">
+	                		<thead class="tariff-table-header">
+	                			<tr>
+									<th style="width: 25%">Наименование</th>
+									<th style="width: 35%">Описание</th>
+									<th style="width: 15%">Цена</th>
+									<th style="width: 15%">Количество</th>
+									<th style="width: 10%;">Действие</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tr>
+									<td rowspan="3">Тариф "Мониторинг"</td>
+									<td rowspan="3">
+										<ul>
+											<li>Доступ к базе тендеров</li>
+											<li>Консультации в сфере закупок</li>
+											<li>Скачивание конкурсной документации и технической спецификации</li>
+										</ul>
+									</td>
+									<td>38&nbsp;000 тг</td>
+									<td>3 месяца</td>
+									<td rowspan="3" style="text-align: center;">
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>49&nbsp;800 тг</td>
+									<td>6 месяцев</td>
+								</tr>
+								<tr>
+									<td>70&nbsp;000 тг</td>
+									<td>12 месяцев</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- Тариф "Мониторинг" MOBILE -->
+					<div class="tariff-table-block-mobile">
+
+						<table class="tariff-table table table-bordered">
+							<tr><td colspan="2" style="background-color: #ea3547; color: #fff; font-weight: bold;">Тариф "Мониторинг"</td></tr>
+							<tr><td colspan="2">
+
+								<ul>
+									<li>Доступ к базе тендеров</li>
+									<li>Консультации в сфере закупок</li>
+									<li>Скачивание конкурсной документации и технической спецификации</li>
+								</ul>
+
+							</td></tr>
+							<tr>
+								<td>38 000 тг</td>
+								<td>3 месяца</td>
+							</tr>
+							<tr>
+								<td>49 800 тг</td>
+								<td>6 месяцев</td>
+							</tr>
+							<tr>
+								<td>70 000 тг</td>
+								<td>12 месяцев</td>
+							</tr>
+							<tr><td colspan="2" style="text-align: center;">
+								<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+							</td></tr>
+						</table>
+
+                	</div>
+
+
+
+                	<!-- Тариф аутсорсинг (Под ключ) -->
+                	<div class="table-responsive tariff-table-block">
+
+	                	<table class="tariff-table table table-bordered">
+	                		<thead class="tariff-table-header">
+	                			<tr>
+									<th style="width: 25%">Наименование</th>
+									<th style="width: 35%">Описание</th>
+									<th style="width: 15%">Цена</th>
+									<th style="width: 15%">Количество</th>
+									<th style="width: 10%;">Действие</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tr>
+									<td>Тариф "Аутсорсинг (Под ключ)"</td>
+									<td>
+										<ul>
+											<li>Аудит конкурсной документации</li>
+											<li>Подача заявок на обсуждение конкурсной документации</li>
+											<li>Проверка заявки на соответствие квал.требованиям</li>
+											<li>Загрузка заявки на портал</li>
+											<li>Подача ценового предложения</li>
+											<li>Подача жалобы, апелляции по результатам тендера</li>
+										</ul>
+									</td>
+									<td>145 000 тг</td>
+									<td>Два месяца или 10 заявок</td>
+									<td style="text-align: center;">
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- Тариф аутсорсинг (Под ключ) MOBILE -->
+					<div class="tariff-table-block-mobile">
+
+						<table class="tariff-table table table-bordered">
+							<tr><td colspan="2" style="background-color: #ea3547; color: #fff; font-weight: bold;">
+								Тариф "Аутсорсинг (Под ключ)"
+							</td></tr>
+							<tr><td colspan="2">
+
+								<ul>
+									<li>Аудит конкурсной документации</li>
+									<li>Подача заявок на обсуждение конкурсной документации</li>
+									<li>Проверка заявки на соответствие квал.требованиям</li>
+									<li>Загрузка заявки на портал</li>
+									<li>Подача ценового предложения</li>
+									<li>Подача жалобы, апелляции по результатам тендера</li>
+								</ul>
+
+							</td></tr>
+							<tr>
+								<td>145 000 тг</td>
+							</tr>
+							<tr>
+								<td>Два месяца или 10 заявок</td>
+							</tr>
+							<tr><td colspan="2" style="text-align: center;">
+								<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+							</td></tr>
+						</table>
+
+                	</div>
+
+
+
+                	<!-- Тариф разовый (под ключ) -->
+                	<div class="table-responsive tariff-table-block">
+
+	                	<table class="tariff-table table table-bordered">
+	                		<thead class="tariff-table-header">
+	                			<tr>
+									<th style="width: 25%">Наименование</th>
+									<th style="width: 35%">Описание</th>
+									<th style="width: 15%">Цена</th>
+									<th style="width: 15%">Количество</th>
+									<th style="width: 10%;">Действие</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tr>
+									<td>Тариф "Разовый (под ключ)"</td>
+									<td>
+										<ul>
+											<li>Аудит конкурсной документации</li>
+											<li>Подача заявок на обсуждение конкурсной документации</li>
+											<li>Проверка заявки на соответствие квал.требованиям</li>
+											<li>Загрузка заявки на портал</li>
+											<li>Подача ценового предложения</li>
+											<li>Подача жалобы, апелляции по результатам тендера</li>
+										</ul>
+									</td>
+									<td>от 30 000 тенге</td>
+									<td>Одна заявка</td>
+									<td style="text-align: center;">
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- Тариф разовый (под ключ) MOBILE -->
+					<div class="tariff-table-block-mobile">
+
+						<table class="tariff-table table table-bordered">
+							<tr><td colspan="2" style="background-color: #ea3547; color: #fff; font-weight: bold;">
+								Тариф "Разовый (под ключ)"
+							</td></tr>
+							<tr><td colspan="2">
+
+								<ul>
+									<li>Аудит конкурсной документации</li>
+									<li>Подача заявок на обсуждение конкурсной документации</li>
+									<li>Проверка заявки на соответствие квал.требованиям</li>
+									<li>Загрузка заявки на портал</li>
+									<li>Подача ценового предложения</li>
+									<li>Подача жалобы, апелляции по результатам тендера</li>
+								</ul>
+
+							</td></tr>
+							<tr>
+								<td>от 30 000 тенге</td>
+							</tr>
+							<tr>
+								<td>Одна заявка</td>
+							</tr>
+							<tr><td colspan="2" style="text-align: center;">
+								<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+							</td></tr>
+						</table>
+
+                	</div>
+
+
+
+
+
+
+                	<!-- Доп услуги -->
+                	<div class="table-responsive tariff-table-block">
+                		<table class="tariff-table table table-bordered">
+	                		<thead class="tariff-table-header">
+	                			<tr>
+									<th style="width: 25%">Наименование</th>
+									<th style="width: 35%">Описание</th>
+									<th style="width: 15%">Цена</th>
+									<th style="width: 15%">Количество</th>
+									<th style="width: 10%;">Действие</th>
+								</tr>
+	                		</thead>
+							<tbody>
+								<tr>
+									<td rowspan="18">Дополнительные услуги</td>
+									<td>Аудит конкурсной документации</td>
+									<td>9500</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Подача заявок на обсуждение конкурсной документации </td>
+									<td>5000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Проверка заявки на соответствие квал.требованиям </td>
+									<td>12&nbsp;000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Загрузка заявки на портал</td>
+									<td>10 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Подача ценового предложения</td>
+									<td>10 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Подача жалобы, апелляции по результатам тендера</td>
+									<td>10 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Сопровождение аукциона </td>
+									<td>от 20 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Аудит конкурентов</td>
+									<td>от 30 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Сбор необходимых документов</td>
+									<td>от 50 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Выпуск ЭЦП</td>
+									<td>5000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Регистрация на портале</td>
+									<td>10 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Регистрация ИП, ТОО</td>
+									<td>15 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>ИСО</td>
+									<td>от 80 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>ПКО Самрук-Казына</td>
+									<td>от 300 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Консультация при составлении технической спецификации</td>
+									<td>от 50 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Обучение на эксперта по тендерам с практическим опытом в компании</td>
+									<td>350&nbsp;000 тг</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Обучение в области тендеров</td>
+									<td>от 60&nbsp;000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+								<tr>
+									<td>Участие в тех.совете совместно с пользователем</td>
+									<td>от 50 000</td>
+									<td>Одна услуга</td>
+									<td>
+										<a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Доп услуги MOBILE -->
+					<div class="tariff-table-block-mobile">
+
+						<br><h6>Дополнительные услуги:</h6><br>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Аудит конкурсной документации</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">9500 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Подача заявок на обсуждение конкурсной документации </th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">5000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Проверка заявки на соответствие квал.требованиям</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">12 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Загрузка заявки на портал</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">10 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Подача ценового предложения</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">10 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Подача жалобы, апелляции по результатам тендера</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">10 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Сопровождение аукциона</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 20 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Аудит конкурентов</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 30 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Сбор необходимых документов</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 50 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Выпуск ЭЦП</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">5000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Регистрация на портале</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">10 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Регистрация ИП, ТОО</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">15 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">ИСО</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 80 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">ПКО Самрук-Казына</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 300 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Консультация при составлении технической спецификации</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 50 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Обучение на эксперта по тендерам с практическим опытом в компании</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">350 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Обучение в области тендеров</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 60 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+						<table class="tariff-table table table-bordered" style="text-align: center;">
+							<thead class="tariff-table-header">
+	                			<tr>
+									<th colspan="2">Участие в тех.совете совместно с пользователем</th>
+								</tr>
+	                		</thead>
+							<tbody>
+
+								<tbody>
+									<tr>
+										<td style="width: 50%;">от 50 000 тг</td>
+										<td style="width: 50%;">Одна услуга</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="text-align: center;"><a href="#" style="padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 4px;">Заказать</a></td>
+									</tr>
+								</tbody>
+
+							</tbody>
+						</table>
+
+					</div>
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-{% include "blocks/footer.html" %}
-
 {% endblock %}
+
+{% include "blocks/footer.html" %}
