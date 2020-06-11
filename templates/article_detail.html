@@ -171,26 +171,21 @@
                       </script>
 
                       {% if request.user.is_authenticated %}
-                      {% if user.profile.tarif.id > 1 %}
-                      <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}"
-                        style="width: 100%;">
-                        {% csrf_token %}
-                        <button type="submit" id="submit_btn1" class="button contact-button"
-                          data-product_id1="{{ post.id }}" data-user_name1="{{ request.user.id }}"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                          onclick="return uchastvovatFunction();">
-                          Участвовать
-                        </button>
-                      </form>
+                            <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}"
+                            style="width: 100%;">
+                            {% csrf_token %}
+                            <button type="submit" id="submit_btn1" class="button contact-button"
+                              data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
+                              style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                              onclick="return uchastvovatFunction();">
+                              Участвовать
+                            </button>
+                          </form>
+
                       {% else %}
-                      <a href="{% url 'profile' %}" onclick="return uchastvovatFunction();"><button
-                          class="button contact-button"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
-                      {% endif %}
-                      {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}"
-                        onclick="return uchastvovatFunction();"><button class="button contact-button"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
+                          <a href="{% url 'login' %}?next={{ request.path }}"
+                            onclick="return uchastvovatFunction();"><button class="button contact-button"
+                              style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
 {% if post.yst %}
 <a href="{{ post.yst }}" class="save doc-download" target="_blank" data-tariff="{% url 'tariff' %}"
@@ -235,19 +230,14 @@
                       <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы
                         для участия</h6>
                       {% if request.user.is_authenticated %}
-                      {% if user.profile.tarif.id > 1 %}
-                      <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}"
-                        style="width: 100%;">
-                        {% csrf_token %}
-                        <button type="submit" id="submit_btn_doc" class="button contact-button"
-                          data-product_id="{{ post.id }}" data-user_name="{{ request.user.id }}"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                          onclick="return documentFunction();">Запросить аудит</button>
-                      </form>
-                      {% else %}
-                      <a href="{% url 'profile' %}" onclick="return documentFunction();"><button
-                          class="button contact-button">Запросить аудит</button></a>
-                      {% endif %}
+                             <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}"
+                                style="width: 100%;">
+                                {% csrf_token %}
+                                <button type="submit" id="submit_btn_doc" class="button contact-button"
+                                  data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
+                                  style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                                  onclick="return documentFunction();">Запросить аудит</button>
+                              </form>
                       {% else %}
                       <a href="{% url 'login' %}?next={{ request.path }}" onclick="return documentFunction();"><button
                           class="button contact-button">Запросить аудит</button></a>

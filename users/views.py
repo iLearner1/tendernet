@@ -87,8 +87,8 @@ class LoginView(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-
-                return redirect(self.request.GET.get('next', '/'))
+                print("self.request.GET.get('next'): ", self.request.POST.get('next'))
+                return redirect(self.request.POST.get('next', '/'))
             else:
                 context['error_message'] = "user is not active"
         else:

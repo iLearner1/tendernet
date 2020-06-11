@@ -17,15 +17,7 @@
             <h5><i data-feather="edit"></i>Войти в аккаунт TENDERNET.KZ</h5>
           </div>
 
-          <script type="text/javascript">
-            jQuery(function($){
-              $('#id_username').addClass('form-control phone');
-              $("#id_username").attr("placeholder", "Ваш номер телефона");
 
-              $('#id_password').addClass('form-control');
-              $("#id_password").attr("placeholder", "Пароль");
-            });
-          </script>
 
           <form class="login-form" action="{% url 'login' %}" method="post">
             {% csrf_token %}
@@ -53,6 +45,20 @@
       <div class="d-xs-none col-xl-6 offset-xl-2 col-md-6 skyt">
         <center><img class="center-block" src="/static/images/logoreg.png?v2" alt="" width="100%"></center>
       </div>
+
+       <script type="text/javascript">
+            jQuery(function($){
+              $('#id_username').addClass('form-control phone');
+              $("#id_username").attr("placeholder", "Ваш номер телефона");
+
+              $('#id_password').addClass('form-control');
+              $("#id_password").attr("placeholder", "Пароль");
+
+              var queryString = window.location.search;
+              var next = queryString.substr(queryString.lastIndexOf("=") + 1, queryString.length);
+              $("input[name=next]").val(next);
+            });
+          </script>
   
       <style> @media (max-width:991px){
           .skyt {display:none;}
