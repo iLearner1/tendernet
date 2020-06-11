@@ -17,21 +17,17 @@ def read_xls():
     for row in range(sheet_0.nrows):
 
         code = str(sheet_0.cell_value(row, 0))
-        name = sheet_0.cell_value(row, 6)
+        name = sheet_0.cell_value(row, 1)
 
-        if len(code) == 9:
-            if code[2:9] != "0000000":
-                if not code in kato_list.keys():
-                    kato_list[code[0:4] + "00000"] = name
+        if not code in kato_list.keys():
+            kato_list[code[0:4] + "00000"] = name
 
     for row in range(sheet_1.nrows):
 
         code = str(sheet_1.cell_value(row, 0))
-        name = sheet_1.cell_value(row, 6)
+        name = sheet_1.cell_value(row, 1)
 
-        if len(code) == 9:
-            if code[2:9] != "0000000":
-                if not code in kato_list.keys():
-                    kato_list[code[0:4] + "00000"] = name
+        if not code in kato_list.keys():
+            kato_list[code[0:4] + "00000"] = name
 
     return kato_list
