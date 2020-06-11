@@ -180,7 +180,7 @@ def post_detail(request, id, slug):
         print("profile/tarif not found")
 
     istariff = False
-    if tariff.name == "free":
+    if tariff == "free":
         istariff = True
 
 
