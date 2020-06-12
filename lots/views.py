@@ -171,6 +171,10 @@ def post_detail(request, id, slug):
     dat4 = post.date - datetime.datetime.now(timezone.utc)
 
     is_favourite = False
+    try:
+        is_favourite = post.favourite.filter(id=request.user.id).exists()
+    except Exception as e:
+        print("not exists")
 
     tariff = "free"
     try:
@@ -180,8 +184,9 @@ def post_detail(request, id, slug):
         print("profile/tarif not found")
 
     istariff = False
-    if tariff == "free":
-        istariff = True
+    if tariff:
+        if tariff.name == "free":
+            istariff = True
 
 
     context = {
@@ -204,6 +209,18 @@ def post_favourite_list(request):
         "current_date": datetime.datetime.now(timezone.utc)
     }
     return render(request, "post_favourite_list.html", context)
+
+
+def favourite_post_ajax(request, slug):
+
+    post = get_object_or_404(Article, slug=slug)
+    if post.favourite.filter(id=request.user.id).exists():
+        post.favourite.remove(request.user)
+        return JsonResponse({'added': False})
+    else:
+        post.favourite.add(request.user)
+        return JsonResponse({'added': True})
+
 
 
 def favourite_post(request, slug):

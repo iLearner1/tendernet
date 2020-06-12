@@ -428,6 +428,43 @@
       return false;
 
     }
+
+    $(".featured-button").on("click", function(e) {
+      console.log("featured-button clicked");
+      e.preventDefault();
+      var _this = $(this);
+      var favourite_post_url = $(this).attr("data-url");
+      var id = $(this).attr("data-article_id");
+
+      let csrftoken = '{{ csrf_token }}';
+      var data = {};
+      data['csrf_token'] = csrftoken;
+      data['id'] = id;
+
+      $.ajax({
+         url: favourite_post_url,
+         type: 'POST',
+         data: data,
+         cache: true,
+         headers: { 'X-CSRFToken': csrftoken },
+         success: function (data) {
+             console.log(data);
+             if(data['added'])
+             {
+               $(_this).css("background-color", "yellow");
+               $(_this).css("font-weight", "bold");
+             }
+             else
+             {
+               $(_this).css("background-color", "#fff");
+               $(_this).css("font-weight", "normal");
+             }
+         },
+         error: function(){
+             console.log("error")
+         }
+     });
+    });
   });
 </script>
 

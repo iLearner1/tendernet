@@ -1,9 +1,6 @@
 $(document).ready(function(){
-    var form = $('#form_buying_product');
-    console.log(form);
 
-
-    form.on('submit', function(e){
+    $('#form_buying_product').on('submit', function(e){
         e.preventDefault();
         var submit_btn = $('#submit_btn1');
 
@@ -32,10 +29,7 @@ $(document).ready(function(){
     });
 
 
-    var form = $('#buying_doc');
-    console.log(form);
-
-    form.on('submit', function(e){
+    $('#buying_doc').on('submit', function(e){
         e.preventDefault();
 
         var submit_btn = $('#submit_btn_doc');

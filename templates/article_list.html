@@ -1,3 +1,4 @@
+{% load humanize %}
 {% load widget_tweaks%}
 {% load checklist %}
 {% load compare %}
@@ -317,9 +318,8 @@
 
                               <tr style="font-style: italic;">
                                 <td>До завершения:</td>
-                                <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m:s"  }}</td>
+                                <td style="text-align: right;">{{ article.date|naturaltime }}</td>
                               </tr>
-
                             </tbody>
                           </table>
 
@@ -329,7 +329,7 @@
 
                           <div class="buttons">
                             <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
-                            <a href="#" class="featured-button">В избранные</a>
+                            <a href="#" class="featured-button" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' slug=article.slug %}">В избранные</a>
                           </div>
 
                         </div>
