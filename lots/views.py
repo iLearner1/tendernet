@@ -177,16 +177,18 @@ def post_detail(request, id, slug):
         print("not exists")
 
     tariff = "free"
+    istariff = False
     try:
         tarif_id = Profile.objects.filter(user__id=request.user.id).values('tarif_id')[0]
         tariff = Price.objects.get(id=tarif_id['tarif_id'])
+
+        if tariff:
+            if tariff.name == "free":
+                istariff = True
+
     except Exception as e:
         print("profile/tarif not found")
 
-    istariff = False
-    if tariff:
-        if tariff.name == "free":
-            istariff = True
 
 
     context = {

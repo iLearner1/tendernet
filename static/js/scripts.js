@@ -42,7 +42,7 @@ $(document).ready(function(){
          var csrf_token = $('#buying_doc [name="csrfmiddlewaretoken"]').val();
          data["csrfmiddlewaretoken"] = csrf_token;
 
-         var url = form.attr("action");
+         var url = $('#buying_doc').attr("action");
 
         console.log(data);
 

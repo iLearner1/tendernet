@@ -53,16 +53,23 @@
                         <td><b>Единица измерения:</b></td>
                         <td>{{ post.unit }} </td>
                       </tr>
-                      {% if istariff %}
-                      <tr>
-                        <td><b>Способ закупки:</b></td>
-                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
-                      </tr>
+                      {% if request.user.is_authenticated %}
+                            {% if istariff %}
+                              <tr>
+                                <td><b>Способ закупки:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                              </tr>
+                              {% else %}
+                              <tr>
+                                <td><b>Способ закупки:</b></td>
+                                <td>{{ post.get_statzakup_display }}</td>
+                              </tr>
+                        {% endif %}
                       {% else %}
-                      <tr>
-                        <td><b>Способ закупки:</b></td>
-                        <td>{{ post.get_statzakup_display }}</td>
-                      </tr>
+                            <tr>
+                                <td><b>Способ закупки:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                              </tr>
                       {% endif %}
                       <tr>
                         <td><b>Дата старта:</b></td>
@@ -76,16 +83,23 @@
                         <td><b>До завершения:</b></td>
                         <td>{{ dat3|naturaltime }}</td>
                       </tr>
-                      {% if istariff %}
-                      <tr>
-                        <td><b>Заказчик:</b></td>
-                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
-                      </tr>
+                      {% if request.user.is_authenticated %}
+                        {% if istariff%}
+                              <tr>
+                                <td><b>Заказчик:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                              </tr>
+                              {% else %}
+                              <tr>
+                                <td><b>Заказчик:</b></td>
+                                <td>{{ post.customer }}</td>
+                              </tr>
+                        {% endif %}
                       {% else %}
-                      <tr>
-                        <td><b>Заказчик:</b></td>
-                        <td>{{ post.customer }}</td>
-                      </tr>
+                            <tr>
+                                <td><b>Заказчик:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                              </tr>
                       {% endif %}
                       <tr>
                         <td><b>Область:</b></td>
@@ -95,16 +109,23 @@
                         <td><b>Местоположение:</b></td>
                         <td>{{ post.city }}</td>
                       </tr>
-                      {% if istariff %}
-                      <tr>
-                        <td><b>Адрес:</b></td>
-                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
-                      </tr>
+                      {% if request.user.is_authenticated %}
+                                {% if istariff %}
+                                <tr>
+                                    <td><b>Адрес:</b></td>
+                                    <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                                  </tr>
+                                  {% else %}
+                                  <tr>
+                                    <td><b>Заказчик:</b></td>
+                                    <td>{{ post.addressFull }}</td>
+                                  </tr>
+                                {% endif %}
                       {% else %}
-                      <tr>
-                        <td><b>Заказчик:</b></td>
-                        <td>{{ post.addressFull }}</td>
-                      </tr>
+                            <tr>
+                                <td><b>Адрес:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                              </tr>
                       {% endif %}
                       <tr>
                         <td><b>Предмет закупки:</b></td>
