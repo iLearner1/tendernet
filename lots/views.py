@@ -30,7 +30,6 @@ def post_list(request):
 
     q = Q()
     title_q = Q()
-
     current_time_q = Q(date__gte=timezone.now())
     q &= current_time_q
     print('post list')
@@ -146,6 +145,7 @@ def post_list(request):
         "posts_end_index": posts_end_index,
         "total_posts": total_posts,
         "myFilter": myFilter,
+        "total_pages":paginator.num_pages,
         "cities": cities,
         "PURCHASE_METHOD_CHOICES": PURCHASE_METHOD_CHOICES,
         "SUBJECT_OF_PURCHASE_CHOICES": SUBJECT_OF_PURCHASE_CHOICES
