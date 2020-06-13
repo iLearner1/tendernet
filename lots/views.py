@@ -211,9 +211,9 @@ def post_favourite_list(request):
     return render(request, "post_favourite_list.html", context)
 
 
-def favourite_post_ajax(request, slug):
+def favourite_post_ajax(request, ID):
 
-    post = get_object_or_404(Article, slug=slug)
+    post = get_object_or_404(Article, id=ID)
     if post.favourite.filter(id=request.user.id).exists():
         post.favourite.remove(request.user)
         return JsonResponse({'added': False})

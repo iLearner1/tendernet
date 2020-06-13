@@ -329,7 +329,7 @@
 
                           <div class="buttons">
                             <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
-                            <a href="#" class="featured-button" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' slug=article.slug %}">В избранные</a>
+                            <a href="#" class="featured-button" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                           </div>
 
                         </div>
