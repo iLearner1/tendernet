@@ -245,34 +245,34 @@
             </div>
 
 
-            <div class="tender-view-controller-wrapper article-list-page">
-              <div class="row">
+<!--            <div class="tender-view-controller-wrapper article-list-page">-->
+<!--              <div class="row">-->
 
-                <div class="col-md-6" style="display: none;">
-                  <div class="tender-view-controller">
-                    <div class="tender-view-filter">
-                      <div class="form-group">
-                        <select class="form-control" id="orderby">
-                          <option value="">Сортировать по</option>
-                          <option value="title-LH">По алфавиту (Снизу вверх)</option>
-                            <option value="title-HL">По алфавиту (По убыванию)</option>
+<!--                <div class="col-md-6" style="display: none;">-->
+<!--                  <div class="tender-view-controller">-->
+<!--                    <div class="tender-view-filter">-->
+<!--                      <div class="form-group">-->
+<!--                        <select class="form-control" id="orderby">-->
+<!--                          <option value="">Сортировать по</option>-->
+<!--                          <option value="title-LH">По алфавиту (Снизу вверх)</option>-->
+<!--                            <option value="title-HL">По алфавиту (По убыванию)</option>-->
 
-                            <option value="date-LH">По дате (Снизу вверх)</option>
-                            <option value="date-HL">По дате (По убыванию)</option>
+<!--                            <option value="date-LH">По дате (Снизу вверх)</option>-->
+<!--                            <option value="date-HL">По дате (По убыванию)</option>-->
 
-                            <option value="price">По сумме (Снизу вверх)</option>
-                            <option value="price">По сумме (По убыванию)</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+<!--                            <option value="price">По сумме (Снизу вверх)</option>-->
+<!--                            <option value="price">По сумме (По убыванию)</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
 
-                <div class="col-md-12 showing-number">
-                  <span>Показано {{posts_start_index}}–{{posts_end_index}} из {{total_posts}}</span>
-                </div>
-              </div>
-            </div>
+<!--                <div class="col-md-12 showing-number">-->
+<!--                  <span>Показано {{posts_start_index}}–{{posts_end_index}} из {{total_posts}}</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
 
             <div id="input-container" class="">
               <!-- this place holder is required will be placed filtered result -->
@@ -352,8 +352,8 @@
                 <nav class="navigation pagination">
                   <div class="nav-links">
                     {% if posts.has_previous %}
-                      <a class="prev page-numbers" href="?page=1">First</a>
-                      <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}" style="width: 55px;">Previous</a>
+                      <a class="prev page-numbers" href="?page=1">В начало</a>
+                      <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}" style="width: 55px;">Назад</a>
                     {% endif %}
                     {% if posts.number|add:'-2' > 1 %}
                         <a href="#" aria-controls=""  tabindex="0" class="page-numbers">&hellip;</a>
@@ -370,8 +370,8 @@
                           <a href="#" data-dt-idx="{{ i }}"  class="page-numbers">&hellip;</a>
                         {% endif %}
                     {% if posts.has_next %}
-                      <a class="next page-numbers" href="?page={{ posts.next_page_number }}">Next</a>
-                      <a class="prev page-numbers" href="?page={{ total_pages }}">Last</a>
+                      <a class="next page-numbers" href="?page={{ posts.next_page_number }}">Вперед</a>
+                      <a class="prev page-numbers" href="?page={{ total_pages }}">В конец</a>
                     {% endif %}
                   </div>
                 </nav>
