@@ -3,6 +3,7 @@
 {% load checklist %}
 {% load compare %}
 {% load is_favorited %}
+{% load is_favourite_post %}
 
 {% include "blocks/header.html" %}
 
@@ -330,7 +331,12 @@
                           <div class="buttons">
                             <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
                               {% if request.user.is_authenticated %}
-                                    <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
+                                    {% is_favourite_post article request as is_favourite %}
+                                    {% if is_favourite %}
+                                        <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: yellow;font-weight: bold;">В избранные</a>
+                                    {% else %}
+                                        <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
+                                    {% endif %}
                               {% else %}
                                     <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button">В избранные</a>
                               {% endif %}

@@ -168,7 +168,6 @@ def post_detail(request, id, slug):
     dat6 = datetime.timedelta(days=5)
     dat3 = post.date
     dat7 = dat3 - dat6
-    dat4 = post.date - datetime.datetime.now(timezone.utc)
 
     is_favourite = False
     try:
@@ -195,7 +194,6 @@ def post_detail(request, id, slug):
         "post": post,
         "is_favourite": is_favourite,
         "dat3": dat3,
-        "dat4": dat4,
         "istariff": istariff
     }
 
@@ -225,8 +223,8 @@ def favourite_post_ajax(request, ID):
 
 
 
-def favourite_post(request, slug):
-    post = get_object_or_404(Article, slug=slug)
+def favourite_post(request, ID):
+    post = get_object_or_404(Article, id=ID)
     if post.favourite.filter(id=request.user.id).exists():
         post.favourite.remove(request.user)
     else:

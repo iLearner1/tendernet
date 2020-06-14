@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("<slug:slug>/favourite_post/", views.favourite_post, name="favourite_post"),
+    path("<int:ID>/favourite_post/", views.favourite_post, name="favourite_post"),
     path("<int:ID>/favourite_post_ajax/", views.favourite_post_ajax, name="favourite_post_ajax"),
     path("", views.post_list, name="post_list"),
     path("api_interface", views.api_interface, name="api_interface"),
