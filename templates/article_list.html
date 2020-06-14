@@ -433,8 +433,21 @@
 
                 <h6 class="">Регион</h6>
                 <div class="form-group">
+                  <select name="region" id="region_id" class="form-control" title="Регион">
+<!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                 <option value="">Выберите область</option>
+                    {% for region in regions %}
+                    {% checklist city.id request 'region[]' as available %}
+                    <option value="{{region.id}}" {% if available %} selected {% endif %}>{{region.name}}</option>
+                    {% endfor%}
+                  </select>
+                </div>
+
+                   <h6 class="">City</h6>
+                <div class="form-group">
                   <select name="city" id="city_id" class="form-control" title="Регион">
 <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                 <option value="">Выберите местоположение</option>
                     {% for city in cities %}
                     {% checklist city.id request 'city[]' as available %}
                     <option value="{{city.id}}" {% if available %} selected {% endif %}>{{city.name}}</option>
