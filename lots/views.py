@@ -125,7 +125,7 @@ def post_list(request):
     posts = Article.objects.filter(q)
     myFilter = ArticleFilter(filters, queryset=posts)
 
-    paginator = Paginator(posts.order_by("date"), 25)
+    paginator = Paginator(posts.order_by("date"), 1)
     page_number = request_object.get("page", 1)
     posts = paginator.page(page_number)
 
@@ -136,8 +136,8 @@ def post_list(request):
     posts_end_index = 0
 
     if len(posts) > 0:
-        posts_start_index = (int(page_number) - 1) * 25 + 1
-        posts_end_index = (int(page_number) - 1) * 25 + len(posts)
+        posts_start_index = (int(page_number) - 1) * 1 + 1
+        posts_end_index = (int(page_number) - 1) * 1 + len(posts)
 
     context = {
         "posts": posts,
