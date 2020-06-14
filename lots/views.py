@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .filters import ArticleFilter
-from .models import Article, FavoriteSearch, Cities
+from .models import Article, FavoriteSearch, Cities, Regions
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
@@ -30,7 +30,6 @@ def post_list(request):
 
     q = Q()
     title_q = Q()
-
     current_time_q = Q(date__gte=timezone.now())
     q &= current_time_q
     print('post list')
@@ -39,6 +38,7 @@ def post_list(request):
 
     print("request_object")
     print(request_object)
+
 
     if 'title' in request_object:
         if request_object.get('title'):
@@ -69,6 +69,11 @@ def post_list(request):
         for c in request_object.getlist('city[]'):
             city_q |= Q(city__id=c)
         q &= city_q
+    region_q = Q()
+    if request_object.getlist('region[]'):
+        for c in request_object.getlist('region[]'):
+            region_q |= Q(region__id=c)
+        q &= region_q
 
     purchase_method_q = Q()
     if request_object.getlist('statzakup[]'):
@@ -131,6 +136,7 @@ def post_list(request):
     posts = paginator.page(page_number)
 
     cities = Cities.objects.all()
+    regions = Regions.objects.all()
 
     total_posts = paginator.count
     posts_start_index = 0
@@ -146,7 +152,9 @@ def post_list(request):
         "posts_end_index": posts_end_index,
         "total_posts": total_posts,
         "myFilter": myFilter,
+        "total_pages":paginator.num_pages,
         "cities": cities,
+        "regions":regions,
         "PURCHASE_METHOD_CHOICES": PURCHASE_METHOD_CHOICES,
         "SUBJECT_OF_PURCHASE_CHOICES": SUBJECT_OF_PURCHASE_CHOICES
     }
@@ -244,7 +252,6 @@ def post_search(request):
 
     #current_time_q = Q(date__gte=timezone.now())
     current_time_q = Q()
-
     title_q = Q()
     if request.GET.get('title'):
         title_tokens = request.GET.get('title').split()
@@ -319,6 +326,14 @@ def post_search(request):
                 city_q |= Q(city__id=c)
         q &= city_q
 
+    region_q = Q()
+
+    if request.GET.getlist('region[]'):
+        for c in request.GET.getlist('region[]'):
+            if c != '':
+                region_q |= Q(region__id=c)
+        q &= region_q
+
     if request.GET.getlist('statzakup[]'):
         stat_q = Q()
         for stat in request.GET.getlist('statzakup[]'):
@@ -350,7 +365,6 @@ def post_search(request):
         q &= date_min_q & date_max_q
 
     q &= current_time_q
-
     if (sort_field == 'title') | (sort_field == '-title'):
         queryset = Article.objects.filter(q)
         if sort_field == '-title':

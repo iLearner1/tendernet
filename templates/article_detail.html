@@ -45,14 +45,14 @@
                         <td><b>Сумма лота:</b></td>
                         <td>{{ post.price }} тг.</td>
                       </tr>
-                      <tr>
-                        <td><b>Количество:</b></td>
-                        <td>{{ post.count }} </td>
-                      </tr>
-                      <tr>
-                        <td><b>Единица измерения:</b></td>
-                        <td>{{ post.unit }} </td>
-                      </tr>
+<!--                      <tr>-->
+<!--                        <td><b>Количество:</b></td>-->
+<!--                        <td>{{ post.count }} </td>-->
+<!--                      </tr>-->
+<!--                      <tr>-->
+<!--                        <td><b>Единица измерения:</b></td>-->
+<!--                        <td>{{ post.unit }} </td>-->
+<!--                      </tr>-->
                       {% if request.user.is_authenticated %}
                             {% if istariff %}
                               <tr>
@@ -127,10 +127,10 @@
                                 <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
                               </tr>
                       {% endif %}
-                      <tr>
-                        <td><b>Предмет закупки:</b></td>
-                        <td>{{ post.itemZakup }}</td>
-                      </tr>
+<!--                      <tr>-->
+<!--                        <td><b>Предмет закупки:</b></td>-->
+<!--                        <td>{{ post.itemZakup }}</td>-->
+<!--                      </tr>-->
                       <tr>
                         <td><b>Номер лота:</b></td>
                         <td>{{ post.id }}</td>

@@ -9,12 +9,10 @@
             <div class="row">
               <div class="col-xl-6 col-lg-6 order-lg-1">
                 <p class="copyright-text">
-                  <!--<a href="javascript:void();">Tendernet.kz</a> | 2020 | г. Нур-Султан, Кенесары 40 (БЦ 7 Континент) офис №703,<br>-->
                   <a href="tel:87172250700">8 (7172) 250-700</a>, <a href="tel:87783035500">8 (778) 303-55-00</a>, <a
                     href="mailto:info@tendernet.kz">info@tendernet.kz</a> <br><a
                     href="/static/media/polzovatelskoe_soglashenie.pdf" target="_blank"
                     style="color:#eb3547;">Пользовательское соглашение</a> </p>
-
               </div>
               <div class="col-xl-6 col-lg-6 order-lg-3">
                 <div class="back-to-top">
@@ -122,7 +120,7 @@
           for (let item of formData) {
             console.log('item.name: ' + item.name);
             console.log('item.value: ' + item.value);
-            if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+            if (item.name == 'city' || item.name == 'region' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
               data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
             } else {
               data[item.name] = item.value;
