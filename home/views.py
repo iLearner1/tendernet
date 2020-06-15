@@ -69,7 +69,7 @@ def contact(request):
     return render(request, 'contact-page.html')
 
 
-def modal(request):
+def send_consultaion_query(request):
     user = 'Anymouse'
     if request.method == "POST":
         if request.user.is_authenticated:

@@ -258,7 +258,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="{% url 'modal' %}" method="POST" id="consultacia-form">
+              <form action="{% url 'send_consultaion_query' %}" method="POST" id="consultacia-form">
                 {% csrf_token %}
                 <div class="form-group">
                   <input type="text" placeholder="Ваше имя" class="form-control" name="name" required>
@@ -272,7 +272,29 @@
                 $(document).ready(function() {
                     $("#consultacia-form").submit(function(e) {
                         e.preventDefault();
+                        var send_consultaion_query = $("#consultacia-form").attr("action");
+                        console.log("send_consultaion_query: " + send_consultaion_query);
                         alert("Спасибо за обращение. В ближайшее время с вами свяжется менеджер.");
+
+                        var data = {
+                          "name": $("#consultacia-form").find("input[name=name]").val(),
+                          "number": $("#consultacia-form").find("input[name=number]").val(),
+                        };
+                         let csrftoken = '{{ csrf_token }}';
+                        console.log(data);
+                        $.ajax({
+                           url: send_consultaion_query,
+                           type: 'POST',
+                           data: data,
+                           cache: true,
+                          headers: { 'X-CSRFToken': csrftoken },
+                           success: function (data) {
+                               console.log(data);
+                           },
+                           error: function(){
+                               console.log("error")
+                           }
+                       });
                         $('#orderform').modal('hide');
                     });
                 });
