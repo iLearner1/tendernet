@@ -5,7 +5,7 @@ from lots.models import Article
 
 class Zakaz(models.Model):
     STATUS_CHOICES = [
-    ('draft','На рассмотрении'),
+    ('draft',''),
     ('win','В обработке'),
     ('send','Подача заявки'),
     ('sended','Обработан')
@@ -28,7 +28,7 @@ class Zakaz(models.Model):
 
 class Zakazdoc(models.Model):
     STATUS_CHOICES = [
-    ('draft','На рассмотрении'),
+    ('draft',''),
     ('win','Выигрыш'),
     ('sended','Заявка отправлено')
     ]

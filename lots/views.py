@@ -204,7 +204,7 @@ def post_detail(request, id, slug):
         "dat3": dat3,
         "istariff": istariff
     }
-
+    print(post.title)
     return render(request, "article_detail.html", context)
 
 @login_required

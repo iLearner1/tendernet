@@ -111,19 +111,19 @@
 
                     <form method="get" id="main-searchform-mobile" onsubmit="return false;">
 
-                      <div class="form-group">
-                        <select class="form-control" id="orderby-mobile">
-                          <option value="">Сортировать по</option>
-                          <option value="title-LH">По алфавиту (Снизу вверх)</option>
-                          <option value="title-HL">По алфавиту (По убыванию)</option>
+<!--                      <div class="form-group">-->
+<!--                        <select class="form-control" id="orderby-mobile">-->
+<!--                          <option value="">Сортировать по</option>-->
+<!--                          <option value="title-LH">По алфавиту (Снизу вверх)</option>-->
+<!--                          <option value="title-HL">По алфавиту (По убыванию)</option>-->
 
-                          <option value="date-LH">По дате (Снизу вверх)</option>
-                          <option value="date-HL">По дате (По убыванию)</option>
+<!--                          <option value="date-LH">По дате (Снизу вверх)</option>-->
+<!--                          <option value="date-HL">По дате (По убыванию)</option>-->
 
-                          <option value="price-LH">По сумме (Снизу вверх)</option>
-                          <option value="price-HL">По сумме (По убыванию)</option>
-                        </select>
-                      </div>
+<!--                          <option value="price-LH">По сумме (Снизу вверх)</option>-->
+<!--                          <option value="price-HL">По сумме (По убыванию)</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
 
                       <h6 class="">Поиск по названию</h6>
                       <div class="form-group">
@@ -143,17 +143,17 @@
                           placeholder="Заказчик, БИН">
                       </div>
 
-                      <h6 class="">Способ закупки</h6>
-                      <div class="form-group">
-                        <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                        <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                          <option value="" {% if available %} selected {% endif %}>Выберите способ закупки</option>
-                          {% for choice in PURCHASE_METHOD_CHOICES %}
-                          {% checklist choice.0 request 'statzakup[]' as available %}
-                          <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
-                          {% endfor%}
-                        </select>
-                      </div>
+<!--                      <h6 class="">Способ закупки</h6>-->
+<!--                      <div class="form-group">-->
+<!--                        &lt;!&ndash; {% render_field myFilter.form.statzakup class="form-control" %} &ndash;&gt;-->
+<!--                        <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">-->
+<!--                          <option value="" {% if available %} selected {% endif %}>Выберите способ закупки</option>-->
+<!--                          {% for choice in PURCHASE_METHOD_CHOICES %}-->
+<!--                          {% checklist choice.0 request 'statzakup[]' as available %}-->
+<!--                          <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>-->
+<!--                          {% endfor%}-->
+<!--                        </select>-->
+<!--                      </div>-->
 
                         <h6 class="">Регион</h6>
                         <div class="form-group">
@@ -178,16 +178,16 @@
                         </select>
                       </div>
 
-                      <h6 class="">Предмет закупки</h6>
-                      <div class="form-group">
-                        <select name="subject_of_purchase" id="subject_of_purchase" class="form-control" title="Предмет закупки">
-                          <option value="" {% if available %} selected {% endif %}>Выберите предмет закупки</option>
-                          {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
-                          {% checklist choice.0 request 'subject_of_purchase[]' as available %}
-                          <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
-                          {% endfor%}
-                        </select>
-                      </div>
+<!--                      <h6 class="">Предмет закупки</h6>-->
+<!--                      <div class="form-group">-->
+<!--                        <select name="subject_of_purchase" id="subject_of_purchase" class="form-control" title="Предмет закупки">-->
+<!--                          <option value="" {% if available %} selected {% endif %}>Выберите предмет закупки</option>-->
+<!--                          {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}-->
+<!--                          {% checklist choice.0 request 'subject_of_purchase[]' as available %}-->
+<!--                          <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>-->
+<!--                          {% endfor%}-->
+<!--                        </select>-->
+<!--                      </div>-->
 
                       <h6 class="">Сумма лота</h6>
                       <div class="form-group">
@@ -345,7 +345,7 @@
                               {% if request.user.is_authenticated %}
                                     {% is_favourite_post article request as is_favourite %}
                                     {% if is_favourite %}
-                                        <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: yellow;font-weight: bold;">В избранные</a>
+                                        <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: #FFC107!important;font-weight: bold;">В избранные</a>
                                     {% else %}
                                         <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                                     {% endif %}
@@ -374,8 +374,8 @@
                 <nav class="navigation pagination">
                   <div class="nav-links">
                     {% if posts.has_previous %}
-                      <a class="prev page-numbers" href="?page=1">В начало</a>
-                      <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}" style="width: 55px;">Назад</a>
+                      <a class="prev page-numbers" href="?page=1"> << </a>
+                      <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}" style="width: 55px;"> < </a>
                     {% endif %}
                     {% if posts.number|add:'-2' > 1 %}
                         <a href="#" aria-controls=""  tabindex="0" class="page-numbers">&hellip;</a>
@@ -392,8 +392,8 @@
                           <a href="#" data-dt-idx="{{ i }}"  class="page-numbers">&hellip;</a>
                         {% endif %}
                     {% if posts.has_next %}
-                      <a class="next page-numbers" href="?page={{ posts.next_page_number }}">Вперед</a>
-                      <a class="prev page-numbers" href="?page={{ total_pages }}">В конец</a>
+                      <a class="next page-numbers" href="?page={{ posts.next_page_number }}"> > </a>
+                      <a class="prev page-numbers" href="?page={{ total_pages }}"> >> </a>
                     {% endif %}
                   </div>
                 </nav>
@@ -441,17 +441,17 @@
                     placeholder="Заказчик, БИН">
                 </div>
 
-                <h6 class="">Способ закупки</h6>
-                <div class="form-group">
-                  <!-- {% render_field myFilter.form.statzakup class="form-control" %} -->
-                  <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                    <option value="" {% if available %} selected {% endif %}>Выберите способ закупки</option>
-                    {% for choice in PURCHASE_METHOD_CHOICES %}
-                    {% checklist choice.0 request 'statzakup[]' as available %}
-                    <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
-                    {% endfor%}
-                  </select>
-                </div>
+<!--                <h6 class="">Способ закупки</h6>-->
+<!--                <div class="form-group">-->
+<!--                  &lt;!&ndash; {% render_field myFilter.form.statzakup class="form-control" %} &ndash;&gt;-->
+<!--                  <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">-->
+<!--                    <option value="" {% if available %} selected {% endif %}>Выберите способ закупки</option>-->
+<!--                    {% for choice in PURCHASE_METHOD_CHOICES %}-->
+<!--                    {% checklist choice.0 request 'statzakup[]' as available %}-->
+<!--                    <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>-->
+<!--                    {% endfor%}-->
+<!--                  </select>-->
+<!--                </div>-->
 
                 <h6 class="">Регион</h6>
                 <div class="form-group">
@@ -477,16 +477,16 @@
                   </select>
                 </div>
 
-                <h6 class="">Предмет закупки</h6>
-                <div class="form-group">
-                  <select name="subject_of_purchase" id="subject_of_purchase" class="form-control" title="Предмет закупки">
-                    <option value="" {% if available %} selected {% endif %}>Выберите предмет закупки</option>
-                    {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
-                    {% checklist choice.0 request 'subject_of_purchase[]' as available %}
-                    <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>
-                    {% endfor%}
-                  </select>
-                </div>
+<!--                <h6 class="">Предмет закупки</h6>-->
+<!--                <div class="form-group">-->
+<!--                  <select name="subject_of_purchase" id="subject_of_purchase" class="form-control" title="Предмет закупки">-->
+<!--                    <option value="" {% if available %} selected {% endif %}>Выберите предмет закупки</option>-->
+<!--                    {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}-->
+<!--                    {% checklist choice.0 request 'subject_of_purchase[]' as available %}-->
+<!--                    <option value="{{choice.0}}" {% if available %} selected {% endif %}>{{choice.1}}</option>-->
+<!--                    {% endfor%}-->
+<!--                  </select>-->
+<!--                </div>-->
 
                 <h6 class="">Сумма лота</h6>
                 <div class="form-group">
