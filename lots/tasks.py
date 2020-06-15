@@ -196,7 +196,7 @@ def fetch_lots_from_goszakup():
                     itemZakup='product',
                     date=datetime.datetime.now(),
                     date_open=datetime.datetime.now(),
-                    yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])
+                    yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])+"?tab=documents"
                 )
                 article.save()
                 lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
