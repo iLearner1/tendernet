@@ -56,7 +56,7 @@
                       {% if istariff %}
                       <tr>
                         <td><b>Способ закупки:</b></td>
-                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
                       </tr>
                       {% else %}
                       <tr>
@@ -79,7 +79,7 @@
                       {% if istariff %}
                       <tr>
                         <td><b>Заказчик:</b></td>
-                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
                       </tr>
                       {% else %}
                       <tr>
@@ -98,7 +98,7 @@
                       {% if istariff %}
                       <tr>
                         <td><b>Адрес:</b></td>
-                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;">Вы должны изменить тариф</a></td>
+                        <td><a href="{% url 'tariff' %}" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
                       </tr>
                       {% else %}
                       <tr>
@@ -253,7 +253,7 @@
                           class="button contact-button">Запросить аудит</button></a>
 
                       {% endif %}
-                      <a href="#" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
+                      <a href="/static/files/audit_example.pdf" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
                     </div>
                   </div>
 

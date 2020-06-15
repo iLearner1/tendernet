@@ -42,32 +42,32 @@
 
               </div>
 
-              <div class="dop-filter" style="display: none;">
-                <div class="row">
-                  <div class="col-md-3">
-                    <h6 class="">Способ закупки</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} -->
-                      <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                        <option value="">Выбрать все</option>
-                        {% for choice in ZAKUP_CHOICES %}
-                          <option value="{{choice.0}}">{{choice.1}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
-                  </div>
+<!--              <div class="dop-filter" style="display: none;">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-md-3">-->
+<!--                    <h6 class="">Способ закупки</h6>-->
+<!--                    <div class="form-group">-->
+<!--                      &lt;!&ndash; {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} &ndash;&gt;-->
+<!--                      <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">-->
+<!--                        <option value="">Выбрать все</option>-->
+<!--                        {% for choice in ZAKUP_CHOICES %}-->
+<!--                          <option value="{{choice.0}}">{{choice.1}}</option>-->
+<!--                        {% endfor%}-->
+<!--                      </select>-->
+<!--                    </div>-->
+<!--                  </div>-->
 
-                  <div class="col-md-3">
-                    <h6>Предмет закупки</h6>
-                    <div class="form-group">
-                      <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">
-                        <option value="">Выбрать все</option>
-                        {% for choice in PURCHASE_CHOICES %}
-                          <option value="{{choice.0}}">{{choice.1}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
-                  </div>
+<!--                  <div class="col-md-3">-->
+<!--                    <h6>Предмет закупки</h6>-->
+<!--                    <div class="form-group">-->
+<!--                      <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">-->
+<!--                        <option value="">Выбрать все</option>-->
+<!--                        {% for choice in PURCHASE_CHOICES %}-->
+<!--                          <option value="{{choice.0}}">{{choice.1}}</option>-->
+<!--                        {% endfor%}-->
+<!--                      </select>-->
+<!--                    </div>-->
+<!--                  </div>-->
 
                   <div class="col-md-3">
                     <h6 class="">Сумма лота</h6>
