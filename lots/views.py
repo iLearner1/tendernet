@@ -250,8 +250,8 @@ def post_delete(request, id, slug):
 
 def post_search(request):
 
-    #current_time_q = Q(date__gte=timezone.now())
-    current_time_q = Q()
+    current_time_q = Q(date__gte=timezone.now())
+    # current_time_q = Q()
     title_q = Q()
     if request.GET.get('title'):
         title_tokens = request.GET.get('title').split()
