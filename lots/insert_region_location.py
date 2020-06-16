@@ -2,6 +2,21 @@ import xlrd
 import os
 
 
+def read_regions():
+    dirname = os.path.dirname(__file__)
+    filename = dirname + "/kato_lists/область.xlsx"
+    wb = xlrd.open_workbook(filename)
+    sheet_0 = wb.sheet_by_index(0)
+
+    region_list = {}
+
+    for row in range(sheet_0.nrows):
+        code = str(sheet_0.cell_value(row, 0))
+        name = sheet_0.cell_value(row, 1)
+        if code not in region_list.keys():
+            region_list[code] = name
+    return region_list
+
 def read_xls():
 
     dirname = os.path.dirname(__file__)
