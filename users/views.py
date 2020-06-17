@@ -19,7 +19,7 @@ from lots.models import Article
 from tn_first.settings import EMAIL_MANAGER
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from users.tasks import task_tariff_change_email
+from users.tasks import task_tariff_change_email, send_mail_to_manager
 import datetime
 from users.models import Price
 
@@ -262,6 +262,7 @@ def basket_list(request):
         'basket_posts': basket_posts,
         'basket_list': basket_list,
     }
+   
     return render(request, 'basket_list.html', context)
 
 
@@ -274,3 +275,9 @@ def history_list(request):
 
     }
     return render(request, 'history_list.html', context)
+
+def send_user_info_to_manager(request):
+    # this function will send mail to manager with user info
+    # if user authenticated
+    send_mail_to_manager.apply_async(args=[request.user.username, request.user.email])
+    return HttpResponse(200)

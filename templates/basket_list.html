@@ -59,8 +59,8 @@
 <!--                            </tr>-->
                           {% for p in basket_posts %}
 
-                              <tr>
-                                <td style="font-weight: bold;">• Подача заявки на лот <a href="{{ p.get_absolute_url }}" style="color: #007bff;" target="_blank">{{ p.lot.title }}</a></td>
+                              <tr>                                                   {% comment %} if user want lots page then replace with this url 'post_list'{% endcomment %}
+                                <td style="font-weight: bold;">• Подача заявки на лот <a href="{{ p.lot.get_absolute_url }}" style="color: #007bff;" target="_blank">{{ p.lot.title }}</a></td>
                                 <td>Дата подачи {{ p.date }} {{ p.get_status_display }}</td>
                               </tr>
 
