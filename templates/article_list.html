@@ -110,6 +110,7 @@
                     <!-- {{ myFilter }} -->
 
                     <form method="get" id="main-searchform-mobile" onsubmit="return false;">
+                        {% csrf_token %}
 
 <!--                      <div class="form-group">-->
 <!--                        <select class="form-control" id="orderby-mobile">-->
@@ -157,7 +158,7 @@
 
                         <h6 class="">Регион</h6>
                         <div class="form-group">
-                          <select name="region" id="region_id" class="form-control" title="Регион">
+                          <select name="region" id="region_id" class="form-control region-select" title="Регион" data-change_url="{% url 'region_change_ajax' %}">
         <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                          <option value="">Выберите область</option>
                             {% for region in regions %}
@@ -345,7 +346,7 @@
                               {% if request.user.is_authenticated %}
                                     {% is_favourite_post article request as is_favourite %}
                                     {% if is_favourite %}
-                                        <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: #FFC107!important;font-weight: bold;">В избранные</a>
+                                        <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: #FFC107!important;">В избранные</a>
                                     {% else %}
                                         <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                                     {% endif %}
@@ -407,7 +408,7 @@
             <div data-id="tender-type" class="tender-filter tender-type same-pad">
               <form method="get" id="main-searchform-pc" onsubmit="return false;">
 
-
+                {% csrf_token %}
 <!--                <div class="form-group">-->
 <!--                  <select class="form-control" id="orderby-pc">-->
 <!--                    <option value="">Сортировать по</option>-->
@@ -455,7 +456,7 @@
 
                 <h6 class="">Регион</h6>
                 <div class="form-group">
-                  <select name="region" id="region_id" class="form-control" title="Регион">
+                  <select name="region" id="region_id" class="form-control region-select" title="Регион" data-change_url="{% url 'region_change_ajax' %}">
 <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                  <option value="">Выберите область</option>
                     {% for region in regions %}
@@ -559,6 +560,46 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function() {
+      $(".region-select").on("change", function() {
+          var url = $(this).data("change_url");
+          let csrftoken = '{{ csrf_token }}';
+          var data = {
+              "region_id": $(this).find("option:selected").val()
+          };
+          data["csrfmiddlewaretoken"] = csrftoken;
+          $.ajax({
+             url: url,
+             type: 'POST',
+             data: data,
+             cache: true,
+             success: function (data) {
+                    console.log(data);
+                    if(data.status == "success")
+                    {
+                         $("select[name=city]").html("");
+                        var d = JSON.parse(data.data);
+
+                        $("select[name=city]").append("<option value=''>Выберите местоположение</option>");
+
+                        for(var  i=0;i<d.length;i++)
+                        {
+                            $("select[name=city]").append("<option value='"+ d[i].fields.code +"'>"+ d[i].fields.name +"</option>");
+                        }
+                    }
+                    else
+                    {
+                        alert("location not available")
+                    }
+             },
+             error: function(){
+                 console.log("error")
+             }
+         });
+      });
+  });
+</script>
 <!-- tender Listing End -->
 
 

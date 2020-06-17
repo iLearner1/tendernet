@@ -1,4 +1,5 @@
 # lots/views.py
+from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -16,6 +17,7 @@ import logging
 logging.basicConfig(level='DEBUG')
 import requests
 from users.models import Profile, Price
+from lots.insert_region_location import read_xls
 
 
 
@@ -472,6 +474,31 @@ def api_interface(request):
             return JsonResponse({'status': 'success', 'data': response.json()})
 
     return JsonResponse({'status': 'error'})
+
+
+def region_change_ajax(request):
+    region_id = request.POST.get("region_id")
+    print("region_id: ", region_id)
+    regions = None
+    cities = None
+    regions = Regions.objects.filter(id=region_id)
+
+    if regions:
+        region= regions[0]
+        region_code = region.code
+        locations = read_xls()
+
+        filtered_locations = []
+        for k, v in locations.items():
+            if region_code[0:2] == k[0:2]:
+                filtered_locations.append(k)
+
+        if len(filtered_locations) > 0:
+            cities = Cities.objects.filter(code__in=filtered_locations)
+
+            return JsonResponse({'status': 'success', 'data': serializers.serialize('json', cities)})
+
+    return JsonResponse({'status': 'failed'})
 
 
 def delete_lots(request):
