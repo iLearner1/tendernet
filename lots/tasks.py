@@ -13,6 +13,8 @@ import requests
 from django.template.defaultfilters import slugify
 from lots.insert_region_location import read_xls
 from time import sleep
+from django.utils.dateparse import parse_datetime
+from django.utils.timezone import is_aware, make_aware
 
 @shared_task
 def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
@@ -98,7 +100,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             return False
 
 
-@shared_task
+# @shared_task
 def fetch_date_from_goszakup(trd_buy_id, lot_number):
     print("trd_buy_id: ", trd_buy_id)
     print("lot_number: ", lot_number)
@@ -133,12 +135,20 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
         try:
             print('start_date: ', response_json['start_date'])
             print('end_date: ', response_json['end_date'])
+            print(response_json)
             start_date = timezone.utc.localize(datetime.datetime.strptime(response_json['start_date'], '%Y-%m-%d %H:%M:%S'))
             end_date = timezone.utc.localize(datetime.datetime.strptime(response_json['end_date'], '%Y-%m-%d %H:%M:%S'))
             Article.objects.filter(numb=lot_number).update(date=end_date, date_open=start_date)
         except Exception as e:
             print('exception in date update')
 
+
+
+def get_aware_datetime(date_str):
+    ret = parse_datetime(date_str)
+    if not is_aware(ret):
+        ret = make_aware(ret)
+    return ret
 
 @shared_task
 def fetch_lots_from_goszakup():
@@ -199,19 +209,41 @@ def fetch_lots_from_goszakup():
                     yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])+"?tab=documents"
                 )
                 article.save()
-                lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
+                # lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
                 lot_bin_pair_list.append((item['customer_bin'], item['lot_number']))
 
-        if len(lot_trd_list)>0:
-            while len(lot_trd_list)>0:
-                print("creating trd task")
-                result = fetch_date_from_goszakup.delay(lot_trd_list[0][0],lot_trd_list[0][1])
-                while not result.ready():
-                    print("sleeping for 0.5s")
-                    sleep(0.5)
-                print("returned from task")
-                lot_trd_list = lot_trd_list[1:]
-                print("lot_trd_list.len: ", len(lot_trd_list))
+                #updating article start and end date from api
+                token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+                bearer_token = 'Bearer ' + token
+                header = {'Authorization': bearer_token}
+
+                trd_buy_id_response = None
+                trd_buy_id_url = "https://ows.goszakup.gov.kz/v3/trd-buy/" + str(item['trd_buy_id'])
+
+                try:
+                    trd_buy_id_response = requests.get(url=trd_buy_id_url, headers=header, verify=False)
+                    if trd_buy_id_response:
+                        article.date_open = get_aware_datetime(trd_buy_id_response.json()['start_date'])
+                        article.date =  get_aware_datetime(trd_buy_id_response.json()['end_date'])
+                        article.save()
+                        print('updating datetime of lots');
+                except Exception as e:
+                    print('failed trd_buy_id API call')
+
+               
+                
+
+        # if len(lot_trd_list)>0:
+        #     while len(lot_trd_list)>0:
+        #         print("creating trd task")
+        #         result = fetch_date_from_goszakup.delay(lot_trd_list[0][0],lot_trd_list[0][1])
+        #         while not result.ready():
+        #             print("sleeping for 0.5s")
+        #             sleep(0.5)
+
+        #         print("returned from task")
+        #         lot_trd_list = lot_trd_list[1:]
+        #         print("lot_trd_list.len: ", len(lot_trd_list))
 
         if len(lot_bin_pair_list) > 0:
             while len(lot_bin_pair_list) > 0:
