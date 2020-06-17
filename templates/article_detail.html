@@ -39,11 +39,19 @@
                     <tbody>
                       <tr>
                         <td><b>Полное имя лота:</b></td>
-                        <td>{{ post.lotFullName }}</td>
+                        {% if post.lotFullName %}
+                            <td>{{ post.lotFullName }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
                         <td><b>Сумма лота:</b></td>
-                        <td>{{ post.price }} тг.</td>
+                        {% if post.price %}
+                            <td>{{ post.price }} тг.</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
 <!--                      <tr>-->
 <!--                        <td><b>Количество:</b></td>-->
@@ -62,7 +70,11 @@
                               {% else %}
                               <tr>
                                 <td><b>Способ закупки:</b></td>
-                                <td>{{ post.get_statzakup_display }}</td>
+                                {% if post.get_statzakup_display %}
+                                    <td>{{ post.get_statzakup_display }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
                               </tr>
                         {% endif %}
                       {% else %}
@@ -73,15 +85,27 @@
                       {% endif %}
                       <tr>
                         <td><b>Дата старта: </b></td>
-                        <td>{{ post.date_open|date:"Y-m-d H:m:s" }}</td>
+                        {% if post.date_open %}
+                            <td>{{ post.date_open|date:"Y-m-d H:m:s" }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
                         <td><b>Дата закрытия:  </b></td>
-                        <td>{{ post.date|date:"Y-m-d H:m:s" }}</td>
+                        {% if post.date %}
+                            <td>{{ post.date|date:"Y-m-d H:m:s" }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
                         <td><b>До завершения: </b></td>
-                        <td>{{ dat3|naturaltime }}</td>
+                        {% if dat3 %}
+                            <td>{{ dat3|naturaltime }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       {% if request.user.is_authenticated %}
                         {% if istariff%}
@@ -92,7 +116,11 @@
                               {% else %}
                               <tr>
                                 <td><b>Заказчик:</b></td>
-                                <td>{{ post.customer }}</td>
+                                {% if post.customer %}
+                                    <td>{{ post.customer }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
                               </tr>
                         {% endif %}
                       {% else %}
@@ -103,11 +131,19 @@
                       {% endif %}
                       <tr>
                         <td><b>Область:</b></td>
-                        <td>{{ post.region }}</td>
+                        {% if post.region %}
+                            <td>{{ post.region }}</td>
+                        {% else %}
+                          <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
                         <td><b>Местоположение:</b></td>
-                        <td>{{ post.city }}</td>
+                        {% if post.city %}
+                            <td>{{ post.city }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       {% if request.user.is_authenticated %}
                                 {% if istariff %}
@@ -118,7 +154,11 @@
                                   {% else %}
                                   <tr>
                                     <td><b>Заказчик:</b></td>
-                                    <td>{{ post.addressFull }}</td>
+                                    {% if post.addressFull %}
+                                        <td>{{ post.addressFull }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
                                   </tr>
                                 {% endif %}
                       {% else %}
@@ -133,7 +173,11 @@
 <!--                      </tr>-->
                       <tr>
                         <td><b>Номер лота:</b></td>
-                        <td>{{ post.id }}</td>
+                        {% if post.id %}
+                            <td>{{ post.id }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                     </tbody>
                   </table>

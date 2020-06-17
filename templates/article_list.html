@@ -299,10 +299,20 @@
 
                       <div class="row" style="margin-bottom: 20px;">
                         <div class="col-md-9">
-                          <h4 class="lot-name"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                          <h4 class="lot-name">
+                              {% if article.title %}
+                                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                              {% else %}
+                                    <a href="{{ article.get_absolute_url }}"></a>
+                              {% endif %}
+                          </h4>
                         </div>
                         <div class="col-md-3">
-                          <span class="price">{{ article.price }} тг</span>
+                            {% if article.price %}
+                                    <span class="price">{{ article.price }} тг</span>
+                            {% else %}
+                                    <span class="price"></span>
+                            {% endif %}
                         </div>
                       </div>
 
@@ -317,22 +327,46 @@
 
                               <tr>
                                 <td>Дата начала:</td>
-                                <td style="text-align: right;">{{ article.date_open|date:"d.m.Y:h:m:s" }}</td>
+                                  {% if article.date_open %}
+                                        <td style="text-align: right;">{{ article.date_open|date:"d.m.Y:h:m:s" }}</td>
+                                  {% else %}
+                                        <td style="text-align: right;"></td>
+                                  {% endif %}
                               </tr>
 
                               <tr>
                                 <td>Дата завершения:</td>
-                                <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m:s" }}</td>
+                                  {% if article.date %}
+                                        <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m:s" }}</td>
+                                  {% else %}
+                                        <td style="text-align: right;"></td>
+                                  {% endif %}
                               </tr>
 
                               <tr>
                                 <td>Место поставки:</td>
-                                <td style="text-align: right;">{{ article.region }} {{ article.city }}</td>
+                                  {% if article.region and article.city %}
+                                        <td style="text-align: right;">{{ article.region }} {{ article.city }}</td>
+                                  {% else %}
+                                        {% if article.region %}
+                                            <td style="text-align: right;">{{ article.region }}</td>
+                                        {% else %}
+                                            {% if article.city %}
+                                                <td style="text-align: right;">{{ article.city }}</td>
+                                            {% else %}
+                                                <td style="text-align: right;"></td>
+                                            {% endif %}
+                                        {% endif %}
+                                  {% endif %}
                               </tr>
 
                               <tr style="font-style: italic;">
                                 <td>До завершения:</td>
-                                <td style="text-align: right;">{{ article.date|naturaltime }}</td>
+                                  {% if article.date %}
+                                    <td style="text-align: right;">{{ article.date|naturaltime }}</td>
+                                  {% else %}
+                                    <td style="text-align: right;"></td>
+                                  {% endif %}
                               </tr>
                             </tbody>
                           </table>
@@ -466,9 +500,9 @@
                   </select>
                 </div>
 
-                   <h6 class="">City</h6>
+                   <h6 class="">Местоположение</h6>
                 <div class="form-group">
-                  <select name="city" id="city_id" class="form-control" title="Регион">
+                  <select name="city" id="city_id" class="form-control" title="Местоположение">
 <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                  <option value="">Выберите местоположение</option>
                     {% for city in cities %}
