@@ -72,15 +72,15 @@
                               </tr>
                       {% endif %}
                       <tr>
-                        <td><b>Дата старта:</b></td>
-                        <td>{{ post.date_open|date:"d.m.Y h:m:s" }}</td>
+                        <td><b>Дата старта: </b></td>
+                        <td>{{ post.date_open|date:"Y-m-d H:m:s" }}</td>
                       </tr>
                       <tr>
-                        <td><b>Дата закрытия:</b></td>
-                        <td>{{ post.date|date:"d.m.Y h:m:s" }}</td>
+                        <td><b>Дата закрытия:  </b></td>
+                        <td>{{ post.date|date:"Y-m-d H:m:s" }}</td>
                       </tr>
                       <tr>
-                        <td><b>До завершения:</b></td>
+                        <td><b>До завершения: </b></td>
                         <td>{{ dat3|naturaltime }}</td>
                       </tr>
                       {% if request.user.is_authenticated %}

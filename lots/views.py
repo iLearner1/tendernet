@@ -32,13 +32,8 @@ def post_list(request):
     title_q = Q()
     current_time_q = Q(date__gte=timezone.now())
     q &= current_time_q
-    print('post list')
 
     myFilter = {}
-
-    print("request_object")
-    print(request_object)
-
 
     if 'title' in request_object:
         if request_object.get('title'):
@@ -446,7 +441,6 @@ def archived_post(request):
         q = request.GET.get('q')
         posts = Article.objects.filter(
             (Q(title__icontains=q) |
-             Q(body__icontains=q) |
              Q(city__name__icontains=q)) &
             Q(date__lt=timezone.now())
         )

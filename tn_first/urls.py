@@ -44,6 +44,7 @@ urlpatterns = [
     path('edit_tarif/', views.edit_tarif, name="edit_tarif"),
     path('basket_list/', views.basket_list, name="basket_list"),
     path('history_list/', views.history_list, name="history_list"),
+    path('send_user_info_to_manager', views.send_user_info_to_manager, name='send_info_to_manager')
 ]
 
 if settings.DEBUG:

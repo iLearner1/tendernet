@@ -34,23 +34,49 @@
               <div class="col-lg-12">
                 <div class="feature-content">
 
+                	{% csrf_token %}
                 	<script type="text/javascript">
                 		$(document).ready(function(){
-                			$('.tariff-table-block a').click(function(){
+                			$('.tariff-table-block a, .tariff-table-block-mobile a').click(function(){
+								
+								var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+
                 				if (confirm("Вы действительно желаете заказать данную услугу?")) {
-			                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер.');
+									{% if request.user.is_authenticated %}
+										//if user authenticated then send user information to manager
+										
+										$.ajax({
+											method: "POST",
+											url: "{% url 'send_info_to_manager' %}",
+											data: {
+												id: "{{request.user.id}}",
+												csrfmiddlewaretoken: csrftoken
+											},
+											success: function(resp) {
+												console.log(resp);
+											},
+											error: function(error) {
+												console.log(error);
+											}
+										})
+			                        	alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер.');
+									{% else %}
+										//if user not authenticated then redirect to login page
+										window.location = "{% url 'login' %}";
+									{% endif %}
 			                      } else {
 			                        return false;
 			                      }
+
                 			});
 
-                			$('.tariff-table-block-mobile a').click(function(){
+                			/**$('.tariff-table-block-mobile a').click(function(){
                 				if (confirm("Вы действительно желаете заказать данную услугу?")) {
 			                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер.');
 			                      } else {
 			                        return false;
 			                      }
-                			});
+                			}); **/
 
                 		});
 	                </script>

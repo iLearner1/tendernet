@@ -34,7 +34,7 @@ ALLOWED_HOSTS = config(
 )
 
 if DEBUG:
-    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22']
+    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', 'd94e370416b0.ngrok.io']
 
 # Application definition
 
@@ -156,11 +156,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"  # Сервер для отправки сообщений
 EMAIL_HOST_USER = "tendernet.kz@gmail.com"  # имя пользователя
-EMAIL_MANAGER = "tendernet.kz@gmail.com"
+EMAIL_USE_TLS = True  # использование протокола шифрования
 EMAIL_HOST_PASSWORD = "tendernetkz2020"  # пароль от ящика
 EMAIL_PORT = 587  # порт для подключения
-EMAIL_USE_TLS = True  # использование протокола шифрования
 # email, с которого будет отправлено письмо
+
+
+
+# EMAIL_HOST = "smtp.mail.ru"  # Сервер для отправки сообщений
+# EMAIL_HOST_USER = "tendernetkz@mail.ru"  # имя пользователя
+# EMAIL_USE_TLS = True  # использование протокола шифрования
+# EMAIL_HOST_PASSWORD = "asdfasdgasdfhgasdfg"  # пароль от ящика
+# EMAIL_PORT = 465  # порт для подключения
+# # # # email, с которого будет отправлено письмо
+
+
+EMAIL_MANAGER = "tendernet.kz@gmail.com"
 DEFAULT_FROM_EMAIL = "email@tendernet.kz"
 
 # revice mail after contact form submit
@@ -197,7 +208,7 @@ CACHES = {
 }
 
 
-if DEBUG:
+if not DEBUG:
    # uncomment for server/ comment for local server
    # now user don't have to commnent uncomment above line everytime just have to change
    # .env file values acroding to user need production or development
