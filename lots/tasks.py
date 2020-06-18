@@ -226,6 +226,14 @@ def fetch_lots_from_goszakup():
                         article.date_open = get_aware_datetime(trd_buy_id_response.json()['start_date'])
                         article.date =  get_aware_datetime(trd_buy_id_response.json()['end_date'])
                         article.save()
+                        print("=========")
+                        print(trd_buy_id_response.json()['start_date'])
+                        print(get_aware_datetime(trd_buy_id_response.json()['start_date']))
+                        print("=========")
+                        print(trd_buy_id_response.json()['end_date'])
+                        print(get_aware_datetime(trd_buy_id_response.json()['end_date']))
+                        print("=========")
+                        print("=========")
                         print('updating datetime of lots');
                 except Exception as e:
                     print('failed trd_buy_id API call')

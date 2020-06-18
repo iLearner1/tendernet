@@ -7,6 +7,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'customer','city','numb','price','statzakup',  'date','yst',)
     prepopulated_fields = {'slug': ('title',)} # new
     autocomplete_fields = ["city", "region"]
+    ordering = ['-id']
     list_per_page = 30
     exclude = ('favourite',)
 

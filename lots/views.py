@@ -125,7 +125,7 @@ def post_list(request):
     posts = Article.objects.filter(q)
     myFilter = ArticleFilter(filters, queryset=posts)
 
-    paginator = Paginator(posts.order_by("date"), 25)
+    paginator = Paginator(posts.order_by("-id"), 25)
     page_number = request_object.get("page", 1)
     posts = paginator.page(page_number)
 

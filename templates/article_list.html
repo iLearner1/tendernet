@@ -328,7 +328,7 @@
                               <tr>
                                 <td>Дата начала:</td>
                                   {% if article.date_open %}
-                                        <td style="text-align: right;">{{ article.date_open|date:"d.m.Y:h:m:s" }}</td>
+                                        <td style="text-align: right;">{{ article.date_open }}</td>
                                   {% else %}
                                         <td style="text-align: right;"></td>
                                   {% endif %}
@@ -337,7 +337,7 @@
                               <tr>
                                 <td>Дата завершения:</td>
                                   {% if article.date %}
-                                        <td style="text-align: right;">{{ article.date|date:"d.m.Y:h:m:s" }}</td>
+                                        <td style="text-align: right;">{{ article.date }}</td>
                                   {% else %}
                                         <td style="text-align: right;"></td>
                                   {% endif %}

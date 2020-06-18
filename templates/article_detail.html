@@ -86,7 +86,7 @@
                       <tr>
                         <td><b>Дата старта: </b></td>
                         {% if post.date_open %}
-                            <td>{{ post.date_open|date:"Y-m-d H:m:s" }}</td>
+                            <td>{{ post.date_open }}</td>
                         {% else %}
                             <td></td>
                         {% endif %}
@@ -94,7 +94,7 @@
                       <tr>
                         <td><b>Дата закрытия:  </b></td>
                         {% if post.date %}
-                            <td>{{ post.date|date:"Y-m-d H:m:s" }}</td>
+                            <td>{{ post.date }}</td>
                         {% else %}
                             <td></td>
                         {% endif %}

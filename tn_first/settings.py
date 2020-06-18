@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config
+from django.conf.locale.en import formats as en_formats
+from django.conf.locale.ru import formats as ru_formats
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,7 +36,7 @@ ALLOWED_HOSTS = config(
 )
 
 if DEBUG:
-    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', 'd27040b74598.ngrok.io']
+    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '220728c09b59.ngrok.io']
 
 # Application definition
 
@@ -136,6 +138,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
+ru_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
