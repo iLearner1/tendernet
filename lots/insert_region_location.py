@@ -1,5 +1,6 @@
 import xlrd
 import os
+from lots.models import Cities, Regions
 
 
 def read_regions():
@@ -58,3 +59,30 @@ def read_xls():
                         kato_list[code[0:4] + "00000"] = name
 
     return kato_list
+
+
+def insert_locations():
+    locations = read_xls()
+    for k, v in locations.items():
+        c = Cities.objects.filter(code=k)
+        if not c:
+            city = Cities()
+            city.code = k
+            city.name = v
+            city.save()
+
+    print("insert locations done")
+
+
+def insert_regions():
+    regions = read_regions()
+
+    for k, v in regions.items():
+        c = Regions.objects.filter(code=k)
+        if not c:
+            region = Regions()
+            region.code = k
+            region.name = v
+            region.save()
+
+    print("insert regions done")
