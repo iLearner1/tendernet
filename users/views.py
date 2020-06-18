@@ -108,7 +108,20 @@ def signup(request):
             user.is_active = False
             user.set_password(request.POST.get('password'))
             user.save()
-            Profile.objects.create(user=user)
+
+            # check if free tariff exists
+            # if not exist then create
+            free_tariff = Price.objects.get(name='Бесплатный тариф')
+            if free_tariff:
+                Profile.objects.create(user=user)
+            else:
+                p = Price()
+                p.name = 'Бесплатный тариф'
+                p.price = 0
+                p.save()
+
+                Profile.objects.create(user=user)
+
             current_site = get_current_site(request)
 
             print("user")
