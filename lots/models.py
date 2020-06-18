@@ -118,14 +118,20 @@ class FavoriteSearch(models.Model):
     @property
     def city(self):
         # this method creating a property as like his name and return city object
-        query = self.query.get("city[]")
-        if type(query) == list:
-            return Cities.objects.filter(id__in=query)
+        query = self.query.get("city")
+        if query:
+            return Cities.objects.get(code=query)
+
+    @property
+    def region(self):
+        # this method creating a property as like his name and return city object
+        query = self.query.get("region")
+        if query:
+            return Regions.objects.get(code=query)
 
     @property
     def statzakup_obj(self):
         query = self.query.get("statzakup[]")
-        print("query: ", query)
         q = []
         if type(query) == list:
             for i in query:

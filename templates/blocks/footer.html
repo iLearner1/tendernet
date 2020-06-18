@@ -97,7 +97,7 @@
           const text = $("#save-query-" + device).find('a').text();
           console.log('text: ' + text);
 
-          if(text == 'Сохранить в избранные') {
+          if(text == 'Сохранить в избранные' || text == 'Save to Favorites') {
             console.log('text= ' + 'save to favourite');
           }
           else
@@ -113,24 +113,28 @@
           console.log("formData");
           console.log(formData);
 
-          let search_by_3char = $("#searchby3char").is(":checked");
-          console.log("search_by_3char: " + search_by_3char);
+          // let search_by_3char = $("#searchby3char").is(":checked");
+          // console.log("search_by_3char: " + search_by_3char);
 
           //formating data for query
+          // for (let item of formData) {
+          //   console.log('item.name: ' + item.name);
+          //   console.log('item.value: ' + item.value);
+          //   if (item.name == 'city' || item.name == 'region' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+          //     data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+          //   } else {
+          //     data[item.name] = item.value;
+          //   }
+          // }
+
           for (let item of formData) {
-            console.log('item.name: ' + item.name);
-            console.log('item.value: ' + item.value);
-            if (item.name == 'city' || item.name == 'region' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
-              data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
-            } else {
-              data[item.name] = item.value;
-            }
+            data[item.name] = item.value;
           }
 
-          data["searchby3char"] = "0";
-          if(search_by_3char) {
-            data["searchby3char"] = "1";
-          }
+          // data["searchby3char"] = "0";
+          // if(search_by_3char) {
+          //   data["searchby3char"] = "1";
+          // }
 
           //show loader
           $("#input-container").html(loader);
@@ -138,21 +142,15 @@
           //save query for future use
           search_query = data;
 
-          data['sortBy'] = $("#orderby-mobile options:selected").val() || $("#orderby-pc options:selected").val();
-          console.log('sortBy: ' + data['sortBy']);
+          // data['sortBy'] = $("#orderby-mobile options:selected").val() || $("#orderby-pc options:selected").val();
+          // console.log('sortBy: ' + data['sortBy']);
           history.pushState({}, null, location.href.split('?')[0]);
-
-          console.log('data');
-          console.log(data);
 
           //fetch data from server
           $.ajax({
             method: 'GET',
             url: "{% url 'post_search' %}",
-            data: {
-              ...data
-            },
-
+            data: data,
             success: function (resp) {
               $("#input-container").html(resp);
             },
@@ -195,10 +193,10 @@
         }
       }
 
-      data["searchby3char"] = "0";
-      if(search_by_3char) {
-        data["searchby3char"] = "1";
-      }
+      // data["searchby3char"] = "0";
+      // if(search_by_3char) {
+      //   data["searchby3char"] = "1";
+      // }
 
       search_query = data;
 
@@ -258,52 +256,60 @@
       console.log("formData");
       console.log(formData);
 
-      let search_by_3char = $("#searchby3char").is(":checked");
-      console.log("search_by_3char: " + search_by_3char);
+      // let search_by_3char = $("#searchby3char").is(":checked");
+      // console.log("search_by_3char: " + search_by_3char);
 
-      for (let item of formData) {
+      // for (let item of formData) {
+      //
+      //   if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+      //     console.log('fetched items in below');
+      //   } else {
+      //     formatedData[item.name] = item.value;
+      //   }
+      //
+      //   if (item.name != "lots" && item.value) {
+      //     isValid = true
+      //   }
+      // }
+       for (let item of formData) {
 
-        if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
-          console.log('fetched items in below');
-        } else {
-          formatedData[item.name] = item.value;
-        }
+        formatedData[item.name] = item.value;
 
         if (item.name != "lots" && item.value) {
           isValid = true
         }
       }
 
-      formatedData['statzakup'] = [];
-      let purchase_methods = $("#main-searchform-" + save_query_device).find('select[name=statzakup]').find('option:selected');
-      purchase_methods.each(function(i, item) {
-        if($(item).text() !="---------")
-        {
-          formatedData['statzakup'].push($(item).val());
-        }
-      });
+      // formatedData['statzakup'] = [];
+      // let purchase_methods = $("#main-searchform-" + save_query_device).find('select[name=statzakup]').find('option:selected');
+      // purchase_methods.each(function(i, item) {
+      //   if($(item).text() !="---------")
+      //   {
+      //     formatedData['statzakup'].push($(item).val());
+      //   }
+      // });
 
-      formatedData['city'] = [];
-      let cities = $("#main-searchform-" + save_query_device).find('select[name=city]').find('option:selected');
-      cities.each(function(i, item) {
-        formatedData['city'].push($(item).val());
-      });
+      // formatedData['city'] = [];
+      // let cities = $("#main-searchform-" + save_query_device).find('select[name=city]').find('option:selected');
+      // cities.each(function(i, item) {
+      //   formatedData['city'].push($(item).val());
+      // });
 
-      formatedData['subject_of_purchase'] = [];
-      let subjects = $("#main-searchform-" + save_query_device).find('select[name=subject_of_purchase]').find('option:selected');
-      subjects.each(function(i, item) {
-        formatedData['subject_of_purchase'].push($(item).val());
-      });
+      // formatedData['subject_of_purchase'] = [];
+      // let subjects = $("#main-searchform-" + save_query_device).find('select[name=subject_of_purchase]').find('option:selected');
+      // subjects.each(function(i, item) {
+      //   formatedData['subject_of_purchase'].push($(item).val());
+      // });
 
-      formatedData["searchby3char"] = "0";
-      if(search_by_3char) {
-        formatedData["searchby3char"] = "1";
-      }
+      // formatedData["searchby3char"] = "0";
+      // if(search_by_3char) {
+      //   formatedData["searchby3char"] = "1";
+      // }
 
-      if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
-      {
-        isValid = true;
-      }
+      // if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
+      // {
+      //   isValid = true;
+      // }
 
       if (!isValid) {
         // return alert('you can\'t save empty form, please provide some data');
@@ -316,7 +322,7 @@
       const text = $("#save-query-" + save_query_device).find('a').text();
       console.log('text: ' + text);
 
-      if(text == 'Сохранить в избранные') {
+      if(text == 'Сохранить в избранные' || text == 'Save to Favorites') {
         console.log('text= ' + 'save query');
         $("#save-query-" + save_query_device).find('a').html('<i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного');
       }
@@ -338,7 +344,6 @@
       console.log(formatedData);
 
       var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-      console.log('csrfmiddlewaretoken: ' + csrfmiddlewaretoken)
       $.ajax({
         method: "POST",
         url: "{% url 'save_favorite_search' %}",
@@ -386,14 +391,12 @@
     function deleteFavorite(save_query_device) {
       console.log('func -> deleteFavorite');
       var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
-      console.log('csrfmiddlewaretoken: ' + csrfmiddlewaretoken);
       savedId = $('#main-searchform-' + save_query_device).find('input#savedId').val();
       console.log('savedId: ' + savedId);
       $('#main-searchform-' + save_query_device).find('input#savedId').val('');
 
 
       if (savedId) {
-        console.log('if (savedId)');
         $.ajax({
           method: "POST",
           url: "{% url 'save_favorite_search' %}",
@@ -402,9 +405,7 @@
             csrfmiddlewaretoken
           },
           success: function (response) {
-<!--            savedId = response.id;-->
             savedId = null;
-            // alert('search query removed from favorites');
             alert('Поисковый запрос удален из избранного');
           },
 

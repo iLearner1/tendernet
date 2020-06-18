@@ -60,47 +60,38 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     {% if search.query.customer %}
-                                      Заказчик:
-                                      <b>{{search.query.customer}}</b>
-                                      <br>
-                                    {% endif %}
-
-                                    {% if search.statzakup_obj %}
-                                      Способ закупки:
-                                      {% for statzakup in search.statzakup_obj %}
-                                         <b>{{statzakup.1}}</b>&nbsp;
-                                      {% endfor%}
-                                      <br>
+                                      Заказчик:<b>{{search.query.customer}}</b><br>
                                       {% else %}
-                                      Способ закупки: Не выбран<br>
+                                      Заказчик:  Не выбран <br>
                                     {% endif %}
 
 <!--                                    show city-->
-                                    {% if search.city %}
-                                      Регион:
-                                      {% for city in search.city %}
-                                        <b>{{city.name}}</b>&nbsp;
-                                      {% endfor %}
+                                    {% if search.region %}
+                                      Регион: <b>{{search.region.name}}</b>&nbsp;
                                       <br>
-                                      {% else %}
+                                     {% else %}
                                       Регион: Не выбран <br>
                                     {% endif %}
 
-                                  {% if search.subject_of_purchase_obj %}
-                                      Предмет закупки:
-                                    {% for subject in search.subject_of_purchase_obj %}
+                                      {% if search.city %}
+                                          Местоположение: <b>{{search.city.name}}</b>&nbsp;
+                                          <br>
+                                      {% else %}
+                                        Местоположение: Не выбран <br>
+                                    {% endif %}
 
-                                        <b>{{subject.1}}</b>&nbsp;
-                                    {% endfor%}
-                                      <br>
-                                 {% else %}
-                                    Предмет закупки: Не выбран <br>
-                                 {% endif %}
+                                      {% if search.query.id %}
+                                          Номер лота: <b>{{search.query.id}}</b>&nbsp;
+                                          <br>
+                                      {% else %}
+                                        Номер лота: Не выбран <br>
+                                    {% endif %}
+
 
                                   </div>
                                   <div class="col-md-6">
-                                    {% if search.query.price_min %}
-                                         Сумма от:
+                                      {% if search.query.price_min %}
+                                        Сумма от:
                                       <b>{{search.query.price_min}}</b>
                                       <br>
                                     {% else %}
@@ -143,22 +134,11 @@
                                  <input type="hidden" name="customer" value="{{search.query.customer}}">
                                  <input type="hidden" name="id" value="{{search.query.id}}">
 
-                                 {% if search.city %}
-                                    {% for city in search.city %}
-                                        <input type="hidden" name="city[]" value="{{city.id}}">
-                                    {% endfor%}
+                                  {% if search.region %}
+                                    <input type="hidden" name="region" value="{{search.region.code}}">
                                  {% endif %}
-
-                                 {% if search.statzakup_obj %}
-                                    {% for statzakup in search.statzakup_obj %}
-                                        <input type="hidden" name="statzakup[]" value="{{statzakup.0}}">
-                                    {% endfor%}
-                                 {% endif %}
-
-                                 {% if search.subject_of_purchase_obj %}
-                                    {% for subject in search.subject_of_purchase_obj %}
-                                        <input type="hidden" name="itemZakup[]" value="{{subject.0}}">
-                                    {% endfor%}
+                                   {% if search.city %}
+                                    <input type="hidden" name="city" value="{{search.city.code}}">
                                  {% endif %}
 
                                  <input type="hidden" name="price_min" value="{{search.query.price_min}}">

@@ -45,11 +45,11 @@ def post_list(request):
                 title_q |= Q(title__contains=keyword.lower())
                 title_q |= Q(title__contains=keyword.upper())
 
-                if request_object.get('searchby3char-home'):
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+                # if request_object.get('searchby3char-home'):
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
 
         q &= title_q
 
@@ -62,13 +62,14 @@ def post_list(request):
         q &= customer_q
 
     city_q = Q()
-    if request_object.getlist('city[]'):
-        for c in request_object.getlist('city[]'):
+    if request_object.get('city'):
+        for c in request_object.get('city'):
             city_q |= Q(city__id=c)
         q &= city_q
+
     region_q = Q()
-    if request_object.getlist('region[]'):
-        for c in request_object.getlist('region[]'):
+    if request_object.get('region'):
+        for c in request_object.get('region'):
             region_q |= Q(region__id=c)
         q &= region_q
 
@@ -104,7 +105,6 @@ def post_list(request):
             if date_min > datetime.datetime.now(timezone.utc):
                 date_min = datetime.datetime.now(timezone.utc)
             date_min_q &= Q(date__gte=date_min)
-        q &= date_min_q
 
     date_max_q = Q()
     if 'date_max' in request_object:
@@ -112,10 +112,7 @@ def post_list(request):
             d = datetime.datetime.strptime(request_object.get('date_max'), '%Y-%m-%d')
             tz = timezone.utc
             date_max = tz.localize(d)
-            if date_max > datetime.datetime.now(timezone.utc):
-                date_max = datetime.datetime.now(timezone.utc)
             date_max_q &= Q(date__lte=date_max)
-        q &= date_max_q
 
     id_q = Q()
     if 'id' in request_object:
@@ -248,7 +245,6 @@ def post_delete(request, id, slug):
 def post_search(request):
 
     current_time_q = Q(date__gte=timezone.now())
-    # current_time_q = Q()
     title_q = Q()
     if request.GET.get('title'):
         title_tokens = request.GET.get('title').split()
@@ -257,15 +253,14 @@ def post_search(request):
             title_q |= Q(title__contains=keyword.lower())
             title_q |= Q(title__contains=keyword.upper())
 
-            print("3char: ", request.GET.get('searchby3char'))
-            if request.GET.get('searchby3char') == "1":
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+            # print("3char: ", request.GET.get('searchby3char'))
+            # if request.GET.get('searchby3char') == "1":
+            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
+            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
+            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
+            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
 
-    print("title_q")
-    print(title_q)
+
 
     customer_q = Q()
     if request.GET.get('customer'):
@@ -303,48 +298,42 @@ def post_search(request):
     id_q = Q()
     if request.GET.get('id'):
         if request.GET.get('id') != '':
-            id_q &= Q(numb=request.GET.get('id'))
+            id_q &= Q(id=request.GET.get('id'))
 
     sort_field = "date"
-    if 'sortBy' in request.GET:
-        if request.GET.get('sortBy'):
-            sort_by = request.GET.get('sortBy')
-            sort_field = sort_by.split('-')[0]
-            lh_hl = sort_by.split('-')[1]
-
-            if lh_hl == "HL":
-                sort_field = "-" + sort_field
+    # if 'sortBy' in request.GET:
+    #     if request.GET.get('sortBy'):
+    #         sort_by = request.GET.get('sortBy')
+    #         sort_field = sort_by.split('-')[0]
+    #         lh_hl = sort_by.split('-')[1]
+    #
+    #         if lh_hl == "HL":
+    #             sort_field = "-" + sort_field
 
     q = Q()
-    if request.GET.getlist('city[]'):
-        city_q = Q()
-        for c in request.GET.getlist('city[]'):
-            if c != '':
-                city_q |= Q(city__id=c)
+    city_q = Q()
+    if request.GET.get('city'):
+        city_q |= Q(city__id=request.GET.get('city'))
         q &= city_q
 
     region_q = Q()
-
-    if request.GET.getlist('region[]'):
-        for c in request.GET.getlist('region[]'):
-            if c != '':
-                region_q |= Q(region__id=c)
+    if request.GET.get('region'):
+        region_q |= Q(region__id=request.GET.get('region'))
         q &= region_q
 
-    if request.GET.getlist('statzakup[]'):
-        stat_q = Q()
-        for stat in request.GET.getlist('statzakup[]'):
-            if stat != '':
-                stat_q |= Q(statzakup=stat)
-        q &= stat_q
-
-    if request.GET.getlist('subject_of_purchase[]'):
-        purch_subject = Q()
-        for pm in request.GET.getlist('subject_of_purchase[]'):
-            if pm != '':
-                purch_subject |= Q(itemZakup=pm)
-        q &= purch_subject
-
+    # if request.GET.getlist('statzakup[]'):
+    #     stat_q = Q()
+    #     for stat in request.GET.getlist('statzakup[]'):
+    #         if stat != '':
+    #             stat_q |= Q(statzakup=stat)
+    #     q &= stat_q
+    #
+    # if request.GET.getlist('subject_of_purchase[]'):
+    #     purch_subject = Q()
+    #     for pm in request.GET.getlist('subject_of_purchase[]'):
+    #         if pm != '':
+    #             purch_subject |= Q(itemZakup=pm)
+    #     q &= purch_subject
 
     if request.GET.get('id'):
         q &= id_q
@@ -403,15 +392,15 @@ def save_favorite_search(request):
     # saving favorites query
     content = request.POST.dict()
 
-    if "city[]" in content:
-        content["city[]"] = request.POST.getlist("city[]")
-
-    if "subject_of_purchase[]" in content:
-        content["subject_of_purchase[]"] = request.POST.getlist(
-            "subject_of_purchase[]")
-
-    if "statzakup[]" in content:
-        content["statzakup[]"] = request.POST.getlist("statzakup[]")
+    # if "city[]" in content:
+    #     content["city[]"] = request.POST.getlist("city[]")
+    #
+    # if "subject_of_purchase[]" in content:
+    #     content["subject_of_purchase[]"] = request.POST.getlist(
+    #         "subject_of_purchase[]")
+    #
+    # if "statzakup[]" in content:
+    #     content["statzakup[]"] = request.POST.getlist("statzakup[]")
 
     f_search = FavoriteSearch.create(content, request.user)
     f_search.save()
@@ -477,11 +466,10 @@ def api_interface(request):
 
 
 def region_change_ajax(request):
-    region_id = request.POST.get("region_id")
-    print("region_id: ", region_id)
+    region_code = request.POST.get("region_code")
     regions = None
     cities = None
-    regions = Regions.objects.filter(id=region_id)
+    regions = Regions.objects.filter(code=region_code)
 
     if regions:
         region= regions[0]
