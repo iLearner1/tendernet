@@ -177,14 +177,14 @@ def post_detail(request, id, slug):
     except Exception as e:
         print("not exists")
 
-    tariff = "free"
+    tariff = "Бесплатный тариф"
     istariff = False
     try:
         tarif_id = Profile.objects.filter(user__id=request.user.id).values('tarif_id')[0]
         tariff = Price.objects.get(id=tarif_id['tarif_id'])
 
         if tariff:
-            if tariff.name == "free":
+            if tariff.name == "Бесплатный тариф":
                 istariff = True
 
     except Exception as e:
