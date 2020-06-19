@@ -62,15 +62,13 @@ def post_list(request):
         q &= customer_q
 
     city_q = Q()
-    if request_object.get('city'):
-        for c in request_object.get('city'):
-            city_q |= Q(city__id=c)
+    if request.GET.get('city'):
+        city_q |= Q(city__code=request.GET.get('city'))
         q &= city_q
 
     region_q = Q()
-    if request_object.get('region'):
-        for c in request_object.get('region'):
-            region_q |= Q(region__id=c)
+    if request.GET.get('region'):
+        region_q |= Q(region__code=request.GET.get('region'))
         q &= region_q
 
     purchase_method_q = Q()
@@ -313,12 +311,12 @@ def post_search(request):
     q = Q()
     city_q = Q()
     if request.GET.get('city'):
-        city_q |= Q(city__id=request.GET.get('city'))
+        city_q |= Q(city__code=request.GET.get('city'))
         q &= city_q
 
     region_q = Q()
     if request.GET.get('region'):
-        region_q |= Q(region__id=request.GET.get('region'))
+        region_q |= Q(region__code=request.GET.get('region'))
         q &= region_q
 
     # if request.GET.getlist('statzakup[]'):
