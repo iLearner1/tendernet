@@ -61,7 +61,7 @@
 <!--                        <td><b>Единица измерения:</b></td>-->
 <!--                        <td>{{ post.unit }} </td>-->
 <!--                      </tr>-->
-                      {% if request.user.is_authenticated %}
+                      <!--{% if request.user.is_authenticated %}
                             {% if istariff %}
                               <tr>
                                 <td><b>Способ закупки:</b></td>
@@ -82,7 +82,7 @@
                                 <td><b>Способ закупки:</b></td>
                                 <td><a href="{% url 'tariff' %}" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
                               </tr>
-                      {% endif %}
+                      {% endif %} -->
                       <tr>
                         <td><b>Дата старта: </b></td>
                         {% if post.date_open %}
