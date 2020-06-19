@@ -163,7 +163,7 @@
         <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                          <option value="">Выберите область</option>
                             {% for region in regions %}
-                            {% checklist region.id request 'region[]' as available %}
+                            {% checklist region.code request 'region' as available %}
                             <option value="{{region.code}}" {% if available %} selected {% endif %}>{{region.name}}</option>
                             {% endfor%}
                           </select>
@@ -171,10 +171,10 @@
 
                       <h6 class="">Местоположение</h6>
                       <div class="form-group">
-                        <select name="city" id="city_id" class="form-control" title="Местоположение">
+                        <select name="city" id="city_id" class="form-control" title="Местоположение" {% if not city_selected %} disabled {% endif %}>
 <!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
                           {% for city in cities %}
-                          {% checklist city.id request 'city[]' as available %}
+                          {% checklist city.code request 'city' as available %}
                           <option value="{{city.code}}" {% if available %} selected {% endif %}>{{city.name}}</option>
                           {% endfor%}
                         </select>
@@ -497,7 +497,7 @@
 <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                  <option value="">Выберите область</option>
                     {% for region in regions %}
-                    {% checklist region.id request 'region[]' as available %}
+                    {% checklist region.code request 'region' as available %}
                     <option value="{{region.code}}" {% if available %} selected {% endif %}>{{region.name}}</option>
                     {% endfor%}
                   </select>
@@ -505,11 +505,11 @@
 
                    <h6 class="">Местоположение</h6>
                 <div class="form-group">
-                  <select name="city" id="city_id" class="form-control" title="Местоположение">
+                  <select name="city" id="city_id" class="form-control" title="Местоположение" {% if not city_selected %} disabled {% endif %}>
 <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
                  <option value="">Выберите местоположение</option>
                     {% for city in cities %}
-                    {% checklist city.id request 'city[]' as available %}
+                    {% checklist city.code request 'city' as available %}
                     <option value="{{city.code}}" {% if available %} selected {% endif %}>{{city.name}}</option>
                     {% endfor%}
                   </select>
@@ -606,34 +606,44 @@
               "region_code": $(this).find("option:selected").val()
           };
           data["csrfmiddlewaretoken"] = csrftoken;
-          $.ajax({
-             url: url,
-             type: 'POST',
-             data: data,
-             cache: true,
-             success: function (data) {
-                    console.log(data);
-                    if(data.status == "success")
-                    {
-                         $("select[name=city]").html("");
-                        var d = JSON.parse(data.data);
 
-                        $("select[name=city]").append("<option value=''>Выберите местоположение</option>");
+          if($(this).find("option:selected").val().length > 0)
+          {
+              $.ajax({
+                     url: url,
+                     type: 'POST',
+                     data: data,
+                     cache: true,
+                     success: function (data) {
+                            console.log(data);
+                            if(data.status == "success")
+                            {
+                                 $("select[name=city]").html("");
+                                 $("select[name=city]").prop('disabled', false);
+                                var d = JSON.parse(data.data);
 
-                        for(var  i=0;i<d.length;i++)
-                        {
-                            $("select[name=city]").append("<option value='"+ d[i].fields.code +"'>"+ d[i].fields.name +"</option>");
-                        }
-                    }
-                    else
-                    {
-                        alert("location not available")
-                    }
-             },
-             error: function(){
-                 console.log("error")
-             }
-         });
+                                $("select[name=city]").append("<option value=''>Выберите местоположение</option>");
+
+                                for(var  i=0;i<d.length;i++)
+                                {
+                                    $("select[name=city]").append("<option value='"+ d[i].fields.code +"'>"+ d[i].fields.name +"</option>");
+                                }
+                            }
+                            else
+                            {
+                                alert("location not available")
+                            }
+                     },
+                     error: function(){
+                         console.log("error")
+                     }
+                 });
+          }
+          else
+          {
+              $("select[name=city]").prop('disabled', true);
+          }
+
       });
   });
 </script>

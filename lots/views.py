@@ -66,7 +66,9 @@ def post_list(request):
         q &= customer_q
 
     city_q = Q()
+    city_selected = False
     if request.GET.get('city'):
+        city_selected = True
         city_q |= Q(city__code=request.GET.get('city'))
         q &= city_q
 
@@ -143,6 +145,7 @@ def post_list(request):
         posts_end_index = (int(page_number) - 1) * 25 + len(posts)
 
     context = {
+        "city_selected": city_selected,
         "posts": posts,
         "posts_start_index": posts_start_index,
         "posts_end_index": posts_end_index,
@@ -245,7 +248,8 @@ def post_delete(request, id, slug):
 
 
 def post_search(request):
-
+    print("post_search")
+    print(request.GET)
     current_time_q = Q(date__gte=timezone.now())
     title_q = Q()
     if request.GET.get('title'):

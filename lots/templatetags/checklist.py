@@ -5,8 +5,7 @@ register = template.Library()
 
 @register.simple_tag
 def checklist(item: int, request: HttpRequest, key: str):
-    #checking is item available in in list 
-    items = request.GET.getlist(key)
-
-    return str(item) in items
+    #checking is item available in in list
+    code = request.GET.get(key)
+    return  code == item
         
