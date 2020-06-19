@@ -16,11 +16,12 @@ from time import sleep
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, make_aware
 
+
 @shared_task
 def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
     print("customer_bin: ", customer_bin)
     print("lot_number: ", lot_number)
-    api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/"+ customer_bin +"/address"
+    api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + customer_bin + "/address"
 
     token = 'bb28b5ade7629ef512a8b7b9931d04ad'
     bearer_token = 'Bearer ' + token
@@ -46,46 +47,69 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             print("region_code: ", region_code)
             print("location_code: ", location_code)
 
-            location = Cities.objects.filter(code=location_code)
+            location = Cities.objects.get(code=location_code)
             print("location: ", location)
             if location:
-                location = location[0]
-                Article.objects.filter(numb=lot_number).update(city=location)
+                print("if location")
+                print(location)
+                try:
+                    Article.objects.filter(numb=lot_number).update(city=location)
+                except Exception as e:
+                    print("exception updating location for lot number: ", lot_number)
+                    print(e)
             else:
-                print("else location")
-                kato_list_keys = list(kato_list.keys())
-                if location_code in kato_list_keys:
-                    print("if location_code in kato_list_keys")
-                    city = Cities()
-                    city.name = kato_list[location_code]
-                    city.code = location_code
-                    city.save()
-                    print("city: ", city)
-                    location = city
-                    Article.objects.filter(numb=lot_number).update(city=city)
+                c = Cities()
+                c.code = location_code
+                c.name = location_code
+                c.save()
+                Article.objects.filter(numb=lot_number).update(city=c)
 
-            region = Regions.objects.filter(code=region_code)
+            try:
+                region = Regions.objects.get(code=region_code)
+                print("region found")
+                print(region_code, region)
+            except Exception as e:
+                print("exception in fetching region")
+                print(e)
             if region:
                 print("if region")
                 print("region_code: ", region_code)
-                Article.objects.filter(numb=lot_number).update(region=region[0])
+                try:
+                    Article.objects.filter(numb=lot_number).update(region=region)
+                except Exception as e:
+                    print("exception in if region")
+                    print(e)
+
                 print("kato_code.type: ", type(kato_code))
                 if kato_code in ["710000000", "750000000", "790000000"]:
+                    print("kato_code in 71, 75, 79")
                     print("kato_code: ", kato_code)
                     print("region[0]: ", region[0])
                     print("region.code: ", region[0].code)
                     print("region.name: ", region[0].name)
-                    city = Cities()
-                    city.code = region[0].code
-                    city.name = region[0].name
-                    city.save()
-                    Article.objects.filter(numb=lot_number).update(city=city)
+                    cc = Cities.objects.get(code=kato_code)
+                    if not cc:
+                        city = Cities()
+                        city.code = region.code
+                        city.name = region.name
+                        city.save()
+                    try:
+                        Article.objects.filter(numb=lot_number).update(city=region)
+                    except Exception as e:
+                        print("exception after 71, 75, 79 block ")
+                        print(e)
+            else:
+                rr = Regions()
+                rr.code = region_code
+                rr.name = region_code
+                rr.save()
+                Article.objects.filter(numb=lot_number).update(region=rr)
 
             address = item["address"]
             if address:
                 address_split = item["address"].split(",")
                 for item in address_split:
-                   print("address.part: ", item)
+                    print("address.part: ", item)
                 if '0' in address_split[0]:
                     address_split = address_split[1:]
                     print("address without city: ", address_split)
@@ -126,7 +150,6 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
     except Exception as e:
         print('failed trd_buy_id API call')
 
-
     if trd_buy_id_response:
         print('trd_buy_id_response')
         print(trd_buy_id_response.json())
@@ -136,12 +159,12 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
             print('start_date: ', response_json['start_date'])
             print('end_date: ', response_json['end_date'])
             print(response_json)
-            start_date = timezone.utc.localize(datetime.datetime.strptime(response_json['start_date'], '%Y-%m-%d %H:%M:%S'))
+            start_date = timezone.utc.localize(
+                datetime.datetime.strptime(response_json['start_date'], '%Y-%m-%d %H:%M:%S'))
             end_date = timezone.utc.localize(datetime.datetime.strptime(response_json['end_date'], '%Y-%m-%d %H:%M:%S'))
             Article.objects.filter(numb=lot_number).update(date=end_date, date_open=start_date)
         except Exception as e:
             print('exception in date update')
-
 
 
 def get_aware_datetime(date_str):
@@ -149,6 +172,7 @@ def get_aware_datetime(date_str):
     if not is_aware(ret):
         ret = make_aware(ret)
     return ret
+
 
 @shared_task
 def fetch_lots_from_goszakup():
@@ -206,13 +230,13 @@ def fetch_lots_from_goszakup():
                     itemZakup='product',
                     date=datetime.datetime.now(),
                     date_open=datetime.datetime.now(),
-                    yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"])+"?tab=documents"
+                    yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"]) + "?tab=documents"
                 )
                 article.save()
                 # lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
                 lot_bin_pair_list.append((item['customer_bin'], item['lot_number']))
 
-                #updating article start and end date from api
+                # updating article start and end date from api
                 token = 'bb28b5ade7629ef512a8b7b9931d04ad'
                 bearer_token = 'Bearer ' + token
                 header = {'Authorization': bearer_token}
@@ -224,7 +248,7 @@ def fetch_lots_from_goszakup():
                     trd_buy_id_response = requests.get(url=trd_buy_id_url, headers=header, verify=False)
                     if trd_buy_id_response:
                         article.date_open = get_aware_datetime(trd_buy_id_response.json()['start_date'])
-                        article.date =  get_aware_datetime(trd_buy_id_response.json()['end_date'])
+                        article.date = get_aware_datetime(trd_buy_id_response.json()['end_date'])
                         article.save()
                         print("=========")
                         print(trd_buy_id_response.json()['start_date'])
@@ -237,9 +261,6 @@ def fetch_lots_from_goszakup():
                         print('updating datetime of lots');
                 except Exception as e:
                     print('failed trd_buy_id API call')
-
-               
-                
 
         # if len(lot_trd_list)>0:
         #     while len(lot_trd_list)>0:
@@ -256,7 +277,8 @@ def fetch_lots_from_goszakup():
         if len(lot_bin_pair_list) > 0:
             while len(lot_bin_pair_list) > 0:
                 print("creating task")
-                result = fetch_region_location_from_goszak.delay(lot_bin_pair_list[0][0],lot_bin_pair_list[0][1], kato_list)
+                result = fetch_region_location_from_goszak.delay(lot_bin_pair_list[0][0], lot_bin_pair_list[0][1],
+                                                                 kato_list)
                 while not result.ready():
                     print("sleeping for 0.5s")
                     sleep(0.5)
@@ -278,6 +300,7 @@ def notify_subscriber_about_new_lots(lotId=None):
     html = render_to_string('blocks/new-lots-mail.html',
                             {'article': article, 'host_url': host_url})
 
+
 #    send_mail('new lots arrived', '', 'test@mail.com', [
 #              'tendernetkz@mail.ru', CONTACT_MAIL_RECEIVER, *receiver], html_message=html, fail_silently=False)
 
@@ -290,7 +313,7 @@ def findAllFavoriteSearchReceiver(article):
         # sorry, :'( for this line of code what is the logic behinde of this line
         # checking this new article has in anyone favorites list or not
         if ((favorite.city and article.city.id in [item.id for item in favorite.city])
-            or (favorite.purchase_method and article.purchase_method in [item for item in favorite.purchase_method])
+                or (favorite.purchase_method and article.purchase_method in [item for item in favorite.purchase_method])
                 or (favorite.statzakup and article.statzakup in [item for item in favorite.statzakup])
                 or (handleDate(favorite.query, article))
                 or (handleDate(favorite.query, article))
@@ -302,7 +325,9 @@ def findAllFavoriteSearchReceiver(article):
 def handleDate(obj1, obj2):
     if not (obj1['date_max'] and obj1['date_min']):
         return False
-    return (datetime.datetime.strptime(obj1['date_max'], '%Y-%m-%d').date() >= obj2.date_open.date() and datetime.datetime.strptime(obj1['date_min'], '%Y-%m-%d').date() <= obj2.date.date())
+    return (datetime.datetime.strptime(obj1['date_max'],
+                                       '%Y-%m-%d').date() >= obj2.date_open.date() and datetime.datetime.strptime(
+        obj1['date_min'], '%Y-%m-%d').date() <= obj2.date.date())
 
 
 def handlePrice(obj1, obj2):
