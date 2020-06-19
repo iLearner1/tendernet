@@ -8,6 +8,7 @@ register = template.Library()
 def format_price(post: Article):
 
     group3 = []
+    LAST_INDEX = 0
     if post.price:
         decimal_idx = str(post.price).index(".")
         decimals = str(post.price)[decimal_idx:]
