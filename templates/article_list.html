@@ -168,9 +168,9 @@
                           </select>
                         </div>
 
-                      <h6 class="">Регион</h6>
+                      <h6 class="">Местоположение</h6>
                       <div class="form-group">
-                        <select name="city" id="city_id" class="form-control" title="Регион">
+                        <select name="city" id="city_id" class="form-control" title="Местоположение">
 <!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
                           {% for city in cities %}
                           {% checklist city.id request 'city[]' as available %}
