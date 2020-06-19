@@ -6,6 +6,7 @@ urlpatterns = [
     path("<int:ID>/favourite_post_ajax/", views.favourite_post_ajax, name="favourite_post_ajax"),
     path("", views.post_list, name="post_list"),
     path("api_interface", views.api_interface, name="api_interface"),
+    path("insert_regions_locations", views.insert_regions_locations, name="insert_regions_locations"),
     path("region_change_ajax", views.region_change_ajax, name="region_change_ajax"),
     path("delete_lots", views.delete_lots, name="delete_lots"),
     path("<int:id>/<slug:slug>/", views.post_detail, name="post_detail"),

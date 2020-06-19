@@ -17,9 +17,13 @@ import logging
 logging.basicConfig(level='DEBUG')
 import requests
 from users.models import Profile, Price
-from lots.insert_region_location import read_xls
+from lots.insert_region_location import read_xls, insert_regions, insert_locations
 
 
+def insert_regions_locations(request):
+    insert_locations()
+    insert_regions()
+    return JsonResponse({'status': 'success'})
 
 def post_list(request):
 
