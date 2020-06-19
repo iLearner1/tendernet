@@ -12,7 +12,7 @@ def read_regions():
     region_list = {}
 
     for row in range(sheet_0.nrows):
-        code = str(sheet_0.cell_value(row, 0))
+        code = int(sheet_0.cell_value(row, 0))
         name = sheet_0.cell_value(row, 1)
         if code not in region_list.keys():
             region_list[code] = name
