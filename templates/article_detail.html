@@ -1,4 +1,5 @@
 {% load humanize %}
+{% load format_price %}
 {% include "blocks/header.html" %}
 <!-- article_detail.html -->
 
@@ -48,7 +49,8 @@
                       <tr>
                         <td><b>Сумма лота:</b></td>
                         {% if post.price %}
-                            <td>{{ post.price }} тг.</td>
+                        {% format_price post as formatted_price %}
+                            <td>{{ formatted_price }} тг.</td>
                         {% else %}
                             <td></td>
                         {% endif %}
