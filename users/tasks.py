@@ -22,6 +22,6 @@ def task_tariff_change_email(email, months):
 def send_mail_to_manager(username,email):
     subject, from_email, to = 'Tariff page', settings.DEFAULT_FROM_EMAIL, settings.EMAIL_MANAGER
     msg_html = render_to_string("blocks/tariff-mail.html", {'username': username, 'email': email})
-    msg = EmailMessage(subject=subject, body=msg_html, from_email=from_email, to=[settings.EMAIL_MANAGER, 'mdmotailab@gmail.com'])
+    msg = EmailMessage(subject=subject, body=msg_html, from_email=from_email, to=[settings.EMAIL_MANAGER])
     msg.content_subtype = "html"  # Main content is now text/html
     return msg.send()
