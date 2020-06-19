@@ -1,30 +1,111 @@
+{% load humanize %}
+{% load is_favourite_post %}
+{% load format_price %}
 <div class="tender-filter-result xs-padding-0">
     {% for article in posts %}
       <div class="item">
-        <div class="tender-list half-grid">
-          <div class="body">
-            <div class="content">
-              <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
-              <div class="info">
-                <div class="row">
-                  <div class="col-md-5">
-                    Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
-                  </div>
-                  <div class="col-md-7">
-                    <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
-                  </div>
+          <div class="tender-list half-grid" style="display: block;">
+
+              <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-9">
+                  <h4 class="lot-name">
+                      {% if article.title %}
+                            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                      {% else %}
+                            <a href="{{ article.get_absolute_url }}"></a>
+                      {% endif %}
+                  </h4>
+                </div>
+                <div class="col-md-3">
+
+                    {% if article.price %}
+                    {% format_price article as formatted_price %}
+                            <span class="price">{{ formatted_price }} тг</span>
+                    {% else %}
+                            <span class="price"></span>
+                    {% endif %}
                 </div>
               </div>
-            </div>
-            <div class="more">
-              <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
-              <div class="buttons">
-                <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+
+              <div style="clear: both;"></div>
+
+              <div class="row">
+
+                <div class="col-md-9">
+
+                  <table class="table table-borderless">
+                    <tbody>
+
+                      <tr>
+                        <td>Дата начала:</td>
+                          {% if article.date_open %}
+                                <td style="text-align: right;">{{ article.date_open }}</td>
+                          {% else %}
+                                <td style="text-align: right;"></td>
+                          {% endif %}
+                      </tr>
+
+                      <tr>
+                        <td>Дата завершения:</td>
+                          {% if article.date %}
+                                <td style="text-align: right;">{{ article.date }}</td>
+                          {% else %}
+                                <td style="text-align: right;"></td>
+                          {% endif %}
+                      </tr>
+
+                      <tr>
+                        <td>Место поставки:</td>
+                          {% if article.region and article.city %}
+                                <td style="text-align: right;">{{ article.region }} {{ article.city }}</td>
+                          {% else %}
+                                {% if article.region %}
+                                    <td style="text-align: right;">{{ article.region }}</td>
+                                {% else %}
+                                    {% if article.city %}
+                                        <td style="text-align: right;">{{ article.city }}</td>
+                                    {% else %}
+                                        <td style="text-align: right;"></td>
+                                    {% endif %}
+                                {% endif %}
+                          {% endif %}
+                      </tr>
+
+                      <tr style="font-style: italic;">
+                        <td>До завершения:</td>
+                          {% if article.date %}
+                            <td style="text-align: right;">{{ article.date|naturaltime }}</td>
+                          {% else %}
+                            <td style="text-align: right;"></td>
+                          {% endif %}
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <div class="col-md-3">
+
+                  <div class="buttons">
+                    <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
+                      {% if request.user.is_authenticated %}
+                            {% is_favourite_post article request as is_favourite %}
+                            {% if is_favourite %}
+                                <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: #FFC107!important;">В избранные</a>
+                            {% else %}
+                                <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
+                            {% endif %}
+                      {% else %}
+                            <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button">В избранные</a>
+                      {% endif %}
+                  </div>
+
+                </div>
+
               </div>
-            </div>
+
           </div>
         </div>
-      </div>
       {% empty %}
       <div class="item">
         <p>Не найден соответсвующий тендер</p>
