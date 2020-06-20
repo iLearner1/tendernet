@@ -126,11 +126,10 @@ def post_list(request):
 
     filters = {}
 
-    posts = Article.objects.filter(q)
-    myFilter = ArticleFilter(filters, queryset=posts)
-
-    paginator = Paginator(posts.order_by("-id"), 25)
-    page_number = request_object.get("page", 1)
+    queryset = Article.objects.filter(q)
+    sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
+    paginator = Paginator(sorted_lots, 25)
+    page_number = request.GET.get("page", 1)
     posts = paginator.page(page_number)
 
     cities = Cities.objects.all()
@@ -357,15 +356,17 @@ def post_search(request):
         q &= date_min_q & date_max_q
 
     q &= current_time_q
-    if (sort_field == 'title') | (sort_field == '-title'):
-        queryset = Article.objects.filter(q)
-        if sort_field == '-title':
-            sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
-        else:
-            sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
-    else:
-        sorted_lots = Article.objects.filter(q).order_by(sort_field)
+    # if (sort_field == 'title') | (sort_field == '-title'):
+    #     queryset = Article.objects.filter(q)
+    #     if sort_field == '-title':
+    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower(), reverse=True)
+    #     else:
+    #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
+    # else:
+    #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
 
+    queryset = Article.objects.filter(q)
+    sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     paginator = Paginator(sorted_lots, 25)
     page_number = request.GET.get("page", 1)
     posts = paginator.page(page_number)
