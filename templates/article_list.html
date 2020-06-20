@@ -173,7 +173,8 @@
                       <div class="form-group">
                         <select name="city" id="city_id" class="form-control" title="Местоположение" {% if not city_selected %} disabled {% endif %}>
 <!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
-                          {% for city in cities %}
+                          <option value="">Выберите местоположение</option>
+                            {% for city in cities %}
                           {% checklist city.code request 'city' as available %}
                           <option value="{{city.code}}" {% if available %} selected {% endif %}>{{city.name}}</option>
                           {% endfor%}
