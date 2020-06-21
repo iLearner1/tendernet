@@ -247,8 +247,6 @@ def post_delete(request, id, slug):
 
 
 def post_search(request):
-    print("post_search")
-    print(request.GET)
     current_time_q = Q(date__gte=timezone.now())
     title_q = Q()
     if request.GET.get('title'):
@@ -376,8 +374,8 @@ def post_search(request):
     posts_end_index = 0
 
     if len(posts) > 0:
-        posts_start_index = (page_number - 1) * 25 + 1
-        posts_end_index = (page_number - 1) * 25 + len(posts)
+        posts_start_index = (int(page_number) - 1) * 25 + 1
+        posts_end_index = (int(page_number) - 1) * 25 + len(posts)
 
     context = {"posts": posts,
                "total_posts": total_posts,

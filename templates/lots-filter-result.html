@@ -117,20 +117,42 @@
     <nav class="navigation pagination">
       <div class="nav-links">
         {% if posts.has_previous %}
-          <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+          <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ posts.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
         {% endif %}
         {% for p in posts.paginator.page_range %}
           {% if posts.number == p %}
-            <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
+            <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
           {% else %}
-            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+            <a class="page-numbers" href="javascript:void(0);" data-page="{{ p }}">{{ p }}</a>
           {% endif %}
         {% endfor %}
         {% if posts.has_next %}
-          <a class="next page-numbers" href="?page={{ posts.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+          <a class="next page-numbers" href="javascript:void(0);" data-page="{{ posts.next_page_number }}"><i class="fas fa-angle-right"></i></a>
         {% endif %}
       </div>
     </nav>                
   </div>
 
 </div>
+<script>
+     $(".page-numbers").on("click", function(event) {
+      event.preventDefault();
+      const formData = $("#main-searchform-" + "pc").serializeArray();
+      var data = {};
+      for (let item of formData) {
+        data[item.name] = item.value;
+      }
+      data["page"] = parseInt($(this).attr("data-page"));
+      $.ajax({
+            method: 'GET',
+            url: "{% url 'post_search' %}",
+            data: data,
+            success: function (resp) {
+                $("#input-container").html(resp);
+            },
+            error: function (err) {
+              console.log(err.responseText);
+            }
+      });
+  });
+</script>
