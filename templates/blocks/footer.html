@@ -371,11 +371,13 @@
 
     $('.reset-pc').click(function() {
       console.log('reset-pc clicked');
+      $(".searchform-name-input").val("");
       reset_search("pc");
     });
 
     $('.reset-mobile').click(function() {
       console.log('reset-mobile clicked');
+      $(".searchform-name-input").val("");
       reset_search("mobile");
     });
 
