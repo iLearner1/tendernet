@@ -12,7 +12,7 @@
         <div class="searchAndFilter-block"  style="margin-top:20px;">
           <div class="searchAndFilter">
 
-            <form method="POST" class="search-form" action="{% url 'post_list' %}" id="main-page-searchform">
+            <form method="GET" class="search-form" action="{% url 'post_list' %}" id="main-page-searchform">
               {% csrf_token %}
 
               <div class="row">
