@@ -196,7 +196,7 @@
                       Добавить в избранное</a>
                     {% endif %}
                     {% else %}
-                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}" style="font-weight: 400;"><i class="far fa-star"></i>
+                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}" target="_blank" style="font-weight: 400;"><i class="far fa-star"></i>
                       Добавить в избранное</a>
                     {% endif %}
                     <br>
@@ -250,7 +250,7 @@
                           </form>
 
                       {% else %}
-                          <a href="{% url 'login' %}?next={{ request.path }}"><button class="button contact-button"
+                          <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank"><button class="button contact-button"
                               style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
 
@@ -305,7 +305,7 @@
                                   onclick="return documentFunction();">Запросить аудит</button>
                               </form>
                       {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}"><button
+                      <a href="{% url 'login' %}?next={{ request.path }}" target="_blank"><button
                           class="button contact-button">Запросить аудит</button></a>
 
                       {% endif %}

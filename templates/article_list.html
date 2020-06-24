@@ -389,7 +389,7 @@
                                         <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                                     {% endif %}
                               {% else %}
-                                    <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button">В избранные</a>
+                                    <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button" target=="_blank">В избранные</a>
                               {% endif %}
                           </div>
 
