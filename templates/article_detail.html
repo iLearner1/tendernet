@@ -146,7 +146,7 @@
                         {% else %}
                             <td></td>
                         {% endif %}
-                      </tr>
+                      </tr>fa-download
                       {% if request.user.is_authenticated %}
                                 {% if istariff %}
                                 <tr>
@@ -255,23 +255,23 @@
                       {% endif %}
 
                       {% if request.user.is_authenticated  %}
-                      {% if post.yst %}
-                          {% if istariff %}
-                              <a href="#" class="save doc-download" target="_blank" data-free="free" data-tariff="{% url 'tariff' %}"
-                            style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
-                              class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                          {% if post.yst %}
+                              {% if istariff %}
+                                  <a href="{% url 'tariff' %}" class="save doc-download" target="_blank" data-free="free" onclick="return confirm('Чтобы посмотреть детали, поменяйте ваш тариф')"
+                                style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                                  class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                              {% else %}
+                                  <a href="{{ post.yst }}"  class="save doc-download" target="_blank" data-free="other"
+                                style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                                  class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                              {% endif %}
                           {% else %}
-                              <a href="{{ post.yst }}" class="save doc-download" target="_blank" data-free="other" data-tariff="{% url 'tariff' %}"
+                              <a href="{% url 'tariff' %}" class="save doc-download" target="_blank"
                             style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                               class="fa fa-download"></i>&nbsp;Скачать документацию</a>
                           {% endif %}
                       {% else %}
-                          <a href="/media/media/email-activated-dummy.png" class="save doc-download" target="_blank" data-tariff="{% url 'tariff' %}"
-                        style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
-                          class="fa fa-download"></i>&nbsp;Скачать документацию</a>
-                      {% endif %}
-                      {% else %}
-                        <a href="{% url 'login' %}?next={{ request.path }}" class="save" data-tariff="{% url 'tariff' %}"
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="save" target="_blank"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
 
@@ -283,28 +283,6 @@
                     <div class="buttons">
 
                       <script type="text/javascript">
-
-                        $(document).ready(function() {
-                          $("a.doc-download").on("click", function() {
-                            if($(this).attr('data-free') == "free")
-                            {
-                              if(confirm("Чтобы посмотреть детали, поменяйте ваш тариф"))
-                              {
-                                  window.location = $(this).attr('data-tariff');
-                              }
-                              else
-                              {
-                                return;
-                                // window.location = $(this).attr('href');
-                              }
-                            }
-                            else
-                            {
-                              window.location = $(this).attr('href');
-                            }
-
-                          });
-                        });
 
                         function documentFunction() {
                           if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
