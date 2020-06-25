@@ -133,7 +133,7 @@ def post_list(request):
 
     filters = {}
 
-    queryset = Article.objects.filter(q).order_by('date_created', 'date_created__hour', 'date_created__minute')
+    queryset = Article.objects.filter(q).order_by('-date_created__day', '-date_created__month', '-date_created__year', '-date_created__hour', 'date_created__minute', 'date_created__second')
     # sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     paginator = Paginator(queryset, 25)
     page_number = request.GET.get("page", 1)
@@ -383,7 +383,7 @@ def post_search(request):
     # else:
     #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
 
-    queryset = Article.objects.filter(q).order_by('date_created', 'date_created__hour', 'date_created__minute')
+    queryset = Article.objects.filter(q).order_by('-date_created__day', '-date_created__month', '-date_created__year', '-date_created__hour', '-date_created__minute', '-date_created__second')
     # sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     paginator = Paginator(queryset, 25)
     page_number = request.GET.get("page", 1)
