@@ -50,10 +50,17 @@ def post_list(request):
                 title_q |= Q(title__contains=keyword.upper())
 
                 # if request_object.get('searchby3char-home'):
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+                if len(keyword) <= 5:
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+
+                if len(keyword) >= 6:
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6])
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].lower())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].upper())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].capitalize())
 
         q &= title_q
 
@@ -251,6 +258,11 @@ def post_search(request):
     title_q = Q()
     if request.GET.get('title'):
         title_tokens = request.GET.get('title').split()
+
+        print("title_tokens.len: ", len(title_tokens))
+        print("title_tokens")
+        print(title_tokens)
+
         for keyword in title_tokens:
             title_q |= Q(title__contains=keyword.capitalize())
             title_q |= Q(title__contains=keyword.lower())
@@ -258,10 +270,18 @@ def post_search(request):
 
             # print("3char: ", request.GET.get('searchby3char'))
             # if request.GET.get('searchby3char') == "1":
-            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
-            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
-            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
-            title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+            if len(keyword) <= 5:
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+
+            if len(keyword) >=6:
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6])
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].lower())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].upper())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].capitalize())
+                
 
 
 
