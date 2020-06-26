@@ -57,10 +57,10 @@ def post_list(request):
                     title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
 
                 if len(keyword) >= 6:
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6])
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].lower())
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].upper())
-                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].capitalize())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5])
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].lower())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].upper())
+                    title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
 
         q &= title_q
 
@@ -277,10 +277,10 @@ def post_search(request):
                 title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
 
             if len(keyword) >=6:
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6])
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].lower())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].upper())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:6].capitalize())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5])
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].lower())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].upper())
+                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
                 
 
 
