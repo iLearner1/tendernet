@@ -111,14 +111,15 @@ def signup(request):
 
             # check if free tariff exists
             # if not exist then create
-            free_tariff = Price.objects.get(name='Бесплатный тариф')
-            if free_tariff:
+            free_tariff, created = Price.objects.get_or_create(name='Бесплатный тариф')
+            if created:
                 Profile.objects.create(user=user)
             else:
-                p = Price()
-                p.name = 'Бесплатный тариф'
-                p.price = 0
-                p.save()
+                # p = Price()
+                # p.name = 'Бесплатный тариф'
+                # p.price = 0
+                free_tariff.price = 0
+                free_tariff.save()
 
                 Profile.objects.create(user=user)
 

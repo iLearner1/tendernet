@@ -303,9 +303,9 @@
                         <div class="col-md-9">
                           <h4 class="lot-name">
                               {% if article.title %}
-                                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                                    <a href="{{ article.get_absolute_url }}" target="_blank">{{ article.title }}</a>
                               {% else %}
-                                    <a href="{{ article.get_absolute_url }}"></a>
+                                    <a href="{{ article.get_absolute_url }}" target="_blank"></a>
                               {% endif %}
                           </h4>
                         </div>
@@ -380,7 +380,7 @@
                         <div class="col-md-3">
 
                           <div class="buttons">
-                            <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
+                            <a href="{{ article.get_absolute_url }}" class="more-button" target="_blank">ПОДРОБНЕЕ</a>
                               {% if request.user.is_authenticated %}
                                     {% is_favourite_post article request as is_favourite %}
                                     {% if is_favourite %}
@@ -389,7 +389,7 @@
                                         <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                                     {% endif %}
                               {% else %}
-                                    <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button" target=="_blank">В избранные</a>
+                                    <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button" target="_blank">В избранные</a>
                               {% endif %}
                           </div>
 
