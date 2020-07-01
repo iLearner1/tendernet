@@ -53,7 +53,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 print("if location")
                 print(location)
                 try:
-                    Article.objects.filter(numb=lot_number).update(city=location)
+                    a=Article.objects.get(numb=lot_number)
+                    a.city=location
+                    a.save()
                 except Exception as e:
                     print("exception updating location for lot number: ", lot_number)
                     print(e)
@@ -62,7 +64,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 c.code = location_code
                 c.name = location_code
                 c.save()
-                Article.objects.filter(numb=lot_number).update(city=c)
+                a=Article.objects.get(numb=lot_number)
+                a.city=c
+                a.save()
 
             try:
                 region = Regions.objects.get(code=region_code)
@@ -75,7 +79,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 print("if region")
                 print("region_code: ", region_code)
                 try:
-                    Article.objects.get(numb=lot_number).update(region=region)
+                    a=Article.objects.get(numb=lot_number)
+                    a.region=region
+                    a.save()
                 except Exception as e:
                     print("exception in if region")
                     print(e)
@@ -89,12 +95,14 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                     print("region.name: ", region.name)
                     cc = Cities.objects.get(code=kato_code)
                     if not cc:
-                        city = Cities()
-                        city.code = region.code
-                        city.name = region.name
-                        city.save()
+                        cc = Cities()
+                        cc.code = region.code
+                        cc.name = region.name
+                        cc.save()
                     try:
-                        Article.objects.get(numb=lot_number).update(city=region)
+                        a=Article.objects.get(numb=lot_number)
+                        a.city=region
+                        a.save()
                     except Exception as e:
                         print("exception after 71, 75, 79 block ")
                         print(e)
@@ -103,7 +111,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 rr.code = region_code
                 rr.name = region_code
                 rr.save()
-                Article.objects.get(numb=lot_number).update(region=rr)
+                a=Article.objects.get(numb=lot_number)
+                a.region=rr
+                a.save()
 
             address = item["address"]
             if address:
@@ -191,7 +201,6 @@ def fetch_lots_from_goszakup():
     for a in articles:
         if a.numb not in numbs:
             numbs.append(a.numb)
-    print('numbs: ', numbs)
 
     kato_list = read_xls()
 
