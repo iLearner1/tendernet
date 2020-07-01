@@ -5,7 +5,7 @@
           <div class="body">
             <div class="content">
               <h4>
-                <a href="{{ article.get_absolute_url }}">
+                <a href="{{ article.get_absolute_url }}" target="_blank">
                   {{ article.title }}
                 </a>
               </h4>
@@ -28,7 +28,7 @@
                 {{ article.price }} тг.
               </span><br>
               <div class="buttons">
-                <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+                <a href="{{ article.get_absolute_url }}" class="button" target="_blank">ПОДРОБНЕЕ</a>
               </div>
             </div>
           </div>

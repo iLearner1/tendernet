@@ -24,7 +24,8 @@ class Profile(models.Model):
     # please reconsider this logic, if someone start with a fresh database how would he get value from an empty table 
     # it will throw a an error
     # default=Price.objects.filter(name='free')[0].id
-    tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф', default=Price.objects.get(name='Бесплатный тариф').id )
+    price, create = Price.objects.get_or_create(name='Бесплатный тариф')
+    tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф', default=price.id)
     rassylka = models.BooleanField(verbose_name='Подписаться на email рассылку', default=True)
 
     def __str__(self):

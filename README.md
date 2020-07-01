@@ -39,3 +39,6 @@ and run this command on linux
 `celery -A tn_first worker -l info`
 if you are on windows then
 `celery -A tn_first worker -l info --pool=solo`
+
+for run celery Beat
+`celery -A tn_first beat`
