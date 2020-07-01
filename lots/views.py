@@ -399,6 +399,7 @@ def post_search(request):
 
     context = {"posts": posts,
                "total_posts": total_posts,
+               "total_pages": paginator.num_pages,
                "posts_start_index": posts_start_index,
                "posts_end_index": posts_end_index
             }
