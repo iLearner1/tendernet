@@ -75,7 +75,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 print("if region")
                 print("region_code: ", region_code)
                 try:
-                    Article.objects.filter(numb=lot_number).update(region=region)
+                    Article.objects.get(numb=lot_number).update(region=region)
                 except Exception as e:
                     print("exception in if region")
                     print(e)
@@ -84,9 +84,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 if kato_code in ["710000000", "750000000", "790000000"]:
                     print("kato_code in 71, 75, 79")
                     print("kato_code: ", kato_code)
-                    print("region[0]: ", region[0])
-                    print("region.code: ", region[0].code)
-                    print("region.name: ", region[0].name)
+                    print("region: ", region)
+                    print("region.code: ", region.code)
+                    print("region.name: ", region.name)
                     cc = Cities.objects.get(code=kato_code)
                     if not cc:
                         city = Cities()
@@ -94,7 +94,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                         city.name = region.name
                         city.save()
                     try:
-                        Article.objects.filter(numb=lot_number).update(city=region)
+                        Article.objects.get(numb=lot_number).update(city=region)
                     except Exception as e:
                         print("exception after 71, 75, 79 block ")
                         print(e)
@@ -103,7 +103,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 rr.code = region_code
                 rr.name = region_code
                 rr.save()
-                Article.objects.filter(numb=lot_number).update(region=rr)
+                Article.objects.get(numb=lot_number).update(region=rr)
 
             address = item["address"]
             if address:
@@ -116,7 +116,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                     if location:
                         address = location.name + ", " + ", ".join(address_split)
                 print("final address: ", address)
-                Article.objects.filter(numb=lot_number).update(addressFull=address)
+                Article.objects.get(numb=lot_number).update(addressFull=address)
 
             return True
         except Exception as e:
