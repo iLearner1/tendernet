@@ -127,23 +127,23 @@
 <!--                        </select>-->
 <!--                      </div>-->
 
-                      <h6 class="">Поиск по названию</h6>
-                      <div class="form-group">
-                        <!-- {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %} -->
-                        <input type="text" class="form-control searchform-name-input" name="title" value="{{request.GET.title}}"
-                          placeholder="Введите название лота">
-                      </div>
+                        <h6 class="">Поиск по названию</h6>
+                        <div class="form-group">
+                          <!-- {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %} -->
+                          <input type="text" class="form-control searchform-name-input" name="title" value="{{request.GET.title}}"
+                            placeholder="Введите название лота">
+                        </div>
 <!--                        <div class="form-check">-->
 <!--                        <input type="checkbox" name="searchby3charmobile" class="form-check-input" id="searchby3charmobile" checked>-->
 <!--&lt;!&ndash;                        <label class="form-check-label" for="searchby3charmobile">search by 3 character</label>&ndash;&gt;-->
 <!--                      </div>-->
 
-                      <h6 class="">Заказчик, БИН</h6>
-                      <div class="form-group">
-                        <!-- {% render_field myFilter.form.body class="form-control" placeholder="Заказчик, БИН" %} -->
-                        <input type="text" class="form-control" name="customer" value="{{request.GET.customer}}"
-                          placeholder="Заказчик, БИН">
-                      </div>
+                          <h6 class="">Заказчик, БИН</h6>
+                          <div class="form-group">
+                            <!-- {% render_field myFilter.form.body class="form-control" placeholder="Заказчик, БИН" %} -->
+                            <input type="text" class="form-control" name="customer" value="{{request.GET.customer}}"
+                              placeholder="Заказчик, БИН">
+                          </div>
 
 <!--                      <h6 class="">Способ закупки</h6>-->
 <!--                      <div class="form-group">-->
@@ -161,7 +161,7 @@
                         <div class="form-group">
                           <select name="region" id="region_id" class="form-control region-select" title="Регион" data-change_url="{% url 'region_change_ajax' %}">
         <!--                    <option value="" {% if available %} selected {% endif %}>Все</option>-->
-                         <option value="">Выберите область</option>
+                            <option value="">Выберите область</option>
                             {% for region in regions %}
                             {% checklist region.code request 'region' as available %}
                             <option value="{{region.code}}" {% if available %} selected {% endif %}>{{region.name}}</option>
@@ -169,17 +169,17 @@
                           </select>
                         </div>
 
-                      <h6 class="">Местоположение</h6>
-                      <div class="form-group">
-                        <select name="city" id="city_id" class="form-control" title="Местоположение" {% if not city_selected %} disabled {% endif %}>
-<!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
-                          <option value="">Выберите местоположение</option>
-                            {% for city in cities %}
-                          {% checklist city.code request 'city' as available %}
-                          <option value="{{city.code}}" {% if available %} selected {% endif %}>{{city.name}}</option>
-                          {% endfor%}
-                        </select>
-                      </div>
+                        <h6 class="">Местоположение</h6>
+                        <div class="form-group">
+                          <select name="city" id="city_id" class="form-control" title="Местоположение" {% if not city_selected %} disabled {% endif %}>
+  <!--                          <option value="" {% if available %} selected {% endif %}>Все</option>-->
+                            <option value="">Выберите местоположение</option>
+                              {% for city in cities %}
+                            {% checklist city.code request 'city' as available %}
+                            <option value="{{city.code}}" {% if available %} selected {% endif %}>{{city.name}}</option>
+                            {% endfor%}
+                          </select>
+                        </div>
 
 <!--                      <h6 class="">Предмет закупки</h6>-->
 <!--                      <div class="form-group">-->
@@ -195,9 +195,9 @@
                       <h6 class="">Сумма лота</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                        <input type="number" min="0" class="form-control" name="price_min" value="{{requestt.GET.price_min}}"
+                        <input type="number" class="form-control" name="price_min" value='{{request.GET.price_min}}'
                           placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                        <input type="number" min="0" class="form-control" name="price_max" value="{{requestt.GET.price_max}}"
+                        <input type="text" class="form-control" name="price_max" value='{{request.GET.price_max}}'
                           placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                       </div>
 
@@ -235,8 +235,8 @@
                         {% if request.user.is_authenticated%}
                         <!-- is user authenticated  -->
                         {% is_favorited request as is_favorite %}
-                        <!-- is this query favorites  -->
-                        <input type="hidden" id="savedId" value="{{request.GET.item_id}}">
+                          <!-- is this query favorites  -->
+                          <input type="hidden" id="savedId" value="{{request.GET.item_id}}">
                           {% if  is_favorite  %}
 
                         <span id="save-query-mobile">
@@ -250,7 +250,7 @@
                         </span>
                         {% endif %}
                         {% else %}
-                        <a href="{% url 'login' %}">Сохранить в избранные&nbsp;<i class="far fa-star"></i></a>
+                        <a href="{% url 'login' %}" class="un-authorized">Сохранить в избранные&nbsp;<i class="far fa-star"></i></a>
                         {% endif %}
                       </div>
                     </form>
@@ -389,7 +389,7 @@
                                         <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                                     {% endif %}
                               {% else %}
-                                    <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button" target="_blank">В избранные</a>
+                                    <a href="{% url 'login' %}?next={{ request.path }}" class="featured-button un-authorized" data-message="true" data-favorite="true">В избранные</a>
                               {% endif %}
                           </div>
 
@@ -465,7 +465,7 @@
                 <h6 class="">Поиск по названию</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %} -->
-                  <input type="text" class="form-control searchform-name-input" name="title" value="{{request.GET.title}}"
+                  <input type="text" class="form-control searchform-name-input" name="title"value="{{request.GET.title}}"
                     placeholder="Введите название лота">
                 </div>
 <!--                  <div class="form-check">-->
@@ -530,10 +530,10 @@
                 <h6 class="">Сумма лота</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                  <input type="number" min="0" class="form-control" name="price_min" value="{{requestt.GET.price_min}}"
-                    placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                  <input type="number" min="0" class="form-control" name="price_max" value="{{requestt.GET.price_max}}"
-                    placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                  <input type="number" class="form-control" name="price_min" value="{{request.GET.price_min}}"
+                        placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                  <input type="number" class="form-control" name="price_max" value="{{request.GET.price_max}}"
+                        placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                 </div>
 
                 <h6 class="">Дата</h6>
@@ -585,7 +585,7 @@
                   </span>
                   {% endif %}
                   {% else %}
-                  <a href="{% url 'login' %}">Сохранить в избранные&nbsp;<i class="far fa-star"></i></a>
+                    <a href="{% url 'login' %}" class="un-authorized">Сохранить в избранные&nbsp;<i class="far fa-star"></i></a>
                   {% endif %}
                 </div>
               </form>
@@ -600,6 +600,7 @@
 </div>
 <script>
   $(document).ready(function() {
+
       $(".region-select").on("change", function() {
           var url = $(this).data("change_url");
           let csrftoken = '{{ csrf_token }}';
@@ -647,14 +648,22 @@
 
       });
 
-      $('.reset-pc').click(function() {
-          $("#main-searchform-pc").find(".searchform-name-input").attr("value", "");
+     $('.reset-pc').click(function(e) {
+       e.preventDefault();
+       document.getElementById("main-searchform-pc").reset();
+       //$("#main-searchform-pc").find('.form-group .form-control').val("");
+       //console.log($('#main-searchform-pc input[type="number"]').first().val(10000))
+       //$("#main-searchform-pc input[type='text'], #main-searchform-pc input[type='number'],#main-searchform-pc input[type='date'], #main-searchform-pc select").val('');
+       window.location.href = "/lots";
     });
 
-    $('.reset-mobile').click(function() {
-        $("#main-searchform-mobile").find(".searchform-name-input").attr("value", "");
+    $('.reset-mobile').click(function(e) {
+        e.preventDefault();
+        //$("#main-searchform-mobile input[type='text'], #main-searchform-mobile input[type='number'], #main-searchform-mobile input[type='date'], #main-searchform-mobile select").val('');
+        window.location.href = "/lots";
     });
   });
+
 </script>
 <!-- tender Listing End -->
 

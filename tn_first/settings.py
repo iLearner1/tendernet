@@ -36,7 +36,7 @@ ALLOWED_HOSTS = config(
 )
 
 if DEBUG:
-    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '8a1b79d5c11c.ngrok.io']
+    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '74adb84b2c33.ngrok.io']
 
 # Application definition
 
