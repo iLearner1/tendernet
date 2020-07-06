@@ -48,6 +48,7 @@ $(document).ready(function(){
 
         data2 = data;
         data2['type'] = "buying_doc";
+<<<<<<< HEAD
         
         const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
 
@@ -77,6 +78,37 @@ $(document).ready(function(){
             }
 
 
+=======
+
+        if(verifyUserClick(data2)) {
+            return;
+        }
+
+                    if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
+            var csrf_token = $('#buying_doc [name="csrfmiddlewaretoken"]').val();
+            data["csrfmiddlewaretoken"] = csrf_token;
+
+            var url = $('#buying_doc').attr("action");
+
+            console.log(data);
+            console.log('we are working the data');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                cache: true,
+                success: function (data) {
+                    alert('Заявка на запрос документов отправлена');
+                },
+                error: function(){
+                    console.log("error")
+                }
+            });
+        } else {
+            return false;
+>>>>>>> 6549ca9c837543cef12ff97c1882a6bfbe66056c
         }
 
         
@@ -89,7 +121,7 @@ $(document).ready(function(){
         if(localStorage.getItem(key)) {
             const verify_data = JSON.parse(localStorage.getItem(key));
             if(verify_data['product_id'] === data2['product_id'] && verify_data['user_id'] === data2['user_id'] &&  verify_data['type'] === data2['type']) {
-                alert('Вы уже нажали на эту кнопку. в самое ближайшее время менеджер с вами свяжется');
+                alert('Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста');
                 return true;
             } else {
               //  localStorage.setItem(key, JSON.stringify(data2));
