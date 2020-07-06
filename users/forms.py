@@ -59,7 +59,7 @@ def validate_password(password, confirm_password):
 class CustomEmailValidationOnForgotPassword(SetPasswordForm):
     new_password1 = forms.CharField(label="Новый пароль",
                                     widget=forms.PasswordInput(attrs={'placeholder': 'Новый пароль'}),
-                                    help_text=format_html('<ul>{}</ul>', format_html_join('', '<li>{}</li>',
+                                    help_text=format_html('<ul>{}</ul>', format_html_join('', '<li style="background-color:#f8d7da">{}</li>',
                                                                                           ((help_text,) for help_text in
                                                                                            set_password_validation_rules.values()))))
 

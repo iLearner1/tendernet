@@ -10,7 +10,7 @@ app = Celery("tn_first", broker=settings.CELERY_BROKER_URL)
 
 app.config_from_object("django.conf:settings")
 
-app.autodiscover_tasks()
+app.autodiscover_tasks(settings.INSTALLED_APPS)
 
 # add to celery beat
 app.conf.CELERYBEAT_SCHEDULE = {

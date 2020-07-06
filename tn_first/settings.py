@@ -196,10 +196,12 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 redis_port = config('custom_redis_port', cast=int, default=6379)
 
 CELERY_BROKER_URL = f"redis://localhost:{redis_port}"
-CELERY_RESULT_BACKEND = f"redis://localhost:{redis_port}"
+#CELERY_RESULT_BACKEND = f"redis://localhost:{redis_port}"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 60 * 60 *24 * 365
 
 # cache backend
 CACHES = {

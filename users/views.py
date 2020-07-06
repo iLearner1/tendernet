@@ -194,7 +194,7 @@ class Activate(View):
             user.is_active = True
             user.save()
             login(request, user)
-
+            
             return render(request, 'email_activate.html')
         else:
             return HttpResponse('Ссылка на активации недействительна!')
