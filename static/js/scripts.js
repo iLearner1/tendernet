@@ -49,13 +49,13 @@ $(document).ready(function(){
 
         data2 = data;
         data2['type'] = "buying_doc";
-        
+
         if(verifyUserClick(data2)) {
             return;
         }
 
-        if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
-            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
+                    if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
             var csrf_token = $('#buying_doc [name="csrfmiddlewaretoken"]').val();
             data["csrfmiddlewaretoken"] = csrf_token;
 
@@ -88,7 +88,7 @@ $(document).ready(function(){
         if(localStorage.getItem(key)) {
             const verify_data = JSON.parse(localStorage.getItem(key));
             if(verify_data['product_id'] === data2['product_id'] && verify_data['user_id'] === data2['user_id'] &&  verify_data['type'] === data2['type']) {
-                alert('Вы уже нажали на эту кнопку. в самое ближайшее время менеджер с вами свяжется');
+                alert('Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста');
                 return true;
             } else {
                 localStorage.setItem(key, JSON.stringify(data2));
