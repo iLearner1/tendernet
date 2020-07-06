@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="breadcrumb-form breadcrumb-form-mobile" style="">
+        <div class="breadcrumb-form breadcrumb-form-mobile">
           <form action="{% url 'post_list' %}" class="lots-page-form-mobile">
             <input type="text" placeholder="Поиск по названию" class="searchform-name-input" name="title">
             <button><i data-feather="search"></i></button>
@@ -32,7 +32,7 @@
           <script>
             jQuery(document).ready(function ($) {
               $(".searchform-name-input").keyup(function() {
-                  $(".searchform-name-input").val( this.value );
+                  $(".searchform-name-input.filter-form-name").val( this.value );
               });
               // $("#search-name-input-2").keyup(function() {
               //     $("#search-name-input").val( this.value );
@@ -130,7 +130,7 @@
                         <h6 class="">Поиск по названию</h6>
                         <div class="form-group">
                           <!-- {% render_field myFilter.form.title class="form-control" placeholder="Введите название лота" %} -->
-                          <input type="text" class="form-control searchform-name-input" name="title" value="{{request.GET.title}}"
+                          <input type="text" class="form-control searchform-name-input filter-form-name" name="title" value="{{request.GET.title}}"
                             placeholder="Введите название лота">
                         </div>
 <!--                        <div class="form-check">-->
