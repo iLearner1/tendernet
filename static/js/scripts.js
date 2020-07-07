@@ -25,6 +25,7 @@ $(document).ready(function(){
                     cache: true,
                     success: function (data) {
                         alert('Заявка на участие отправлена');
+                        localStorage.setItem(key, JSON.stringify(data2));
                     },
                     error: function(){
                         console.log("error")
@@ -67,6 +68,7 @@ $(document).ready(function(){
                     cache: true,
                     success: function (data) {
                         alert('Заявка на запрос документов отправлена');
+                        localStorage.setItem(key, JSON.stringify(data2));
                         
                     },
                     error: function(){
@@ -78,35 +80,35 @@ $(document).ready(function(){
             }
 
         }
-        if(verifyUserClick(data2)) {
-            return;
-        }
+        // if(verifyUserClick(data2)) {
+        //     return;
+        // }
 
-                    if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
-                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
-            var csrf_token = $('#buying_doc [name="csrfmiddlewaretoken"]').val();
-            data["csrfmiddlewaretoken"] = csrf_token;
+        //             if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+        //                 alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
+        //     var csrf_token = $('#buying_doc [name="csrfmiddlewaretoken"]').val();
+        //     data["csrfmiddlewaretoken"] = csrf_token;
 
-            var url = $('#buying_doc').attr("action");
+        //     var url = $('#buying_doc').attr("action");
 
-            console.log(data);
-            console.log('we are working the data');
+        //     console.log(data);
+        //     console.log('we are working the data');
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: data,
-                cache: true,
-                success: function (data) {
-                    alert('Заявка на запрос документов отправлена');
-                },
-                error: function(){
-                    console.log("error")
-                }
-            });
-        } else {
-            return false;
-        }
+        //     $.ajax({
+        //         url: url,
+        //         type: 'POST',
+        //         data: data,
+        //         cache: true,
+        //         success: function (data) {
+        //             alert('Заявка на запрос документов отправлена');
+        //         },
+        //         error: function(){
+        //             console.log("error")
+        //         }
+        //     });
+        // } else {
+        //     return false;
+        // }
 
         
         
