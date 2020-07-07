@@ -48,7 +48,7 @@ $(document).ready(function(){
 
         data2 = data;
         data2['type'] = "buying_doc";
-<<<<<<< HEAD
+        
         
         const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
 
@@ -77,9 +77,7 @@ $(document).ready(function(){
                 return false;
             }
 
-
-=======
-
+        }
         if(verifyUserClick(data2)) {
             return;
         }
@@ -108,7 +106,6 @@ $(document).ready(function(){
             });
         } else {
             return false;
->>>>>>> 6549ca9c837543cef12ff97c1882a6bfbe66056c
         }
 
         

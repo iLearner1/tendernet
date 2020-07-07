@@ -384,13 +384,13 @@ def post_search(request):
     #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     # else:
     #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
-
+    print
     queryset = Article.objects.order_by('-date_created').filter(q)
     # sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     paginator = Paginator(queryset, 25)
     page_number = request.GET.get("page", 1)
     posts = paginator.page(page_number)
-
+    print(posts)
     total_posts = paginator.count
     posts_start_index = 0
     posts_end_index = 0
