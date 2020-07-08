@@ -133,26 +133,34 @@ $(document).ready(function(){
     }
 
     function createButton(text, cb) {
-        return $('<button>' + text + '</button>').on('click', cb);
+        return $('<a style="margin-bottom: 20px;padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 6px;">' + text + '</a>').on('click', cb);
     }
 
     $(document).on("click", ".un-authorized", function(e){
         const url = $(this).attr('href');
+        
         const message = $(this).data('message') ? 'Вы должны авторизоваться' : 'Вы должны авторизоваться или зарегистрироваться в системе';
         const favorite = $(this).data('favorite');
 
         var buttons = $('<div>')
         .append(createButton('Sign In', function() {
            swal.close();
+        if(url === '/accounts/login/?next=/lots/'){
         window.open(url);
-        }).addClass('.btn btn-success mr-2')).append(createButton('Register', function() {
+        }else{
+            window.location.href = url
+        }
+        }).addClass('')).append(createButton('Register', function() {
            swal.close();
            console.log('Register');
-           window.open('/signup'); 
-        }).addClass('.btn btn-primary mr-2')).append(createButton('Cancel', function() {
+        if(url === '/accounts/login/?next=/lots/'){
+        window.open('/signup');
+        }else{
+            window.location.href = '/signup'
+        }        }).addClass('')).append(createButton('Cancel', function() {
            swal.close();
            console.log('Cancel');
-        }).addClass('.btn btn-warning'));
+        }).addClass(''));
 
 
         e.preventDefault();
@@ -161,7 +169,8 @@ $(document).ready(function(){
                 type:'info',
                 html: buttons,       
                 showConfirmButton: false,
-                showCancelButton: false
+                showCancelButton: false,
+                showCloseButton: true
            });
 
     });

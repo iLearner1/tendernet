@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+from celery.schedules import crontab
 
 import os
 from decouple import config
@@ -58,6 +59,11 @@ INSTALLED_APPS = [
     "phonenumber_field",
     # bootstrap modal forms
     "bootstrap_modal_forms",
+    'django_celery_beat',
+]
+
+CRONJOBS = [
+    ('*/5 * * * *', 'lots.tasks.fetch_lots_from_goszakup')
 ]
 
 MIDDLEWARE = [
@@ -101,7 +107,6 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
