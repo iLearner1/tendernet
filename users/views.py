@@ -12,12 +12,13 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-
+from django.views.decorators.csrf import csrf_exempt
 from users.forms import SignupForm, ProfileEditForm, UserEditForm, TarifEditForm, LoginForm, PasswordResetForm
 from users.models import Profile
 from lots.models import Article
 from tn_first.settings import EMAIL_MANAGER
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from users.tasks import task_tariff_change_email, send_mail_to_manager
 import datetime
@@ -65,22 +66,27 @@ def check_pass(user, password):
 
     return None
 
-
+@method_decorator(csrf_exempt, 'dispatch')
 class LoginView(View):
 
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('/lots')
+
         form = LoginForm()
         return render(request, "registration/login.html", {"form": form})
 
-    def post(self, request):
 
+    def post(self, request):
+        if request.user.is_authenticated:
+            return redirect('/lots')
+        
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate_user(username)
 
         if user is not None:
             user = check_pass(user, password)
-
 
         context = {}
 
@@ -100,7 +106,17 @@ class LoginView(View):
         return render(request, 'registration/login.html', context)
 
 
+        def dispatch(self, request, *args, **kwargs):
+            if request.user.is_authenticated:
+                return redirect('/lots')
+            else:
+                return super().dispatch(request, *args, **kwargs)
+
 def signup(request):
+
+    if request.user.is_authenticated:
+        return redirect('/lots')
+
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -125,11 +141,13 @@ def signup(request):
 
             current_site = get_current_site(request)
 
-            print("user")
-            print(user)
+            scheme = 'http://'
+            if request.is_secure():
+                scheme = 'https://'
 
             mail_subject = 'Активируйте пожалуйста Ваш аккаунт на tendernet.kz'
             message = render_to_string('acc_active_email.html', {
+                'scheme': scheme,
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -176,7 +194,7 @@ class Activate(View):
             user.is_active = True
             user.save()
             login(request, user)
-
+            
             return render(request, 'email_activate.html')
         else:
             return HttpResponse('Ссылка на активации недействительна!')

@@ -27,7 +27,6 @@ urlpatterns = [
     path('lots/', include('lots.urls')),
     path('', include('home.urls')),
     path('', include('zakaz.urls')),
-
     path('accounts/login/', views.LoginView.as_view(), name='login'),
     path('accounts/reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(form_class=CustomEmailValidationOnForgotPassword), name='password_reset_confirm'),
     path('accounts/password_reset/', PasswordResetView.as_view(form_class=EmailValidationOnForgotPassword), name='password_reset'),

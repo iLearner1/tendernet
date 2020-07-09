@@ -96,7 +96,7 @@
                                 <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
                             {% endif %}
                       {% else %}
-                            <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="featured-button">В избранные</a>
+                            <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="featured-button un-authorized" data-message="true" data-favorite="true">В избранные</a>
                       {% endif %}
                   </div>
 
@@ -146,7 +146,14 @@
 <script>
      $(".page-numbers").on("click", function(event) {
       event.preventDefault();
-      const formData = $("#main-searchform-" + "pc").serializeArray();
+      var w = window.innerWidth;
+      let formData = null;
+      if(w<500){
+        formData = $("#main-searchform-" + "mobile").serializeArray();
+      }else{
+        formData = $("#main-searchform-" + "pc").serializeArray();
+      }
+      
       var data = {};
       for (let item of formData) {
         data[item.name] = item.value;

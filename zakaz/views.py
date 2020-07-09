@@ -77,10 +77,10 @@ def pko(request):
     return render(request, 'pko.html', {'form': sub})
 
 
+
 def iso(request):
     sub = forms.Iso()
     if request.method == 'POST':
-
         sub = forms.Iso(request.POST)
         subject = 'ПКО с сайта Tendernet.kz'
         notify_admin_service.delay(sub.data, subject)

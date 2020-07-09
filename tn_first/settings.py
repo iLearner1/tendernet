@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+from celery.schedules import crontab
 
 import os
 from decouple import config
@@ -36,7 +37,7 @@ ALLOWED_HOSTS = config(
 )
 
 if DEBUG:
-    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '8a1b79d5c11c.ngrok.io']
+    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '74adb84b2c33.ngrok.io']
 
 # Application definition
 
@@ -58,6 +59,11 @@ INSTALLED_APPS = [
     "phonenumber_field",
     # bootstrap modal forms
     "bootstrap_modal_forms",
+    'django_celery_beat',
+]
+
+CRONJOBS = [
+    ('*/5 * * * *', 'lots.tasks.fetch_lots_from_goszakup')
 ]
 
 MIDDLEWARE = [
@@ -101,7 +107,6 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -196,10 +201,12 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 redis_port = config('custom_redis_port', cast=int, default=6379)
 
 CELERY_BROKER_URL = f"redis://localhost:{redis_port}"
-CELERY_RESULT_BACKEND = f"redis://localhost:{redis_port}"
+#CELERY_RESULT_BACKEND = f"redis://localhost:{redis_port}"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 60 * 60 *24 * 365
 
 # cache backend
 CACHES = {

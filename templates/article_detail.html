@@ -196,7 +196,7 @@
                       Добавить в избранное</a>
                     {% endif %}
                     {% else %}
-                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}" target="_blank" style="font-weight: 400;"><i class="far fa-star"></i>
+                    <a class="apply un-authorized" href="{% url 'login' %}?next={{ request.path }}" target="_blank" style="font-weight: 400;"><i class="far fa-star"></i>
                       Добавить в избранное</a>
                     {% endif %}
                     <br>
@@ -229,28 +229,29 @@
 
                       <script type="text/javascript">
                         function uchastvovatFunction() {
-                          if (confirm("Вы действительно желаете участвовать?")) {
+                          /**if (confirm("Вы действительно желаете участвовать?")) {
                             alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
                           } else {
                             return false;
-                          }
+                          }**/
+
                         }
                       </script>
 
                       {% if request.user.is_authenticated %}
-                            <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}"
+                            <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
                             style="width: 100%;">
                             {% csrf_token %}
                             <button type="submit" id="submit_btn1" class="button contact-button"
                               data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
                               style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                              onclick="return uchastvovatFunction();">
+                              >
                               Участвовать
                             </button>
                           </form>
 
                       {% else %}
-                          <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank"><button class="button contact-button"
+                          <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank" class="un-authorized"><button class="button contact-button"
                               style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
 
@@ -271,7 +272,7 @@
                               class="fa fa-download"></i>&nbsp;Скачать документацию</a>
                           {% endif %}
                       {% else %}
-                        <a href="{% url 'login' %}?next={{ request.path }}" class="save" target="_blank"
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="save un-authorized" target="_blank"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
 
@@ -283,29 +284,29 @@
                     <div class="buttons">
 
                       <script type="text/javascript">
-
                         function documentFunction() {
-                          if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
-                            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
+                          /**if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
                           } else {
                             return false;
-                          }
+                          }**/
+                          console.log('nice content');
                         }
                       </script>
 
-                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы
+                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы 
                         для участия</h6>
                       {% if request.user.is_authenticated %}
-                             <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}"
+                             <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
                                 style="width: 100%;">
                                 {% csrf_token %}
                                 <button type="submit" id="submit_btn_doc" class="button contact-button"
                                   data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
                                   style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                                  onclick="return documentFunction();">Запросить аудит</button>
+                                 >Запросить аудит</button>
                               </form>
                       {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}" target="_blank"><button
+                      <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
                           class="button contact-button">Запросить аудит</button></a>
 
                       {% endif %}
@@ -551,7 +552,7 @@
         <div class="mob-right-menu">
           <div class="information-and-share" style="margin-top: 20px;">
 
-            <div class="tender-summary" style="padding: 0!important;">
+            <div class="tender-summary content-simm" style="padding: 0!important;">
               <div class="buttons">
 
                 <script type="text/javascript">
@@ -565,19 +566,19 @@
                 </script>
 
                 {% if request.user.is_authenticated %}
-                      <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}"
+                      <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
                       style="width: 100%;">
                       {% csrf_token %}
                       <button type="submit" id="submit_btn1" class="button contact-button"
                         data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
                         style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                        onclick="return uchastvovatFunction();">
+                       >
                         Участвовать
                       </button>
                     </form>
 
                 {% else %}
-                    <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank"><button class="button contact-button"
+                    <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank" class="un-authorized"><button class="button contact-button"
                         style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                 {% endif %}
 
@@ -598,7 +599,7 @@
                         class="fa fa-download"></i>&nbsp;Скачать документацию</a>
                     {% endif %}
                 {% else %}
-                  <a href="{% url 'login' %}?next={{ request.path }}" class="save" target="_blank"
+                  <a href="{% url 'login' %}?next={{ request.path }}" class="save un-authorized" target="_blank"
                   style="display: block;width: 100%;text-align: center;margin-right: 0!important;margin-bottom: 10px;"><i
                     class="fa fa-download"></i>&nbsp;Скачать документацию</a>
 
@@ -610,10 +611,9 @@
               <div class="buttons">
 
                 <script type="text/javascript">
-
                   function documentFunction() {
-                    if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
-                      alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
+                    if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
                     } else {
                       return false;
                     }
@@ -622,17 +622,17 @@
 
                 <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы
                   для участия</h6>
-                {% if request.user.is_authenticated %}
-                       <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}"
+                  {% if request.user.is_authenticated %}
+                       <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
                           style="width: 100%;">
                           {% csrf_token %}
                           <button type="submit" id="submit_btn_doc" class="button contact-button"
                             data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
                             style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                            onclick="return documentFunction();">Запросить аудит</button>
+                            >Запросить аудит</button>
                         </form>
                 {% else %}
-                <a href="{% url 'login' %}?next={{ request.path }}" target="_blank"><button
+                <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
                     class="button contact-button">Запросить аудит</button></a>
 
                 {% endif %}

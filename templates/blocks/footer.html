@@ -64,9 +64,6 @@
     weekStart: 0
   };
 
-  $(document).ready(function() {
-
-  });
 
   $(document).ready(function () {
 
@@ -74,15 +71,18 @@
      const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
       let search_query = {};
 
-      $('.lots-search-button-pc').click(function() {
+      $('.lots-search-button-pc').click(function(e) {
+        e.preventDefault();
         console.log('lots-search-button-pc clicked');
         submit_pc_search_form("pc");
       });
 
-      $('.lots-search-button-mobile').click(function() {
+      $('.lots-search-button-mobile').click(function(e) {
+        e.preventDefault();
         console.log('lots-search-button-mobile clicked');
         submit_pc_search_form("mobile");
       });
+
 
       function submit_pc_search_form(device) {
           console.log('pc-search-button event handler');
@@ -130,7 +130,7 @@
           for (let item of formData) {
             data[item.name] = item.value;
           }
-
+          console.log(data);
           // data["searchby3char"] = "0";
           // if(search_by_3char) {
           //   data["searchby3char"] = "1";
@@ -159,6 +159,7 @@
             }
           })
       }
+      
     $("#orderby-pc").change(function(e) {
       console.log('orderby-pc clicked');
       orderby_eventHandler(this.value, "pc");
@@ -272,11 +273,10 @@
       //   }
       // }
        for (let item of formData) {
-
         formatedData[item.name] = item.value;
 
-        if (item.name != "lots" && item.value) {
-          isValid = true
+        if((item.name !== "lots" && item.name !== 'csrfmiddlewaretoken') && item.value !== "") {
+          isValid = true;
         }
       }
 
@@ -310,7 +310,7 @@
       // {
       //   isValid = true;
       // }
-
+      console.log(`is valid ${isValid}`);
       if (!isValid) {
         // return alert('you can\'t save empty form, please provide some data');
         return alert('Вы не можете сохранить пустую форму, пожалуйста, предоставьте некоторые данные');
@@ -369,7 +369,7 @@
       })
     }
 
-    $('.reset-pc').click(function() {
+   /** $('.reset-pc').click(function() {
       console.log('reset-pc clicked');
       $(".searchform-name-input").val("");
       reset_search("pc");
@@ -379,7 +379,7 @@
       console.log('reset-mobile clicked');
       $(".searchform-name-input").val("");
       reset_search("mobile");
-    });
+    }); **/ 
 
     function reset_search(device) {
         $("#main-searchform-" + device).find("#save-query-" + device).find('a').text('Сохранить в избранные');

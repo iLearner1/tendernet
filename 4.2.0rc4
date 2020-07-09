@@ -1,0 +1,6 @@
+Requirement already satisfied: celery in c:\users\welcome\envs\nenv\lib\site-packages (4.1.1)
+Requirement already satisfied: pytz>dev in c:\users\welcome\envs\nenv\lib\site-packages (from celery) (2019.3)
+Requirement already satisfied: billiard<3.6.0,>=3.5.0.2 in c:\users\welcome\envs\nenv\lib\site-packages (from celery) (3.5.0.5)
+Requirement already satisfied: kombu<5.0,>=4.2.0 in c:\users\welcome\envs\nenv\lib\site-packages (from celery) (4.6.11)
+Requirement already satisfied: amqp<2.7,>=2.6.0 in c:\users\welcome\envs\nenv\lib\site-packages (from kombu<5.0,>=4.2.0->celery) (2.6.0)
+Requirement already satisfied: vine<5.0.0a1,>=1.1.3 in c:\users\welcome\envs\nenv\lib\site-packages (from amqp<2.7,>=2.6.0->kombu<5.0,>=4.2.0->celery) (1.3.0)
