@@ -135,9 +135,9 @@ $(document).ready(function(){
 
     function createButton(text,url) {
         if(text=='Авторизация'){
-            return $(`<button id="signInRedirect" data-url="${url}" style="margin-bottom: 20px;padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 6px;">` + text + `</button>`);
+            return $(`<button id="signInRedirect" data-url="${url}" style="margin-bottom: 20px;padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 6px;font-size:large;">` + text + `</button>`);
         }else{
-        return $(`<button id="signUpRedirect" data-url="${url}" style="padding: 6px 20px;background: #fff;color: #000;border: 1px solid #111c2b;border-radius: 6px" > ` + text + `</button>`);
+        return $(`<button id="signUpRedirect" data-url="${url}" style="padding: 6px 20px;background: #fff;color: #000;border: 1px solid #111c2b;border-radius: 6px;font-size:large; margin-bottom:15px;" > ` + text + `</button>`);
             }
     }
 
@@ -172,7 +172,7 @@ $(document).ready(function(){
         const favorite = $(this).data('favorite');
 
         var buttons = $('<div>')
-        .append(createButton('Авторизация',url).addClass('mt-3 mr-2')).append(createButton('Регистрация',url).addClass('mt-3 mr-2'))
+        .append(createButton('Авторизация',url).addClass('mt-3 mr-2')).append(createButton('Регистрация',url).addClass('mr-2'))
 
 
         // function() {
