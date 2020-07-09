@@ -132,41 +132,68 @@ $(document).ready(function(){
         }
     }
 
-    function createButton(text, cb) {
-        return $('<a style="margin-bottom: 20px;padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 6px;">' + text + '</a>').on('click', cb);
+
+    function createButton(text,url) {
+        if(text=='Авторизация'){
+            return $(`<button id="signInRedirect" data-url="${url}" style="margin-bottom: 20px;padding: 6px 20px;background: #eb3547;color: #ffffff;border-radius: 6px;">` + text + `</button>`);
+        }else{
+        return $(`<button id="signUpRedirect" data-url="${url}" style="padding: 6px 20px;background: #fff;color: #000;border: 1px solid #111c2b;border-radius: 6px" > ` + text + `</button>`);
+            }
     }
 
+    $(document).on('click', "#signInRedirect", function() {
+        let url  = this.getAttribute('data-url')
+        if(url === '/accounts/login/?next=/lots/'){
+            window.open(url);
+            }else{
+                window.location.href = url
+            }
+
+      });
+
+      
+
+    $(document).on('click', "#signUpRedirect", function() {
+        let url  = this.getAttribute('data-url')
+        if(url === '/accounts/login/?next=/lots/'){
+            window.open('/signup');
+        }else{
+            window.location.href = '/signup'
+        }   
+      });
+
     $(document).on("click", ".un-authorized", function(e){
+
+        e.preventDefault();
+
         const url = $(this).attr('href');
         
         const message = $(this).data('message') ? 'Вы должны авторизоваться' : 'Вы должны авторизоваться или зарегистрироваться в системе';
         const favorite = $(this).data('favorite');
 
         var buttons = $('<div>')
-        .append(createButton('Sign In', function() {
-           swal.close();
-        if(url === '/accounts/login/?next=/lots/'){
-        window.open(url);
-        }else{
-            window.location.href = url
-        }
-        }).addClass('')).append(createButton('Register', function() {
-           swal.close();
-           console.log('Register');
-        if(url === '/accounts/login/?next=/lots/'){
-        window.open('/signup');
-        }else{
-            window.location.href = '/signup'
-        }        }).addClass('')).append(createButton('Cancel', function() {
-           swal.close();
-           console.log('Cancel');
-        }).addClass(''));
+        .append(createButton('Авторизация',url).addClass('mt-3 mr-2')).append(createButton('Регистрация',url).addClass('mt-3 mr-2'))
 
 
-        e.preventDefault();
+        // function() {
+        //     alert('jere')
+        // if(url === '/accounts/login/?next=/lots/'){
+        // window.open(url);
+        // }else{
+        //     window.location.href = url
+        // }
+        // }
+    //     function() {
+    //         console.log('Register');
+    //      if(url === '/accounts/login/?next=/lots/'){
+    //      window.open('/signup');
+    //      }else{
+    //          window.location.href = '/signup'
+    //      }        
+    //  }
 
-        swal({title:message,
-                type:'info',
+        Swal.fire({title:message,
+                icon:'info',
                 html: buttons,       
                 showConfirmButton: false,
                 showCancelButton: false,
