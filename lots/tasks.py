@@ -19,6 +19,7 @@ from django.utils.timezone import is_aware, make_aware
 
 @shared_task
 def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
+    print("Function -> fetch region/location")
     print("customer_bin: ", customer_bin)
     print("lot_number: ", lot_number)
     api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + customer_bin + "/address"
@@ -40,7 +41,6 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
         try:
             item = response_json["items"][0]
             kato_code = item["kato_code"]
-            print("kato_code: ", kato_code)
 
             region_code = kato_code[0:2] + "0000000"
             location_code = kato_code[0:4] + "00000"
@@ -48,10 +48,8 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             print("location_code: ", location_code)
 
             location = Cities.objects.get(code=location_code)
-            print("location: ", location)
             if location:
-                print("if location")
-                print(location)
+                print("if location true/location found in db")
                 try:
                     a=Article.objects.get(numb=lot_number)
                     a.city=location
@@ -70,14 +68,11 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
 
             try:
                 region = Regions.objects.get(code=region_code)
-                print("region found")
-                print(region_code, region)
             except Exception as e:
                 print("exception in fetching region")
                 print(e)
             if region:
-                print("if region")
-                print("region_code: ", region_code)
+                print("if region true/region found in db")
                 try:
                     a=Article.objects.get(numb=lot_number)
                     a.region=region
@@ -89,8 +84,6 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 print("kato_code.type: ", type(kato_code))
                 if kato_code in ["710000000", "750000000", "790000000"]:
                     print("kato_code in 71, 75, 79")
-                    print("kato_code: ", kato_code)
-                    print("region: ", region)
                     print("region.code: ", region.code)
                     print("region.name: ", region.name)
                     cc = Cities.objects.get(code=kato_code)
@@ -136,17 +129,9 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
 
 # @shared_task
 def fetch_date_from_goszakup(trd_buy_id, lot_number):
+    print("Function -> fetch date")
     print("trd_buy_id: ", trd_buy_id)
     print("lot_number: ", lot_number)
-    try:
-        print('slugify - test: ', slugify('asd'))
-    except Exception as e:
-        print('slugify exception')
-
-    try:
-        print('slugify test 2: ', slugify('asd 123'))
-    except Exception as e:
-        print('slugify test 2 exception')
 
     token = 'bb28b5ade7629ef512a8b7b9931d04ad'
     bearer_token = 'Bearer ' + token
@@ -161,8 +146,7 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
         print('failed trd_buy_id API call')
 
     if trd_buy_id_response:
-        print('trd_buy_id_response')
-        print(trd_buy_id_response.json())
+        print('trd_buy_id_response found')
         response_json = trd_buy_id_response.json()
 
         try:
@@ -175,6 +159,8 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
             Article.objects.filter(numb=lot_number).update(date=end_date, date_open=start_date)
         except Exception as e:
             print('exception in date update')
+    else:
+        print("trd_buy_id_response not found")
 
 
 def get_aware_datetime(date_str):
@@ -201,6 +187,8 @@ def fetch_lots_from_goszakup():
     for a in articles:
         if a.numb not in numbs:
             numbs.append(a.numb)
+    print("numbs.len: ", len(numbs))
+    print("unik numbs.len: ", len(list(set(numbs))))
 
     kato_list = read_xls()
 
@@ -210,7 +198,6 @@ def fetch_lots_from_goszakup():
     except Exception as e:
         print(e)
 
-    count = 0
     data = None
     lot_trd_list = []
     lot_bin_pair_list = []
@@ -219,13 +206,12 @@ def fetch_lots_from_goszakup():
         print("data.len: ", len(data['items']))
 
         for item in data["items"]:
-            count = count + 1
             # insert 5 lots in each API call
             if item['lot_number'] not in numbs:
-                count = count + 1
                 numbs.append(item["lot_number"])
-                print("count: ", count)
                 print('inserting lot with lot_number: ', item['lot_number'])
+                print("nums.len: ", len(numbs))
+                print("unik numbs.len: ", len(list(set(numbs))))
 
                 article = Article(
                     xml_id=item['lot_number'],
