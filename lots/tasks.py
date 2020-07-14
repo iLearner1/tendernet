@@ -16,6 +16,73 @@ from time import sleep
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, make_aware
 
+@shared_task
+def update_location(q):
+    print("function -> update_location")
+    print(q)
+    articles = Article.objects.all()
+    nums = []
+    for a in articles:
+        nums.append(a.numb)
+    print("articles.len: ", len(articles))
+
+    print("articles.unik.len: ", len(list(set(nums))))
+    i = 0
+    for a in articles:
+        
+        if i < 0:
+            print("i: ", i)
+            i = i + 1
+            print("create task for customer_bin: ", a.customer_bin)
+            api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + a.customer_bin + "/address"
+            update_location_in_article.delay(api_url, a.numb)
+
+
+        
+    
+@shared_task
+def update_location_in_article(api_url, lot_number):
+    print("function -> update_location_in_article")
+    #api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + customer_bin + "/address"
+
+    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    bearer_token = 'Bearer ' + token
+    header = {'Authorization': bearer_token}
+
+    kato_list = read_xls()
+
+    response = None
+
+    try:
+        response = requests.get(url=api_url, headers=header, verify=False)
+    except Exception as e:
+        print('failed address API call')
+
+    if response:
+        response_json = response.json()
+        try:
+            item = response_json["items"][0]
+            kato_code = item["kato_code"]
+            if kato_code in kato_list:
+                print("in kato_list")
+            else:
+                print("not in kato_list")
+            region_code = kato_code[0:2]+"0000000"
+            location_code = kato_code[0:4]+"00000"
+            print("code: kato, region, location")
+            print(kato_code, region_code, location_code)
+            if Article.objects.filter(city=None).exists():
+                print("city None exists")
+                try:
+                    a = Article.objects.filter(city=None).first()
+                    print("a.title: ", a.title)
+                    print("a.city: ", a.city)
+                    print("a.region: ", a.region)
+                except Exception as e:
+                    print("exception in filter by lot_number: ", e)
+        except Exception as e:
+            print("kato_code exception: ", e)
+
 
 @shared_task
 def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
@@ -50,21 +117,31 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
             location = Cities.objects.get(code=location_code)
             if location:
                 print("if location true/location found in db")
+                print("updating lot with location found in db")
                 try:
-                    a=Article.objects.get(numb=lot_number)
+                    a=Article.objects.get(xml_id=lot_number)
                     a.city=location
                     a.save()
                 except Exception as e:
-                    print("exception updating location for lot number: ", lot_number)
+                    print("exception updating location found in db: ", lot_number)
                     print(e)
             else:
-                c = Cities()
-                c.code = location_code
-                c.name = location_code
-                c.save()
-                a=Article.objects.get(numb=lot_number)
-                a.city=c
-                a.save()
+                print("location not found in db")
+                print("creating location by location code as name, code")
+                try:
+                    c = Cities()
+                    c.code = location_code
+                    c.name = location_code
+                    c.save()
+                except Exception as e:
+                    print("exception in creating location by code: ", e)
+                print("updating lot with location created by code")
+                try:
+                    a=Article.objects.get(xml_id=lot_number)
+                    a.city=c
+                    a.save()
+                except Exception as e:
+                    print("exception in updating lot with created location by code: ", e)
 
             try:
                 region = Regions.objects.get(code=region_code)
@@ -73,12 +150,13 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                 print(e)
             if region:
                 print("if region true/region found in db")
+                print("updating lot with region found in db")
                 try:
                     a=Article.objects.get(numb=lot_number)
                     a.region=region
                     a.save()
                 except Exception as e:
-                    print("exception in if region")
+                    print("exception in updating lot with region found in db")
                     print(e)
 
                 print("kato_code.type: ", type(kato_code))
@@ -88,25 +166,37 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                     print("region.name: ", region.name)
                     cc = Cities.objects.get(code=kato_code)
                     if not cc:
-                        cc = Cities()
-                        cc.code = region.code
-                        cc.name = region.name
-                        cc.save()
+                        print("creating city in db for code 71, 75, 79")
+                        try:
+                            cc = Cities()
+                            cc.code = region.code
+                            cc.name = region.name
+                            cc.save()
+                        except Exception as e:
+                            print("exceptioin in creating city: ", e)
                     try:
-                        a=Article.objects.get(numb=lot_number)
+                        a=Article.objects.get(xml_id=lot_number)
                         a.city=region
                         a.save()
                     except Exception as e:
                         print("exception after 71, 75, 79 block ")
                         print(e)
             else:
-                rr = Regions()
-                rr.code = region_code
-                rr.name = region_code
-                rr.save()
-                a=Article.objects.get(numb=lot_number)
-                a.region=rr
-                a.save()
+                print("region not found in db, creating region in db")
+                try:
+                    rr = Regions()
+                    rr.code = region_code
+                    rr.name = region_code
+                    rr.save()
+                except Exception as e:
+                    print("exception in creating region: ", e)
+                print("updating lot with region")
+                try:
+                    a=Article.objects.get(xml_id=lot_number)
+                    a.region=rr
+                    a.save()
+                except Exception as e:
+                    print("exception in updating region: ", e)
 
             address = item["address"]
             if address:
@@ -119,7 +209,12 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
                     if location:
                         address = location.name + ", " + ", ".join(address_split)
                 print("final address: ", address)
-                Article.objects.get(numb=lot_number).update(addressFull=address)
+                try:
+                    a=Article.objects.get(xml_id=lot_number)
+                    a.addressFull=address
+                    a.save()
+                except Exception as e:
+                    print("exception in storing address: ", e)
 
             return True
         except Exception as e:
@@ -193,7 +288,7 @@ def fetch_lots_from_goszakup():
     kato_list = read_xls()
     search_after_lot = None
 
-    for i in range(4):
+    for i in range(1):
         print("iteration i: ", i)
         if search_after_lot is None:
             URL = "https://ows.goszakup.gov.kz/v3/lots?limit=500"
@@ -222,6 +317,8 @@ def fetch_lots_from_goszakup():
                     print("unik numbs.len: ", len(list(set(numbs))))
                     search_after_lot = item['id']
                     print("search_after_lot:P ", search_after_lot)
+
+                    Article.objects.filter(xml_id=item['lot_number']).delete()
 
                     article = Article(
                         xml_id=item['lot_number'],
