@@ -68,8 +68,23 @@ def post_list(request):
     if 'customer' in request_object:
         if request_object.get('customer'):
             customer_tokens = request_object.get('customer').split()
+            customer_q |= Q(customer_bin=customer_tokens[0])
             for keyword in customer_tokens:
-                customer_q |= Q(customer_bin__contains=keyword)
+                customer_q |= Q(customer__contains=keyword.lower())
+                customer_q |= Q(customer__contains=keyword.upper())
+                customer_q |= Q(customer_contains=keyword.capitalize())
+
+                if len(keyword) <= 5:
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3])
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+
+                if len(keyword) >=6:
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5])
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].lower())
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].upper())
+                    customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
         q &= customer_q
 
     city_q = Q()
@@ -289,8 +304,23 @@ def post_search(request):
     customer_q = Q()
     if request.GET.get('customer'):
         body_tokens = request.GET.get('customer').split()
+        customer_q |= Q(customer_bin=body_tokens[0])
         for keyword in body_tokens:
-            customer_q |= Q(customer_bin__contains=keyword)
+            customer_q |= Q(customer__contains=keyword.lower())
+            customer_q |= Q(customer__contains=keyword.upper())
+            customer_q |= Q(customer__contains=keyword.capitalize())
+        
+            if len(keyword) <= 5:
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3])
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].lower())
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].upper())
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+
+            if len(keyword) >=6:
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5])
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].lower())
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].upper())
+                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
 
     price_q = Q()
     if 'price_min' in request.GET:
