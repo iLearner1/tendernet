@@ -511,7 +511,7 @@ html {
   .item > .tender-list .buttons .featured-button{
     padding: 6px 20px;
     background: #fff;
-    color: #000;
+    color: #111c2b;
     border: 1px solid #111c2b;
     border-radius: 6px;
   }
@@ -557,6 +557,37 @@ html {
   .mob-right-menu{
     display: none;
   }
+
+  .mobile-show{
+    display: none;
+  }
+  .mobile-hidden{
+    display: block;
+  }
+
+
+  @media (max-width: 992px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 54px;
+        right: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        width: 100%;
+        transition: all 0.3s ease;
+        display: block;
+    }
+    .navbar-collapse.collapsing {
+        height: auto !important;
+        margin-right: 50%;
+        transition: all 0.3s ease;
+        display: block;
+    }
+    .navbar-collapse.show {
+        right: 0;
+    }
+}
   
   /*------------------------------------------
       Responsive
@@ -567,6 +598,12 @@ html {
     }
     .navbar-brand{
       margin-left: 0;
+    }
+    .mobile-show{
+      display: block!important;
+    }
+    .mobile-hidden{
+      display: none!important;
     }
   }
   
@@ -796,7 +833,7 @@ html {
     .cp-nav .navbar-toggler.collapsed{
       z-index: 9999;
       background: transparent!important;
-      margin-top: -16px;
+      margin-top: 0px;
     }
   
     .dop-filter{
@@ -2453,7 +2490,8 @@ html {
     -webkit-box-shadow: none;
     box-shadow: none;
     outline: none;
-    color: rgba(248, 36, 36, 0.3);
+    /*color: rgba(248, 36, 36, 0.3);*/
+    color: rgb(17, 29, 43);
     -webkit-transition: all .3s ease;
     -o-transition: all .3s ease;
     transition: all .3s ease;
@@ -5936,8 +5974,11 @@ html {
   }
   
   .cp-nav .navbar-collapse .navbar-nav .post-tender a {
-    background: #eb3547;
-    color: #ffffff;
+    /*background: #eb3547;
+    color: #ffffff;*/
+    background: #ffffff;
+    color: #111d2b;
+    border: 3px solid #111d2b;
     padding: 12px 30px;
     border-radius: 3px;
     font-weight: 500;
@@ -6554,7 +6595,7 @@ html {
       position: absolute;
       top: 23px;
       right: 0;
-      color: #ef3349;
+      color: #111d2b;
     }
     .cp-nav .navbar-collapse .navbar-nav li.dropdown .dropdown-menu {
       top: 100%;
@@ -6975,7 +7016,7 @@ html {
       top: 0;
     }
     .cp-nav .navbar-toggler {
-      border: 2px solid #eb3546;
+      border: 2px solid #111d2b;
       border-radius: 0;
       font-size: 2.2rem;
       padding: 5px 10px;
@@ -6983,10 +7024,10 @@ html {
       background: #ffffff;
       z-index: 99999;
       margin-left: 15px;
-      margin-top: -16px;
+      margin-top: 0px;
     }
     .cp-nav .navbar-toggler .navbar-toggler-icon {
-      color: #eb3547;
+      color: #111d2b;
       background-image: url(main.css);
       height: auto;
       width: auto;
@@ -6999,7 +7040,7 @@ html {
       background: #000;
     }
     .cp-nav .navbar-toggler.collapsed .navbar-toggler-icon {
-      color: #eb3547;
+      color: #111d2b;
     }
     .cp-nav .navbar-collapse {
       background: #ffffff;
@@ -7031,8 +7072,9 @@ html {
     }
     .cp-nav .navbar-collapse .navbar-nav li.post-tender a {
       display: inline-block;
-      background: #eb3547;
-      color: #ffffff;
+      background: #ffffff;
+      color: #111d2b;
+      border: 3px solid #111d2b;
       margin-top: 15px;
     }
     .cp-nav .navbar-collapse .navbar-nav.tender-browse {
@@ -7323,6 +7365,7 @@ html {
     }
     .cp-nav .navbar-collapse .navbar-nav li.dropdown .dropdown-menu {
       padding: 0 15px;
+      background: #f7f7f7;
     }
     .cp-nav .navbar-collapse .navbar-nav.account-nav li.dropdown.header-top-notification .notification-card {
       top: 40px;
@@ -10991,6 +11034,7 @@ html {
   
   .access-form .shortcut-login p a {
     font-weight: 500;
+    color: #0056b3;
   }
   
   .access-form .shortcut-login p a:hover {

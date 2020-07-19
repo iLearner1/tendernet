@@ -195,10 +195,10 @@
                       <h6 class="">Сумма лота</h6>
                       <div class="form-group">
                         <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                        <input type="number" class="form-control" name="price_min" value='{{request.GET.price_min}}'
-                          placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                        <input type="text" class="form-control" name="price_max" value='{{request.GET.price_max}}'
-                          placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                        <input type="number" class="form-control" name="price_min" min="0" value='{{request.GET.price_min}}'
+                          placeholder="Сумма от" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                        <input type="number" class="form-control" name="price_max" min="0" value='{{request.GET.price_max}}'
+                          placeholder="Сумма до" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                       </div>
 
                       <h6 class="">Дата</h6>
@@ -300,7 +300,7 @@
                   <div class="tender-list half-grid" style="display: block;">
 
                       <div class="row" style="margin-bottom: 20px;">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                           <h4 class="lot-name">
                               {% if article.title %}
                                     <a href="{{ article.get_absolute_url }}" target="_blank">{{ article.title }}</a>
@@ -309,7 +309,7 @@
                               {% endif %}
                           </h4>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4" style="text-align: right;">
 
                             {% if article.price %}
                             {% format_price article as formatted_price %}
@@ -530,10 +530,10 @@
                 <h6 class="">Сумма лота</h6>
                 <div class="form-group">
                   <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                  <input type="number" class="form-control" name="price_min" value="{{request.GET.price_min}}"
-                        placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                  <input type="number" class="form-control" name="price_max" value="{{request.GET.price_max}}"
-                        placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                  <input type="number" class="form-control" name="price_min" min="0" value="{{request.GET.price_min}}"
+                        placeholder="Сумма от" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                  <input type="number" class="form-control" name="price_max" min="0" value="{{request.GET.price_max}}"
+                        placeholder="Сумма до" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
 
                 <h6 class="">Дата</h6>

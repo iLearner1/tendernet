@@ -34,6 +34,252 @@
               <div class="col-lg-12">
                 <div class="feature-content">
 
+                	<div class="row tariff20-section">
+
+                		<!-- Modal -->
+					    <div class="account-entry">
+					      <div class="modal fade" id="ordertarif" tabindex="-1" role="dialog" aria-hidden="true">
+					        <div class="modal-dialog" role="document">
+					          <div class="modal-content">
+					            <div class="modal-header">
+					              <h5 class="modal-title"><i data-feather="info"></i>Купить тариф</h5>
+					              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                <span aria-hidden="true">&times;</span>
+					              </button>
+					            </div>
+					            <div class="modal-body">
+					              <form action="{% url 'send_consultaion_query' %}" method="POST" id="consultacia-form">
+					                {% csrf_token %}
+					                <div class="form-group">
+					                  <input type="text" placeholder="Ваше имя" class="form-control" name="name" required>
+					                </div>
+					                <div class="form-group">
+					                  <input type="tel" placeholder="Номер телефона" class="form-control phone" required name="number">
+					                </div>
+					                <button class="button primary-bg btn-block">Отправить</button>
+					              </form>
+					              <script>
+					                $(document).ready(function() {
+					                    $("#consultacia-form").submit(function(e) {
+					                        e.preventDefault();
+					                        var send_consultaion_query = $("#consultacia-form").attr("action");
+					                        console.log("send_consultaion_query: " + send_consultaion_query);
+					                        alert("Спасибо за обращение. В ближайшее время с вами свяжется менеджер.");
+
+					                        var data = {
+					                          "name": $("#consultacia-form").find("input[name=name]").val(),
+					                          "number": $("#consultacia-form").find("input[name=number]").val(),
+					                        };
+					                         let csrftoken = '{{ csrf_token }}';
+					                        console.log(data);
+					                        $.ajax({
+					                           url: send_consultaion_query,
+					                           type: 'POST',
+					                           data: data,
+					                           cache: true,
+					                          headers: { 'X-CSRFToken': csrftoken },
+					                           success: function (data) {
+					                               console.log(data);
+					                           },
+					                           error: function(){
+					                               console.log("error")
+					                           }
+					                       });
+					                        $('#ordertarif').modal('hide');
+					                    });
+					                });
+					              </script>
+					            </div>
+					          </div>
+					        </div>
+					      </div>
+
+					    </div>
+
+                		<style>
+
+                			.tarif-item{ border: 1px solid #111c2b; padding-bottom: 20px; margin-bottom: 40px; }
+
+                			.tarif-header{ padding: 20px; text-align: center; color: #fff; }
+                			.tarif-header .title{ font-size: 24px; }
+                			.tarif-header .price{ font-size: 18px; font-weight: bold; color: #fff; }
+
+                			.tarif-body{ text-align: center; padding: 0 20px; }
+                			.tarif-body ul{ list-style: none; margin-bottom: 35px; margin-top: 14px; padding-left: 0; }
+                			.tarif-body ul li{ border-bottom: 1px solid #111c2b !important; padding: 16px 0; }
+
+                			.tarif-action{ text-align: center; }
+                			.tarif-action > a{ background: #ffffff; color: #111d2b; border: 2px solid #111d2b; padding: 5px 20px; border-radius: 3px; font-weight: 700;}
+                		</style>
+
+                		<div class="col-md-4">
+
+                			<div class="tarif-item">
+
+                			<div class="tarif-header" style="background-image: url(https://static.tildacdn.com/tild3361-3163-4261-b630-303532313539/061.svg);">
+                				<h4 class="title">Доступ на 12 месяцев</h4>
+                				<p class="price">25000 ₸</p>
+                			</div>
+                			<div class="tarif-body">
+                				<ul>
+                					<li>Доступ к базе тендеров</li>
+                					<li>Консультация в сфере закупок</li>
+                					<li>Доступ к конкурсной документации и технической спецификации</li>
+                				</ul>
+                			</div>
+                			<div class="tarif-action">
+                				<a href="javascript:void();" data-toggle="modal" data-target="#ordertarif">Купить</a>
+                			</div>
+
+                			</div>
+                			
+                		</div>
+
+                		<div class="col-md-4">
+
+                			<div class="tarif-item">
+
+                			<div class="tarif-header" style="background-image: url(https://static.tildacdn.com/tild6165-6135-4061-b239-626463396365/05.svg);">
+                				<h4 class="title">Доступ на 6 месяцев</h4>
+                				<p class="price">20000 ₸</p>
+                			</div>
+                			<div class="tarif-body">
+                				<ul>
+                					<li>Доступ к базе тендеров</li>
+                					<li>Консультация в сфере закупок</li>
+                					<li>Доступ к конкурсной документации и технической спецификации</li>
+                				</ul>
+                			</div>
+                			<div class="tarif-action">
+                				<a href="javascript:void();" data-toggle="modal" data-target="#ordertarif">Купить</a>
+                			</div>
+
+                			</div>
+                			
+                		</div>
+
+                		<div class="col-md-4">
+
+                			<div class="tarif-item">
+
+                			<div class="tarif-header" style="background-image: url(https://static.tildacdn.com/tild6264-6361-4231-a166-646139393138/04.svg);">
+                				<h4 class="title">Доступ на 3 месяцев</h4>
+                				<p class="price">14000 ₸</p>
+                			</div>
+                			<div class="tarif-body">
+                				<ul>
+                					<li>Доступ к базе тендеров</li>
+                					<li>Консультация в сфере закупок</li>
+                					<li>Доступ к конкурсной документации и технической спецификации</li>
+                				</ul>
+                			</div>
+                			<div class="tarif-action">
+                				<a href="javascript:void();" data-toggle="modal" data-target="#ordertarif">Купить</a>
+                			</div>
+
+                			</div>
+                			
+                		</div>
+
+
+
+                		<div class="col-md-4">
+
+                			<div class="tarif-item">
+
+                			<div class="tarif-header" style="background-image: url(https://static.tildacdn.com/tild3361-3163-4261-b630-303532313539/061.svg);">
+                				<h4 class="title">ПАКЕТ 1 ТЕНДЕР</h4>
+                				<p class="price">на год 50 000 тг</p>
+                			</div>
+                			<div class="tarif-body">
+                				<ul>
+                					<li>Аудит конкурсной документации</li>
+                					<li>Подача заявок на обсуждение</li>
+                					<li>Проверка заявки на соответствие</li>
+                					<li>Загрузка заявки на портал</li>
+                					<li>Подача ценового предложения</li>
+                					<li>Подача жалобы и апелляции</li>
+                					<li>Открытие ТОО/ИП</li>
+                					<li>Выпуск сертификатов ЭЦП</li>
+                					<li>Персональный эксперт в сфере тендеров</li>
+                				</ul>
+                			</div>
+                			<div class="tarif-action">
+                				<a href="javascript:void();" data-toggle="modal" data-target="#ordertarif">Купить</a>
+                			</div>
+
+                			</div>
+                			
+                		</div>
+
+
+                		<div class="col-md-4">
+
+                			<div class="tarif-item">
+
+                			<div class="tarif-header" style="background-image: url(https://static.tildacdn.com/tild6165-6135-4061-b239-626463396365/05.svg);">
+                				<h4 class="title">ПАКЕТ 5 ТЕНДЕРОВ</h4>
+                				<p class="price">на год 200 000 тг</p>
+                			</div>
+                			<div class="tarif-body">
+                				<ul>
+                					<li>Полный доступ к базе тендеров</li>
+                					<li>Аудит конкурсной документации</li>
+                					<li>Подача заявок на обсуждение</li>
+                					<li>Проверка заявки на соответствие</li>
+                					<li>Загрузка заявки на портал</li>
+                					<li>Подача ценового предложения</li>
+                					<li>Подача жалобы и апелляции</li>
+                					<li>Открытие ТОО/ИП</li>
+                					<li>Выпуск сертификатов ЭЦП</li>
+                					<li>Персональный эксперт в сфере тендеров</li>
+                				</ul>
+                			</div>
+                			<div class="tarif-action">
+                				<a href="javascript:void();" data-toggle="modal" data-target="#ordertarif">Купить</a>
+                			</div>
+
+                			</div>
+                			
+                		</div>
+
+
+                		<div class="col-md-4">
+
+                			<div class="tarif-item">
+
+                			<div class="tarif-header" style="background-image: url(https://static.tildacdn.com/tild6264-6361-4231-a166-646139393138/04.svg);">
+                				<h4 class="title">ПАКЕТ 10 ТЕНДЕРОВ</h4>
+                				<p class="price">на год 300 000 тг</p>
+                			</div>
+                			<div class="tarif-body">
+                				<ul>
+                					<li>Полный доступ к базе тендеров</li>
+                					<li>Аудит конкурсной документации</li>
+                					<li>Подача заявок на обсуждение</li>
+                					<li>Проверка заявки на соответствие</li>
+                					<li>Загрузка заявки на портал</li>
+                					<li>Подача ценового предложения</li>
+                					<li>Подача жалобы и апелляции</li>
+                					<li>Открытие ТОО/ИП</li>
+                					<li>Выпуск сертификатов ЭЦП</li>
+                					<li>Персональный эксперт в сфере тендеров</li>
+                				</ul>
+                			</div>
+                			<div class="tarif-action">
+                				<a href="javascript:void();" data-toggle="modal" data-target="#ordertarif">Купить</a>
+                			</div>
+
+                			</div>
+                			
+                		</div>
+
+
+                	</div>
+
+
+
+
                 	{% csrf_token %}
                 	<script type="text/javascript">
                 		$(document).ready(function(){
@@ -81,8 +327,9 @@
                 		});
 	                </script>
 
+                	<!-- Таблица тарифов Версия 1.0 -->
                 	<!-- Тариф "Мониторинг" -->
-                	<div class="table-responsive tariff-table-block">
+                	<!-- <div class="table-responsive tariff-table-block">
 
 	                	<table class="tariff-table table table-bordered">
 	                		<thead class="tariff-table-header">
@@ -122,10 +369,10 @@
 							</tbody>
 						</table>
 
-					</div>
+					</div> -->
 
 					<!-- Тариф "Мониторинг" MOBILE -->
-					<div class="tariff-table-block-mobile">
+					<!-- <div class="tariff-table-block-mobile">
 
 						<table class="tariff-table table table-bordered">
 							<tr><td colspan="2" style="background-color: #121e2b; color: #fff; font-weight: bold;">Тариф "Мониторинг"</td></tr>
@@ -155,12 +402,10 @@
 							</td></tr>
 						</table>
 
-                	</div>
-
-
+                	</div> -->
 
                 	<!-- Тариф аутсорсинг (Под ключ) -->
-                	<div class="table-responsive tariff-table-block">
+                	<!-- <div class="table-responsive tariff-table-block">
 
 	                	<table class="tariff-table table table-bordered">
 	                		<thead class="tariff-table-header">
@@ -196,10 +441,10 @@
 							</tbody>
 						</table>
 
-					</div>
+					</div> -->
 
 					<!-- Тариф аутсорсинг (Под ключ) MOBILE -->
-					<div class="tariff-table-block-mobile">
+					<!-- <div class="tariff-table-block-mobile">
 
 						<table class="tariff-table table table-bordered">
 							<tr><td colspan="2" style="background-color: #121e2b; color: #fff; font-weight: bold;">
@@ -228,12 +473,10 @@
 							</td></tr>
 						</table>
 
-                	</div>
-
-
+                	</div> -->
 
                 	<!-- Тариф разовый (под ключ) -->
-                	<div class="table-responsive tariff-table-block">
+                	<!-- <div class="table-responsive tariff-table-block">
 
 	                	<table class="tariff-table table table-bordered">
 	                		<thead class="tariff-table-header">
@@ -269,10 +512,10 @@
 							</tbody>
 						</table>
 
-					</div>
+					</div> -->
 
 					<!-- Тариф разовый (под ключ) MOBILE -->
-					<div class="tariff-table-block-mobile">
+					<!-- <div class="tariff-table-block-mobile">
 
 						<table class="tariff-table table table-bordered">
 							<tr><td colspan="2" style="background-color: #121e2b; color: #fff; font-weight: bold;">
@@ -301,15 +544,10 @@
 							</td></tr>
 						</table>
 
-                	</div>
-
-
-
-
-
+                	</div> -->
 
                 	<!-- Доп услуги -->
-                	<div class="table-responsive tariff-table-block">
+                	<!-- <div class="table-responsive tariff-table-block">
                 		<table class="tariff-table table table-bordered">
 	                		<thead class="tariff-table-header">
 	                			<tr>
@@ -468,10 +706,10 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					</div> -->
 
 					<!-- Доп услуги MOBILE -->
-					<div class="tariff-table-block-mobile">
+					<!-- <div class="tariff-table-block-mobile">
 
 						<br><h6>Дополнительные услуги:</h6><br>
 
@@ -853,7 +1091,7 @@
 							</tbody>
 						</table>
 
-					</div>
+					</div> -->
 
 
 

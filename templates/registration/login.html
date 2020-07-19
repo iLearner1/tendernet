@@ -37,7 +37,7 @@
 
           </form>
           <div class="shortcut-login">
-            <p>У Вас нет аккаунта? <a href="{% url 'register' %}" style="color: red;">Зарегистрируйтесь</a></p>
+            <p>У Вас нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
           </div>
         </div>
       </div>
@@ -49,7 +49,9 @@
        <script type="text/javascript">
             jQuery(function($){
               $('#id_username').addClass('form-control phone');
-              $("#id_username").attr("placeholder", "Ваш номер телефона");
+              $("#id_username").attr("placeholder", "8xxxxxxxxxx (Номер телефона)");
+              $("#id_username").attr("type", "number");
+              $("#id_username").attr("onkeypress", "return event.charCode >= 48 && event.charCode <= 57");
 
               $('#id_password').addClass('form-control');
               $("#id_password").attr("placeholder", "Пароль");
