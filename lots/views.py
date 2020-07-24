@@ -19,6 +19,74 @@ import requests
 from users.models import Profile, Price
 from lots.insert_region_location import read_xls, insert_regions, insert_locations
 
+def getLocationList(request):
+    kato_list = read_xls()
+    cities = Cities.objects.all()
+    cities_list = []
+    for c in cities:
+        cities_list.append(c.code)
+    return JsonResponse({'status': 'success', 'codes': kato_list, 'codes.len': len(kato_list), 'cities_list': cities_list, 'cities_list.len': len(cities_list)})
+
+def getLocationByCustomerBin(request):
+    kato_list = read_xls()
+    bin = request.GET['bin']
+    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    bearer_token = 'Bearer ' + token
+    header = {'Authorization': bearer_token}
+    api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + bin + "/address"
+    try:
+        response = requests.get(url=api_url, headers=header, verify=False)
+    except Exception as e:
+        print("except")
+    kato_code = None
+    location_code = None
+    region_code = None
+    inKatoList = False
+    if response:
+        response = response.json()
+        item = response["items"][0]
+        kato_code = item["kato_code"]
+        region_code = kato_code[0:2]+"0000000"
+        location_code = kato_code[0:4]+"00000"
+        if kato_code in kato_list:
+            inKatoList = True
+    return JsonResponse({'status': 'success', 'kato_code': kato_code, 'location_code': location_code, 'region_code': region_code, 'inKatoList': inKatoList})
+
+
+def getAllCustomerBin(request):
+    kato_list = read_xls()
+    articles = Article.objects.all()
+    bins = []
+    cities = []
+    bins_without_city = []
+    city_in_kato_list = []
+    city_not_in_kato_list = []
+    for a in articles:
+        bins.append(a.customer_bin)
+        if a.city:
+            cities.append(a.city.code)
+        else:
+            bins_without_city.append(a.customer_bin)
+        if a.city:
+            if a.city.code in kato_list.keys():
+                city_in_kato_list.append(a.city.code)
+            else:
+                city_not_in_kato_list.append(a.city.code)
+        
+    
+    return JsonResponse({'status': 'success', 'length': len(bins), 'cities.len': len(cities), 'bins_without_city.len': len(bins_without_city), 'bins_without_city': bins_without_city, 'city_in_kato_list': city_in_kato_list, 'city_not_in_kato_list': city_not_in_kato_list, 'city_in_kato_list.len': len(city_in_kato_list), 'city_not_in_kato_list.len': len(city_not_in_kato_list)})
+
+def getAllUnikCustomerBin(request):
+    articles = Article.objects.all()
+    bins = []
+    all_bins = []
+    for a in articles:
+        if a.customer_bin not in bins:
+            bins.append(a.customer_bin)
+        all_bins.append(a.customer_bin)
+    using_set = list(set(all_bins))
+    return JsonResponse({'status': 'success', 'using_in_len': len(bins), 'using_set_len': len(using_set), 'all_bin_len': len(all_bins), 'using_in': bins, 'using_set': using_set, 'all_bins': all_bins})
+
 
 def insert_regions_locations(request):
     insert_locations()

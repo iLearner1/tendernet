@@ -24,4 +24,8 @@ urlpatterns = [
         name="remove_favorite_search",
     ),
     path("archived", views.archived_post, name="archived_post"),
+    path("all_bins", views.getAllCustomerBin, name="all_bins"),
+    path("unik_bins", views.getAllUnikCustomerBin, name="unik_bins"),
+    path("kato_list", views.getLocationList, name="kato_list"),
+    path("location_by_bin", views.getLocationByCustomerBin, name="location_by_bin"),
 ]
