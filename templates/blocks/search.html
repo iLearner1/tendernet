@@ -9,96 +9,107 @@
         {% endfor %}
     </div>
       <div class="col">
-        <div class="searchAndFilter-block"  style="margin-top:20px;">
+        <div class="searchAndFilter-block" style="margin-top:20px;">
           <div class="searchAndFilter">
 
-            <form method="POST" class="search-form" action="{% url 'post_list' %}" id="main-page-searchform">
+            <form method="GET" class="search-form" action="{% url 'post_list' %}" id="main-page-searchform">
               {% csrf_token %}
 
-                {% render_field myHomeFilter.form.title class="" placeholder="Наименование лота" %}
+              <div class="row">
+                <div class="col-md-10">
+                {% render_field myHomeFilter.form.title class="" style="width: 100%;border: none; border-bottom: 1px solid #bfbfbf; margin-bottom: 10px;" placeholder="Наименование лота" %}
+                </div>
 
-                {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %}
+                <!-- {% render_field myHomeFilter.form.body class="" placeholder="Заказчик" %} -->
 
-                {% render_field myHomeFilter.form.id class="" placeholder="ID лота" type="text" %}
+                <!-- {% render_field myHomeFilter.form.id class="" placeholder="ID лота" type="text" %} -->
 
-                <!-- {% render_field myHomeFilter.form.city class="multiselect" placeholder="Регион" %} -->
-                <select name="city" id="city_id" class=""  title="Регион">
-                  <option value="">Все регионы</option>
+                <!-- {% render_field myHomeFilter.form.city class="multiselect" placeholder="Область" %} -->
+                <!-- <select name="city" id="city_id" class=""  title="Область">
+                  <option value="">Все области</option>
                   {% for city in cities %}
                       <option value="{{city.id}}">{{city.name}}</option>
                     {% endfor%}
-                </select>
+                </select> -->
 
-                <button type="submit" id="pc-search-button-main-page" class="button primary-bg"><i class="fas fa-search"></i>Найти лоты</button>
-
-              <div class="dop-filter" style="display: none;">
-                <div class="row">
-                  <div class="col-md-3">
-                    <h6 class="">Способ закупки</h6>
-                    <div class="form-group">
-                      <!-- {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} -->
-                      <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">
-                        <option value="">Выбрать все</option>
-                        {% for choice in PURCHASE_METHOD_CHOICES %}
-                          <option value="{{choice.0}}">{{choice.1}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <h6>Предмет закупки</h6>
-                    <div class="form-group">
-                      <select name="subject_of_purchase" class="form-control" title="Предмет закупки">
-                        <option value="">Выбрать все</option>
-                        {% for choice in SUBJECT_OF_PURCHASE_CHOICES %}
-                          <option value="{{choice.0}}">{{choice.1}}</option>
-                        {% endfor%}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <h6 class="">Сумма лота</h6>
-                    <div class="form-row">
-                      <!-- {% render_field myFilter.form.price class="form-control" %} -->
-                      <div class="col-md-6">
-                        <input type="number" min="0" class="form-control" name="price_min" placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                      </div>
-                      <div class="col-md-6">
-                        <input type="number" min="0" class="form-control" name="price_max" placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <h6 class="">Дата</h6>
-                    <div class="form-row">
-                    <div class="col-md-6">
-                      <!-- {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} -->
-                      <input type="text" name="date_min" placeholder="Начала" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
-                    </div>
-                    <div class="col-md-6">
-                      <!-- {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} -->
-                      <input type="text" name="date_max" placeholder="Окончания" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
-                    </div>
-                    </div>
-
-                  </div>
+<!--                <div class="form-check">-->
+<!--                    <input type="checkbox" name="searchby3char-home" class="form-check-input" id="searchby3char-home" checked>-->
+<!--                    <label class="form-check-label" for="searchby3char-home">search by 3 character</label>-->
+<!--                  </div>-->
+                <div class="col-md-2">
+                <button type="submit" id="pc-search-button" class="button primary-bg">Найти</button>
                 </div>
 
               </div>
 
-              <button type="submit" id="mobile-search-button-main-page" class="button primary-bg display-none"><i class="fas fa-search"></i>Найти лоты</button>
+<!--              <div class="dop-filter" style="display: none;">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-md-3">-->
+<!--                    <h6 class="">Способ закупки</h6>-->
+<!--                    <div class="form-group">-->
+<!--                      &lt;!&ndash; {% render_field myHomeFilter.form.statzakup class="form-control" placeholder="Способ закупки" %} &ndash;&gt;-->
+<!--                      <select name="statzakup" id="statzakup_id" class="form-control" title="Способ закупки">-->
+<!--                        <option value="">Выбрать все</option>-->
+<!--                        {% for choice in ZAKUP_CHOICES %}-->
+<!--                          <option value="{{choice.0}}">{{choice.1}}</option>-->
+<!--                        {% endfor%}-->
+<!--                      </select>-->
+<!--                    </div>-->
+<!--                  </div>-->
 
-              <div class="filter-categories" style="text-align: center;">
+<!--                  <div class="col-md-3">-->
+<!--                    <h6>Предмет закупки</h6>-->
+<!--                    <div class="form-group">-->
+<!--                      <select name="purchase_method" id="purchase_method" class="form-control" title="Предмет закупки">-->
+<!--                        <option value="">Выбрать все</option>-->
+<!--                        {% for choice in PURCHASE_CHOICES %}-->
+<!--                          <option value="{{choice.0}}">{{choice.1}}</option>-->
+<!--                        {% endfor%}-->
+<!--                      </select>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                  <div class="col-md-3">-->
+<!--                    <h6 class="">Сумма лота</h6>-->
+<!--                    <div class="form-row">-->
+<!--                      &lt;!&ndash; {% render_field myFilter.form.price class="form-control" %} &ndash;&gt;-->
+<!--                      <div class="col-md-6">-->
+<!--                        <input type="number" min="0" class="form-control" name="price_min" placeholder="Сумма от" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">-->
+<!--                      </div>-->
+<!--                      <div class="col-md-6">-->
+<!--                        <input type="number" min="0" class="form-control" name="price_max" placeholder="Сумма до" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+                 <!-- <div class="col-md-3">
+                    <h6 class="">Дата</h6>
+                    <div class="form-row">
+                    <div class="col-md-6">
+                      &lt;!&ndash; {% render_field myFilter.form.date class="form-control" placeholder="Дата закрытия" %} &ndash;&gt;
+                      <input type="text" name="date_min" placeholder="Начала" class="form-control datepicker" id="id_date_0" data-date-format="yyyy-mm-dd">
+                    </div>
+                    <div class="col-md-6">
+                      &lt;!&ndash; {% render_field myFilter.form.id class="form-control" placeholder="Введите номер лота" %} &ndash;&gt;
+                      <input type="text" name="date_max" placeholder="Окончания" class="form-control datepicker" id="id_date_1" data-date-format="yyyy-mm-dd">
+                    </div>
+                    </div>
+
+                  </div>-->
+                </div>
+
+              </div>
+
+              <button type="submit" id="mobile-search-button" class="button primary-bg display-none">Найти</button>
+
+              <!--<div class="filter-categories" style="text-align: center; display: none;">
 
                 <a href="javascript:void(0);" id="filter-more" style="padding: 10px;width: 100%;text-align: center;color: #fff;background: #1b1b1b;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-down"></i>&nbsp;Расширенный поиск</a>
                 <a href="javascript:void(0);" id="filter-hide" style="display: none;padding: 10px;width: 100%;text-align: center;color: #fff;background: #1b1b1b;margin-bottom: 20px;"><i class="fa far fa-chevron-circle-up"></i>&nbsp;Скрыть расширенный поиск</a>
 
-              </div>
+              </div>-->
 
-              <!-- action reset and save search query to db  -->
+              <!-- action reset and save search query to db
               <div class="row" style="text-align: center;">
                   <div class="col-md-12">
                     {% if request.user.is_authenticated%}
@@ -111,19 +122,19 @@
                         <i class="far fa-star"></i>
                     {% endif %}
 
-                    <button class="btn btn-lg btn-danger ml-2 py-2 px-4" type="reset">!!!Сбросить фильтр</button>
+                    <button class="btn btn-lg btn-danger ml-2 py-2 px-4" type="reset">Сбросить фильтр</button>
                   </div>
-              </div>
+              </div>  -->
 
               <script>
-                jQuery(document).ready(function($){
+                /*jQuery(document).ready(function($){
                   $('#filter-more').click(function(){
                     $('.dop-filter').slideToggle();
                     $('#filter-more').hide();
                     $('#filter-hide').show();
                     if ($(window).width() < 767) {
-                      $('#mobile-search-button-main-page').show();
-                      $('#pc-search-button-main-page').hide();
+                      $('#mobile-search-button').show();
+                      $('#pc-search-button').hide();
                     }
                   });
                   $('#filter-hide').click(function(){
@@ -133,8 +144,8 @@
                     //$('#filter-hide-mobile').hide();
                     
                     if ($(window).width() < 767) {
-                      $('#mobile-search-button-main-page').hide();
-                      $('#pc-search-button-main-page').show();
+                      $('#mobile-search-button').hide();
+                      $('#pc-search-button').show();
                     }
                     
                   });
@@ -144,16 +155,7 @@
                   //   $('#filter-more').show();
                   //   $('#filter-hide-mobile').hide();
                   // });
-
-                  $("#pc-search-button-main-page").on('click', function() {
-                    $("#main-page-searchform").submit();
-                  });
-
-                  $("#mobile-search-button-main-page").on('click', function() {
-                    $("#main-page-searchform").submit();
-                  });
-
-                });
+                });*/
               </script>
 
             </form>

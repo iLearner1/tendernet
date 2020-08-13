@@ -1,0 +1,222 @@
+0000000000000000000000000000000000000000 97f4125f3159b66d9692d6c21112a1624cf26e37 nurzhol <ynurzhol.t@gmail.com> 1586646022 +0600	clone: from https://github.com/nurzhol/tendernet.git
+97f4125f3159b66d9692d6c21112a1624cf26e37 3c568f88da7eb13fbbebb2bd47c2673c2a96021e nurzhol <ynurzhol.t@gmail.com> 1586885111 +0600	pull: Fast-forward
+3c568f88da7eb13fbbebb2bd47c2673c2a96021e 4a7a0db683618e9596bf7a0329c0469c774f08a7 nurzhol <ynurzhol.t@gmail.com> 1586885358 +0600	pull: Fast-forward
+4a7a0db683618e9596bf7a0329c0469c774f08a7 a23bce5f79af52063edb9daf62a3fd3f55929d88 nurzhol <ynurzhol.t@gmail.com> 1586890326 +0600	pull: Fast-forward
+a23bce5f79af52063edb9daf62a3fd3f55929d88 e8b337a3fbdf30e58d0643d01f4e599599afc1ef nurzhol <ynurzhol.t@gmail.com> 1586894033 +0600	pull: Fast-forward
+e8b337a3fbdf30e58d0643d01f4e599599afc1ef 8d7edc0d57a3a7a410f81ef28fd49b5bc53b01f4 nurzhol <ynurzhol.t@gmail.com> 1586895077 +0600	pull: Fast-forward
+8d7edc0d57a3a7a410f81ef28fd49b5bc53b01f4 6082d93780d03f5e2a03a16e9459abf3f69c76b5 nurzhol <ynurzhol.t@gmail.com> 1586895223 +0600	pull: Fast-forward
+6082d93780d03f5e2a03a16e9459abf3f69c76b5 57338b2f4de6c8e17900cc3ac88a4784b0f97079 nurzhol <ynurzhol.t@gmail.com> 1586895419 +0600	pull: Fast-forward
+57338b2f4de6c8e17900cc3ac88a4784b0f97079 57338b2f4de6c8e17900cc3ac88a4784b0f97079 nurzhol <ynurzhol.t@gmail.com> 1587374623 +0600	reset: moving to HEAD
+57338b2f4de6c8e17900cc3ac88a4784b0f97079 6045444931d31caf0fd1328b4e6a391ad0036835 nurzhol <ynurzhol.t@gmail.com> 1587374657 +0600	pull origin development: Fast-forward
+6045444931d31caf0fd1328b4e6a391ad0036835 5ec968fe2c705bb946f43f3b2dd2e19c8c15c0f2 nurzhol <ynurzhol.t@gmail.com> 1587375379 +0600	pull origin development: Fast-forward
+5ec968fe2c705bb946f43f3b2dd2e19c8c15c0f2 84fb25c82791ea39db449836b501a97fe422c7d2 nurzhol <ynurzhol.t@gmail.com> 1587375604 +0600	pull origin development: Fast-forward
+84fb25c82791ea39db449836b501a97fe422c7d2 00a3572bcc882dade49c1f1bc5c6973ceacd3ecf nurzhol <ynurzhol.t@gmail.com> 1587375996 +0600	checkout: moving from development to master
+00a3572bcc882dade49c1f1bc5c6973ceacd3ecf 84fb25c82791ea39db449836b501a97fe422c7d2 nurzhol <ynurzhol.t@gmail.com> 1587376021 +0600	checkout: moving from master to development
+84fb25c82791ea39db449836b501a97fe422c7d2 9325038e99d8bda22b6124be4dcc9ed7ba21269a nurzhol <ynurzhol.t@gmail.com> 1587756798 +0600	commit: -
+9325038e99d8bda22b6124be4dcc9ed7ba21269a e070f22a38b9b451df182b5e0b31dc3c73e96ef6 nurzhol <ynurzhol.t@gmail.com> 1587758068 +0600	commit (merge): resolving merge conflict
+e070f22a38b9b451df182b5e0b31dc3c73e96ef6 d308eb48ce686afb14345af0301985e780b41fa0 nurzhol <ynurzhol.t@gmail.com> 1587862539 +0600	commit: Migrations & db reset.
+d308eb48ce686afb14345af0301985e780b41fa0 241417a8eb07ee8d193265269eda655ec0305168 nurzhol <ynurzhol.t@gmail.com> 1587922964 +0600	commit: blank commit
+241417a8eb07ee8d193265269eda655ec0305168 006254c88b5cb96413e220c4d4689ee6cd235208 nurzhol <ynurzhol.t@gmail.com> 1587922995 +0600	commit (amend): removed item that should repeat once from option loops in search panel
+006254c88b5cb96413e220c4d4689ee6cd235208 b03de79b4ade9bf3d21dd91326ab3ebc1ea13d03 nurzhol <ynurzhol.t@gmail.com> 1587983390 +0600	pull: Fast-forward
+b03de79b4ade9bf3d21dd91326ab3ebc1ea13d03 b03de79b4ade9bf3d21dd91326ab3ebc1ea13d03 nurzhol <ynurzhol.t@gmail.com> 1588110266 +0600	reset: moving to HEAD
+b03de79b4ade9bf3d21dd91326ab3ebc1ea13d03 b7389cf83a3e82404751d44637e8b1407ddd35fa nurzhol <ynurzhol.t@gmail.com> 1588110281 +0600	pull: Fast-forward
+b7389cf83a3e82404751d44637e8b1407ddd35fa a58d94f77383dc14f5cf8955286ffba3347c8717 nurzhol <ynurzhol.t@gmail.com> 1588156707 +0600	pull: Fast-forward
+a58d94f77383dc14f5cf8955286ffba3347c8717 70c879f7857544a496f86091c597ae810168224c nurzhol <ynurzhol.t@gmail.com> 1588157321 +0600	pull: Fast-forward
+70c879f7857544a496f86091c597ae810168224c 0dc994ae94668643ff2e9e031c83062ac78fdc81 nurzhol <ynurzhol.t@gmail.com> 1588226598 +0600	pull: Fast-forward
+0dc994ae94668643ff2e9e031c83062ac78fdc81 bea6c4ac79b64d1c975422e3e01c519433f1a1d2 nurzhol <ynurzhol.t@gmail.com> 1588251617 +0600	pull: Fast-forward
+bea6c4ac79b64d1c975422e3e01c519433f1a1d2 18501f02322236869226a081669e9b3c3f38350d nurzhol <ynurzhol.t@gmail.com> 1589384646 +0600	commit: from end changes 13 may
+18501f02322236869226a081669e9b3c3f38350d 11888f5c96db6f44c4849a669163232b68e353df jahangir08csebuet <jahangir.08.cse@gmail.com> 1589391322 +0600	commit (merge): resolve conflicts
+11888f5c96db6f44c4849a669163232b68e353df 11888f5c96db6f44c4849a669163232b68e353df jahangir08csebuet <jahangir.08.cse@gmail.com> 1589391402 +0600	checkout: moving from development to dev_jahangir
+11888f5c96db6f44c4849a669163232b68e353df 03d9f244d641cef0bfeaa6c2e4d0f26e7691cf2e jahangir08csebuet <jahangir.08.cse@gmail.com> 1589393805 +0600	commit (merge): resolve conflicts when merge development with dev_jahangir
+03d9f244d641cef0bfeaa6c2e4d0f26e7691cf2e 021d7c4fbe870fe0e2b070975f606a8117a10220 jahangir08csebuet <jahangir.08.cse@gmail.com> 1589556043 +0600	commit: front end merged and resolved conflicts
+021d7c4fbe870fe0e2b070975f606a8117a10220 a068d7c7b92133cb3843b8bbead84cbeeda07d13 nurzhol <ynurzhol.t@gmail.com> 1589827086 +0600	commit: celery task changes
+a068d7c7b92133cb3843b8bbead84cbeeda07d13 0743c3a7aad845a1583b4c773bd097317b7d5257 jahangir08csebuet <jahangir.08.cse@gmail.com> 1589831214 +0600	commit: customer field value changed to customer_name_ru
+0743c3a7aad845a1583b4c773bd097317b7d5257 f84c2061e4dbdfea376e19838125e1c8c1b607d1 jahangir08csebuet <jahangir.08.cse@gmail.com> 1589837190 +0600	commit: date format , delete address field from lot
+f84c2061e4dbdfea376e19838125e1c8c1b607d1 1a50cea40c384b09d77d96c080663cc15825fd77 jahangir08csebuet <jahangir.08.cse@gmail.com> 1589837879 +0600	commit: fix date with timezone and slug field length
+1a50cea40c384b09d77d96c080663cc15825fd77 6b5a68c877cff58df3d54f8a085345b678b19c93 jahangir08csebuet <jahangir.08.cse@gmail.com> 1589839179 +0600	commit: apply migration for slug field length
+6b5a68c877cff58df3d54f8a085345b678b19c93 e7da69317e811209d61a79ec755b2d986913471e jahangir08csebuet <jahangir.08.cse@gmail.com> 1590167400 +0600	commit: delete lot count field
+e7da69317e811209d61a79ec755b2d986913471e c734a14bf56d19f16c91fe287c0831cb710ae759 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590167467 +0600	commit: delete lot count migrations
+c734a14bf56d19f16c91fe287c0831cb710ae759 b653591c77acd3755861924ab3fef50004efadc8 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590253703 +0600	commit: temporary api calling interface
+b653591c77acd3755861924ab3fef50004efadc8 fd49c239523cc04ffaf6df473e74678af4110027 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590335089 +0600	commit: lot full name in admin and lots page
+fd49c239523cc04ffaf6df473e74678af4110027 1a712efa23931fa16c46e45c9ac0ea877e9c48b7 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590335251 +0600	commit: modify temporary api calling interface
+1a712efa23931fa16c46e45c9ac0ea877e9c48b7 329bc3135a24b3f5ced0a89e888ce0acb5392424 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590347553 +0600	commit: remove arrow from field in admin panel
+329bc3135a24b3f5ced0a89e888ce0acb5392424 80302dd114155a93a73a41347d6b17e00f634c71 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590427852 +0600	commit: region, location with autocomplete in admin and lot details page
+80302dd114155a93a73a41347d6b17e00f634c71 6255996ab5fde6598db146c5337e84730c96ff35 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590441744 +0600	commit: get address from API and show address after location
+6255996ab5fde6598db146c5337e84730c96ff35 8195d88256c0edd7f8d9b89a58e36a093af2d922 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590444047 +0600	commit: fix db error by uploading db file
+8195d88256c0edd7f8d9b89a58e36a093af2d922 6ae708570921f0e37eb2c8a8b057b67956a5d5d2 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590494067 +0600	commit: issue fix location region task
+6ae708570921f0e37eb2c8a8b057b67956a5d5d2 509c9cbbc10e3d8bd8c6f1cc9a3300d0057b128d jahangir08csebuet <jahangir.08.cse@gmail.com> 1590495586 +0600	commit: remove comment, call location task
+509c9cbbc10e3d8bd8c6f1cc9a3300d0057b128d b85292be53ad0f78c20938d2f815298f5a9beeac jahangir08csebuet <jahangir.08.cse@gmail.com> 1590513714 +0600	commit: read kato list from file
+b85292be53ad0f78c20938d2f815298f5a9beeac 0dc2103116ebb2d89824bf68ad161921662269fb jahangir08csebuet <jahangir.08.cse@gmail.com> 1590513751 +0600	commit: correct location name
+0dc2103116ebb2d89824bf68ad161921662269fb a6aa556e7c4364a2b899abe3c361bf3f467d7eb1 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590523007 +0600	commit: show same region , location for some specific region code
+a6aa556e7c4364a2b899abe3c361bf3f467d7eb1 a8b32aa5bf3b567630533a8e6f1379ec19906b9d jahangir08csebuet <jahangir.08.cse@gmail.com> 1590826511 +0600	commit: fetch region, location from API
+a8b32aa5bf3b567630533a8e6f1379ec19906b9d 5426a7cafe7cef6d9c6a6fc7c95a5307ff908e5a jahangir08csebuet <jahangir.08.cse@gmail.com> 1590835187 +0600	commit: remove doc sign field from lot model
+5426a7cafe7cef6d9c6a6fc7c95a5307ff908e5a 7bb6536bf9c95f542b59331148cfdf7db6ac8fe0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590841797 +0600	commit: front end tariff page
+7bb6536bf9c95f542b59331148cfdf7db6ac8fe0 a169d7d20f5521a90eaadcb7c0c5769e0f75d394 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590843910 +0600	commit: temporary delete lot function
+a169d7d20f5521a90eaadcb7c0c5769e0f75d394 13c7014fbf63ecec0593b04612041e517569b1bc jahangir08csebuet <jahangir.08.cse@gmail.com> 1590845902 +0600	commit: order of end date start date changed in admin
+13c7014fbf63ecec0593b04612041e517569b1bc 5e1ba95f3c71921d29458b969db1e6415d473d17 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590845993 +0600	commit: remove favoutite field from admin
+5e1ba95f3c71921d29458b969db1e6415d473d17 7d336cdcfa964870d11b0357d4c1cf88d78ca455 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590846212 +0600	commit: show seconds of lot end date in lots page
+7d336cdcfa964870d11b0357d4c1cf88d78ca455 10699cc5b32df74f7578467b5ae44f852f333ad0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591115924 +0600	commit: remove filter post by favourite
+10699cc5b32df74f7578467b5ae44f852f333ad0 1bc520a3a1c76f6a8bb11a2bd27643b08cd11263 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591125928 +0600	commit: search by lower, upper, 3 char, activation email, removed outsourcing menu, remove arrow
+1bc520a3a1c76f6a8bb11a2bd27643b08cd11263 818539b08833beeb2c4586f98a057badf94d5a51 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591128294 +0600	commit: email manager for new registration
+818539b08833beeb2c4586f98a057badf94d5a51 ef4c83dc66382857a5ac4f7ebe8697f133fa8cd0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591130248 +0600	commit: fix bug in login function
+ef4c83dc66382857a5ac4f7ebe8697f133fa8cd0 60ad22edade34b71ba0d23c4a22d1fb6b5968870 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591202975 +0600	commit: front end: account activate email template
+60ad22edade34b71ba0d23c4a22d1fb6b5968870 b0afa0e2c93f43d8b25d84260f8d7e88bab54659 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591204099 +0600	commit: front end: article detail page
+b0afa0e2c93f43d8b25d84260f8d7e88bab54659 40e9ddd156654d420d3492c6d47e9c9caca4dd4f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591207195 +0600	commit: front end: /lots page
+40e9ddd156654d420d3492c6d47e9c9caca4dd4f b0afa0e2c93f43d8b25d84260f8d7e88bab54659 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591207220 +0600	checkout: moving from dev_jahangir to b0afa0e2c93f43d8b25d84260f8d7e88bab54659
+b0afa0e2c93f43d8b25d84260f8d7e88bab54659 40e9ddd156654d420d3492c6d47e9c9caca4dd4f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591207551 +0600	checkout: moving from b0afa0e2c93f43d8b25d84260f8d7e88bab54659 to 40e9ddd156654d420d3492c6d47e9c9caca4dd4f
+40e9ddd156654d420d3492c6d47e9c9caca4dd4f 40e9ddd156654d420d3492c6d47e9c9caca4dd4f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591210072 +0600	checkout: moving from 40e9ddd156654d420d3492c6d47e9c9caca4dd4f to dev_jahangir
+40e9ddd156654d420d3492c6d47e9c9caca4dd4f fa9abb4de9f04e70463e5ff0f85e41e3c8f9b5c6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591210782 +0600	commit: front end: profile page
+fa9abb4de9f04e70463e5ff0f85e41e3c8f9b5c6 c7b4efc9e945c401548913c26607ca601701d909 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591211967 +0600	commit: front end: mu application page
+c7b4efc9e945c401548913c26607ca601701d909 881f6c65d21180667e8b4a621e785bc9e09618c0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213141 +0600	commit: front end: index page search
+881f6c65d21180667e8b4a621e785bc9e09618c0 802b11034118fc8be8ef3bf73046ce1d10456748 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213315 +0600	commit: front end: header
+802b11034118fc8be8ef3bf73046ce1d10456748 4d311c027e51ced265e5b82df5697c240643805c jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213532 +0600	commit: front end: archive page
+4d311c027e51ced265e5b82df5697c240643805c 194f4d5f16ff5e36b1b12a40348efd1fa80ba0ac jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213630 +0600	commit: front end: favorite search list
+194f4d5f16ff5e36b1b12a40348efd1fa80ba0ac 3c1c603315e6e1e7ad1c6e0bd381e52c1629cbc6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213683 +0600	commit: front end: history list
+3c1c603315e6e1e7ad1c6e0bd381e52c1629cbc6 af5866e08bf894b9cd924ac4c402fa7629eaf649 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213806 +0600	commit: front end: legal
+af5866e08bf894b9cd924ac4c402fa7629eaf649 ed0c26d863fe79d99deba52fe966a6fb08a4fcaa jahangir08csebuet <jahangir.08.cse@gmail.com> 1591213875 +0600	commit: front end: post favorite list
+ed0c26d863fe79d99deba52fe966a6fb08a4fcaa 76bc60bcb23d0d77eabd0982b32a04b8f8816e7f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591214740 +0600	commit: front end: main.css
+76bc60bcb23d0d77eabd0982b32a04b8f8816e7f 27ebd744e6b29a63472a0adaa38efe52eb0d0a56 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591215540 +0600	commit: favorite field added in lits models
+27ebd744e6b29a63472a0adaa38efe52eb0d0a56 0b57c245abe4ae787678357e4455c2896633e7b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591215585 +0600	commit: fix account activate email template
+0b57c245abe4ae787678357e4455c2896633e7b0 a7dca2d0ec11b4e0da0bb6a5e9a31ef9500b58a3 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591218018 +0600	commit: search by 3 char tick checked by default
+a7dca2d0ec11b4e0da0bb6a5e9a31ef9500b58a3 06a45ed9fe212897d619cadb6df6fbe3434d1bcd jahangir08csebuet <jahangir.08.cse@gmail.com> 1591219731 +0600	commit: exclude favorite field from admin
+06a45ed9fe212897d619cadb6df6fbe3434d1bcd 580402b0df495499ef2c235ed825775375fec0d4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591219803 +0600	commit: check list type in lot model
+580402b0df495499ef2c235ed825775375fec0d4 b02bc66fea6b84ab83395eb17590fb932cea2e64 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591219831 +0600	commit: kato list xls file
+b02bc66fea6b84ab83395eb17590fb932cea2e64 a8f6da0469d8f6525610a0d9e86774aa2a52e89c jahangir08csebuet <jahangir.08.cse@gmail.com> 1591220238 +0600	commit: kato code refined & code modified
+a8f6da0469d8f6525610a0d9e86774aa2a52e89c e2419516ee01c43c36f8d3b8338b4e587b98560b jahangir08csebuet <jahangir.08.cse@gmail.com> 1591221085 +0600	commit: add seconds with date
+e2419516ee01c43c36f8d3b8338b4e587b98560b 08d1f32bc4eefe920be4a515f7a0ce71203070f2 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591299393 +0600	commit: remove all migrations file
+08d1f32bc4eefe920be4a515f7a0ce71203070f2 770b498d6d139c04c5ff85ae28e751a3e9646156 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591299532 +0600	commit: make initial migrations
+770b498d6d139c04c5ff85ae28e751a3e9646156 bc5f37025f11580ca4b8a898c6db4ba3536bc60d jahangir08csebuet <jahangir.08.cse@gmail.com> 1591302135 +0600	commit: changes in loation code format
+bc5f37025f11580ca4b8a898c6db4ba3536bc60d 7d1f2b65fba5be9f24fa8fe093ab434bad9cebbc jahangir08csebuet <jahangir.08.cse@gmail.com> 1591302559 +0600	commit: change in tasks for location
+7d1f2b65fba5be9f24fa8fe093ab434bad9cebbc 7b297bb18e4eb5605a0ba5ff45239f67ce838a6f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591392910 +0600	commit: register lotfile model
+7b297bb18e4eb5605a0ba5ff45239f67ce838a6f b1e320464932cab45f76aa729f7a586f45a3891c jahangir08csebuet <jahangir.08.cse@gmail.com> 1591449083 +0600	commit: remove file field from lots model
+b1e320464932cab45f76aa729f7a586f45a3891c 15c33413d391a41a5d478ed32292b693bdb1a463 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591465510 +0600	commit: hide link from lots page, fix download link
+15c33413d391a41a5d478ed32292b693bdb1a463 64caf30b73aa45b3ee5453a8a0ebef20b557fde7 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591470603 +0600	commit: fix search by customer bin
+64caf30b73aa45b3ee5453a8a0ebef20b557fde7 be8fe623e5c530f2914fb6a7109158b577e47d26 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591479911 +0600	commit: count, unit field in lot model
+be8fe623e5c530f2914fb6a7109158b577e47d26 3b773e67001e84764ce2767e05618b9463a4f444 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591554411 +0600	commit: count, unit field in front end
+3b773e67001e84764ce2767e05618b9463a4f444 2bbb71142b1f88dfb27e959e8319c3d154a54d21 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591554532 +0600	commit: dont show the archived lots in /lots page
+2bbb71142b1f88dfb27e959e8319c3d154a54d21 85803983cec8c86b982ef251fe24959059ca5ef3 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591554728 +0600	commit: migrations of new models
+85803983cec8c86b982ef251fe24959059ca5ef3 9ab90172f3f2bcb5c74b450ebb944a7fad8c64c2 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591566283 +0600	commit: tariff implementation part 1
+9ab90172f3f2bcb5c74b450ebb944a7fad8c64c2 dd8042d45071f6e09cbe7c6a841c3bd16491e047 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591739047 +0600	commit: tariff change email sending task
+dd8042d45071f6e09cbe7c6a841c3bd16491e047 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591824138 +0600	commit: tariff change email sender template
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591892038 +0600	checkout: moving from dev_jahangir to dev_nurzhol
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591894170 +0600	checkout: moving from dev_nurzhol to dev_jahangir
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896534 +0600	checkout: moving from dev_jahangir to dev_nurzhol
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 9a5c8b55e86444f0d43859453b16b739e5dfa7b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896567 +0600	pull origin dev_nurzhol: Merge made by the 'recursive' strategy.
+9a5c8b55e86444f0d43859453b16b739e5dfa7b0 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896646 +0600	checkout: moving from dev_nurzhol to dev_jahangir
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896676 +0600	checkout: moving from dev_jahangir to dev_jahangir_bak
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896708 +0600	checkout: moving from dev_jahangir_bak to dev_jahangir
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 9a5c8b55e86444f0d43859453b16b739e5dfa7b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896717 +0600	merge dev_nurzhol: Fast-forward
+9a5c8b55e86444f0d43859453b16b739e5dfa7b0 2b47ab73c335fbf19a8e4325291c3bd71925c69f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591899356 +0600	commit: update kato list file and code
+2b47ab73c335fbf19a8e4325291c3bd71925c69f 337130b67786bd6adf983e1828f14ae29ad99be9 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591901126 +0600	commit: fix bug in tariff check in article detail page
+337130b67786bd6adf983e1828f14ae29ad99be9 8f8f6560414b0582c757405c2696b816ba56e928 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591914149 +0600	commit: participate btn and audit btn send email
+8f8f6560414b0582c757405c2696b816ba56e928 130e2b8f96be9099825b5ab4410565fec3810fb8 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591979358 +0600	commit: fix bug in participate, audit, login, until completion, to favorite btn etc
+130e2b8f96be9099825b5ab4410565fec3810fb8 a09d4b25b07c828601774388bd3b38ae45e51a3f jahangir08csebuet <jahangir.08.cse@gmail.com> 1591991587 +0600	commit: fix read kato list function
+a09d4b25b07c828601774388bd3b38ae45e51a3f 9bd83a2373773acec769ac80392691d56e4de71b jahangir08csebuet <jahangir.08.cse@gmail.com> 1592043227 +0600	commit: fix bug in kato list
+9bd83a2373773acec769ac80392691d56e4de71b 60273a8d5f733f05c7709ef72bf2144c86422216 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592048422 +0600	commit: fix save to favourite
+60273a8d5f733f05c7709ef72bf2144c86422216 060d3f999e8f6df27bd69901e8dc55917c1ea039 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592078744 +0600	commit: fixz bug in article detail page
+060d3f999e8f6df27bd69901e8dc55917c1ea039 d7591810ac9d7f7a9ac82b638989f5492a3ba0c5 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592081332 +0600	commit: add to favourite when login redirect to login page
+d7591810ac9d7f7a9ac82b638989f5492a3ba0c5 c5734dc12cbab3a1619cef270092da351df52eb8 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592165416 +0600	commit: favourite button color, page refresh
+c5734dc12cbab3a1619cef270092da351df52eb8 9a5c8b55e86444f0d43859453b16b739e5dfa7b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592165553 +0600	checkout: moving from dev_jahangir to dev_nurzhol
+9a5c8b55e86444f0d43859453b16b739e5dfa7b0 9a5c8b55e86444f0d43859453b16b739e5dfa7b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592165612 +0600	checkout: moving from dev_nurzhol to dev_nurzhol_bak
+9a5c8b55e86444f0d43859453b16b739e5dfa7b0 9a5c8b55e86444f0d43859453b16b739e5dfa7b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592165626 +0600	checkout: moving from dev_nurzhol_bak to dev_nurzhol
+9a5c8b55e86444f0d43859453b16b739e5dfa7b0 c5734dc12cbab3a1619cef270092da351df52eb8 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592165633 +0600	merge dev_jahangir: Fast-forward
+c5734dc12cbab3a1619cef270092da351df52eb8 2541e5e7b262b344f9b5cc412a84141ab4bccbf4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592166165 +0600	commit (merge): resolved conflicts & merge dev_nurzhol into dev_jahangir
+2541e5e7b262b344f9b5cc412a84141ab4bccbf4 c5734dc12cbab3a1619cef270092da351df52eb8 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592166202 +0600	checkout: moving from dev_nurzhol to dev_jahangir
+c5734dc12cbab3a1619cef270092da351df52eb8 2541e5e7b262b344f9b5cc412a84141ab4bccbf4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592166234 +0600	merge dev_nurzhol: Fast-forward
+2541e5e7b262b344f9b5cc412a84141ab4bccbf4 91f02e6a5b99b0097a3ff3a63b43d6fc0590fb82 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592233815 +0600	commit: region field in lot search form
+91f02e6a5b99b0097a3ff3a63b43d6fc0590fb82 21b05a14e6e0f21099e2046aec5a73b6b074c086 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592253405 +0600	commit: consultation email issue fix
+21b05a14e6e0f21099e2046aec5a73b6b074c086 6c46eaf94a3c7faec2cee64a42f5cfede1608e93 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592257994 +0600	commit: download btn redirect
+6c46eaf94a3c7faec2cee64a42f5cfede1608e93 0f603335008ff937426a5ca1d6350c19a6051c67 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592258314 +0600	commit: dont show archive lots in search
+0f603335008ff937426a5ca1d6350c19a6051c67 2541e5e7b262b344f9b5cc412a84141ab4bccbf4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592258897 +0600	checkout: moving from dev_jahangir to dev_nurzhol
+2541e5e7b262b344f9b5cc412a84141ab4bccbf4 c6140dc71f554c5c708eb09d9054ce4083ab50d4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592259581 +0600	commit (merge): resolved conflicts after pull from git
+c6140dc71f554c5c708eb09d9054ce4083ab50d4 0f603335008ff937426a5ca1d6350c19a6051c67 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592259593 +0600	checkout: moving from dev_nurzhol to dev_jahangir
+0f603335008ff937426a5ca1d6350c19a6051c67 1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592259609 +0600	checkout: moving from dev_jahangir to dev_jahangir_bak
+1cf58cf6cbf3afea1830f9b002471b4a7f4f9481 0f603335008ff937426a5ca1d6350c19a6051c67 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592259616 +0600	merge dev_jahangir: Fast-forward
+0f603335008ff937426a5ca1d6350c19a6051c67 0f603335008ff937426a5ca1d6350c19a6051c67 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592259636 +0600	checkout: moving from dev_jahangir_bak to dev_jahangir
+0f603335008ff937426a5ca1d6350c19a6051c67 50dddf99334a55b5a2ee9201bc2007df8957a6d7 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592259644 +0600	merge dev_nurzhol: Merge made by the 'recursive' strategy.
+50dddf99334a55b5a2ee9201bc2007df8957a6d7 e14cefb8604021b6ff8e432f1da312ab0fa3e60e jahangir08csebuet <jahangir.08.cse@gmail.com> 1592260718 +0600	commit: hide search fields from home page
+e14cefb8604021b6ff8e432f1da312ab0fa3e60e a5b9b0cf1b4f370bc04d0c25bec25c45f5f82441 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592261601 +0600	commit: add favourite btn color
+a5b9b0cf1b4f370bc04d0c25bec25c45f5f82441 f1e7568d17e69a430141d751f2cc2f5c4ad687a7 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592276746 +0600	commit: region creator code
+f1e7568d17e69a430141d751f2cc2f5c4ad687a7 4acd91e581cd353354ca855c85d3be56f56131e6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592400010 +0600	commit: based on chnage region change location list
+4acd91e581cd353354ca855c85d3be56f56131e6 4acd91e581cd353354ca855c85d3be56f56131e6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592400813 +0600	checkout: moving from dev_jahangir to dev_jahangir_backup_latest
+4acd91e581cd353354ca855c85d3be56f56131e6 4acd91e581cd353354ca855c85d3be56f56131e6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592400830 +0600	checkout: moving from dev_jahangir_backup_latest to dev_jahangir
+4acd91e581cd353354ca855c85d3be56f56131e6 13f707828176578c7aaf7b8f0f6879d8bc7625d3 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592400849 +0600	pull origin dev_jahangir: Merge made by the 'recursive' strategy.
+13f707828176578c7aaf7b8f0f6879d8bc7625d3 44b4fe22510c4a54f819105f5fad7fc0179b529a jahangir08csebuet <jahangir.08.cse@gmail.com> 1592416932 +0600	commit: replace None with empty
+44b4fe22510c4a54f819105f5fad7fc0179b529a 44b4fe22510c4a54f819105f5fad7fc0179b529a jahangir08csebuet <jahangir.08.cse@gmail.com> 1592423677 +0600	checkout: moving from dev_jahangir to dev_jahangir_latest2am
+44b4fe22510c4a54f819105f5fad7fc0179b529a 44b4fe22510c4a54f819105f5fad7fc0179b529a jahangir08csebuet <jahangir.08.cse@gmail.com> 1592423684 +0600	checkout: moving from dev_jahangir_latest2am to dev_jahangir
+44b4fe22510c4a54f819105f5fad7fc0179b529a 0619ff736be8802ca7f8035308bdb5cdfcdcc3a5 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592424141 +0600	commit (merge): abdul changes
+0619ff736be8802ca7f8035308bdb5cdfcdcc3a5 54478959ee5da6b9fe62bbf7c9f62dc6000e2f4c jahangir08csebuet <jahangir.08.cse@gmail.com> 1592501741 +0600	commit: search issue & favourite search list issue fixed
+54478959ee5da6b9fe62bbf7c9f62dc6000e2f4c 54478959ee5da6b9fe62bbf7c9f62dc6000e2f4c jahangir08csebuet <jahangir.08.cse@gmail.com> 1592501772 +0600	checkout: moving from dev_jahangir to dev_jahangir_backup_18June
+54478959ee5da6b9fe62bbf7c9f62dc6000e2f4c 54478959ee5da6b9fe62bbf7c9f62dc6000e2f4c jahangir08csebuet <jahangir.08.cse@gmail.com> 1592501782 +0600	checkout: moving from dev_jahangir_backup_18June to dev_jahangir
+54478959ee5da6b9fe62bbf7c9f62dc6000e2f4c d3c45b46bc75a3ad4388eb5ec47c3035897a052e jahangir08csebuet <jahangir.08.cse@gmail.com> 1592502152 +0600	commit (merge): resolve conflicts
+d3c45b46bc75a3ad4388eb5ec47c3035897a052e 3662b380675ac4d18ef2b67f4673b69017bdf4e4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592502470 +0600	commit: rename free tariff
+3662b380675ac4d18ef2b67f4673b69017bdf4e4 f5cfe451593c1442b7f682f9f3bc1e8ede54cee6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592502901 +0600	commit: insert locations, regioins utility functions
+f5cfe451593c1442b7f682f9f3bc1e8ede54cee6 6bce564ea6d4a9844d0ed2f4eb65e1ee35085d77 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592503637 +0600	commit: signup error fix , created free tariff if not exists when signup
+6bce564ea6d4a9844d0ed2f4eb65e1ee35085d77 73d567628d7a1dd359a22a5918ab9f497572696f jahangir08csebuet <jahangir.08.cse@gmail.com> 1592504068 +0600	commit: assign default tariff in profile
+73d567628d7a1dd359a22a5918ab9f497572696f e895b32eb1ec7fea89474ce8e4a7912c6f8069b0 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592555350 +0600	commit: search by code in lot search
+e895b32eb1ec7fea89474ce8e4a7912c6f8069b0 35514312dddc134ffd4939ebe5d2ed4f3ca5771a jahangir08csebuet <jahangir.08.cse@gmail.com> 1592586178 +0600	commit: fix region, location issue in tasks
+35514312dddc134ffd4939ebe5d2ed4f3ca5771a 565facc33bb085de7241f925e05ecf58fe8ed80c jahangir08csebuet <jahangir.08.cse@gmail.com> 1592586467 +0600	commit: hide purchase method from article detail page
+565facc33bb085de7241f925e05ecf58fe8ed80c 720523c8cf4459a379dad8270ad181ee33761e28 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592586718 +0600	commit: rename city title in mobile
+720523c8cf4459a379dad8270ad181ee33761e28 c5e72b34f8bde5c12f0cdc87c0c97a8a32327daa jahangir08csebuet <jahangir.08.cse@gmail.com> 1592586989 +0600	commit: remove developer email from receiver
+c5e72b34f8bde5c12f0cdc87c0c97a8a32327daa d91a09b4b7cec59c4e69928178cae71c98dc88d7 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592593254 +0600	commit: price format in article detail and list page
+d91a09b4b7cec59c4e69928178cae71c98dc88d7 476c03c0f0078e0175075e8c5a814bc5dc64fda2 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592593851 +0600	commit: filter result view made similar to list view
+476c03c0f0078e0175075e8c5a814bc5dc64fda2 84f3484a6c0d4f79568e2f8c46dfda2dbef66ec9 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592595609 +0600	commit: insert region, location utility
+84f3484a6c0d4f79568e2f8c46dfda2dbef66ec9 d4488761a9982dba35cfd459a28000078a47a478 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592596878 +0600	commit: price formatter issue fix
+d4488761a9982dba35cfd459a28000078a47a478 0f63113a0b4ffe0915b87513325acc186d905d98 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592600449 +0600	commit: duplicate region issue fix
+0f63113a0b4ffe0915b87513325acc186d905d98 98256a47da8e55c8a6fbfafb096d20034722a22f jahangir08csebuet <jahangir.08.cse@gmail.com> 1592602938 +0600	commit: disable city in lot list page
+98256a47da8e55c8a6fbfafb096d20034722a22f 183e7d7cbd60bbb9672b210b53074e12be0400c6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592603528 +0600	commit: style change in favorite search list page
+183e7d7cbd60bbb9672b210b53074e12be0400c6 5b83c0dab2262ce02c13dff58589ab2b7cceaab9 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592679649 +0600	commit: price issue fixed
+5b83c0dab2262ce02c13dff58589ab2b7cceaab9 a9e22b909c7d8a11c51f681a2b0d1e0d97debacf jahangir08csebuet <jahangir.08.cse@gmail.com> 1592679672 +0600	commit: location default for mobile
+a9e22b909c7d8a11c51f681a2b0d1e0d97debacf f4cdb38f120b8cb781afce7ba945a97f08176c25 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592681041 +0600	commit: lot order in lots page
+f4cdb38f120b8cb781afce7ba945a97f08176c25 1fdd8672c5ae60a806b8e7eb77a212d1e20501d5 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592722179 +0600	commit: pagination issue fixed
+1fdd8672c5ae60a806b8e7eb77a212d1e20501d5 de45435b4b81e99fe5d3b89316b3de6af0e5c1c4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592833856 +0600	commit: fix save to favorite lot
+de45435b4b81e99fe5d3b89316b3de6af0e5c1c4 e30a21a672ccbf7fa644e44a2b493bd1fabe1221 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592841018 +0600	commit: clear top search field in mobile in /lots page
+e30a21a672ccbf7fa644e44a2b493bd1fabe1221 e30a21a672ccbf7fa644e44a2b493bd1fabe1221 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592844473 +0600	checkout: moving from dev_jahangir to dev_jahangir_test
+e30a21a672ccbf7fa644e44a2b493bd1fabe1221 f4cdb38f120b8cb781afce7ba945a97f08176c25 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592845292 +0600	checkout: moving from dev_jahangir_test to f4cdb38f120b8cb781afce7ba945a97f08176c25
+f4cdb38f120b8cb781afce7ba945a97f08176c25 e30a21a672ccbf7fa644e44a2b493bd1fabe1221 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592847065 +0600	checkout: moving from f4cdb38f120b8cb781afce7ba945a97f08176c25 to dev_jahangir
+e30a21a672ccbf7fa644e44a2b493bd1fabe1221 e30a21a672ccbf7fa644e44a2b493bd1fabe1221 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592847077 +0600	checkout: moving from dev_jahangir to dev_jahangir_test
+e30a21a672ccbf7fa644e44a2b493bd1fabe1221 1fdd8672c5ae60a806b8e7eb77a212d1e20501d5 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592847118 +0600	checkout: moving from dev_jahangir_test to 1fdd8672c5ae60a806b8e7eb77a212d1e20501d5
+1fdd8672c5ae60a806b8e7eb77a212d1e20501d5 e30a21a672ccbf7fa644e44a2b493bd1fabe1221 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592848992 +0600	checkout: moving from 1fdd8672c5ae60a806b8e7eb77a212d1e20501d5 to dev_jahangir
+e30a21a672ccbf7fa644e44a2b493bd1fabe1221 ee797630e58eb7376628930bcbf77ede5617c4bb jahangir08csebuet <jahangir.08.cse@gmail.com> 1592849072 +0600	commit: pagination issue fixed
+ee797630e58eb7376628930bcbf77ede5617c4bb 99d76b20119a6a121e4129c1f9331d94cbfb1c74 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592933043 +0600	commit: save lots at page numbers
+99d76b20119a6a121e4129c1f9331d94cbfb1c74 8d0da051af3e5e79f8c4806da32d254e10325cdf jahangir08csebuet <jahangir.08.cse@gmail.com> 1593025722 +0600	commit: open link in new tab when click download document
+8d0da051af3e5e79f8c4806da32d254e10325cdf be796cc2eb1d4b8139806125fbcd9085d2ca62f6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593026695 +0600	commit: show main page query in title field
+be796cc2eb1d4b8139806125fbcd9085d2ca62f6 247d99e5f28ed9a46814dac3f8c39d409cee0915 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593027996 +0600	commit: open login page in new tab
+247d99e5f28ed9a46814dac3f8c39d409cee0915 85fe625e46b24af6139fb93d7c3ddec676a4bc97 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593097433 +0600	commit: remove fa-download from lot detail page
+85fe625e46b24af6139fb93d7c3ddec676a4bc97 e119c4cdd23cf4af4fced5841474379470e3b701 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593113073 +0600	commit: search by 3 or 6 characters
+e119c4cdd23cf4af4fced5841474379470e3b701 c09f8ea25f29af040fa9407420b8b173fcdbd56a jahangir08csebuet <jahangir.08.cse@gmail.com> 1593115725 +0600	commit: order by create date
+c09f8ea25f29af040fa9407420b8b173fcdbd56a 798a036f23b5616905cfc6dbd830a09a0595e79a jahangir08csebuet <jahangir.08.cse@gmail.com> 1593117212 +0600	commit: fix order by date created
+798a036f23b5616905cfc6dbd830a09a0595e79a e22bcdd32897d93a5e41672efbf74a79f5da7db4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593118267 +0600	commit: migration file for date order
+e22bcdd32897d93a5e41672efbf74a79f5da7db4 a4561f5291ea090f0621375f85ef9fcf305f1473 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593194332 +0600	commit: reset title field when come from home page
+a4561f5291ea090f0621375f85ef9fcf305f1473 2fd6e2d96be0fe855def6111c27c3c778baa7f32 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593195880 +0600	commit: rename customer to address in lot details page
+2fd6e2d96be0fe855def6111c27c3c778baa7f32 79c25a103dd081ac39fec644036cf085068483d8 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593203073 +0600	commit: fix region udate issue
+79c25a103dd081ac39fec644036cf085068483d8 04660a69ce160575420e3a6d16feab4455f92785 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593205183 +0600	commit: 4 page number in pagination
+04660a69ce160575420e3a6d16feab4455f92785 adda0362b513a7e0d6e48b88361c0d692670b9ee jahangir08csebuet <jahangir.08.cse@gmail.com> 1593353650 +0600	commit: remove stype from prev-page-number class
+adda0362b513a7e0d6e48b88361c0d692670b9ee 15778ab6329d2d3280228b67c23edb3bd0a06e4f jahangir08csebuet <jahangir.08.cse@gmail.com> 1593626028 +0600	commit: location task issue partial fix
+15778ab6329d2d3280228b67c23edb3bd0a06e4f 15778ab6329d2d3280228b67c23edb3bd0a06e4f jahangir08csebuet <jahangir.08.cse@gmail.com> 1593626242 +0600	checkout: moving from dev_jahangir to dev_jahangir_july_01
+15778ab6329d2d3280228b67c23edb3bd0a06e4f 15778ab6329d2d3280228b67c23edb3bd0a06e4f jahangir08csebuet <jahangir.08.cse@gmail.com> 1593626263 +0600	checkout: moving from dev_jahangir_july_01 to dev_jahangir
+15778ab6329d2d3280228b67c23edb3bd0a06e4f f8bf4e79fe222bdb38cb8cf0206d23d91fd6d8fc jahangir08csebuet <jahangir.08.cse@gmail.com> 1593626318 +0600	pull origin dev_jahangir: Merge made by the 'recursive' strategy.
+f8bf4e79fe222bdb38cb8cf0206d23d91fd6d8fc 1bc97a86d39f643c14a3f15afc730176a98adafc jahangir08csebuet <jahangir.08.cse@gmail.com> 1593632665 +0600	commit: last page issue fix
+1bc97a86d39f643c14a3f15afc730176a98adafc fb701100a4f82a14a51ce4dcc5a7ef4f89416c69 jahangir08csebuet <jahangir.08.cse@gmail.com> 1593634156 +0600	commit: fix issue in location task
+fb701100a4f82a14a51ce4dcc5a7ef4f89416c69 54a2272ba09b111270c2d11003e6b75fa8594475 nurzhol <ynurzhol.t@gmail.com> 1594305824 +0600	pull origin dev_jahangir: Merge made by the 'recursive' strategy.
+54a2272ba09b111270c2d11003e6b75fa8594475 e96b278eb4fa064bc7121ec77d7dc9535c154c08 nurzhol <ynurzhol.t@gmail.com> 1594325538 +0600	checkout: moving from dev_jahangir to e96b278eb4fa064bc7121ec77d7dc9535c154c08
+e96b278eb4fa064bc7121ec77d7dc9535c154c08 60bf307e32a15f232f225956cf1aa0bb8e775e00 nurzhol <ynurzhol.t@gmail.com> 1594325881 +0600	checkout: moving from e96b278eb4fa064bc7121ec77d7dc9535c154c08 to 60bf307e32a15f232f225956cf1aa0bb8e775e00
+60bf307e32a15f232f225956cf1aa0bb8e775e00 29058cda46394caed34d20860d412e8cd976bcfb nurzhol <ynurzhol.t@gmail.com> 1594327380 +0600	checkout: moving from 60bf307e32a15f232f225956cf1aa0bb8e775e00 to 29058cda46394caed34d20860d412e8cd976bcfb
+29058cda46394caed34d20860d412e8cd976bcfb b9b2c657273f5b7b34fae5fc364ef5901385f92f nurzhol <ynurzhol.t@gmail.com> 1594327535 +0600	checkout: moving from 29058cda46394caed34d20860d412e8cd976bcfb to b9b2c657273f5b7b34fae5fc364ef5901385f92f
+b9b2c657273f5b7b34fae5fc364ef5901385f92f 1bc97a86d39f643c14a3f15afc730176a98adafc nurzhol <ynurzhol.t@gmail.com> 1594327691 +0600	checkout: moving from b9b2c657273f5b7b34fae5fc364ef5901385f92f to 1bc97a86d39f643c14a3f15afc730176a98adafc
+1bc97a86d39f643c14a3f15afc730176a98adafc 29058cda46394caed34d20860d412e8cd976bcfb nurzhol <ynurzhol.t@gmail.com> 1594327857 +0600	checkout: moving from 1bc97a86d39f643c14a3f15afc730176a98adafc to 29058cda46394caed34d20860d412e8cd976bcfb
+29058cda46394caed34d20860d412e8cd976bcfb a15fc5237380061190e06b5d61c72fbc4602e28b nurzhol <ynurzhol.t@gmail.com> 1594328305 +0600	checkout: moving from 29058cda46394caed34d20860d412e8cd976bcfb to a15fc5237380061190e06b5d61c72fbc4602e28b
+a15fc5237380061190e06b5d61c72fbc4602e28b 27fe4763ab68bd86716f0acb1003f6a5ede202dd nurzhol <ynurzhol.t@gmail.com> 1594403225 +0600	commit: remove unnecessary prints
+27fe4763ab68bd86716f0acb1003f6a5ede202dd 54a2272ba09b111270c2d11003e6b75fa8594475 nurzhol <ynurzhol.t@gmail.com> 1594403781 +0600	checkout: moving from 27fe4763ab68bd86716f0acb1003f6a5ede202dd to dev_jahangir
+54a2272ba09b111270c2d11003e6b75fa8594475 e1a0d9c103920a1d1c19cc30272e81d30130d568 nurzhol <ynurzhol.t@gmail.com> 1594404972 +0600	commit: remove unnecessary prints from lots.tasks
+e1a0d9c103920a1d1c19cc30272e81d30130d568 c3f37af577fc12be9c273647d9a5f3ea23dff4aa nurzhol <ynurzhol.t@gmail.com> 1594408884 +0600	commit: fetch 2000 lots
+c3f37af577fc12be9c273647d9a5f3ea23dff4aa 0496c29f14e0e5b405321c3dd716b40ef3092107 nurzhol <ynurzhol.t@gmail.com> 1594758449 +0600	commit: [partial] debug region/location task issue
+0496c29f14e0e5b405321c3dd716b40ef3092107 c154dc83d1472026b87b6474bb638ad6790f9c1d nurzhol <ynurzhol.t@gmail.com> 1594758509 +0600	commit: search by customer name and bin
+c154dc83d1472026b87b6474bb638ad6790f9c1d 67b325c07709b52f9e3c4f6341734a430f73aa39 nurzhol <ynurzhol.t@gmail.com> 1594758611 +0600	commit: remove border from fancybox
+67b325c07709b52f9e3c4f6341734a430f73aa39 55843c1923c2d275173096a3c582e3ece356f64c nurzhol <ynurzhol.t@gmail.com> 1594758904 +0600	commit: link to tilda
+55843c1923c2d275173096a3c582e3ece356f64c 16f27dfa9322c834e3df822800e4ace50377062c nurzhol <ynurzhol.t@gmail.com> 1594758945 +0600	commit: schedule time 5 minutes
+16f27dfa9322c834e3df822800e4ace50377062c 225ffc74da521035eb2c8c576c0cb0663cf2fe00 nurzhol <ynurzhol.t@gmail.com> 1595173014 +0600	commit: 19072020 front end changes
+225ffc74da521035eb2c8c576c0cb0663cf2fe00 b97b4017e39c30eb84467bd650f6a4995a440083 nurzhol <ynurzhol.t@gmail.com> 1595601192 +0600	commit: location issue related code
+b97b4017e39c30eb84467bd650f6a4995a440083 d64f0041737e6e73d8c8295342280fa768897072 nurzhol <ynurzhol.t@gmail.com> 1595601256 +0600	commit: add tariff link & schedule time 2 mins
+d64f0041737e6e73d8c8295342280fa768897072 c300bbd47b7ec431622f27e77043bb931566090f nurzhol <ynurzhol.t@gmail.com> 1596964046 +0600	commit: nitin cganges
+c300bbd47b7ec431622f27e77043bb931566090f c300bbd47b7ec431622f27e77043bb931566090f nurzhol <ynurzhol.t@gmail.com> 1597040859 +0600	reset: moving to HEAD

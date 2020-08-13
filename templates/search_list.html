@@ -2,7 +2,7 @@
 {% include "blocks/header.html" %}
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-10">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -30,7 +30,7 @@
 <!-- Breadcrumb End -->
 
     <!-- tender Listing -->
-    <div class="alice-bg section-padding-bottom">
+    <div class="alice-bg section-padding-bottom tender-details-page">
       <div class="container">
         <div class="row no-gutters">
           <div class="col">
@@ -176,7 +176,7 @@
                       <div class="tender-list half-grid">
                         <div class="body">
                           <div class="content">
-                            <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                            <h4><a href="{{ article.get_absolute_url }}" target="_blank">{{ article.title }}</a></h4>
                             <div class="info">
                               <div class="row">
                                 <div class="col-md-5">
@@ -184,7 +184,7 @@
                                   Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
                                 </div>
                                 <div class="col-md-7">
-                                  <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
+                                  <span class="office-location">Область: <b>{{ article.city }}</b></span><br>
                                   
                                 </div>
                               </div>
@@ -193,7 +193,7 @@
                           <div class="more">
                             <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
                             <div class="buttons">
-                              <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+                              <a href="{{ article.get_absolute_url }}" class="button" target="_blank">ПОДРОБНЕЕ</a>
                             </div>
                           </div>
                         </div>

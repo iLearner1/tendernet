@@ -1,0 +1,26 @@
+Collecting celery
+  Using cached celery-4.4.6-py2.py3-none-any.whl (426 kB)
+Collecting billiard<4.0,>=3.6.3.0
+  Using cached billiard-3.6.3.0-py3-none-any.whl (89 kB)
+Requirement already satisfied, skipping upgrade: vine==1.3.0 in c:\users\welcome\envs\nenv\lib\site-packages (from celery) (1.3.0)
+Requirement already satisfied, skipping upgrade: pytz>dev in c:\users\welcome\envs\nenv\lib\site-packages (from celery) (2019.3)
+Requirement already satisfied, skipping upgrade: kombu<4.7,>=4.6.10 in c:\users\welcome\envs\nenv\lib\site-packages (from celery) (4.6.11)
+Collecting future>=0.18.0
+  Using cached future-0.18.2.tar.gz (829 kB)
+Requirement already satisfied, skipping upgrade: amqp<2.7,>=2.6.0 in c:\users\welcome\envs\nenv\lib\site-packages (from kombu<4.7,>=4.6.10->celery) (2.6.0)
+Building wheels for collected packages: future
+  Building wheel for future (setup.py): started
+  Building wheel for future (setup.py): finished with status 'done'
+  Created wheel for future: filename=future-0.18.2-py3-none-any.whl size=491062 sha256=0625920f3637cc792c42281807377c4d666083d81deda82a4c4c829829e3cbc7
+  Stored in directory: c:\users\welcome\appdata\local\pip\cache\wheels\8e\70\28\3d6ccd6e315f65f245da085482a2e1c7d14b90b30f239e2cf4
+Successfully built future
+Installing collected packages: billiard, future, celery
+  Attempting uninstall: billiard
+    Found existing installation: billiard 3.5.0.5
+    Uninstalling billiard-3.5.0.5:
+      Successfully uninstalled billiard-3.5.0.5
+  Attempting uninstall: celery
+    Found existing installation: celery 4.1.1
+    Uninstalling celery-4.1.1:
+      Successfully uninstalled celery-4.1.1
+Successfully installed billiard-3.6.3.0 celery-4.4.6 future-0.18.2

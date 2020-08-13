@@ -1,7 +1,7 @@
 {% include "blocks/header.html" %}
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-40 padding-bottom-30">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -23,7 +23,7 @@
 {% block content %}
 
 
-<div class="alice-bg section-padding-bottom">
+<div class="alice-bg section-padding-bottom tender-details-page">
   <div class="container">
     <div class="row">
       <div class="col">
@@ -91,9 +91,21 @@
                 <div class="information-and-share">
                   <div class="tender-summary">
                     <div class="buttons">
-                      <a href="/profile" class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Личный кабинет</a>
+
+                      <script type = "text/javascript">
+                         function tarifFunction() {
+                            if (confirm("Вы действительно желаете изменить тариф?")){
+                               // do stuff
+                            } else {
+                              return false;
+                            }
+                          }
+                      </script>
+
+                      <a href="{% url 'edit_tarif' %}" class="button contact-button" style="display: block;width: 100%;text-align: center;margin-bottom: 10px;" onclick="return tarifFunction();">Изменить тариф</a>
                       <a href="{% url 'post_favourite_list' %}" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
-                      <a href="javascript:void(0);" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-star"></i>&nbsp;Избранный поиск</a>
+                      <a href="{% url 'post_favourite_list' %}" class="save" style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i class="fa fa-search"></i>&nbsp;Избранный поиск</a>
+                      
                     </div>
                   </div>
                 </div>

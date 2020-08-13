@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/nurzhol/tendernet.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "development"]
+	remote = origin
+	merge = refs/heads/development
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master

@@ -1,9 +1,9 @@
 {% include "blocks/header.html" %}
-{% include "blocks/slider.html" %}
 {% include "blocks/search.html" %}
+{% include "blocks/slider.html" %}
 {% block content %}
-{% if bbs %}
-<!-- Tenders -->
+<!--{% if bbs %}
+
 <div class="section-padding-bottom alice-bg home-page">
   <div class="container" id="input-container">
     <div class="row">
@@ -23,7 +23,7 @@
                     Окончание: <br><b>{{ article.date }}</b>
                   </div>
                   <div class="col-md-7">
-                    <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
+                    <span class="office-location">Область: <b>{{ article.city }}</b></span><br>
                     <span class="deadline">До завершения: <b>{{ date4 }}</b></span>
                   </div>
                 </div>
@@ -78,5 +78,6 @@
   list's </div>
 {% endif %}
 {% endblock %}
+-->
 
 {% include "blocks/footer.html" %}

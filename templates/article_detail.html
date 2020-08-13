@@ -1,9 +1,10 @@
 {% load humanize %}
+{% load format_price %}
 {% include "blocks/header.html" %}
 <!-- article_detail.html -->
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-40 padding-bottom-30">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -38,44 +39,147 @@
                   <table class="table">
                     <tbody>
                       <tr>
+                        <td><b>Полное имя лота:</b></td>
+                        {% if post.lotFullName %}
+                            <td>{{ post.lotFullName }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+                      <tr>
                         <td><b>Сумма лота:</b></td>
-                        <td>{{ post.price }} тг.</td>
+                        {% if post.price %}
+                        {% format_price post as formatted_price %}
+                            <td>{{ formatted_price }} тг.</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+                      <!--<tr>-->
+                        <!--<td><b>Количество:</b></td>-->
+                        <!--<td>{{ post.count }} </td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                          <!--<td><b>Единица измерения:</b></td>-->
+                          <!--<td>{{ post.unit }} </td>-->
+                          <!--</tr>-->
+                          <!--{% if request.user.is_authenticated %}
+                          {% if istariff %}
+                              <tr>
+                                <td><b>Способ закупки:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                              </tr>
+                              {% else %}
+                              <tr>
+                                <td><b>Способ закупки:</b></td>
+                                {% if post.get_statzakup_display %}
+                                    <td>{{ post.get_statzakup_display }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                              </tr>
+                        {% endif %}
+                      {% else %}
+                            <tr>
+                                <td><b>Способ закупки:</b></td>
+                                <td><a href="{% url 'tariff' %}" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                              </tr>
+                      {% endif %} -->
+                      <tr>
+                        <td><b>Дата старта: </b></td>
+                        {% if post.date_open %}
+                            <td>{{ post.date_open }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
-                        <td><b>Способ закупки:</b></td>
-                        <td>{{ post.get_statzakup_display }}</td>
+                        <td><b>Дата закрытия:  </b></td>
+                        {% if post.date %}
+                            <td>{{ post.date }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
-                        <td><b>Дата старта:</b></td>
-                        <td>{{ post.date_open|date:"d.m.Y" }}</td>
+                        <td><b>До завершения: </b></td>
+                        {% if dat3 %}
+                            <td>{{ dat3|naturaltime }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                      </tr>
+                      {% if request.user.is_authenticated %}
+                        {% if istariff%}
+                              <tr>
+                                <td><b>Заказчик:</b></td>
+                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                              </tr>
+                              {% else %}
+                              <tr>
+                                <td><b>Заказчик:</b></td>
+                                {% if post.customer %}
+                                    <td>{{ post.customer }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                              </tr>
+                        {% endif %}
+                      {% else %}
+                            <tr>
+                                <td><b>Заказчик:</b></td>
+                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                              </tr>
+                      {% endif %}
+                      <tr>
+                        <td><b>Область:</b></td>
+                        {% if post.region %}
+                            <td>{{ post.region }}</td>
+                        {% else %}
+                          <td></td>
+                        {% endif %}
                       </tr>
                       <tr>
-                        <td><b>Дата закрытия:</b></td>
-                        <td>{{ post.date|date:"d.m.Y" }}</td>
+                        <td><b>Местоположение:</b></td>
+                        {% if post.city %}
+                            <td>{{ post.city }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
-                      <tr>
-                        <td><b>До завершения:</b></td>
-                        <td>{{ dat3|naturaltime }}</td>
-                      </tr>
-                      <tr>
-                        <td><b>Заказчик:</b></td>
-                        <td>{{ post.body }}</td>
-                      </tr>
-                      <tr>
-                        <td><b>Регион:</b></td>
-                        <td>{{ post.city }}</td>
-                      </tr>
-                      <tr>
-                        <td><b>Purchase Subject:</b></td>
-                        <td>{{ post.purchase_method }}</td>
-                      </tr>
-                      <tr>
-                        <td><b>Ссылка:</b></td>
-                        <td><a href="{{ post.yst }}" style="color: #eb3547;">{{ post.yst }}</a></td>
-                      </tr>
+                      {% if request.user.is_authenticated %}
+                                {% if istariff %}
+                                <tr>
+                                    <td><b>Адрес:</b></td>
+                                    <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                                  </tr>
+                                  {% else %}
+                                  <tr>
+                                    <td><b>Адрес:</b></td>
+                                    {% if post.addressFull %}
+                                        <td>{{ post.addressFull }}</td>
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                                  </tr>
+                                {% endif %}
+                      {% else %}
+                            <tr>
+                                <td><b>Адрес:</b></td>
+                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                              </tr>
+                      {% endif %}
+                      <!--<tr>-->
+                        <!--<td><b>Предмет закупки:</b></td>-->
+                        <!--<td>{{ post.itemZakup }}</td>-->
+                        <!--</tr>-->
                       <tr>
                         <td><b>Номер лота:</b></td>
-                        <td>{{ post.id }}</td>
+                        {% if post.id %}
+                            <td>{{ post.id }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       </tr>
                     </tbody>
                   </table>
@@ -85,15 +189,14 @@
                   <div class="buttons">
                     {% if request.user.is_authenticated %}
                     {% if is_favourite %}
-                    <!-- <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="background: #ffe004; color: #000;"><i class="fas fa-star"></i> Добавлено в избранное</a> -->
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}" style="color: #ffe004;"><i
-                        class="fas fa-star"></i>удалить из Избранного</a>
+                    <!-- <a class="apply" href="{% url 'favourite_post' ID=post.id %}" style="background: #ffe004; color: #000;"><i class="fas fa-star"></i> Добавлено в избранное</a> -->
+                    <a class="apply bg-yellow-btn" href="{% url 'favourite_post' ID=post.id %}" style="font-weight: 400;"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного</a>
                     {% else %}
-                    <a class="apply" href="{% url 'favourite_post' slug=post.slug %}"><i class="far fa-star"></i>
+                    <a class="apply" href="{% url 'favourite_post' ID=post.id %}" style="font-weight: 400;"><i class="far fa-star"></i>
                       Добавить в избранное</a>
                     {% endif %}
                     {% else %}
-                    <a class="apply" href="{% url 'login' %}?next={{ request.path }}"><i class="far fa-star"></i>
+                    <a class="apply un-authorized" href="{% url 'login' %}?next={{ request.path }}" target="_blank" style="font-weight: 400;"><i class="far fa-star"></i>
                       Добавить в избранное</a>
                     {% endif %}
                     <br>
@@ -101,14 +204,24 @@
                   <div>
                     <br>
                     <h6 class="margin-bottom-10">Поделиться в соц. сетях:</h6>
-                    <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
-                    <script src="https://yastatic.net/share2/share.js"></script>
-                    <div class="ya-share2" data-services="whatsapp,telegram"></div>
+
+                    <script type="text/javascript">(function(w,doc) {
+                    if (!w.__utlWdgt ) {
+                        w.__utlWdgt = true;
+                        var d = doc, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                        s.src = ('https:' == w.location.protocol ? 'https' : 'http')  + '://w.uptolike.com/widgets/v1/uptolike.js';
+                        var h=d[g]('body')[0];
+                        h.appendChild(s);
+                    }})(window,document);
+                    </script>
+                    <div data-mobile-view="true" data-share-size="30" data-like-text-enable="false" data-background-alpha="0.0" data-pid="1883085" data-mode="share" data-background-color="#ffffff" data-share-shape="rectangle" data-share-counter-size="12" data-icon-color="#ffffff" data-mobile-sn-ids="fb.vk.tw.ok.wh.tm.vb." data-text-color="#000000" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-type="disable" data-orientation="horizontal" data-following-enable="false" data-sn-ids="wh.tm.em." data-preview-mobile="false" data-selection-enable="false" data-exclude-show-more="true" data-share-style="1" data-counter-background-alpha="1.0" data-top-button="false" class="uptolike-buttons" ></div>
+
                   </div>
                 </div>
 
               </div>
-              <div class="col-xl-4 offset-xl-1 col-lg-4">
+              <div class="col-xl-4 offset-xl-1 col-lg-4 xs-disply-none">
                 <div class="information-and-share">
 
                   <div class="tender-summary">
@@ -116,39 +229,54 @@
 
                       <script type="text/javascript">
                         function uchastvovatFunction() {
-                          if (confirm("Вы действительно желаете участвовать?")) {
-                            // do stuff
+                          /**if (confirm("Вы действительно желаете участвовать?")) {
+                            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
                           } else {
                             return false;
-                          }
+                          }**/
+
                         }
                       </script>
 
                       {% if request.user.is_authenticated %}
-                      {% if user.profile.tarif.id > 1 %}
-                      <form id="form_buying_product" class="form-inline" action="{% url 'basket_adding_lot' %}"
-                        style="width: 100%;">
-                        {% csrf_token %}
-                        <button type="submit" id="submit_btn1" class="button contact-button"
-                          data-product_id1="{{ post.id }}" data-user_name1="{{ request.user.id }}"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                          onclick="return uchastvovatFunction();">
-                          Участвовать
-                        </button>
-                      </form>
+                            <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
+                            style="width: 100%;">
+                            {% csrf_token %}
+                            <button type="submit" id="submit_btn1" class="button contact-button"
+                              data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
+                              style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                              >
+                              Участвовать
+                            </button>
+                          </form>
+
                       {% else %}
-                      <a href="{% url 'profile' %}" onclick="return uchastvovatFunction();"><button
-                          class="button contact-button"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
+                          <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank" class="un-authorized"><button class="button contact-button"
+                              style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
                       {% endif %}
+
+                      {% if request.user.is_authenticated  %}
+                          {% if post.yst %}
+                              {% if istariff %}
+                                  <a href="{% url 'tariff' %}" class="save doc-download" target="_blank" data-free="free" onclick="return confirm('Чтобы посмотреть детали, поменяйте ваш тариф')"
+                                style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                                  class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                              {% else %}
+                                  <a href="{{ post.yst }}"  class="save doc-download" target="_blank" data-free="other"
+                                style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                                  class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                              {% endif %}
+                          {% else %}
+                              <a href="{% url 'tariff' %}" class="save doc-download" target="_blank"
+                            style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
+                              class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                          {% endif %}
                       {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}"
-                        onclick="return uchastvovatFunction();"><button class="button contact-button"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
-                      {% endif %}
-                      <a href="{{ post.down.url }}" class="save" target="_blank"
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="save un-authorized" target="_blank"
                         style="display: block;width: 100%;text-align: center;margin-right: 0;margin-bottom: 10px;"><i
                           class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+
+                      {% endif %}
                     </div>
                   </div>
 
@@ -157,35 +285,32 @@
 
                       <script type="text/javascript">
                         function documentFunction() {
-                          if (confirm("Вы заказываете аудит конкурсной документации, чтобы узнать полный перечень документов для участия в этом тендере.\nУслуга платная и составляет 9500 тенге.\nЕсли вы согласны, будете перенаправлены на страницу оплаты.")) {
-                            // do stuff
+                          /**if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
                           } else {
                             return false;
-                          }
+                          }**/
+                          console.log('nice content');
                         }
                       </script>
 
-                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы
+                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы 
                         для участия</h6>
                       {% if request.user.is_authenticated %}
-                      {% if user.profile.tarif.id > 1 %}
-                      <form id="buying_doc" class="form-inline" action="{% url 'basket_adding_doc' %}"
-                        style="width: 100%;">
-                        {% csrf_token %}
-                        <button type="submit" id="submit_btn_doc" class="button contact-button"
-                          data-product_id="{{ post.id }}" data-user_name="{{ request.user.id }}"
-                          style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                          onclick="return documentFunction();">Запросить документы</button>
-                      </form>
+                             <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
+                                style="width: 100%;">
+                                {% csrf_token %}
+                                <button type="submit" id="submit_btn_doc" class="button contact-button"
+                                  data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
+                                  style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                                 >Запросить аудит</button>
+                              </form>
                       {% else %}
-                      <a href="{% url 'profile' %}" onclick="return documentFunction();"><button
-                          class="button contact-button">Запросить документы</button></a>
-                      {% endif %}
-                      {% else %}
-                      <a href="{% url 'login' %}?next={{ request.path }}" onclick="return documentFunction();"><button
-                          class="button contact-button">Запросить документы</button></a>
+                      <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
+                          class="button contact-button">Запросить аудит</button></a>
 
                       {% endif %}
+                      <a href="/static/files/audit_example.pdf" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
                     </div>
                   </div>
 
@@ -218,7 +343,7 @@
                     .table-responsive-stack td,
                     .table-responsive-stack th {
                       display: block;
-                      /*      
+                      /*
                        flex-grow | flex-shrink | flex-basis   */
                       -ms-flex: 1 1 auto;
                       flex: 1 1 auto;
@@ -263,9 +388,6 @@
                         $(this).find("th, td").css('flex-basis', rowGrow);
                       });
 
-
-
-
                       function flexTable() {
                         if ($(window).width() < 768) {
 
@@ -275,7 +397,7 @@
                           });
 
 
-                          // window is less than 768px   
+                          // window is less than 768px
                         } else {
 
 
@@ -287,7 +409,7 @@
 
 
                         }
-                        // flextable   
+                        // flextable
                       }
 
                       flexTable();
@@ -296,7 +418,7 @@
                         flexTable();
                       };
 
-                      // document ready  
+                      // document ready
                     });
                   </script>
 
@@ -426,6 +548,101 @@
           </div>
 
         </div>
+
+        <div class="mob-right-menu">
+          <div class="information-and-share" style="margin-top: 20px;">
+
+            <div class="tender-summary content-simm" style="padding: 0!important;">
+              <div class="buttons">
+
+                <script type="text/javascript">
+                  function uchastvovatFunction() {
+                    if (confirm("Вы действительно желаете участвовать?")) {
+                      alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
+                    } else {
+                      return false;
+                    }
+                  }
+                </script>
+
+                {% if request.user.is_authenticated %}
+                      <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
+                      style="width: 100%;">
+                      {% csrf_token %}
+                      <button type="submit" id="submit_btn1" class="button contact-button"
+                        data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
+                        style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                       >
+                        Участвовать
+                      </button>
+                    </form>
+
+                {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}"  target="_blank" class="un-authorized"><button class="button contact-button"
+                        style="display: block;width: 100%;text-align: center;margin-bottom: 10px;">Участвовать</button></a>
+                {% endif %}
+
+                {% if request.user.is_authenticated  %}
+                    {% if post.yst %}
+                        {% if istariff %}
+                            <a href="{% url 'tariff' %}" class="save doc-download" target="_blank" data-free="free" onclick="return confirm('Чтобы посмотреть детали, поменяйте ваш тариф')"
+                          style="display: block;width: 100%;text-align: center;margin-right: 0!important;margin-bottom: 10px;"><i
+                            class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                        {% else %}
+                            <a href="{{ post.yst }}"  class="save doc-download" target="_blank" data-free="other"
+                          style="display: block;width: 100%;text-align: center;margin-right: 0!important;margin-bottom: 10px;"><i
+                            class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'tariff' %}" class="save doc-download" target="_blank"
+                      style="display: block;width: 100%;text-align: center;margin-right: 0!important;margin-bottom: 10px;"><i
+                        class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+                    {% endif %}
+                {% else %}
+                  <a href="{% url 'login' %}?next={{ request.path }}" class="save un-authorized" target="_blank"
+                  style="display: block;width: 100%;text-align: center;margin-right: 0!important;margin-bottom: 10px;"><i
+                    class="fa fa-download"></i>&nbsp;Скачать документацию</a>
+
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="tender-summary" style="margin-top: 20px;">
+              <div class="buttons">
+
+                <script type="text/javascript">
+                  function documentFunction() {
+                    if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
+                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
+                    } else {
+                      return false;
+                    }
+                  }
+                </script>
+
+                <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы
+                  для участия</h6>
+                  {% if request.user.is_authenticated %}
+                       <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
+                          style="width: 100%;">
+                          {% csrf_token %}
+                          <button type="submit" id="submit_btn_doc" class="button contact-button"
+                            data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
+                            style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                            >Запросить аудит</button>
+                        </form>
+                {% else %}
+                <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
+                    class="button contact-button">Запросить аудит</button></a>
+
+                {% endif %}
+                <a href="/static/files/audit_example.pdf" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

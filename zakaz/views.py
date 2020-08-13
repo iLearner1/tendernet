@@ -7,27 +7,59 @@ from zakaz.models import Zakaz, Zakazdoc
 from django.views import View
 from . import forms
 from .tasks import notify_admin_service
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.contrib.sites.shortcuts import get_current_site
+from tn_first.settings import EMAIL_MANAGER
 
 
 def basket_adding_lot(request):
     return_dict = dict()
-    print(request.POST)
+    current_site = get_current_site(request)
     data = request.POST
-    product_id1 = data.get("product_id1")
-    user_id1 = data.get("user_id1")
+    product_id = data.get("product_id")
+
     new_product = Zakaz.objects.get_or_create(
-        lot_id=product_id1, klyent_id=user_id1,)
+        lot_id=product_id, klyent_id=request.user.id,)
+
+    mail_subject = "Участвовать"
+
+    message = render_to_string('blocks/participate_email.html', {
+        'phone': request.user.username,
+        'name': request.user.first_name + " " + request.user.last_name,
+        'email': request.user.email,
+        'url': data.get("request_path"),
+        'domain': current_site.domain
+    })
+
+    send_mail(mail_subject, '', 'tendernet.kz@mail.com',
+              [EMAIL_MANAGER], html_message=message, fail_silently=False)
+
     return JsonResponse(return_dict)
 
 
 def basket_adding_doc(request):
     return_dict = dict()
-    print(request.POST)
+    current_site = get_current_site(request)
     data = request.POST
     product_id = data.get("product_id")
     user_id = data.get("user_id")
     new_product = Zakazdoc.objects.get_or_create(
         lots_id=product_id, klyenty_id=user_id,)
+
+    mail_subject = "Запросить аудит"
+
+    message = render_to_string('blocks/participate_email.html', {
+        'phone': request.user.username,
+        'name': request.user.first_name + " " + request.user.last_name,
+        'email': request.user.email,
+        'url': data.get("request_path"),
+        'domain': current_site.domain
+    })
+
+    send_mail(mail_subject, '', 'tendernet.kz@mail.com',
+              [EMAIL_MANAGER], html_message=message, fail_silently=False)
     return JsonResponse(return_dict)
 
 
@@ -45,10 +77,10 @@ def pko(request):
     return render(request, 'pko.html', {'form': sub})
 
 
+
 def iso(request):
     sub = forms.Iso()
     if request.method == 'POST':
-
         sub = forms.Iso(request.POST)
         subject = 'ПКО с сайта Tendernet.kz'
         notify_admin_service.delay(sub.data, subject)

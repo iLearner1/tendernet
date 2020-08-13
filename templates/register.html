@@ -16,6 +16,9 @@
               $('#id_username').addClass('form-control');
               $("#id_username").attr("placeholder", "8xxxxxxxxxx (Номер телефона)");
               $('label[for=id_username]').text("Номер телефона");
+              //$("#id_username").attr("onkeyup", "this.value = this.value.replace(/[^\d]/g,'');");
+              $("#id_username").attr("type", "number");
+              $("#id_username").attr("onkeypress", "return event.charCode >= 48 && event.charCode <= 57");
 
               $('#id_first_name').addClass('form-control');
               $("#id_first_name").attr("placeholder", "Имя");
@@ -33,6 +36,7 @@
               $('#id_confirm_password').addClass('form-control');
               $("#id_confirm_password").attr("placeholder", "Повторите пароль");
               $('label[for=id_confirm_password]').text("Повторите пароль");
+
             });
           </script>
 
@@ -53,8 +57,8 @@
             {% endif %}
           </form>
           <div class="shortcut-login">
-            <p>Регистрируясь Вы соглашаетесь с <a href="/static/media/polzovatelskoe_soglashenie.pdf" style="display: inline; color: red;" target="_blank">пользовательским соглашением</a>.</p>
-            <p>У Вас уже есть аккаунт? <a href="{% url 'login' %}" style="color: red;">Войдите</a></p>
+            <p>Регистрируясь Вы соглашаетесь с <a href="/static/media/polzovatelskoe_soglashenie.pdf" style="display: inline; color: #0056b3;" target="_blank">пользовательским соглашением</a>.</p>
+            <p>У Вас уже есть аккаунт? <a href="{% url 'login' %}" style="color: #0056b3;">Войдите</a></p>
           </div>
         </div>
       </div>

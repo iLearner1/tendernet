@@ -1,30 +1,111 @@
+{% load humanize %}
+{% load is_favourite_post %}
+{% load format_price %}
 <div class="tender-filter-result xs-padding-0">
     {% for article in posts %}
       <div class="item">
-        <div class="tender-list half-grid">
-          <div class="body">
-            <div class="content">
-              <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
-              <div class="info">
-                <div class="row">
-                  <div class="col-md-5">
-                    Окончание:<br><b>{{ article.date|date:"d.m.Y" }}</b>
-                  </div>
-                  <div class="col-md-7">
-                    <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
-                  </div>
+          <div class="tender-list half-grid" style="display: block;">
+
+              <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-9">
+                  <h4 class="lot-name">
+                      {% if article.title %}
+                            <a href="{{ article.get_absolute_url }}" target="_blank">{{ article.title }}</a>
+                      {% else %}
+                            <a href="{{ article.get_absolute_url }}" target="_blank"></a>
+                      {% endif %}
+                  </h4>
+                </div>
+                <div class="col-md-3">
+
+                    {% if article.price %}
+                    {% format_price article as formatted_price %}
+                            <span class="price">{{ formatted_price }} тг</span>
+                    {% else %}
+                            <span class="price"></span>
+                    {% endif %}
                 </div>
               </div>
-            </div>
-            <div class="more">
-              <span class="price"><b>Сумма:</b><br>{{ article.price }} тг</span><br>
-              <div class="buttons">
-                <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+
+              <div style="clear: both;"></div>
+
+              <div class="row">
+
+                <div class="col-md-9">
+
+                  <table class="table table-borderless">
+                    <tbody>
+
+                      <tr>
+                        <td>Дата начала:</td>
+                          {% if article.date_open %}
+                                <td style="text-align: right;">{{ article.date_open }}</td>
+                          {% else %}
+                                <td style="text-align: right;"></td>
+                          {% endif %}
+                      </tr>
+
+                      <tr>
+                        <td>Дата завершения:</td>
+                          {% if article.date %}
+                                <td style="text-align: right;">{{ article.date }}</td>
+                          {% else %}
+                                <td style="text-align: right;"></td>
+                          {% endif %}
+                      </tr>
+
+                      <tr>
+                        <td>Место поставки:</td>
+                          {% if article.region and article.city %}
+                                <td style="text-align: right;">{{ article.region }} {{ article.city }}</td>
+                          {% else %}
+                                {% if article.region %}
+                                    <td style="text-align: right;">{{ article.region }}</td>
+                                {% else %}
+                                    {% if article.city %}
+                                        <td style="text-align: right;">{{ article.city }}</td>
+                                    {% else %}
+                                        <td style="text-align: right;"></td>
+                                    {% endif %}
+                                {% endif %}
+                          {% endif %}
+                      </tr>
+
+                      <tr style="font-style: italic;">
+                        <td>До завершения:</td>
+                          {% if article.date %}
+                            <td style="text-align: right;">{{ article.date|naturaltime }}</td>
+                          {% else %}
+                            <td style="text-align: right;"></td>
+                          {% endif %}
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <div class="col-md-3">
+
+                  <div class="buttons">
+                    <a href="{{ article.get_absolute_url }}" class="more-button" target="_blank">ПОДРОБНЕЕ</a>
+                      {% if request.user.is_authenticated %}
+                            {% is_favourite_post article request as is_favourite %}
+                            {% if is_favourite %}
+                                <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}" style="background-color: #FFC107!important;">В избранные</a>
+                            {% else %}
+                                <a href="#" class="featured-button favourite-post-ajax" data-article_id="{{article.id}}" data-url="{% url 'favourite_post_ajax' ID=article.id %}">В избранные</a>
+                            {% endif %}
+                      {% else %}
+                            <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="featured-button un-authorized" data-message="true" data-favorite="true">В избранные</a>
+                      {% endif %}
+                  </div>
+
+                </div>
+
               </div>
-            </div>
+
           </div>
         </div>
-      </div>
       {% empty %}
       <div class="item">
         <p>Не найден соответсвующий тендер</p>
@@ -35,21 +116,94 @@
   <div class="pagination-list text-center">
     <nav class="navigation pagination">
       <div class="nav-links">
-        {% if posts.has_previous %}
-          <a class="prev page-numbers" href="?page={{ posts.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+         {% if posts.has_previous %}
+          <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+          <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ posts.previous_page_number }}"> < </a>
         {% endif %}
+<!--        {% if posts.number|add:'-2' > 1 %}-->
+<!--            <a href="#" aria-controls=""  tabindex="0" class="page-numbers">&hellip;</a>-->
+<!--        {% endif %}-->
         {% for p in posts.paginator.page_range %}
-          {% if posts.number == p %}
-            <a aria-current="page" href="?page={{ p }}" class="page-numbers current">{{ p }}</a>
-          {% else %}
-            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
-          {% endif %}
+                {% if posts.number == p %}
+                    <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+                {% elif p > posts.number|add:'-2' and p <= posts.number|add:'2' %}
+                    <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+
+                {% endif %}
         {% endfor %}
+<!--          {% if posts.paginator.num_pages > posts.number|add:'2' %}-->
+<!--              <a href="#" data-dt-idx="{{ i }}"  class="page-numbers">&hellip;</a>-->
+<!--            {% endif %}-->
         {% if posts.has_next %}
-          <a class="next page-numbers" href="?page={{ posts.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+          <a class="next page-numbers" href="javascript:void(0);" data-page="{{ posts.next_page_number }}"> > </a>
+          <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
         {% endif %}
       </div>
-    </nav>                
+    </nav>
   </div>
 
 </div>
+<script>
+     $(".page-numbers").on("click", function(event) {
+      event.preventDefault();
+      var w = window.innerWidth;
+      let formData = null;
+      if(w<500){
+        formData = $("#main-searchform-" + "mobile").serializeArray();
+      }else{
+        formData = $("#main-searchform-" + "pc").serializeArray();
+      }
+      
+      var data = {};
+      for (let item of formData) {
+        data[item.name] = item.value;
+      }
+      data["page"] = parseInt($(this).attr("data-page"));
+      $.ajax({
+            method: 'GET',
+            url: "{% url 'post_search' %}",
+            data: data,
+            success: function (resp) {
+                $("#input-container").html(resp);
+            },
+            error: function (err) {
+              console.log(err.responseText);
+            }
+      });
+  });
+
+    $(".favourite-post-ajax").on("click", function(e) {
+      console.log("featured-button clicked");
+      e.preventDefault();
+      var _this = $(this);
+      var favourite_post_url = $(this).attr("data-url");
+      var id = $(this).attr("data-article_id");
+
+      let csrftoken = '{{ csrf_token }}';
+      var data = {};
+      data['csrf_token'] = csrftoken;
+      data['id'] = id;
+
+      $.ajax({
+         url: favourite_post_url,
+         type: 'POST',
+         data: data,
+         cache: true,
+         headers: { 'X-CSRFToken': csrftoken },
+         success: function (data) {
+             console.log(data);
+             if(data['added'])
+             {
+               $(_this).css("background-color", "#FFC107");
+             }
+             else
+             {
+               $(_this).css("background-color", "#fff");
+             }
+         },
+         error: function(){
+             console.log("error")
+         }
+     });
+    });
+</script>

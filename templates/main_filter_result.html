@@ -5,7 +5,7 @@
           <div class="body">
             <div class="content">
               <h4>
-                <a href="{{ article.get_absolute_url }}">
+                <a href="{{ article.get_absolute_url }}" target="_blank">
                   {{ article.title }}
                 </a>
               </h4>
@@ -16,7 +16,7 @@
                     Окончание: <br><b>{{ article.date }}</b>
                   </div>
                   <div class="col-md-7">
-                    <span class="office-location">Регион: <b>{{ article.city }}</b></span><br>
+                    <span class="office-location">Область: <b>{{ article.city }}</b></span><br>
                     <span class="deadline">До завершения: <b>{{ date4 }}</b></span>
                   </div>
                 </div>
@@ -28,7 +28,7 @@
                 {{ article.price }} тг.
               </span><br>
               <div class="buttons">
-                <a href="{{ article.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
+                <a href="{{ article.get_absolute_url }}" class="button" target="_blank">ПОДРОБНЕЕ</a>
               </div>
             </div>
           </div>

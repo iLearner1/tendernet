@@ -1,8 +1,30 @@
-{% include 'blocks/header.html' %}
+{% include "blocks/header.html" %}
 
-{% block content %}
-<div style="position: relative; top: 90px; text-align: left; left: 2vw;">
-    <span style="">На Ваш почтовый ящик отправлено сообщение, содержащее ссылку для подтверждения правильности e-mail адреса.</span><br/>
-    <span>Вы можете закрыть эту страницу или перейти на <strong><a href="/">Главную страницу</a></strong>.</span>
+<div class="padding-top-90 padding-bottom-90 access-page-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-4 col-md-6">
+        <div class="access-form" style="margin-bottom: 20px;">
+          <div class="form-header" style="background-color: #dff0d8; margin-top: 20px; margin-bottom: 10px;">
+            <h5><i data-feather="edit"></i>Проверьте почту</h5>
+          </div>
+          {% block content %}
+            <p>
+              На Ваш почтовый ящик отправлено сообщение, содержащее ссылку для подтверждения правильности e-mail адреса.
+            </p>
+            <p>
+              Если Вы не получили письма, проверьте, пожалуйста, правильно ли введен почтовый адрес и не попало ли письмо в папку "Спам".
+            </p>
+            <p>
+            	Вы можете закрыть эту страницу или перейти на <strong><a href="/">Главную страницу</a></strong>.
+            </p>
+          {% endblock %}
+        </div>
+    </div>
+    <div class="d-xs-none col-xl-6 offset-xl-2 col-md-6 skyt">
+      <center><img class="center-block" src="/static/images/logoreg.png?v2" alt="" width="100%"></center>
+    </div>
+
+  </div>
 </div>
-{% endblock %}
+{% include "blocks/footer.html" %}

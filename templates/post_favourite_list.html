@@ -2,7 +2,7 @@
 {% block content %}
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-20">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -30,58 +30,99 @@
 <!-- Breadcrumb End -->
 
 <!-- tender Listing -->
-<div class="alice-bg section-padding-bottom">
+<div class="alice-bg section-padding-bottom tender-details-page">
   <div class="container">
     <div class="row no-gutters">
       <div class="col-xl-12">
         <div class=" ">
           <div class="">
 
-            <div class="tender-view-controller-wrapper favorites-buttons"  >
-              <a href="{% url 'post_favourite_list' %}" class="favorites-buttons-tenders active"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
-              <a href="{% url 'favorite_search_list' %}" class="favorites-buttons-search"><i class="fas fa-search"></i>&nbsp;Избранные поиски</a>
+            <div class="tender-view-controller-wrapper favorites-buttons buttons">
+              <a href="{% url 'post_favourite_list' %}" class="favorites-buttons-tenders save active"><i class="fa fa-star"></i>&nbsp;Избранные лоты</a>
+              <a href="{% url 'favorite_search_list' %}" class="favorites-buttons-search save"><i class="fas fa-search"></i>&nbsp;Избранные поиски</a>
             </div>
 
             <div class="tender-filter-result xs-padding-0">
 
+          {% if favourite_posts %}
               {% for p in favourite_posts %}
+
+
+
+              <div class="item">
+                <div class="tender-list half-grid" style="display: block;">
+
+                    <div class="row" style="margin-bottom: 20px;">
+                      <div class="col-md-9">
+                        <h4 class="lot-name">
+                            <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
+                        </h4>
+                      </div>
+                      <div class="col-md-3">
+                        <span class="price">{{ p.price }} тг</span>
+                      </div>
+                    </div>
+
+                    <div style="clear: both;"></div>
+
+                    <div class="row">
+
+                      <div class="col-md-9">
+
+                        <table class="table table-borderless">
+                          <tbody>
+
+                            <tr>
+                              <td>Дата начала:</td>
+                                <td style="text-align: right;">{{ p.date_open|date:"d.m.Y" }}</td>
+                            </tr>
+
+                            <tr>
+                              <td>Дата завершения:</td>
+                              <td style="text-align: right;">{{ p.date|date:"d.m.Y" }}</td>
+                            </tr>
+
+                            <tr>
+                              <td>Место поставки:</td>
+                              <td style="text-align: right;">{{ p.city }}</td>
+                            </tr>
+
+                            <tr style="font-style: italic;">
+                              <td>До завершения:</td>
+                              <td style="text-align: right;">{{ p.date|timeuntil:current_date }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                      <div class="col-md-3">
+
+                        <div class="buttons">
+                          <a href="{{ p.get_absolute_url }}" class="more-button" style="width: 100%; border-radius: 4px;">ПОДРОБНЕЕ</a>
+                        </div>
+
+                        <div class="remove-button" style="text-align: center; margin-top: 10px;">
+                             <a href="{{ p.get_absolute_url }}delete/" class="featured-button favourite-post-ajax confirmation"><i class="fa fa-trash"></i>&nbsp;Удалить</a>
+                         </div>
+
+                      </div>
+
+                    </div>
+
+                </div>
+              </div>
+
+                {% endfor %}
+              {% else %}
 
                 <div class="item">
                   <div class="tender-list half-grid">
-                    <div class="body">
-                      <div class="content">
-                        <h4><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h4>
-                        <div class="info">
-                          <div class="row">
-                            <div class="col-md-5">
-                              Начало: <b>{{ p.date }}</b><br>
-                              Окончание: <b>00.00.0000</b>
-                            </div>
-                            <div class="col-md-7">
-                              <span class="office-location">Регион: <b>{{ p.city }}</b></span><br>
-                              <span class="deadline">До завершения: <b>0 д 00 ч 0 м</b></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="more">
-                        <span class="price"><b>Сумма:</b><br>{{ p.price }} тг</span><br>
-                        <div class="buttons">
-                          <a href="{{ p.get_absolute_url }}" class="button">ПОДРОБНЕЕ</a>
-                        </div>
-                        <div class="remove-button">
-                          <a href="{{ p.get_absolute_url }}delete/" class="confirmation"><i class="fa fa-trash"></i>&nbsp;Удалить</a>
-                        </div>
-                      </div>
-                    </div>
+                    <p>У вас нет избранных лотов</p>
                   </div>
                 </div>
 
-                {% empty %}
-                  <ul>
-                    <li>Нет избранных поисков</li>
-                  </ul>
-                {% endfor %}
+              {% endif %}
 
 
             </div>

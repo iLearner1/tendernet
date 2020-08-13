@@ -1,0 +1,20 @@
+0000000000000000000000000000000000000000 8ef21327a2e7b3b3a336b6514e38752bf09695b3 nurzhol <ynurzhol.t@gmail.com> 1587374623 +0600	WIP on development: 57338b2 changes reverted
+8ef21327a2e7b3b3a336b6514e38752bf09695b3 10ed699b94a6839f946dd7cdd4890dd1133587b3 nurzhol <ynurzhol.t@gmail.com> 1588110266 +0600	WIP on development: b03de79 Google analytics, push
+10ed699b94a6839f946dd7cdd4890dd1133587b3 b5ef64e23fc4fd097573e169ca4dde81002169e4 jahangir08csebuet <jahangir.08.cse@gmail.com> 1589626528 +0600	WIP on dev_jahangir: 021d7c4 front end merged and resolved conflicts
+b5ef64e23fc4fd097573e169ca4dde81002169e4 08fb9903edb05a18f3803c54bf31da0081195f3a jahangir08csebuet <jahangir.08.cse@gmail.com> 1589831326 +0600	WIP on dev_jahangir: 0743c3a customer field value changed to customer_name_ru
+08fb9903edb05a18f3803c54bf31da0081195f3a bea80cd0cb20f6c09625e62b4aa08fd3f753e989 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590494608 +0600	WIP on dev_jahangir: 6ae7085 issue fix location region task
+bea80cd0cb20f6c09625e62b4aa08fd3f753e989 a3a2c99ca69a91f55b5bf1874cb11818c895c682 jahangir08csebuet <jahangir.08.cse@gmail.com> 1590513776 +0600	WIP on dev_jahangir: 0dc2103 correct location name
+a3a2c99ca69a91f55b5bf1874cb11818c895c682 7c3b1605f2aada91dcdbc85711a62ad4b7a9a708 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591302152 +0600	WIP on dev_jahangir: bc5f370 changes in loation code format
+7c3b1605f2aada91dcdbc85711a62ad4b7a9a708 f43092d8f3f144e2de03164f0cad72b4857049eb jahangir08csebuet <jahangir.08.cse@gmail.com> 1591554598 +0600	WIP on dev_jahangir: 2bbb711 dont show the archived lots in /lots page
+f43092d8f3f144e2de03164f0cad72b4857049eb 4d4a4a076fc2de37698dab008f7630b7a8e43b73 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591824144 +0600	WIP on dev_jahangir: 1cf58cf tariff change email sender template
+4d4a4a076fc2de37698dab008f7630b7a8e43b73 ad5c00bd65c555a7edf811cee00e7a129f3f4d91 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591892020 +0600	WIP on dev_jahangir: 1cf58cf tariff change email sender template
+ad5c00bd65c555a7edf811cee00e7a129f3f4d91 402b71053deb856eb93496d7f065948b86814757 jahangir08csebuet <jahangir.08.cse@gmail.com> 1591896519 +0600	WIP on dev_jahangir: 1cf58cf tariff change email sender template
+402b71053deb856eb93496d7f065948b86814757 c3630470150c037480749790860ce7e62ff8abba jahangir08csebuet <jahangir.08.cse@gmail.com> 1591914845 +0600	WIP on dev_jahangir: 8f8f656 participate btn and audit btn send email
+c3630470150c037480749790860ce7e62ff8abba f1eceae6cf6772c99b61e44aea309818c6b26f3b jahangir08csebuet <jahangir.08.cse@gmail.com> 1592165472 +0600	WIP on dev_jahangir: c5734dc favourite button color, page refresh
+f1eceae6cf6772c99b61e44aea309818c6b26f3b c1c75a1289e9b571faaf04be4e11fb198273db35 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592258886 +0600	WIP on dev_jahangir: 0f60333 dont show archive lots in search
+c1c75a1289e9b571faaf04be4e11fb198273db35 1e1c13a42f5bf8ef9c0f8604860eb30c51b46b2b jahangir08csebuet <jahangir.08.cse@gmail.com> 1592400780 +0600	WIP on dev_jahangir: 4acd91e based on chnage region change location list
+1e1c13a42f5bf8ef9c0f8604860eb30c51b46b2b af4b4c2875c696cc4081f6c6f690508fad65dfa9 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592686076 +0600	WIP on dev_jahangir: f4cdb38 lot order in lots page
+af4b4c2875c696cc4081f6c6f690508fad65dfa9 8e7f6f2c9024f44a02f7fca7edafc21d7b51ad1e jahangir08csebuet <jahangir.08.cse@gmail.com> 1592845273 +0600	WIP on dev_jahangir_test: e30a21a clear top search field in mobile in /lots page
+8e7f6f2c9024f44a02f7fca7edafc21d7b51ad1e 5c94ffb80956fcc8351a7c5c8cf8f6779b3eb7ca jahangir08csebuet <jahangir.08.cse@gmail.com> 1592847055 +0600	WIP on (no branch): f4cdb38 lot order in lots page
+5c94ffb80956fcc8351a7c5c8cf8f6779b3eb7ca 1ff163bebf17e745207339d2e9e4d900b081d7e6 jahangir08csebuet <jahangir.08.cse@gmail.com> 1592848986 +0600	WIP on (no branch): 1fdd867 pagination issue fixed
+1ff163bebf17e745207339d2e9e4d900b081d7e6 80e6dbf433165034fb9270891cc4664643d37f26 nurzhol <ynurzhol.t@gmail.com> 1597040857 +0600	WIP on dev_jahangir: c300bbd nitin cganges

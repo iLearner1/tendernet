@@ -3,33 +3,36 @@ import json
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
-from django.template.defaultfilters import slugify  # new
+#from django.template.defaultfilters import slugify  # new
+from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
 from lots.utils.Choices import PURCHASE_METHOD_CHOICES, SUBJECT_OF_PURCHASE_CHOICES
-
+import cyrtranslit
+import datetime
 
 class Article(models.Model):
-    xml_id = models.BigIntegerField('Внешний код для Api', null=True)
+    xml_id = models.CharField('Внешний код для Api', null=True, max_length=255, unique=True)
     customer_bin = models.CharField('Бин организатора', null=True, max_length=255, )
-    totalLots = models.IntegerField(verbose_name='Кол-во лотов в объявлении', null=True)
     title = models.CharField(max_length=255, verbose_name='Наименование лота', null=True)
+    lotFullName = models.CharField(max_length=255, verbose_name='Полное имя лота', null=True)
     itemZakup = models.CharField(max_length=255, choices=SUBJECT_OF_PURCHASE_CHOICES, default='product', verbose_name='Предмет закупки')
-    address = models.CharField(max_length=255, verbose_name='Место поставки', null=True)
-    addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     customer = models.CharField(max_length=255, verbose_name='Заказчик', null=True)
+    region = models.ForeignKey('Regions', null=True, on_delete=models.PROTECT, verbose_name='Область')
     city = models.ForeignKey('Cities', null=True, on_delete=models.PROTECT, verbose_name='Город')
+    addressFull = models.CharField(max_length=255, verbose_name='Место постаки, полный адресс', null=True)
     numb = models.CharField(max_length=150, verbose_name='Номер лота', null=True)
     price = models.FloatField(verbose_name='Цена', null=True)
+    count = models.IntegerField(verbose_name='Количество', null=True)
+    unit = models.ForeignKey('Unit', null=True, on_delete=models.PROTECT, verbose_name='Единица измерения')
     statzakup = models.CharField(max_length=10, choices=PURCHASE_METHOD_CHOICES, default='draft', verbose_name='Способ закупки')
 
-    date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
     date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
+    date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
+    date_created = models.DateTimeField(verbose_name='Дата создания', default=datetime.datetime.now(datetime.timezone.utc))
     yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
-    sign_reason_doc_name = models.CharField('Наименование подтверждающего документа', max_length=255, null=True)
-    down = models.FileField(upload_to='media/', verbose_name='Документы для загрузки', null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
-    slug = models.SlugField(null=False, unique=False)
+    slug = models.SlugField(max_length=255, null=False, unique=False)
     favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
     def __str__(self):
@@ -39,8 +42,11 @@ class Article(models.Model):
         return reverse("post_detail", kwargs={"id": self.id, "slug": self.slug})
 
     def save(self, *args, **kwargs):  # new
+        print("title: ", self.title)
+        print("slug: ", self.slug)
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(cyrtranslit.to_latin(self.title).encode('UTF-8', 'ignore'), allow_unicode=True)
+        print("slug after: ", self.slug)
         return super().save(*args, **kwargs)
 
     class Meta:
@@ -48,9 +54,31 @@ class Article(models.Model):
         verbose_name = "Лот"
 
 
+class Unit(models.Model):
+    name = models.CharField(max_length=99, verbose_name='Единица измерения', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+class Regions(models.Model):
+    code = models.CharField(max_length=30, verbose_name="Код", default=None)
+    name = models.CharField(max_length=30, db_index=True, verbose_name="Название")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "районы"
+        verbose_name = "Область"
+        ordering = ["name"]
+
+
 class Cities(models.Model):
-    name = models.CharField(max_length=30, db_index=True,
-                            verbose_name="Название")
+    code = models.CharField(max_length=30, verbose_name="Код", default=None)
+    name = models.CharField(max_length=30, db_index=True, verbose_name="Название")
 
     def __str__(self):
         return self.name
@@ -92,20 +120,49 @@ class FavoriteSearch(models.Model):
     @property
     def city(self):
         # this method creating a property as like his name and return city object
-        query = self.query.get("city[]")
+        query = self.query.get("city")
         if query:
-            return Cities.objects.filter(id__in=query)
+            return Cities.objects.get(code=query)
+
+    @property
+    def region(self):
+        # this method creating a property as like his name and return city object
+        query = self.query.get("region")
+        if query:
+            return Regions.objects.get(code=query)
+
+    @property
+    def statzakup_obj(self):
+        query = self.query.get("statzakup[]")
+        q = []
+        if type(query) == list:
+            for i in query:
+                for j in PURCHASE_METHOD_CHOICES:
+                    if i in j:
+                        q.append(j)
+            return q
 
     @property
     def statzakup(self):
         query = self.query.get("statzakup[]")
-        if query:
+        if query != '':
             return query
 
     @property
-    def itemZakup(self):
-        query = self.query.get("itemZakup[]")
-        if query:
+    def subject_of_purchase_obj(self):
+        query = self.query.get("subject_of_purchase[]")
+        q = []
+        if type(query) == list:
+            for i in query:
+                for j in SUBJECT_OF_PURCHASE_CHOICES:
+                    if i in j:
+                        q.append(j)
+            return q
+
+    @property
+    def subject_of_purchase(self):
+        query = self.query.get("subject_of_purchase[]")
+        if type(query) == list:
             return query
 
 
@@ -116,4 +173,6 @@ class FavoriteSearch(models.Model):
 def article_save_signal(sender, instance, created, **kwargs):
     from .tasks import notify_subscriber_about_new_lots
     if created:
-        notify_subscriber_about_new_lots.delay(instance.id)
+        # notify_subscriber_about_new_lots.delay(instance.id)
+        # notify_subscriber_about_new_lots(instance.id)
+        pass

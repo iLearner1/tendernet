@@ -1,0 +1,24 @@
+0000000000000000000000000000000000000000 97f4125f3159b66d9692d6c21112a1624cf26e37 nurzhol <ynurzhol.t@gmail.com> 1586646022 +0600	clone: from https://github.com/nurzhol/tendernet.git
+97f4125f3159b66d9692d6c21112a1624cf26e37 3c568f88da7eb13fbbebb2bd47c2673c2a96021e nurzhol <ynurzhol.t@gmail.com> 1586885111 +0600	pull: Fast-forward
+3c568f88da7eb13fbbebb2bd47c2673c2a96021e 4a7a0db683618e9596bf7a0329c0469c774f08a7 nurzhol <ynurzhol.t@gmail.com> 1586885358 +0600	pull: Fast-forward
+4a7a0db683618e9596bf7a0329c0469c774f08a7 a23bce5f79af52063edb9daf62a3fd3f55929d88 nurzhol <ynurzhol.t@gmail.com> 1586890326 +0600	pull: Fast-forward
+a23bce5f79af52063edb9daf62a3fd3f55929d88 e8b337a3fbdf30e58d0643d01f4e599599afc1ef nurzhol <ynurzhol.t@gmail.com> 1586894033 +0600	pull: Fast-forward
+e8b337a3fbdf30e58d0643d01f4e599599afc1ef 8d7edc0d57a3a7a410f81ef28fd49b5bc53b01f4 nurzhol <ynurzhol.t@gmail.com> 1586895077 +0600	pull: Fast-forward
+8d7edc0d57a3a7a410f81ef28fd49b5bc53b01f4 6082d93780d03f5e2a03a16e9459abf3f69c76b5 nurzhol <ynurzhol.t@gmail.com> 1586895223 +0600	pull: Fast-forward
+6082d93780d03f5e2a03a16e9459abf3f69c76b5 57338b2f4de6c8e17900cc3ac88a4784b0f97079 nurzhol <ynurzhol.t@gmail.com> 1586895419 +0600	pull: Fast-forward
+57338b2f4de6c8e17900cc3ac88a4784b0f97079 6045444931d31caf0fd1328b4e6a391ad0036835 nurzhol <ynurzhol.t@gmail.com> 1587374657 +0600	pull origin development: Fast-forward
+6045444931d31caf0fd1328b4e6a391ad0036835 5ec968fe2c705bb946f43f3b2dd2e19c8c15c0f2 nurzhol <ynurzhol.t@gmail.com> 1587375379 +0600	pull origin development: Fast-forward
+5ec968fe2c705bb946f43f3b2dd2e19c8c15c0f2 84fb25c82791ea39db449836b501a97fe422c7d2 nurzhol <ynurzhol.t@gmail.com> 1587375604 +0600	pull origin development: Fast-forward
+84fb25c82791ea39db449836b501a97fe422c7d2 9325038e99d8bda22b6124be4dcc9ed7ba21269a nurzhol <ynurzhol.t@gmail.com> 1587756798 +0600	commit: -
+9325038e99d8bda22b6124be4dcc9ed7ba21269a e070f22a38b9b451df182b5e0b31dc3c73e96ef6 nurzhol <ynurzhol.t@gmail.com> 1587758068 +0600	commit (merge): resolving merge conflict
+e070f22a38b9b451df182b5e0b31dc3c73e96ef6 d308eb48ce686afb14345af0301985e780b41fa0 nurzhol <ynurzhol.t@gmail.com> 1587862539 +0600	commit: Migrations & db reset.
+d308eb48ce686afb14345af0301985e780b41fa0 241417a8eb07ee8d193265269eda655ec0305168 nurzhol <ynurzhol.t@gmail.com> 1587922964 +0600	commit: blank commit
+241417a8eb07ee8d193265269eda655ec0305168 006254c88b5cb96413e220c4d4689ee6cd235208 nurzhol <ynurzhol.t@gmail.com> 1587922995 +0600	commit (amend): removed item that should repeat once from option loops in search panel
+006254c88b5cb96413e220c4d4689ee6cd235208 b03de79b4ade9bf3d21dd91326ab3ebc1ea13d03 nurzhol <ynurzhol.t@gmail.com> 1587983390 +0600	pull: Fast-forward
+b03de79b4ade9bf3d21dd91326ab3ebc1ea13d03 b7389cf83a3e82404751d44637e8b1407ddd35fa nurzhol <ynurzhol.t@gmail.com> 1588110281 +0600	pull: Fast-forward
+b7389cf83a3e82404751d44637e8b1407ddd35fa a58d94f77383dc14f5cf8955286ffba3347c8717 nurzhol <ynurzhol.t@gmail.com> 1588156707 +0600	pull: Fast-forward
+a58d94f77383dc14f5cf8955286ffba3347c8717 70c879f7857544a496f86091c597ae810168224c nurzhol <ynurzhol.t@gmail.com> 1588157321 +0600	pull: Fast-forward
+70c879f7857544a496f86091c597ae810168224c 0dc994ae94668643ff2e9e031c83062ac78fdc81 nurzhol <ynurzhol.t@gmail.com> 1588226598 +0600	pull: Fast-forward
+0dc994ae94668643ff2e9e031c83062ac78fdc81 bea6c4ac79b64d1c975422e3e01c519433f1a1d2 nurzhol <ynurzhol.t@gmail.com> 1588251617 +0600	pull: Fast-forward
+bea6c4ac79b64d1c975422e3e01c519433f1a1d2 18501f02322236869226a081669e9b3c3f38350d nurzhol <ynurzhol.t@gmail.com> 1589384646 +0600	commit: from end changes 13 may
+18501f02322236869226a081669e9b3c3f38350d 11888f5c96db6f44c4849a669163232b68e353df jahangir08csebuet <jahangir.08.cse@gmail.com> 1589391322 +0600	commit (merge): resolve conflicts

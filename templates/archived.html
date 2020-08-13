@@ -6,16 +6,16 @@
 {% include "blocks/header.html" %}
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-10">
-    <div class="container">
+<div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
+    <div class="container" style="max-width: 880px;">
         <div class="row">
             <div class="col-md-6">
                 <div class="breadcrumb-area">
-                    <h1>Архив лотов</h1>
+                    <h1>Архив</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Архив лотов</li>
+                            <li class="breadcrumb-item active" aria-current="page">Архив</li>
                         </ol>
                     </nav>
                 </div>
@@ -34,8 +34,8 @@
 <!-- Breadcrumb End -->
 
 <!-- tender Listing -->
-<div class="alice-bg section-padding-bottom">
-    <div class="container">
+<div class="alice-bg section-padding-bottom tender-details-page">
+    <div class="container" style="max-width: 900px;">
         <div class="row no-gutters">
             <div class="col">
                 <div class="">
@@ -53,7 +53,77 @@
                             <!-- this place holder is required will be placed filtered result -->
                             <div class="tender-filter-result xs-padding-0">
                                 {% for article in posts %}
-                                <div class="item">
+
+                                    <div class="item">
+                                      <div class="tender-list half-grid" style="display: block;">
+
+                                          <div class="row" style="margin-bottom: 20px;">
+                                            <div class="col-md-9">
+                                              <h4 class="lot-name"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                                            </div>
+                                            <div class="col-md-3">
+                                              <span class="price">{{ article.price }} тг</span>
+                                            </div>
+                                          </div>
+
+                                          <div style="clear: both;"></div>
+
+                                          <div class="row">
+
+                                            <div class="col-md-9">
+
+                                              <table class="table table-borderless">
+                                                <tbody>
+
+                                                  <tr>
+                                                    <td>Дата начала:</td>
+                                                    <td style="text-align: right;">{{ article.date|date:"Y-m-d H:m:s" }}</td>
+                                                  </tr>
+
+                                                  <tr>
+                                                    <td>Дата завершения:</td>
+                                                    <td style="text-align: right;">{{ article.date|date:"Y-m-d H:m:s" }}</td>
+                                                  </tr>
+
+                                                  <tr>
+                                                    <td>Место поставки:</td>
+                                                    <td style="text-align: right;">{{ article.region }} {{ article.city }}</td>
+                                                  </tr>
+
+                                                  <tr style="font-style: italic;">
+                                                    <td>До завершения:</td>
+                                                    <td style="text-align: right;">{{ article.date|date:"Y-m-d H:m" }}</td>
+                                                  </tr>
+
+                                                </tbody>
+                                              </table>
+
+                                            </div>
+
+                                            <div class="col-md-3">
+
+                                              <div class="buttons">
+                                                <a href="{{ article.get_absolute_url }}" class="more-button">ПОДРОБНЕЕ</a>
+                                              </div>
+
+                                            </div>
+
+                                          </div>
+
+                                      </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                <div class="item" style="display: none;">
                                     <div class="tender-list half-grid">
                                         <div class="body">
                                             <div class="content">
@@ -62,10 +132,10 @@
                                                 <div class="info">
                                                     <div class="row">
                                                         <div class="col-md-5">
-                                                            Окончание:<br><b>{{ article.date|date:"d/m/y" }}</b>
+                                                            Окончание:&nbsp;<b>{{ article.date|date:"d/m/y" }}</b>
                                                         </div>
                                                         <div class="col-md-7">
-                                                            <span class="office-location">Регион:
+                                                            <span class="office-location">Область:
                                                                 <b>{{ article.city }}</b></span><br>
                                                         </div>
                                                     </div>
@@ -81,6 +151,9 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 {% empty %}
                                 <div class="item">
                                     <p>Не найден соответсвующий тендер</p>
