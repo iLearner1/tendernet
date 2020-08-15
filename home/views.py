@@ -15,12 +15,13 @@ from lots.filters import ArticleFilter
 from django.shortcuts import render, redirect
 from . import forms
 from django.core.mail import send_mail
-from tn_first.settings import CONTACT_MAIL_RECEIVER
+from tn_first.settings import CONTACT_MAIL_RECEIVER, EMAIL_MANAGER
 from django.urls import reverse
 from lots.utils.Choices import PURCHASE_METHOD_CHOICES as ZAKUP_CHOICES, SUBJECT_OF_PURCHASE_CHOICES as PURCHASE_CHOICES
 from django.utils import timezone
 from .tasks import send_query, send_consultation_query
 from tn_first import settings as tn_first_settings
+from django.template.loader import render_to_string
 
 
 def index(request):
@@ -74,9 +75,13 @@ def send_consultaion_query(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             user = request.user.username
-        send_consultation_query.delay(
-            request.POST.get('name'), request.POST.get('number'), user)
-        return redirect('index')
+        # send_consultation_query.delay(
+        #     request.POST.get('name'), request.POST.get('number'), user)
+        html = render_to_string('blocks/consultation-mail.html',
+                            {'name': request.POST.get('name'), 'phone': request.POST.get('number'), 'user': user})
+        send_mail('consultation/query', '', 'tendernet.kz@mail.com',
+              [EMAIL_MANAGER, 'tendernetkz@mail.ru', 'mdmotailab@gmail.com'], html_message=html, fail_silently=False)
+    return redirect('index')
 
 
 def sp_push_worker_fb_js(request):

@@ -120,24 +120,13 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
+            print('signup form is valid')
             user = form.save(commit=False)
             user.is_active = False
             user.set_password(request.POST.get('password'))
             user.save()
 
-            # check if free tariff exists
-            # if not exist then create
-            free_tariff, created = Price.objects.get_or_create(name='Бесплатный тариф')
-            if created:
-                Profile.objects.create(user=user)
-            else:
-                # p = Price()
-                # p.name = 'Бесплатный тариф'
-                # p.price = 0
-                free_tariff.price = 0
-                free_tariff.save()
-
-                Profile.objects.create(user=user)
+            Profile.objects.create(user=user)
 
             current_site = get_current_site(request)
 

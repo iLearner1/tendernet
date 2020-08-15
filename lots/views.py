@@ -504,7 +504,6 @@ def post_search(request):
     #         sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     # else:
     #     sorted_lots = Article.objects.filter(q).order_by(sort_field)
-    print
     queryset = Article.objects.order_by('-date_created').filter(q)
     # sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     paginator = Paginator(queryset, 25)

@@ -366,11 +366,8 @@ def fetch_lots_from_goszakup():
     bearer_token = 'Bearer ' + token
     header = {'Authorization': bearer_token}
 
-    # api-endpoint
-    print("calling goszakup API")
     URL = "https://ows.goszakup.gov.kz/v3/lots"
     articles = Article.objects.all()
-    print("articlees.len: ", len(articles))
 
     numbs = []
     # for a in articles:
@@ -385,7 +382,6 @@ def fetch_lots_from_goszakup():
     search_after_lot = None
 
     for i in range(1):
-        print("iteration i: ", i)
         if search_after_lot is None:
             URL = "https://ows.goszakup.gov.kz/v3/lots?limit=500"
         else:
@@ -402,15 +398,10 @@ def fetch_lots_from_goszakup():
         lot_bin_pair_list = []
         if response:
             data = response.json()
-            print("data.len: ", len(data['items']))
-
             for item in data["items"]:
                 # insert 5 lots in each API call
                 if item['lot_number'] not in numbs:
                     numbs.append(item["lot_number"])
-                    print('inserting lot with lot_number: ', item['lot_number'])
-                    print("nums.len: ", len(numbs))
-                    print("unik numbs.len: ", len(list(set(numbs))))
                     search_after_lot = item['id']
                     print("search_after_lot:P ", search_after_lot)
 
@@ -425,8 +416,8 @@ def fetch_lots_from_goszakup():
                         statzakup=item["ref_trade_methods_id"],
                         numb=item["lot_number"],
                         itemZakup='product',
-                        date=datetime.datetime.now(),
-                        date_open=datetime.datetime.now(),
+                        # date=datetime.datetime.now(),
+                        # date_open=datetime.datetime.now(),
                         yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"]) + "?tab=documents"
                     )
                     article.save()
@@ -457,6 +448,7 @@ def fetch_lots_from_goszakup():
                             print("=========")
                             print('updating datetime of lots');
                     except Exception as e:
+                        print(e);
                         print('failed trd_buy_id API call')
 
             # if len(lot_trd_list)>0:

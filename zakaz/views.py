@@ -33,6 +33,7 @@ def basket_adding_lot(request):
         'domain': current_site.domain
     })
 
+
     send_mail(mail_subject, '', 'tendernet.kz@mail.com',
               [EMAIL_MANAGER], html_message=message, fail_silently=False)
 

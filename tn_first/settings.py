@@ -28,7 +28,6 @@ SECRET_KEY = "9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-DEBUG = True
 #DEBUG = True
 # ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz', 'https://www.tendernet.kz', 'https://tendernet.kz']
 # ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
@@ -36,7 +35,8 @@ ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 
-if DEBUG:
+
+if not DEBUG:
     ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '74adb84b2c33.ngrok.io','www.tendernet.kz']
 
 # Application definition
@@ -62,9 +62,9 @@ INSTALLED_APPS = [
     'django_celery_beat',
 ]
 
-CRONJOBS = [
-    ('*/5 * * * *', 'lots.tasks.fetch_lots_from_goszakup')
-]
+# CRONJOBS = [
+#     ('*/5 * * * *', 'lots.tasks.fetch_lots_from_goszakup')
+# ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -101,21 +101,21 @@ WSGI_APPLICATION = "tn_first.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #    "default": {
 #        "ENGINE": "django.db.backends.sqlite3",
 #        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
 #    }
-#}
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tendernet',
-        'USER': 'root',
-        'PASSWORD': 'nurzhol@123',
+        'NAME': config('DB_NAME', default='tendernet', cast=str),
+        'USER': config('DB_USER', default='root', cast=str),
+        'PASSWORD': config('DB_PASSWORD', default='nurzhol@123', cast=str),
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': config('DB_PORT', '3306', cast=str),
     }
 }
 
