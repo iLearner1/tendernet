@@ -408,9 +408,6 @@ def fetch_lots_from_goszakup():
                 # insert 5 lots in each API call
                 if item['lot_number'] not in numbs:
                     numbs.append(item["lot_number"])
-                    print('inserting lot with lot_number: ', item['lot_number'])
-                    print("nums.len: ", len(numbs))
-                    print("unik numbs.len: ", len(list(set(numbs))))
                     search_after_lot = item['id']
                     print("search_after_lot:P ", search_after_lot)
 
@@ -425,8 +422,8 @@ def fetch_lots_from_goszakup():
                         statzakup=item["ref_trade_methods_id"],
                         numb=item["lot_number"],
                         itemZakup='product',
-                        date=datetime.datetime.now(),
-                        date_open=datetime.datetime.now(),
+                        # date=datetime.datetime.now(),
+                        # date_open=datetime.datetime.now(),
                         yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"]) + "?tab=documents"
                     )
                     article.save()
@@ -447,14 +444,6 @@ def fetch_lots_from_goszakup():
                             article.date_open = get_aware_datetime(trd_buy_id_response.json()['start_date'])
                             article.date = get_aware_datetime(trd_buy_id_response.json()['end_date'])
                             article.save()
-                            print("=========")
-                            print(trd_buy_id_response.json()['start_date'])
-                            print(get_aware_datetime(trd_buy_id_response.json()['start_date']))
-                            print("=========")
-                            print(trd_buy_id_response.json()['end_date'])
-                            print(get_aware_datetime(trd_buy_id_response.json()['end_date']))
-                            print("=========")
-                            print("=========")
                             print('updating datetime of lots');
                     except Exception as e:
                         print('failed trd_buy_id API call')
