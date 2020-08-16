@@ -93,7 +93,7 @@
           savedId = null;
           $("#main-searchform-" + device).find('input#savedId').val('');
 
-          const text = $("#save-query-" + device).find('a').text();
+         /** const text = $("#save-query-" + device).find('a').text();
           console.log('text: ' + text);
 
           if(text == 'Сохранить в избранные' || text == 'Save to Favorites') {
@@ -104,7 +104,7 @@
             console.log('text= ' + 'remove query');
             $("#save-query-" + device).find('a').html('Сохранить в избранные');
             $("#save-query-" + device).find('i').toggleClass('far fas');
-          }
+          } **/
 
           const formData = $("#main-searchform-" + device).serializeArray();
 
