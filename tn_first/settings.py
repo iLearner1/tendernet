@@ -28,16 +28,12 @@ SECRET_KEY = "9=&2%kp!g-o#ns78dsswqj44kmivxuh7pk63%czd4hyl57nh_e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-# DEBUG = True
-#DEBUG = True
 # ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz', 'https://www.tendernet.kz', 'https://tendernet.kz']
 # ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 
-if DEBUG:
-    ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', '74adb84b2c33.ngrok.io','www.tendernet.kz']
 
 # Application definition
 

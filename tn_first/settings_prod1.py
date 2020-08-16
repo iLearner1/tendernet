@@ -1,4 +1,4 @@
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', 'www.tendernet.kz']
 
 # settings for db on server
 # DATABASES = {
