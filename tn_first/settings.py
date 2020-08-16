@@ -31,7 +31,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 # ALLOWED_HOSTS = ['78.40.109.22', 'http://www.tendernet.kz', 'http://tendernet.kz', 'https://www.tendernet.kz', 'https://tendernet.kz']
 # ALLOWED_HOSTS = ['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz','http://localhost','127.0.0.1']
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")], default=['tendernet.kz','http://www.tendernet.kz','78.40.109.22', 'http://tendernet.kz', 'http://localhost','127.0.0.1']
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")], default="tendernet.kz,http://www.tendernet.kz,78.40.109.22,http://tendernet.kz,http://localhost,127.0.0.1"
 )
 
 
