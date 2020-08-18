@@ -139,3 +139,6 @@ dmypy.json
 
 */__pycache__/
 [Ll]ogs/
+.db
+
+*.db
