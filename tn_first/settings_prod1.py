@@ -14,7 +14,7 @@ ALLOWED_HOSTS += ['tendernet.kz', '78.40.109.22', 'www.tendernet.kz']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME', default='tendernet', cast=str),
+        'NAME': config('DB_NAME', default='db1', cast=str),
         'USER': config('DB_USER', default='root', cast=str),
         'PASSWORD': config('DB_PASSWORD', default='nurzhol@123', cast=str),
         'HOST': 'localhost',
