@@ -143,18 +143,13 @@ def signup(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            print("form")
-            print(form)
 
             to_email = form.cleaned_data.get('email')
-            print("form.cleaned_data")
-            print(form.cleaned_data)
 
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
             email.send()
-
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             mail_subject = 'новый пользователь активировал электронную почту'
