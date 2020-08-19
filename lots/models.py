@@ -29,7 +29,7 @@ class Article(models.Model):
 
     date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
     date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
-    date_created = models.DateTimeField(verbose_name='Дата создания', default=datetime.datetime.now(datetime.timezone.utc))
+    date_created = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     yst = models.URLField(max_length=255, verbose_name='Ссылка', null=True)
     status = models.BooleanField(default=True, verbose_name='Опубликован', db_index=True, null=True)
     slug = models.SlugField(max_length=255, null=False, unique=False)

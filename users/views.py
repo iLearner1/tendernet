@@ -126,7 +126,8 @@ def signup(request):
             user.save()
             # check if free tariff exists
             # if not exist then create
-            Profile.objects.create(user=user)
+            price, create = Price.objects.get_or_create(name='Бесплатный тариф')
+            Profile.objects.create(user=user, tarif=price)
 
             current_site = get_current_site(request)
 
@@ -228,6 +229,7 @@ def schedule_tariff_change_email(request):
     tariff_id = request.POST.get('id')
     current_tariff = None
     change_tariff = None
+    months = 0
 
     try:
         profile = Profile.objects.filter(user=request.user)
@@ -239,19 +241,20 @@ def schedule_tariff_change_email(request):
     except Exception as e:
         print("exception in finding user/tariff")
 
-
-    if '2' in change_tariff:
-        print("2 months")
-        months = 2
-    elif '3' in change_tariff:
-        print("3 months")
-        months = 3
-    elif '6' in change_tariff:
-        print("6 months")
-        months = 6
-    else:
-        print("12 months")
-        months = 12
+    
+    if change_tariff:
+        if '2' in change_tariff:
+            print("2 months")
+            months = 2
+        elif '3' in change_tariff:
+            print("3 months")
+            months = 3
+        elif '6' in change_tariff:
+            print("6 months")
+            months = 6
+        else:
+            print("12 months")
+            months = 12
 
     if current_tariff != None and change_tariff != None and change_tariff != current_tariff and change_tariff != "free":
         task_tariff_change_email.apply_async(args=[user_email, months], eta=datetime.datetime.now() + datetime.timedelta(days=months*30))

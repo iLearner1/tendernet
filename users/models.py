@@ -39,7 +39,8 @@ class Profile(models.Model):
 
 
 
-@receiver(pre_save, sender=Profile)
-def pre_save_profile(sender, instance, **kwargs):
-    price, create = Price.objects.get_or_create(name='Бесплатный тариф')
-    instance.tarif = price;
+# @receiver(pre_save, sender=Profile)
+# def pre_save_profile(sender, instance, **kwargs):
+#     price, create = Price.objects.get_or_create(name='Бесплатный тариф')
+#     instance.tarif = price;
+#     print(kwargs)
