@@ -1,15 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 
 # Create your models here.
 
 class Price(models.Model):
     name = models.CharField(max_length=30, db_index=True, verbose_name='Название')
-    price = models.FloatField(verbose_name='Цена', null=True)
+    price = models.FloatField(verbose_name='Цена', null=True, default=0)
 
     def __str__(self):
         return self.name
@@ -27,7 +26,7 @@ class Profile(models.Model):
     # it will throw a an error
     # default=Price.objects.filter(name='free')[0].id
     # price, create = Price.objects.get_or_create(name='Бесплатный тариф')
-    tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф', default=None)
+    tarif = models.ForeignKey('Price', on_delete=models.CASCADE, verbose_name='Тариф',default=None, null=True, blank=True)
     rassylka = models.BooleanField(verbose_name='Подписаться на email рассылку', default=True)
 
     def __str__(self):
@@ -39,8 +38,9 @@ class Profile(models.Model):
 
 
 
-# @receiver(pre_save, sender=Profile)
-# def pre_save_profile(sender, instance, **kwargs):
-#     price, create = Price.objects.get_or_create(name='Бесплатный тариф')
-#     instance.tarif = price;
-#     print(kwargs)
+# @receiver(post_save, sender=User)
+# def post_save_profile(sender, instance, **kwargs):
+#     if kwargs['created']:
+#         price, created = Price.objects.get_or_create(name='Бесплатный тариф')
+#         user_profile= Profile(user=instance, tarif_id=price.id)
+#         user_profile.save()
