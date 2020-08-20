@@ -23,6 +23,9 @@ from django.http import HttpResponse
 from users.tasks import task_tariff_change_email, send_mail_to_manager
 import datetime
 from users.models import Price
+import logging
+
+logger = logging.getLogger(__name__)
 
 def index(request):  # создаем свою функцию
     context = {}  # с помощью словаря можем передать модель и форму в шаблон HTML
@@ -117,6 +120,7 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect('/lots')
 
+
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -128,7 +132,7 @@ def signup(request):
             # if not exist then create
             price, create = Price.objects.get_or_create(name='Бесплатный тариф')
             Profile.objects.create(user=user, tarif=price)
-
+            return HttpResponse('user creation success, error issues below this line')
             current_site = get_current_site(request)
 
             scheme = 'http://'
