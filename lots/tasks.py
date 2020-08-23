@@ -16,6 +16,8 @@ from lots.insert_region_location import read_xls
 from time import sleep
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, make_aware
+from lots.utils.fetchLotsFromGraphql import fetchLotsFromGraphql
+
 
 @shared_task
 def update_location(q):
@@ -362,117 +364,122 @@ def get_aware_datetime(date_str):
 
 @shared_task
 def fetch_lots_from_goszakup():
-    # defining a params dict for the parameters to be sent to the API
-    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
-    bearer_token = 'Bearer ' + token
-    header = {'Authorization': bearer_token}
+    #fetching  200 lots per call and we need 20 for 4000 lots
+    for _ in range(20):
+        print(f'===== calling graphql {_} ====')
+        fetchLotsFromGraphql()
 
-    # api-endpoint
-    print("calling goszakup API")
-    URL = "https://ows.goszakup.gov.kz/v3/lots"
-    articles = Article.objects.all()
-    print("articlees.len: ", len(articles))
+    # # defining a params dict for the parameters to be sent to the API
+    # token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    # bearer_token = 'Bearer ' + token
+    # header = {'Authorization': bearer_token}
 
-    numbs = []
-    # for a in articles:
-    #     if a.numb not in numbs:
-    #         numbs.append(a.numb)
-    # print("numbs.len: ", len(numbs))
-    # print("unik numbs.len: ", len(list(set(numbs))))
-    # last_lot = Article.objects.latest('date_created')
-    numbs = []
+    # # api-endpoint
+    # print("calling goszakup API")
+    # URL = "https://ows.goszakup.gov.kz/v3/lots"
+    # articles = Article.objects.all()
+    # print("articlees.len: ", len(articles))
 
-    kato_list = read_xls()
-    search_after_lot = None
+    # numbs = []
+    # # for a in articles:
+    # #     if a.numb not in numbs:
+    # #         numbs.append(a.numb)
+    # # print("numbs.len: ", len(numbs))
+    # # print("unik numbs.len: ", len(list(set(numbs))))
+    # # last_lot = Article.objects.latest('date_created')
+    # numbs = []
 
-    for i in range(1):
-        print("iteration i: ", i)
-        if search_after_lot is None:
-            URL = "https://ows.goszakup.gov.kz/v3/lots?limit=500"
-        else:
-            URL = "https://ows.goszakup.gov.kz/v3/lots?limit=500" + "&search_after=" + search_after_lot
+    # kato_list = read_xls()
+    # search_after_lot = None
 
-        response = None
-        try:
-            response = requests.get(url=URL, headers=header, verify=False)
-        except Exception as e:
-            print(e)
+    # for i in range(1):
+    #     print("iteration i: ", i)
+    #     if search_after_lot is None:
+    #         URL = "https://ows.goszakup.gov.kz/v3/lots?limit=500"
+    #     else:
+    #         URL = "https://ows.goszakup.gov.kz/v3/lots?limit=500" + "&search_after=" + search_after_lot
 
-        data = None
-        lot_trd_list = []
-        lot_bin_pair_list = []
-        if response:
-            data = response.json()
-            print("data.len: ", len(data['items']))
+    #     response = None
+    #     try:
+    #         response = requests.get(url=URL, headers=header, verify=False)
+    #     except Exception as e:
+    #         print(e)
 
-            for item in data["items"]:
-                # insert 5 lots in each API call
-                if item['lot_number'] not in numbs:
-                    numbs.append(item["lot_number"])
-                    search_after_lot = item['id']
-                    print("search_after_lot:P ", search_after_lot)
+    #     data = None
+    #     lot_trd_list = []
+    #     lot_bin_pair_list = []
+    #     if response:
+    #         data = response.json()
+    #         print("data.len: ", len(data['items']))
 
-                    Article.objects.filter(xml_id=item['lot_number']).delete()
-                    article = Article(
-                        xml_id=item['lot_number'],
-                        customer_bin=item["customer_bin"],
-                        title=item["name_ru"],
-                        lotFullName=item['description_ru'],
-                        customer=item["customer_name_ru"],
-                        price=item["amount"],
-                        statzakup=item["ref_trade_methods_id"],
-                        numb=item["lot_number"],
-                        itemZakup='product',
-                        # date=datetime.datetime.now(),
-                        # date_open=datetime.datetime.now(),
-                        yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"]) + "?tab=documents"
-                    )
-                    article.save()
-                    # lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
-                    lot_bin_pair_list.append((item['customer_bin'], item['lot_number']))
+    #         for item in data["items"]:
+    #             # insert 5 lots in each API call
+    #             if item['lot_number'] not in numbs:
+    #                 numbs.append(item["lot_number"])
+    #                 search_after_lot = item['id']
+    #                 print("search_after_lot:P ", search_after_lot)
+
+    #                 Article.objects.filter(xml_id=item['lot_number']).delete()
+    #                 article = Article(
+    #                     xml_id=item['lot_number'],
+    #                     customer_bin=item["customer_bin"],
+    #                     title=item["name_ru"],
+    #                     lotFullName=item['description_ru'],
+    #                     customer=item["customer_name_ru"],
+    #                     price=item["amount"],
+    #                     statzakup=item["ref_trade_methods_id"],
+    #                     numb=item["lot_number"],
+    #                     itemZakup='product',
+    #                     # date=datetime.datetime.now(),
+    #                     # date_open=datetime.datetime.now(),
+    #                     yst="https://goszakup.gov.kz/ru/announce/index/" + str(item["trd_buy_id"]) + "?tab=documents"
+    #                 )
+    #                 article.save()
+    #                 # lot_trd_list.append((item['trd_buy_id'], item['lot_number']))
+    #                 lot_bin_pair_list.append((item['customer_bin'], item['lot_number']))
                     
-                    # updating article start and end date from api
-                    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
-                    bearer_token = 'Bearer ' + token
-                    header = {'Authorization': bearer_token}
+    #                 # updating article start and end date from api
+    #                 token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    #                 bearer_token = 'Bearer ' + token
+    #                 header = {'Authorization': bearer_token}
 
-                    trd_buy_id_response = None
-                    trd_buy_id_url = "https://ows.goszakup.gov.kz/v3/trd-buy/" + str(item['trd_buy_id'])
+    #                 trd_buy_id_response = None
+    #                 trd_buy_id_url = "https://ows.goszakup.gov.kz/v3/trd-buy/" + str(item['trd_buy_id'])
 
-                    try:
-                        trd_buy_id_response = requests.get(url=trd_buy_id_url, headers=header, verify=False)
-                        if trd_buy_id_response:
-                            article.date_open = get_aware_datetime(trd_buy_id_response.json()['start_date'])
-                            article.date = get_aware_datetime(trd_buy_id_response.json()['end_date'])
-                            article.save()
-                    except Exception as e:
-                        print('failed trd_buy_id API call')
+    #                 try:
+    #                     trd_buy_id_response = requests.get(url=trd_buy_id_url, headers=header, verify=False)
+    #                     if trd_buy_id_response:
+    #                         article.date_open = get_aware_datetime(trd_buy_id_response.json()['start_date'])
+    #                         article.date = get_aware_datetime(trd_buy_id_response.json()['end_date'])
+    #                         article.save()
+    #                 except Exception as e:
+    #                     print('failed trd_buy_id API call')
 
-            # if len(lot_trd_list)>0:
-            #     while len(lot_trd_list)>0:
-            #         print("creating trd task")
-            #         result = fetch_date_from_goszakup.delay(lot_trd_list[0][0],lot_trd_list[0][1])
-            #         while not result.ready():
-            #             print("sleeping for 0.5s")
-            #             sleep(0.5)
+    #         # if len(lot_trd_list)>0:
+    #         #     while len(lot_trd_list)>0:
+    #         #         print("creating trd task")
+    #         #         result = fetch_date_from_goszakup.delay(lot_trd_list[0][0],lot_trd_list[0][1])
+    #         #         while not result.ready():
+    #         #             print("sleeping for 0.5s")
+    #         #             sleep(0.5)
 
-            #         print("returned from task")
-            #         lot_trd_list = lot_trd_list[1:]
-            #         print("lot_trd_list.len: ", len(lot_trd_list))
+    #         #         print("returned from task")
+    #         #         lot_trd_list = lot_trd_list[1:]
+    #         #         print("lot_trd_list.len: ", len(lot_trd_list))
 
-            if len(lot_bin_pair_list) > 0:
-                while len(lot_bin_pair_list) > 0:
-                    print("creating task")
-                    result = fetch_region_location_from_goszak.delay(lot_bin_pair_list[0][0], lot_bin_pair_list[0][1],
-                                                                 kato_list)
-                    #while not result.ready():
-                        #print("sleeping for 0.5s")
-                        #sleep(0.5)
-                    #print("returned from task")
-                    lot_bin_pair_list = lot_bin_pair_list[1:]
-                    #print("lot_bin_pair_list.len: ", len(lot_bin_pair_list))
-        else:
-            print("no data found from goszakup API")
+    #         if len(lot_bin_pair_list) > 0:
+    #             while len(lot_bin_pair_list) > 0:
+    #                 print("creating task")
+    #                 result = fetch_region_location_from_goszak.delay(lot_bin_pair_list[0][0], lot_bin_pair_list[0][1],
+    #                                                              kato_list)
+    #                 #while not result.ready():
+    #                     #print("sleeping for 0.5s")
+    #                     #sleep(0.5)
+    #                 #print("returned from task")
+    #                 lot_bin_pair_list = lot_bin_pair_list[1:]
+    #                 #print("lot_bin_pair_list.len: ", len(lot_bin_pair_list))
+    #     else:
+    #         print("no data found from goszakup API")
 
 
 @shared_task

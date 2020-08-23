@@ -15,9 +15,9 @@ app.config_from_object("django.conf:settings")
 app.autodiscover_tasks()
 
 app.conf.CELERYBEAT_SCHEDULE = {
-    'fetch-lots-from-goszakup-every-30-minutes': {
+    'fetch-lots-from-goszakup-every-25-minutes': {
             'task': 'lots.tasks.fetch_lots_from_goszakup',
-            'schedule': 240,
+            'schedule': 1500, #25minutes
 
         },
     'update_existing_region_location': {

@@ -58,9 +58,9 @@ INSTALLED_APPS = [
     'django_celery_beat',
 ]
 
-CRONJOBS = [
-    ('*/5 * * * *', 'lots.tasks.fetch_lots_from_goszakup')
-]
+# CRONJOBS = [
+#     ('*/5 * * * *', 'lots.tasks.fetch_lots_from_goszakup')
+# ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
