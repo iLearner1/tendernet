@@ -455,6 +455,13 @@ def post_search(request):
     #             sort_field = "-" + sort_field
 
     q = Q()
+
+    itemZakup_q = Q()
+    if request.GET.get('itemZakup'):
+        itemZakup_q |= Q(itemZakup__icontains=request.GET.get('itemZakup'))
+        q &= itemZakup_q
+    
+
     city_q = Q()
     if request.GET.get('city'):
         city_q |= Q(city__code=request.GET.get('city'))

@@ -181,6 +181,20 @@
                             <td></td>
                         {% endif %}
                       </tr>
+                      <tr>
+                        <td><b>Количество</b></td>
+                        <td>{{post.count}}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Единица измерения</b></td>
+                        {% if post.unit %}
+                          <td>{{post.unit.name}}</td>
+                        {% endif %}
+                      </tr>
+                      <tr>
+                        <td><b>Способ закупки</b></td>
+                        <td>{{post.statzakup}}</td>
+                      </tr>
                     </tbody>
                   </table>
 

@@ -218,7 +218,20 @@
                         <input type="text" class="form-control" placeholder="Введите номер лота" name="id"
                           value="{{request.GET.id}}">
                       </div>
-
+                      <div class="form-group">
+                        <h6>Предмет закупки</h6>
+                        <input type="text" class="form-control" placeholder="Предмет закупки" name="itemZakup"
+                          value="{{request.GET.itemZakup}}">
+                      </div>
+                      <div class="form-group">
+                        <h6>Область</h6>
+                        <select name="region" class="form-control">
+                          <option value="" hidden>Область</option>
+                          {% for region in regions %}
+                            <option value="{{region.code}}">{{ region.name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
                       <!-- this will identified which paage result should be return main page or lots page  -->
                       <input type="hidden" name="lots" value="true">
 
@@ -553,7 +566,20 @@
                   <input type="text" class="form-control" placeholder="Введите номер лота" name="id"
                     value="{{request.GET.id}}">
                 </div>
-
+                <div class="form-group">
+                  <h6>Предмет закупки</h6>
+                  <input type="text" class="form-control" placeholder="Предмет закупки" name="itemZakup"
+                    value="{{request.GET.itemZakup}}">
+                </div>
+                <div class="form-group">
+                  <h6>Область</h6>
+                  <select name="region" class="form-control">
+                    <option value="" hidden>Область</option>
+                    {% for region in regions %}
+                      <option value="{{region.code}}">{{ region.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
                 <!-- this will identified which paage result should be return main page or lots page  -->
                 <input type="hidden" name="lots" value="true">
 
