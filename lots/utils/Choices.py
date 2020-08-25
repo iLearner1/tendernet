@@ -6,6 +6,6 @@ PURCHASE_METHOD_CHOICES = [
 
 SUBJECT_OF_PURCHASE_CHOICES = [
     ('product', 'Товар'),
-    ('services', 'Услуги'),
+    ('services', 'Услуга'),
     ('job', 'Работа'),
 ]
