@@ -25,7 +25,7 @@ class Article(models.Model):
     price = models.FloatField(verbose_name='Цена', null=True)
     count = models.IntegerField(verbose_name='Количество', null=True)
     unit = models.ForeignKey('Unit', null=True, on_delete=models.PROTECT, verbose_name='Единица измерения')
-    statzakup = models.CharField(max_length=255, choices=PURCHASE_METHOD_CHOICES, default='draft', verbose_name='Способ закупки')
+    statzakup = models.CharField(max_length=255, choices=PURCHASE_METHOD_CHOICES, default='Аукцион', verbose_name='Способ закупки')
 
     date_open = models.DateTimeField(verbose_name='Дата открытия', null=True)
     date = models.DateTimeField(verbose_name='Дата закрытия', null=True)
