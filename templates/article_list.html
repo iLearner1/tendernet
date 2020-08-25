@@ -221,7 +221,7 @@
                       <div class="form-group">
                         <h6>Предмет закупки</h6>
                         <select name="itemZakup" class="form-control">
-                          <option value="Выберите предмет закупки" hidden>Выберите предмет закупки</option>
+                          <option value="" hidden>Выберите предмет закупки</option>
                           {% for item in SUBJECT_OF_PURCHASE_CHOICES %}
                             <option value="{{item.1}}" {% if request.GET.itemZakup == item.1 %} selected  {% endif %}>{{ item.1 }}</option>
                           {% endfor %}
@@ -574,7 +574,7 @@
                 <div class="form-group">
                   <h6>Предмет закупки</h6>
                   <select name="itemZakup" class="form-control">
-                    <option value="Выберите предмет закупки" hidden>Выберите предмет закупки</option>
+                    <option value="" hidden>Выберите предмет закупки</option>
                     {% for item in SUBJECT_OF_PURCHASE_CHOICES %}
                       <option value="{{item.1}}" {% if request.GET.itemZakup == item.1 %} selected  {% endif %}>{{ item.1 }}</option>
                     {% endfor %}
