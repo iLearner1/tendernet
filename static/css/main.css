@@ -7057,6 +7057,7 @@ html {
       color: #6f7484;
       padding: 7px 0;
       display: block;
+      font-size: 18px;
     }
     .cp-nav .navbar-collapse .navbar-nav li.dropdown a {
       position: relative;
