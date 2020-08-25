@@ -220,8 +220,11 @@
                       </div>
                       <div class="form-group">
                         <h6>Предмет закупки</h6>
-                        <input type="text" class="form-control" placeholder="Предмет закупки" name="itemZakup"
-                          value="{{request.GET.itemZakup}}">
+                        <select name="itemZakup" class="form-control">
+                          {% for item in SUBJECT_OF_PURCHASE_CHOICES %}
+                            <option value="{{item.1}}" {% if request.GET.itemZakup == item.1 %} selected  {% endif %}>{{ item.1 }}</option>
+                          {% endfor %}
+                        </select>
                       </div>
                       <div class="form-group">
                         <h6>Область</h6>
@@ -571,6 +574,16 @@
                   <input type="text" class="form-control" placeholder="Предмет закупки" name="itemZakup"
                     value="{{request.GET.itemZakup}}">
                 </div>
+
+                <div class="form-group">
+                  <h6>Предмет закупки</h6>
+                  <select name="itemZakup" class="form-control">
+                    {% for item in SUBJECT_OF_PURCHASE_CHOICES %}
+                      <option value="{{item.1}}" {% if request.GET.itemZakup == item.1 %} selected  {% endif %}>{{ item.1 }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
                 <div class="form-group">
                   <h6>Область</h6>
                   <select name="region" class="form-control">

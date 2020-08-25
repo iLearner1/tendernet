@@ -17,7 +17,7 @@ from time import sleep
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, make_aware
 from lots.utils.fetchLotsFromGraphql import fetchLotsFromGraphql
-
+from django.db.models import Q
 
 @shared_task
 def update_location(q):
@@ -480,6 +480,9 @@ def fetch_lots_from_goszakup():
     #                 #print("lot_bin_pair_list.len: ", len(lot_bin_pair_list))
     #     else:
     #         print("no data found from goszakup API")
+
+
+
 
 
 @shared_task

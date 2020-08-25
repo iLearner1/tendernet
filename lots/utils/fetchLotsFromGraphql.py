@@ -1,9 +1,10 @@
 import requests
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, make_aware
+from django.db.models import Q
+from django.utils import  timezone
 from django.core.cache import cache
 from lots.models import Article, Unit, Cities, Regions
-
 from lots.insert_region_location import read_xls
 #this query will use for fetching lots from grapql server
 query = """
@@ -59,7 +60,13 @@ def get_aware_datetime(date_str):
 
 
 def fetchLotsFromGraphql():
-    print('graphql client working')
+   
+    """
+        deleting expired lots if available
+    """
+    removeExpiredLots()
+    
+
     headers = {
         'Authorization': 'Bearer bb28b5ade7629ef512a8b7b9931d04ad',
         'Content-Type': 'application/json'
@@ -254,3 +261,16 @@ def fetch_region_location_from_goszak(item, lot_number):
     except Exception as e:
         print("exeption in updating region/location")
         print(e)
+
+
+
+
+
+def removeExpiredLots():
+    print('deleting expired article...')
+    try:
+        expired = Article.objects.filter(Q(date__lt=timezone.now()) | Q(date=None))
+        if(len(expired)):
+            expired.delete();
+    except Exception as e:
+        print(f"some exception occured when deleting expired lots {e}")
