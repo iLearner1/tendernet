@@ -270,7 +270,7 @@ def removeExpiredLots():
     print('deleting expired article...')
     try:
         expired = Article.objects.filter(Q(date__lt=timezone.now()) | Q(date=None))
-        if(len(expired)):
-            expired.delete();
+        for item in expired:
+            item.delete()
     except Exception as e:
         print(f"some exception occured when deleting expired lots {e}")
