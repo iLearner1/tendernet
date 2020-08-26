@@ -213,6 +213,9 @@ def edit_profile(request):
 
 
 def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
     user = request.user
     basket_posts = user.klyent.all()
     context = {

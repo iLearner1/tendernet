@@ -73,8 +73,8 @@
                                       Область: Не выбран <br>
                                     {% endif %}
 
-                                      {% if search.city %}
-                                          Местоположение: <b>{{search.city.name}}</b>&nbsp;
+                                      {% if search.query.itemZakup %}
+                                          Предмет закупки: <b>{{search.query.itemZakup}}</b>&nbsp;
                                           <br>
                                       {% else %}
                                         Местоположение: Не выбран <br>
@@ -140,7 +140,7 @@
                                    {% if search.city %}
                                     <input type="hidden" name="city" value="{{search.city.code}}">
                                  {% endif %}
-
+                                  <input type="hidden" name="itemZakup" value="{{search.query.itemZakup}}">
                                  <input type="hidden" name="price_min" value="{{search.query.price_min}}">
                                  <input type="hidden" name="price_max" value="{{search.query.price_max}}">
                                  <input type="hidden" name="date_min" value="{{search.query.date_min}}">
