@@ -360,6 +360,9 @@ def post_delete(request, id, slug):
 
 
 def post_search(request):
+    if not request.is_ajax():
+        return redirect('post_list')
+    
     current_time_q = Q(date__gte=timezone.now())
     title_q = Q()
     if request.GET.get('title'):
