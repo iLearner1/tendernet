@@ -1,7 +1,7 @@
 # Create your views here.
 from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -99,7 +99,7 @@ class LoginView(View):
                 if 'next' in request.POST and len(request.POST.get('next')) > 0:
                     return redirect(self.request.POST.get('next', '/'))
                 else:
-                    return redirect("/")
+                    return redirect(self.request.GET.get('next', '/'))
             else:
                 context['error_message'] = "user is not active"
         else:
@@ -214,7 +214,7 @@ def edit_profile(request):
 
 def profile(request):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect(reverse('login')+'?next=profile')
     
     user = request.user
     basket_posts = user.klyent.all()
