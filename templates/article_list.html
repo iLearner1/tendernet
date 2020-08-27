@@ -230,7 +230,7 @@
                       <div class="form-group">
                         <h6>Область</h6>
                         <select name="region" class="form-control">
-                          <option hidden>Выберите область</option>
+                          <option hidden value="">Выберите область</option>
                           {% for region in regions %}
                             <option value="{{region.code}}">{{ region.name }}</option>
                           {% endfor %}
@@ -584,7 +584,7 @@
                 <div class="form-group">
                   <h6>Область</h6>
                   <select name="region" class="form-control">
-                    <option hidden>Выберите область</option>
+                    <option hidden value="">Выберите область</option>
                     {% for region in regions %}
                       <option value="{{region.code}}">{{ region.name }}</option>
                     {% endfor %}
