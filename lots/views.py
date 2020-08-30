@@ -177,6 +177,11 @@ def post_list(request):
                     customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
         q &= customer_q
 
+    itemZakup_q = Q()
+    if request.GET.get('itemZakup'):
+        itemZakup_q |= Q(itemZakup=request.GET.get('itemZakup'))
+        q &= itemZakup_q
+
     city_q = Q()
     city_selected = False
     if request.GET.get('city'):
