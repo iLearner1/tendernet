@@ -130,7 +130,7 @@ def signup(request):
            
             # check if free tariff exists
             # if not exist then create
-            price, created = Price.objects.get_or_create(name='Бесплатный тариф')
+            price, created = Price.objects.get_or_create(name='Мониторинг на 12 мес')
             try:
                 if price:
                     user_profile= Profile(user=user, tarif_id=price.id)
