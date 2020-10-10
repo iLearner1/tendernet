@@ -1,7 +1,7 @@
 # Create your views here.
 from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -22,8 +22,9 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from users.tasks import task_tariff_change_email, send_mail_to_manager
 import datetime
+from django.utils import timezone
 from users.models import Price
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import MultipleObjectsReturned
 
 
@@ -130,10 +131,14 @@ def signup(request):
            
             # check if free tariff exists
             # if not exist then create
-            price, created = Price.objects.get_or_create(name='Мониторинг на 12 мес')
+            price, created = Price.objects.get_or_create(name='MN12')
             try:
                 if price:
-                    user_profile= Profile(user=user, tarif_id=price.id)
+                    user_profile= Profile(
+                        user=user, 
+                        tarif_id=price.id,
+                        company_name=request.POST.get('company_name', ''),
+                        company_business_number=request.POST.get("company_business_number", ''))
                     user_profile.save()
             except Exception as e:
                 return redirect('/lots?error='+str(e))
@@ -195,6 +200,7 @@ class Activate(View):
 
 @login_required
 def edit_profile(request):
+    print("edit profile got call...")
     if request.method == 'POST':
         user_form = UserEditForm(data=request.POST or None, instance=request.user)
         profile_form = ProfileEditForm(data=request.POST or None, instance=request.user.profile)
@@ -215,12 +221,17 @@ def edit_profile(request):
 def profile(request):
     if not request.user.is_authenticated:
         return redirect(reverse('login')+'?next=profile')
+
+    current_user = None 
+    if request.GET.get('user_id'):
+        current_user = get_object_or_404(User, id=request.GET.get('user_id'))
+    else:
+        current_user = request.user
     
-    user = request.user
-    basket_posts = user.klyent.all()
+    basket_posts = current_user.klyent.all()
     context = {
         'basket_posts': basket_posts,
-
+        'current_user':current_user
     }
 
     return render(request, 'profile.html', context)
@@ -235,8 +246,16 @@ def schedule_tariff_change_email(request):
     tariff_id = request.POST.get('id')
     current_tariff = None
     change_tariff = None
-    months = 0
-
+    days = {
+        'MN12': 365,
+        'MN6':  182,
+        'MN3':  91,
+        'MN1':  31,
+        'EXP_MN12':  365,
+        'EXP_MN6':  182,
+        'EXP_MN3':  91,
+        'EXP_MN1':  31,
+    }
     try:
         profile = Profile.objects.filter(user=request.user)
         current_tariff = profile[0].tarif.name
@@ -244,28 +263,19 @@ def schedule_tariff_change_email(request):
         user_email = profile[0].user.email
         price = Price.objects.filter(id=tariff_id)
         change_tariff = price[0].name
+
+        profile[0].tarif_expire_date = timezone.now() + timezone.timedelta(days=days[change_tariff])
+        profile[0].save()
+
     except Exception as e:
         print("exception in finding user/tariff")
 
-    
-    if change_tariff:
-        if '2' in change_tariff:
-            print("2 months")
-            months = 2
-        elif '3' in change_tariff:
-            print("3 months")
-            months = 3
-        elif '6' in change_tariff:
-            print("6 months")
-            months = 6
-        else:
-            print("12 months")
-            months = 12
 
-    if current_tariff != None and change_tariff != None and change_tariff != current_tariff and change_tariff != "free":
-        task_tariff_change_email.apply_async(args=[user_email, months], eta=datetime.datetime.now() + datetime.timedelta(days=months*30))
-        task_tariff_change_email.apply_async(args=[user_email, months],
-                                             eta=datetime.datetime.now() + datetime.timedelta(days=((months*30)-3)))
+    if current_tariff != None and change_tariff != None and change_tariff != "free":
+        #changing expire date of tarif
+        task_tariff_change_email.apply_async(args=[user_email, change_tariff])
+        task_tariff_change_email.apply_async(args=[user_email, change_tariff], eta=datetime.datetime.now() + datetime.timedelta(days=3))
+
     return HttpResponse(200)
 
 
@@ -283,16 +293,29 @@ def edit_tarif(request):
     }
     return render(request, 'edit_tarif.html', context)
 
-
+@login_required
 def basket_list(request):
     basket_list = Article.objects.all()
     user = request.user
     basket_posts = user.klyent.all()
+
+    paginator = Paginator(basket_posts, 25)
+    page_number = request.GET.get("page", 1)
+    basket_posts = paginator.page(page_number)
+    total_posts = paginator.count
+
     context = {
         'basket_posts': basket_posts,
         'basket_list': basket_list,
+        'total_posts': total_posts,
+        "total_pages": paginator.num_pages,
     }
-   
+
+    if(request.is_ajax()):
+        print("this is ajax request");
+        return render(request, 'blocks/basket-list-partials.html', context)
+
+    
     return render(request, 'basket_list.html', context)
 
 

@@ -1,8 +1,9 @@
+{% extends 'base.html' %}
 {% load humanize %}
 {% load format_price %}
-{% include "blocks/header.html" %}
-<!-- article_detail.html -->
 
+<!-- article_detail.html -->
+{% block content %}
 <!-- Breadcrumb -->
 <div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
@@ -232,6 +233,91 @@
                     <div data-mobile-view="true" data-share-size="30" data-like-text-enable="false" data-background-alpha="0.0" data-pid="1883085" data-mode="share" data-background-color="#ffffff" data-share-shape="rectangle" data-share-counter-size="12" data-icon-color="#ffffff" data-mobile-sn-ids="fb.vk.tw.ok.wh.tm.vb." data-text-color="#000000" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-type="disable" data-orientation="horizontal" data-following-enable="false" data-sn-ids="wh.tm.em." data-preview-mobile="false" data-selection-enable="false" data-exclude-show-more="true" data-share-style="1" data-counter-background-alpha="1.0" data-top-button="false" class="uptolike-buttons" ></div>
 
                   </div>
+                
+                  <div id="request-content">
+                    <section class="request-container">
+                      {% for request_post in post_requests %}
+                        <div class="request">
+                          {% if  request_post.klyent.profile.tarif.name|first in 'MN' %}
+                            <div class="client">
+                              <div class="msg-container">
+                                {% if user.profile.tarif.name|first in 'EXP'  or user.id == request_post.klyent.id %}
+                                  <a href="{% url 'profile' %}?user_id={{request_post.klyent.id}}" class="expert-name">{{request_post.klyent.id|stringformat:"06d"}} ({{request_post.klyent.username}})</a>
+                                {% else %}
+                                  <a href="#" class="access-error">{{request_post.klyent.id|stringformat:"06d"}} ({{request_post.klyent.username}})</a>
+                                {% endif %}
+                                <form action="{% url 'basket_deleting_lot' %}" method="post">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="item_id" value="{{request_post.id}}">
+                                  <input type="hidden" name="next" value="{{request.path}}">
+                                  {% if request.user.id == request_post.klyent.id %}
+                                    <button type="submit" class="btn btn-danger">
+                                      <i class="fa fa-trash"></i>
+                                    </button>
+                                  {% endif %}
+                                </form>
+                              
+                                <p class="msg">
+                                  <strong>{{ request_post.date|date:"d/m/yy h:m"}}</strong>
+                                  {% for p in request_post.preference %}
+                                    <span>{{p.name}}: {{p.value}}</span>
+                                  {% endfor %}
+                                </p>
+                              </div>
+                            </div>
+                          {% endif %}
+                          {% if request_post.klyent.profile.tarif.name|first in 'EXP' %}
+                            <div class="expert">
+                              <div class="msg-container">
+                                <a href="{% url 'profile' %}?user_id={{request_post.klyent.id}}" class="expert-name">{{request_post.klyent.id|stringformat:"06d"}} ({{request_post.klyent.username}})</a>
+                                <form action="{% url 'basket_deleting_lot' %}" method="post">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="item_id" value="{{request_post.id}}">
+                                  <input type="hidden" name="next" value="{{request.path}}">
+                                  {% if request.user.id == request_post.klyent.id %}
+                                    <button type="submit" class="btn btn-danger">
+                                      <i class="fa fa-trash"></i>
+                                    </button>
+                                  {% endif %}
+                                </form>
+                                <p class="msg">
+                                  <strong>{{ request_post.date|date:"d/m/yy h:m"}}</strong>
+                                  {% for p in request_post.preference %}
+                                    <span>{{p.name}}: {{p.value}}</span>
+                                  {% endfor %}
+                                </p>
+                              </div>
+                            </div>
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </section>
+                    
+                    {% if total_pages > 1 %}
+                      <div class="pagination-list text-center">
+                        <nav class="navigation pagination">
+                          <div class="nav-links request">
+                            {% if post_requests.has_previous %}
+                              <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+                              <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ post_requests.previous_page_number }}"> < </a>
+                            {% endif %}
+                            {% for p in post_requests.paginator.page_range %}
+                                {% if post_requests.number == p %}
+                                    <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+                                {% elif p > post_requests.number|add:'-3' and p <= post_requests.number|add:'3' %}
+                                    <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+    
+                                {% endif %}
+                            {% endfor %}
+                            {% if post_requests.has_next %}
+                              <a class="next page-numbers" href="javascript:void(0);" data-page="{{ post_requests.next_page_number }}"> > </a>
+                              <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
+                            {% endif %}
+                          </div>
+                        </nav>
+                      </div>
+                    {% endif %}
+                  </div>
                 </div>
 
               </div>
@@ -257,7 +343,10 @@
                             style="width: 100%;">
                             {% csrf_token %}
                             <button type="submit" id="submit_btn1" class="button contact-button"
-                              data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
+                              data-product_id1="{{ post.id }}" 
+                              data-user_id1="{{ request.user.id }}" 
+                              data-request_path1="{{ request.path }}"
+                              data-user_tarif="{{ request.user.profile.tarif.name }}"
                               style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
                               >
                               Участвовать
@@ -662,7 +751,151 @@
   </div>
 </div>
 
+<div class="modal fade" id="expert-feedback" tabindex="-1" role="dialog" aria-labelledby="expert-feedback" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="expert-feedback-label">New message</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="feedbackform">
+
+          <div class="row align-items-center">
+            <div class="col-7">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Создать и подать заявку" id="checkbox1" name="ch1">
+                <label class="form-check-label ml-2" for="checkbox1">
+                  Создать и подать заявку
+                </label>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="form-group">
+                <input type="text" class="form-control" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Создать и подать заявку">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-7">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Найти поставщика ТРУ" id="checkbox2" name="ch2">
+                <label class="form-check-label ml-2" for="checkbox2">
+                  Найти поставщика ТРУ
+                </label>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="form-group">
+                <input type="text" class="form-control" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Найти поставщика ТРУ">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-7">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Поиск логистики" id="checkbox3" name="ch3">
+                <label class="form-check-label ml-2" for="checkbox3">
+                  Поиск логистики
+                </label>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="form-group">
+                <input type="text" class="form-control" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Поиск логистики">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-7">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Предоставлю документы" id="checkbox4" name="ch4">
+                <label class="form-check-label ml-2" for="checkbox4">
+                  Предоставлю документы
+                </label>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="form-group">
+                <input type="text" class="form-control" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Предоставлю документы">
+              </div>
+            </div>
+          </div>
+        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="expert-preference">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="client-feedback" tabindex="-1" role="dialog" aria-labelledby="client-feedback" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="expert-feedback-label">New message</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="client-feedbackform">
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Буду участвовать" id="clcheckbox3" name="ch4">
+                <label class="form-check-label ml-2" for="clcheckbox3">
+                  Буду участвовать
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Буду спонсировать" id="clcheckbox4" name="ch5">
+                <label class="form-check-label ml-2" for="clcheckbox4">
+                  Буду спонсировать
+                </label>
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="client-preference">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+{% endblock content %}
 
-{% include "blocks/footer.html" %}
+
+{% block jsscript%}
+
+<script>
+  $(document).on("click", ".nav-links.request a", function(event) {
+    event.preventDefault();
+    var data = {};
+    data["page"] = parseInt($(this).attr("data-page"));
+    $.ajax({
+          method: 'GET',
+          url: "{% url 'post_detail' id=post.id slug=post.slug %}",
+          data: data,
+          success: function (resp) {
+              $("#request-content").html(resp);
+          },
+          error: function (err) {
+            console.log(err.responseText);
+          }
+    });
+  });
+</script>
+{% endblock jsscript %}

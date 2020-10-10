@@ -95,9 +95,12 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(forms.ModelForm):
+    company_name = forms.CharField(label='Наименование компании',widget=forms.TextInput(attrs={'placeholder': 'Наименование компании', 'class': 'form-control'}))
+    company_business_number = forms.CharField(label='ИИН/БИН',widget=forms.TextInput(attrs={'placeholder': 'ИИН/БИН', 'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль...'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль...'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
+
 
     class Meta:
         model = User
@@ -153,7 +156,7 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'tarif', 'dob',)
+        exclude = ('user', 'tarif', 'dob', 'company_name', 'company_business_number')
 
 
 class TarifEditForm(forms.ModelForm):

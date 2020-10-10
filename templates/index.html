@@ -1,7 +1,9 @@
+{% load humanize %}
 {% include "blocks/header.html" %}
 {% include "blocks/search.html" %}
-{% include "blocks/slider.html" %}
+
 {% block content %}
+
 <!--{% if bbs %}
 
 <div class="section-padding-bottom alice-bg home-page">
@@ -77,7 +79,94 @@
 <div class="alert alert-warning text-center py-4 mt-2">No Latest Lot's Found!, Please Check Archived for old
   list's </div>
 {% endif %}
-{% endblock %}
 -->
 
+<div class="container">
+  <div class="row">
+    <div class="col-12" id="table">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">ID of lots</th>
+            <th scope="col">Lots name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Purchase method</th>
+            <th scope="col">Subject (itemZakup)</th>
+            <th scope="col">End date</th>
+            <th scope="col">До завершения</th>
+            <th scope="col">User Request</th>
+            <th scope="col">Open</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for zakaz in all_zakaz%}
+            <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-primary" {% else %} class="bg-info" {% endif %}>
+              <td>{{zakaz.lot.id}}</td>
+              <td><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.lotFullName}}</a></td>
+              <td>{{zakaz.lot.price}}</td>
+              <td>{{zakaz.lot.statzakup}}</td>
+              <td>{{zakaz.lot.itemZakup}}</td>
+              <td>{{zakaz.lot.date|date:"d/m/yy"}}</td>
+              <td>{{zakaz.lot.date|naturaltime}}</td>
+              <td>
+                {% for p in zakaz.preference%}
+                  <p {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="text-right" {% else %} class="text-left" {% endif %}>{{p.name}} : {{p.value}}</p>
+                {% endfor %}
+              </td>
+              <td><a href="{{zakaz.lot.get_absolute_url}}">open lots</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% if total_pages %} 
+        <div class="pagination-list text-center">
+          <nav class="navigation pagination">
+            <div class="nav-links zakaz">
+              {% if all_zakaz.has_previous %}
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.previous_page_number }}"> < </a>
+              {% endif %}
+              {% for p in all_zakaz.paginator.page_range %}
+                  {% if all_zakaz.number == p %}
+                      <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+                  {% elif p > all_zakaz.number|add:'-3' and p <= all_zakaz.number|add:'3' %}
+                      <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+                  {% endif %}
+              {% endfor %}
+              {% if all_zakaz.has_next %}
+                <a class="next page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.next_page_number }}"> > </a>
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
+              {% endif %}
+            </div>
+          </nav>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  $(document).on("click", ".nav-links.zakaz a", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    var data = {};
+    data["page"] = parseInt($(this).attr("data-page"));
+    $.ajax({
+          method: 'GET',
+          url: "{% url 'index' %}",
+          data: data,
+          success: function (resp) {
+              $("#table").html(resp);
+          },
+          error: function (err) {
+            console.log(err.responseText);
+          }
+    });
+  });
+</script>
+
+{% endblock %}
+{% include "blocks/slider.html" %}
 {% include "blocks/footer.html" %}

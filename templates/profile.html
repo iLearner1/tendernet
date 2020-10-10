@@ -29,9 +29,9 @@
           <div class="title-and-info">
             <div class="title">
               <div class="title-body">
-                <h4>ID: {{ user.username }}</h4>
+                <h4>ID: {{ current_user.username }}</h4>
                 <div class="info">
-                  <span class="candidate-designation"><i class="fas fa-file"></i>&nbsp;Тариф "{{ user.profile.tarif }}"</span>
+                  <span class="candidate-designation"><i class="fas fa-file"></i>&nbsp;Тариф "{{ current_user.profile.tarif }}"</span>
                 </div>
               </div>
             </div>
@@ -51,29 +51,39 @@
                     <tbody>
                       <tr>
                         <td><b>Имя:</b></td>
-                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ current_user.first_name }} {{ current_user.last_name }}</td>
                       </tr>
                  
                       <tr>
                         <td><b>Номер телефона:</b></td>
-                        <td>{{ user.username }}</td>
+                        <td>{{ current_user.username }}</td>
                       </tr>
                       <tr>
                         <td><b>Почта:</b></td>
-                        <td>{{ user.email }}</td>
+                        <td>{{ current_user.email }}</td>
                       </tr>
                       <tr>
                         <td><b>Дата регистрации:</b></td>
-                        <td>{{user.date_joined}}</td>
+                        <td>{{current_user.date_joined}}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Наименование компании:</b></td>
+                        <td>{{current_user.profile.company_name}}</td>
+                      </tr>
+                      <tr>
+                        <td><b>ИИН/БИН:</b></td>
+                        <td>{{ current_user.profile.company_business_number}}</td>
                       </tr>
                     </tbody>
                   </table>
                   <hr>
                   <div class="form-group mt-0 terms">
-                    <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition" checked>
-                    <label for="radio-4">
-                      <span class="dot"></span> Получать рассылку
-                    </label>
+                    {% if user.id == current_user.id %}
+                      <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition" checked>
+                      <label for="radio-4">
+                        <span class="dot"></span> Получать рассылку
+                      </label>
+                    {% endif %}
                     <!-- {{ user.profile.rassylka }} -->
                   </div>
                 </div>
