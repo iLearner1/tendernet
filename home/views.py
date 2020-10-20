@@ -43,7 +43,7 @@ def index(request):
     paginator = Paginator(all_zakaz, 25)
     page_number = request.GET.get("page", 1)
     all_zakaz = paginator.page(page_number)
-    total_posts = paginator.count
+    total_posts = paginator.num_pages
 
     context = {
         "bbs": bbs,

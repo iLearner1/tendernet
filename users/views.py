@@ -70,7 +70,7 @@ def check_pass(user, password):
 
     return None
 
-@method_decorator(csrf_exempt, 'dispatch')
+
 class LoginView(View):
 
     def get(self, request):
@@ -100,7 +100,7 @@ class LoginView(View):
                 if 'next' in request.POST and len(request.POST.get('next')) > 0:
                     return redirect(self.request.POST.get('next', '/'))
                 else:
-                    return redirect(self.request.GET.get('next', '/'))
+                    return redirect(request.GET.get('next', '/'))
             else:
                 context['error_message'] = "user is not active"
         else:
@@ -108,13 +108,6 @@ class LoginView(View):
 
         context['form'] = LoginForm()
         return render(request, 'registration/login.html', context)
-
-
-        def dispatch(self, request, *args, **kwargs):
-            if request.user.is_authenticated:
-                return redirect('/lots')
-            else:
-                return super().dispatch(request, *args, **kwargs)
 
 def signup(request):
 
@@ -200,7 +193,6 @@ class Activate(View):
 
 @login_required
 def edit_profile(request):
-    print("edit profile got call...")
     if request.method == 'POST':
         user_form = UserEditForm(data=request.POST or None, instance=request.user)
         profile_form = ProfileEditForm(data=request.POST or None, instance=request.user.profile)
@@ -220,7 +212,7 @@ def edit_profile(request):
 
 def profile(request):
     if not request.user.is_authenticated:
-        return redirect(reverse('login')+'?next=profile')
+        return redirect(reverse('login')+'?next=/profile/?user_id=5/')
 
     current_user = None 
     if request.GET.get('user_id'):

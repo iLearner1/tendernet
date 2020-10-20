@@ -157,6 +157,7 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ('user', 'tarif', 'dob', 'company_name', 'company_business_number')
+        # fields = "__all__"
 
 
 class TarifEditForm(forms.ModelForm):

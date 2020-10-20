@@ -81,10 +81,10 @@
 {% endif %}
 -->
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-12" id="table">
-      <table class="table table-dark">
+      <table class="table table-dark d-xl-table d-lg-table d-md-table d-none">
         <thead>
           <tr>
             <th scope="col">ID of lots</th>
@@ -102,7 +102,7 @@
           {% for zakaz in all_zakaz%}
             <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-primary" {% else %} class="bg-info" {% endif %}>
               <td>{{zakaz.lot.id}}</td>
-              <td><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.lotFullName}}</a></td>
+              <td><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
               <td>{{zakaz.lot.price}}</td>
               <td>{{zakaz.lot.statzakup}}</td>
               <td>{{zakaz.lot.itemZakup}}</td>
@@ -119,7 +119,30 @@
         </tbody>
       </table>
 
-      {% if total_pages %} 
+      <table class="table table-dark d-xl-none d-lg-none d-md-none d-table">
+        <thead>
+          <tr>
+            <th scope="col">Lots name</th>
+            <th scope="col">Price</th>
+            <th scope="col">User Request</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for zakaz in all_zakaz%}
+            <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-primary" {% else %} class="bg-info" {% endif %}>
+              <td><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.lotFullName}}</a></td>
+              <td>{{zakaz.lot.price}}</td>
+              <td>
+                {% for p in zakaz.preference%}
+                  <p {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="text-right" {% else %} class="text-left" {% endif %}>{{p.name}} : {{p.value}}</p>
+                {% endfor %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% if total_posts %} 
         <div class="pagination-list text-center">
           <nav class="navigation pagination">
             <div class="nav-links zakaz">
@@ -136,7 +159,7 @@
               {% endfor %}
               {% if all_zakaz.has_next %}
                 <a class="next page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.next_page_number }}"> > </a>
-                <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_posts }}"> >> </a>
               {% endif %}
             </div>
           </nav>

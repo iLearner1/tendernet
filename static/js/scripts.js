@@ -14,21 +14,25 @@ $(document).ready(function(){
         data2 = data;
         data2['type'] = "form_buying_product";
 
-        const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
+        const key = `verify_data-${data2['user_id']}-${data2['product_id']}`;
         
+        if(localStorage.getItem(key)) {
+            alert('Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста');
+            return false;
+        }
+
         if(tarif_type.startsWith("EXP")) {
             $("#expert-feedback").modal("show");
             $("#expert-feedback .feedbackform").append(`<input type="hidden" class="feedbackform-value" value=${JSON.stringify({...data, url})} />`);
-            return;
+            return false;
         }
     
        
         
         if(tarif_type.startsWith("MN")) {
-            console.log("client feedbakc");
             $("#client-feedback").modal("show");
             $("#client-feedback .client-feedbackform").append(`<input type="hidden" class="cl-feedbackform-value" value=${JSON.stringify({...data, url})} />`);
-            return;
+            return false;
         }
     });
 
@@ -124,6 +128,10 @@ $(document).ready(function(){
 
         data['expert_preference'] = JSON.stringify(checkedValue);
         $("#expert-feedback").modal("hide");
+       
+        if(!formValue.length) return;
+        const key = `verify_data-${data['user_id']}-${data['product_id']}`;
+        localStorage.setItem(key, 1)
 
         $.ajax({
             url: url,
@@ -157,6 +165,10 @@ $(document).ready(function(){
    
         data['expert_preference'] = JSON.stringify(formValue);
         $("#client-feedback").modal("hide");
+        
+        if(!formValue.length) return;
+        const key = `verify_data-${data['user_id']}-${data['product_id']}`;
+        localStorage.setItem(key, 1)
 
         $.ajax({
             url: url,
@@ -175,22 +187,44 @@ $(document).ready(function(){
         });
     })
 
-    // function verifyUserClick(data2) {
-    //     const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
-    //     if(localStorage.getItem(key)) {
-    //         const verify_data = JSON.parse(localStorage.getItem(key));
-    //         if(verify_data['product_id'] === data2['product_id'] && verify_data['user_id'] === data2['user_id'] &&  verify_data['type'] === data2['type']) {
-    //             alert('Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста');
-    //             return true;
-    //         } else {
-    //           //  localStorage.setItem(key, JSON.stringify(data2));
-    //         }
-    //         return true;
-    //     } else {
-    //         return false;
-    //         // localStorage.setItem(key, JSON.stringify(data2));
-    //     }
-    // }
+    $(".feedbackform input:checkbox").on("change", function(e) {
+        if(this.checked) {
+            $(`.${this.name}`).attr('disabled', false);
+        } else {
+            $(`.${this.name}`).attr('disabled', true);
+        }
+    });
+
+    //remove user meta info that was saved localstorage before sending request
+    $(document).on("click", ".request-delete", function(e) {
+        e.preventDefault();
+        e.stopPropagination();
+
+        const data = $(this).data();
+        const key = `verify_data-${data['userId']}-${data['productId']}`;
+        console.log(localStorage.getItem(key))
+
+        const $this = $(this);
+        localStorage.removeItem(key);
+        $this.parents().find('.request-delete-form').first().submit();
+    });
+
+    function verifyUserClick(data2) {
+        const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
+        if(localStorage.getItem(key)) {
+            const verify_data = JSON.parse(localStorage.getItem(key));
+            if(verify_data['product_id'] === data2['product_id'] && verify_data['user_id'] === data2['user_id'] &&  verify_data['type'] === data2['type']) {
+                alert('Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста');
+                return true;
+            } else {
+              //  localStorage.setItem(key, JSON.stringify(data2));
+            }
+            return true;
+        } else {
+            return false;
+            // localStorage.setItem(key, JSON.stringify(data2));
+        }
+    }
 
     $(document).on("click", ".access-error", (e) => {
         e.preventDefault();

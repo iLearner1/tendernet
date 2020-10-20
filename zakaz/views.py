@@ -35,6 +35,10 @@ def basket_adding_lot(request):
 
     mail_subject = "Участвовать"
 
+    klyent_list = Zakaz.objects.filter(lot_id=product_id).values('klyent__email')
+
+    client_emails = [k['klyent__email'] for k in klyent_list if k['klyent__email']]
+
     try:
         message = render_to_string('blocks/participate_email.html', {
             'phone': request.user.username,
@@ -45,7 +49,7 @@ def basket_adding_lot(request):
         })
 
         send_mail(mail_subject, '', 'tendernet.kz@mail.com',
-                [EMAIL_MANAGER], html_message=message, fail_silently=False)
+                [EMAIL_MANAGER]+client_emails, html_message=message, fail_silently=False)
     except Exception as e:
         print("Error: ", e);
 
