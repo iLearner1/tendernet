@@ -1,40 +1,38 @@
 $(document).ready(function(){
+    var data2;
 
-    $('.form_buying_product').on('submit', function(e){
+    $('.form_buying_product').on('submit', async function(e){
         e.preventDefault();
         var submit_btn = $('#submit_btn1');
+        var tarif_type = submit_btn.data('user_tarif');
+        var url = $('#form_buying_product').attr("action");
         var data = {};
         data["product_id"] = submit_btn.data("product_id1");
         data["user_id"] = submit_btn.data("user_id1");
         data["request_path"] = submit_btn.data("request_path1");
         data["csrfmiddlewaretoken"] = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
-
         data2 = data;
         data2['type'] = "form_buying_product";
 
-        const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
-
-        if(!verifyUserClick(data2)) { 
-            if (confirm("Вы действительно желаете участвовать?")) {
-                alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
-                var url = $('#form_buying_product').attr("action");
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: data,
-                    cache: true,
-                    success: function (data) {
-                        alert('Заявка на участие отправлена');
-                        localStorage.setItem(key, JSON.stringify(data2));
-                    },
-                    error: function(){
-                        console.log("error")
-                    }
-                });
-            } else {
-                return false;
-            }
+        const key = `verify_data-${data2['user_id']}-${data2['product_id']}`;
         
+        if(localStorage.getItem(key)) {
+            alert('Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста');
+            return false;
+        }
+
+        if(tarif_type.startsWith("EXP")) {
+            $("#expert-feedback").modal("show");
+            $("#expert-feedback .feedbackform").append(`<input type="hidden" class="feedbackform-value" value=${JSON.stringify({...data, url})} />`);
+            return false;
+        }
+    
+       
+        
+        if(tarif_type.startsWith("MN")) {
+            $("#client-feedback").modal("show");
+            $("#client-feedback .client-feedbackform").append(`<input type="hidden" class="cl-feedbackform-value" value=${JSON.stringify({...data, url})} />`);
+            return false;
         }
     });
 
@@ -43,16 +41,15 @@ $(document).ready(function(){
         e.preventDefault();
         var submit_btn = $('#submit_btn_doc');
         var data = {};
+        
         data["product_id"] = submit_btn.data("product_id");
         data["user_id"] = submit_btn.data("user_id");
         data["request_path"] = submit_btn.data("request_path");
-
         data2 = data;
         data2['type'] = "buying_doc";
         
-        
         const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
-
+    
         if(!verifyUserClick(data2)) {
             
             if (confirm("Вы запрашиваете Аудит конкурсной документации. Он необходим, чтобы узнать какие ресурсы необходимы для участия в этом тендере.")) {
@@ -115,6 +112,103 @@ $(document).ready(function(){
     });
 
 
+    //when expert user user press ok btn in the model at article detail this action will triggred
+    $("#expert-preference").on("click", function(e){
+        const data = JSON.parse($(".feedbackform-value").val());
+        const url = data.url;
+        delete data.url;
+        const formValue = $(".feedbackform").serializeArray() ?? [];
+        const checkedValue = formValue.filter(val => {
+                for(const item of formValue) {
+                    if(item.name.startsWith("ch") && item.value === val.name) {
+                        return true;
+                    }
+                }
+        });
+
+        data['expert_preference'] = JSON.stringify(checkedValue);
+        $("#expert-feedback").modal("hide");
+       
+        if(!formValue.length) return;
+        const key = `verify_data-${data['user_id']}-${data['product_id']}`;
+        localStorage.setItem(key, 1)
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            cache: true,
+            success: function (data) {
+                alert('Заявка на участие отправлена');
+                // const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
+                // localStorage.setItem(key, JSON.stringify(data2));
+                window.location.reload();
+            },
+            error: function(error){
+                alert(error?.responseJSON?.message ?? 'Something went wrong please try again')
+                console.log(error);
+                console.log("error")
+            }
+        });
+    })
+
+    $("#client-preference").on("click", function(e){
+        const data = JSON.parse($(".cl-feedbackform-value").val());
+        const url = data.url;
+        delete data.url;
+        const formValue = $(".client-feedbackform :checkbox:checked").map(function(item){
+            return {
+                name: '',
+                value: $(this).val()
+            }
+        }).get();
+   
+        data['expert_preference'] = JSON.stringify(formValue);
+        $("#client-feedback").modal("hide");
+        
+        if(!formValue.length) return;
+        const key = `verify_data-${data['user_id']}-${data['product_id']}`;
+        localStorage.setItem(key, 1)
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            cache: true,
+            success: function (data) {
+                alert('Заявка на участие отправлена');
+                window.location.reload();
+            },
+            error: function(error){
+                alert(error?.responseJSON?.message ?? 'Something went wrong please try again')
+                console.log(error);
+                console.log("error")
+            }
+        });
+    })
+
+    $(".feedbackform input:checkbox").on("change", function(e) {
+        if(this.checked) {
+            $(`.${this.name}`).attr('disabled', false);
+        } else {
+            $(`.${this.name}`).attr('disabled', true);
+        }
+    });
+
+    //remove user meta info that was saved localstorage before sending request
+    $(document).on("click", ".request-delete", function(e) {
+        e.preventDefault();
+        e.stopPropagination();
+
+        const data = $(this).data();
+        const key = `verify_data-${data['userId']}-${data['productId']}`;
+        console.log(localStorage.getItem(key))
+
+        const $this = $(this);
+        localStorage.removeItem(key);
+        $this.parents().find('.request-delete-form').first().submit();
+    });
+
     function verifyUserClick(data2) {
         const key = `verify_data-${data2['type']}-${data2['user_id']}-${data2['product_id']}`;
         if(localStorage.getItem(key)) {
@@ -132,6 +226,14 @@ $(document).ready(function(){
         }
     }
 
+    $(document).on("click", ".access-error", (e) => {
+        e.preventDefault();
+        swal.fire({
+            title: 'error',
+            text: 'Вы должны сменить тариф на "Эксперт',
+            icon: 'error'
+        })
+    })
 
     function createButton(text,url) {
         if(text=='Авторизация'){

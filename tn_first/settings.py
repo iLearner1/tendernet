@@ -142,7 +142,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 LANGUAGE_CODE = "ru-ru"
 
-TIME_ZONE = "Asia/Almaty"
+TIME_ZONE = "Asia/Dhaka"
 
 USE_I18N = True
 

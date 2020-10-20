@@ -1,6 +1,7 @@
+import json
 from django.contrib import messages
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from zakaz.models import Zakaz, Zakazdoc
@@ -19,25 +20,46 @@ def basket_adding_lot(request):
     current_site = get_current_site(request)
     data = request.POST
     product_id = data.get("product_id")
-
-    new_product = Zakaz.objects.get_or_create(
-        lot_id=product_id, klyent_id=request.user.id,)
+    expert_preference = data.get("expert_preference", "[]")
+  
+    product, created = Zakaz.objects.get_or_create(
+        lot_id=product_id, klyent_id=request.user.id)
+        
+    if created:
+        product.expert_preference = expert_preference
+        product.save()
+    else:
+        response = HttpResponse(json.dumps({"status_code": 400, "message": "Ваша заявка на данную услугу принята, пожалуйста дождитесь ответа специалиста"}, ensure_ascii=False), content_type='application/json')
+        response.status_code = 400
+        return response
 
     mail_subject = "Участвовать"
 
-    message = render_to_string('blocks/participate_email.html', {
-        'phone': request.user.username,
-        'name': request.user.first_name + " " + request.user.last_name,
-        'email': request.user.email,
-        'url': data.get("request_path"),
-        'domain': current_site.domain
-    })
+    klyent_list = Zakaz.objects.filter(lot_id=product_id).values('klyent__email')
 
-    send_mail(mail_subject, '', 'tendernet.kz@mail.com',
-              [EMAIL_MANAGER], html_message=message, fail_silently=False)
+    client_emails = [k['klyent__email'] for k in klyent_list if k['klyent__email']]
+
+    try:
+        message = render_to_string('blocks/participate_email.html', {
+            'phone': request.user.username,
+            'name': request.user.first_name + " " + request.user.last_name,
+            'email': request.user.email,
+            'url': data.get("request_path"),
+            'domain': current_site.domain
+        })
+
+        send_mail(mail_subject, '', 'tendernet.kz@mail.com',
+                [EMAIL_MANAGER]+client_emails, html_message=message, fail_silently=False)
+    except Exception as e:
+        print("Error: ", e);
 
     return JsonResponse(return_dict)
 
+
+def basket_deleting_lot(request):
+    zakaz = Zakaz.objects.filter(id=request.POST.get("item_id"))[0]
+    zakaz.delete()
+    return redirect(request.POST.get('next'))
 
 def basket_adding_doc(request):
     return_dict = dict()

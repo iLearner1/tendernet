@@ -10,6 +10,7 @@ from . import views
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from lots.models import Article
+from zakaz.models import Zakaz
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from lots.filters import ArticleFilter
 from django.shortcuts import render, redirect
@@ -29,7 +30,7 @@ def index(request):
     )
     cities = Cities.objects.all()
     bbs = myHomeFilter.qs
-
+    all_zakaz = Zakaz.objects.all()
     paginator = Paginator(bbs, 10)
     page = request.GET.get("page")
     try:
@@ -39,14 +40,24 @@ def index(request):
     except EmptyPage:
         bbs = paginator.page(paginator.num_pages)
 
+    paginator = Paginator(all_zakaz, 25)
+    page_number = request.GET.get("page", 1)
+    all_zakaz = paginator.page(page_number)
+    total_posts = paginator.num_pages
+
     context = {
         "bbs": bbs,
         "myHomeFilter": myHomeFilter,
         "cities": cities,
         "PURCHASE_METHOD_CHOICES": ZAKUP_CHOICES,
         "SUBJECT_OF_PURCHASE_CHOICES": PURCHASE_CHOICES,
+        'all_zakaz': all_zakaz,
+        'total_posts': total_posts
     }
-    print(request.user.is_authenticated)
+
+    if(request.is_ajax()):
+        return render(request, 'blocks/home-page-zakaz-list.html', context)
+
     return render(request, "index.html", context)
 
 

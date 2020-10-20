@@ -11155,3 +11155,43 @@ html {
   .text-warning {
     color: #ffe004 !important;
   }
+
+
+  section.request-container{
+    background-color: #fff;
+    padding: 20px;
+    background-color: #fafafa;
+  }
+  
+  .request {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .request .expert,
+  .request .client {
+    width: 45%;
+    margin-bottom: 5px;
+  }
+  .request .client {
+    align-self: flex-start;
+  }
+  .request .expert {
+    align-self: flex-end;
+  }
+
+  .client p.msg {
+    margin-left: 30px;
+  }
+  p.msg {
+    background: #ddd;
+    min-height: 30px;
+    padding: .5em 1em;
+  }
+  p.msg span {
+    display: block;
+  }
+  .expert a {
+    display: block;
+    text-align: end;
+  }
