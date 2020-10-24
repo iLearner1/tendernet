@@ -198,14 +198,10 @@ $(document).ready(function(){
     //remove user meta info that was saved localstorage before sending request
     $(document).on("click", ".request-delete", function(e) {
         e.preventDefault();
-        e.stopPropagination();
-
         const data = $(this).data();
         const key = `verify_data-${data['userId']}-${data['productId']}`;
-        console.log(localStorage.getItem(key))
-
-        const $this = $(this);
         localStorage.removeItem(key);
+        const $this = $(this);
         $this.parents().find('.request-delete-form').first().submit();
     });
 

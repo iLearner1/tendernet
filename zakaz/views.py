@@ -33,7 +33,7 @@ def basket_adding_lot(request):
         response.status_code = 400
         return response
 
-    mail_subject = "Участвовать"
+    mail_subject = "Новая заявка клиента на tendernet.kz"
 
     klyent_list = Zakaz.objects.filter(lot_id=product_id).values('klyent__email')
 

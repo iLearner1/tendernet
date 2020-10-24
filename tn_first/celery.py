@@ -15,14 +15,14 @@ app.config_from_object("django.conf:settings")
 app.autodiscover_tasks()
 
 app.conf.CELERYBEAT_SCHEDULE = {
-    'fetch-lots-from-goszakup-every-20-minutes': {
+    'fetch-lots-from-goszakup-every-60-minutes': {
         'task': 'lots.tasks.fetch_lots_from_goszakup',
-        'schedule': 1200, #20minutes
+        'schedule': crontab(minute="*/60"), #60minutes
 
     },
     'update_existing_region_location': {
         'task': 'lots.tasks.update_existing_lots_region_location',
-        'schedule': 60,
+        'schedule': crontab(minute="*/20"),
     },
     "check_task_before_3days_of_expire_tarif": {
         "task": "users.tasks.task_before_3days_of_expire_tarif",

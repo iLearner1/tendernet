@@ -40,7 +40,7 @@
               <input type="hidden" name="item_id" value="{{request_post.id}}">
               <input type="hidden" name="next" value="{{request.path}}">
               {% if request.user.id == request_post.klyent.id %}
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-danger request-delete" data-product-id="{{request_post.lot.id}}" data-user-id="{{user.id}}">
                   <i class="fa fa-trash"></i>
                 </button>
               {% endif %}

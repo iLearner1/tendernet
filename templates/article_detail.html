@@ -272,12 +272,12 @@
                             <div class="expert">
                               <div class="msg-container">
                                 <a href="{% url 'profile' %}?user_id={{request_post.klyent.id}}" class="expert-name">{{request_post.klyent.id|stringformat:"06d"}} (Expert)</a>
-                                <form action="{% url 'basket_deleting_lot' %}" method="post">
+                                <form action="{% url 'basket_deleting_lot' %}" method="post" class="request-delete-form">
                                   {% csrf_token %}
                                   <input type="hidden" name="item_id" value="{{request_post.id}}">
                                   <input type="hidden" name="next" value="{{request.path}}">
                                   {% if request.user.id == request_post.klyent.id %}
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger request-delete" data-product-id="{{request_post.lot.id}}" data-user-id="{{user.id}}">
                                       <i class="fa fa-trash"></i>
                                     </button>
                                   {% endif %}
@@ -868,17 +868,17 @@
             </div>
             <div class="form-group">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Вариант 3 для клиента" id="clcheckbox5" name="ch7">
+                <input class="form-check-input" type="checkbox" value="Ищу партнёра" id="clcheckbox5" name="ch7">
                 <label class="form-check-label ml-2" for="clcheckbox5">
-                  Вариант 3 для клиента
+                  Ищу партнёра
                 </label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Вариант 4 для клиентаа" id="clcheckbox6" name="ch8">
+                <input class="form-check-input" type="checkbox" value="Только поставка товаров, работ, услуг" id="clcheckbox6" name="ch8">
                 <label class="form-check-label ml-2" for="clcheckbox6">
-                  Вариант 4 для клиентаа
+                  Только поставка товаров, работ, услуг
                 </label>
               </div>
             </div>
