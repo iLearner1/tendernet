@@ -265,7 +265,11 @@ def schedule_tariff_change_email(request):
 
     if current_tariff != None and change_tariff != None and change_tariff != "free":
         #changing expire date of tarif
-        task_tariff_change_email.apply_async(args=[user_email, change_tariff])
+        mn = change_tariff.split('MN')[1]
+        message = f'Через {mn} месяцев ваш тариф будет автоматический переведен на тариф {"Клиент 12 месяцев" if "EXP_" in change_tariff else "Бесплатный"}'
+        email = EmailMessage("tariff change", message, to=[user_email])
+        email.send()
+        # task_tariff_change_email.apply_async(args=[user_email, change_tariff])
         task_tariff_change_email.apply_async(args=[user_email, change_tariff], eta=datetime.datetime.now() + datetime.timedelta(days=3))
 
     return HttpResponse(200)

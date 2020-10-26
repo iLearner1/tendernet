@@ -38,7 +38,7 @@ def task_before_3days_of_expire_tarif():
         from_email, to =  settings.DEFAULT_FROM_EMAIL, settings.EMAIL_MANAGER
 
         for profile in profiles:
-            msg1 = "Your Tarif about to expire in 3 days, please update your tarif in tendernet"
+            msg1 = "Через 3 дня Ваш тарифный план будет сменен на тарифный план Клиент"
             msg2 = f"User {profile.user.username} tarif about to expire in 3 days";
 
             em1 = EmailMessage("Expire Tarif", msg1, from_email=[from_email], to=[profile.user.email])
@@ -64,7 +64,7 @@ def task_after_expire_tarif():
                 profile.tarif.name = "MN12"
                 profile.tarif.save()
 
-            msg1 = "Your Tarif has expired today, please update your tarif in tendernet"
+            msg1 = f'Ваш тарифный план сменен на тарифный план "{"Эксперт" if "EXP_" in profile.tarif.name else "Клиент"}"'
             msg2 = f"User {profile.user.username} tarif has expired today";
             em1 = EmailMessage("Expired Tarif", msg1, from_email=[from_email], to=[profile.user.email])
             em2 = EmailMessage("Expired Tarif", msg2, from_email=[from_email], to=[to])
@@ -80,7 +80,7 @@ def task_after_3days_of_expire_tarif():
         from_email, to =  settings.DEFAULT_FROM_EMAIL, settings.EMAIL_MANAGER
 
         for profile in profiles:
-            msg1 = "Your Tarif has expired  3 days ago, please update your tarif in tendernet"
+            msg1 = "3 Дня назад Ваш тарифный план сменен на тарифный план Клиент"
             msg2 = f"User {profile.user.username} tarif  expired 3 days ago";
             em1 = EmailMessage("Expired Tarif", msg1, from_email=[from_email], to=[profile.user.email])
             em2 = EmailMessage("Expired Tarif", msg2, from_email=[from_email], to=[to])
