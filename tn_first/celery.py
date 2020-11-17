@@ -17,7 +17,7 @@ app.autodiscover_tasks()
 app.conf.CELERYBEAT_SCHEDULE = {
     'fetch-lots-from-goszakup-every-60-minutes': {
         'task': 'lots.tasks.fetch_lots_from_goszakup',
-        'schedule': crontab(minute="*/60"), #60minutes
+        'schedule': crontab(minute="0", hour="*/5"), #5 hour
 
     },
     'update_existing_region_location': {
