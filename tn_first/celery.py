@@ -20,6 +20,11 @@ app.conf.CELERYBEAT_SCHEDULE = {
         'schedule': crontab(minute='0', hour='*/1', day_of_week="*"), #60minutes
 
     },
+    'remove-expired-lots-every-thirty-minutes': {
+        'task': 'lots.tasks.removeExpiredLots',
+        'schedule': crontab(minute='30', hour='*', day_of_week="*"), #60minutes
+
+    },
     'update_existing_region_location': {
         'task': 'lots.tasks.update_existing_lots_region_location',
         'schedule': crontab(minute='*/30'),
