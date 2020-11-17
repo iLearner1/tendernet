@@ -377,7 +377,13 @@ def fetch_lots_from_goszakup():
     """
         deleting expired lots if available
     """
-    removeExpiredLots.delay()
+    print('deleting expired article...')
+    try:
+        expired = Article.objects.filter(Q(date__lt=timezone.now()) | Q(date=None))
+        for item in expired:
+            item.delete()
+    except Exception as e:
+        print(f"some exception occured when deleting expired lots {e}")
     
     #fetching  200 lots per call and we need 20 for 4000 lots
     for _ in range(20):
