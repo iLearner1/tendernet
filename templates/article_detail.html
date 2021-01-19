@@ -233,68 +233,10 @@
                     <div data-mobile-view="true" data-share-size="30" data-like-text-enable="false" data-background-alpha="0.0" data-pid="1883085" data-mode="share" data-background-color="#ffffff" data-share-shape="rectangle" data-share-counter-size="12" data-icon-color="#ffffff" data-mobile-sn-ids="fb.vk.tw.ok.wh.tm.vb." data-text-color="#000000" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-type="disable" data-orientation="horizontal" data-following-enable="false" data-sn-ids="wh.tm.em." data-preview-mobile="false" data-selection-enable="false" data-exclude-show-more="true" data-share-style="1" data-counter-background-alpha="1.0" data-top-button="false" class="uptolike-buttons" ></div>
 
                   </div>
-                
-                  <div id="request-content">
-                    <section class="request-container">
-                      {% for request_post in post_requests %}
-                        <div class="request">
-                          {% if  request_post.klyent.profile.tarif.name|first in 'MN' %}
-                            <div class="client">
-                              <div class="msg-container">
-                                {% if user.profile.tarif.name|first in 'EXP'  or user.id == request_post.klyent.id %}
-                                  <a href="{% url 'profile' %}?user_id={{request_post.klyent.id}}" class="expert-name">{{request_post.klyent.id|stringformat:"06d"}} (Client)</a>
-                                {% elif not user.is_authenticated  %} 
-                                  <a href="{% url 'profile' %}?user_id={{request_post.klyent.id}}" class="expert-name">{{request_post.klyent.id|stringformat:"06d"}} (Client)</a>
-                                {% else %}
-                                  <a href="#" class="access-error">{{request_post.klyent.id|stringformat:"06d"}} (Client)</a>
-                                {% endif %}
-                                <form action="{% url 'basket_deleting_lot' %}" method="post" class="request-delete-form">
-                                  {% csrf_token %}
-                                  <input type="hidden" name="item_id" value="{{request_post.id}}">
-                                  <input type="hidden" name="next" value="{{request.path}}">
-                                  {% if request.user.id == request_post.klyent.id %}
-                                    <button type="submit" class="btn btn-danger request-delete" data-product-id="{{request_post.lot.id}}" data-user-id="{{user.id}}">
-                                      <i class="fa fa-trash"></i>
-                                    </button>
-                                  {% endif %}
-                                </form>
-                              
-                                <p class="msg">
-                                  <strong>{{ request_post.date|date:"d/m/yy h:i"}}</strong>
-                                  {% for p in request_post.preference %}
-                                    <span>{{p.name}}: {{p.value}}</span>
-                                  {% endfor %}
-                                </p>
-                              </div>
-                            </div>
-                          {% endif %}
-                          {% if request_post.klyent.profile.tarif.name|first in 'EXP' %}
-                            <div class="expert">
-                              <div class="msg-container">
-                                <a href="{% url 'profile' %}?user_id={{request_post.klyent.id}}" class="expert-name">{{request_post.klyent.id|stringformat:"06d"}} (Expert)</a>
-                                <form action="{% url 'basket_deleting_lot' %}" method="post" class="request-delete-form">
-                                  {% csrf_token %}
-                                  <input type="hidden" name="item_id" value="{{request_post.id}}">
-                                  <input type="hidden" name="next" value="{{request.path}}">
-                                  {% if request.user.id == request_post.klyent.id %}
-                                    <button type="submit" class="btn btn-danger request-delete" data-product-id="{{request_post.lot.id}}" data-user-id="{{user.id}}">
-                                      <i class="fa fa-trash"></i>
-                                    </button>
-                                  {% endif %}
-                                </form>
-                                <p class="msg">
-                                  <strong>{{ request_post.date|date:"d/m/yy h:i"}}</strong>
-                                  {% for p in request_post.preference %}
-                                    <span>{{p.name}}: {{p.value}}</span>
-                                  {% endfor %}
-                                </p>
-                              </div>
-                            </div>
-                          {% endif %}
-                        </div>
-                      {% endfor %}
-                    </section>
-                    
+                  
+                  {% include "blocks/chat.html" %}
+                  
+                  <!-- <div id="request-content">
                     {% if total_pages > 1 %}
                       <div class="pagination-list text-center">
                         <nav class="navigation pagination">
@@ -319,7 +261,8 @@
                         </nav>
                       </div>
                     {% endif %}
-                  </div>
+                  </div> -->
+
                 </div>
 
               </div>
@@ -328,18 +271,6 @@
 
                   <div class="tender-summary">
                     <div class="buttons">
-
-                      <script type="text/javascript">
-                        function uchastvovatFunction() {
-                          /**if (confirm("Вы действительно желаете участвовать?")) {
-                            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
-                          } else {
-                            return false;
-                          }**/
-
-                        }
-                      </script>
-
                       {% if request.user.is_authenticated %}
                             <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
                             style="width: 100%;">
@@ -385,31 +316,21 @@
                     </div>
                   </div>
 
-                  <div class="tender-summary" style="margin-top: 20px;">
+                  <div class="tender-summary d-none" style="margin-top: 20px;">
                     <div class="buttons">
-
-                      <script type="text/javascript">
-                        function documentFunction() {
-                          /**if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
-                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
-                          } else {
-                            return false;
-                          }**/
-                          console.log('nice content');
-                        }
-                      </script>
-
-                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы 
-                        для участия</h6>
+                      <h6 style="text-align: center; margin-bottom: 10px;">
+                        Необходимые трудовые, материальные ресурсы 
+                        для участия
+                      </h6>
                       {% if request.user.is_authenticated %}
-                             <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
-                                style="width: 100%;">
-                                {% csrf_token %}
-                                <button type="submit" id="submit_btn_doc" class="button contact-button"
-                                  data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
-                                  style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                                 >Запросить аудит</button>
-                              </form>
+                        <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
+                          style="width: 100%;">
+                          {% csrf_token %}
+                          <button type="submit" id="submit_btn_doc" class="button contact-button"
+                            data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
+                            style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                            >Запросить аудит</button>
+                        </form>
                       {% else %}
                       <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
                           class="button contact-button">Запросить аудит</button></a>
@@ -418,7 +339,6 @@
                       <a href="/static/files/audit_example.pdf" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -712,7 +632,7 @@
               </div>
             </div>
 
-            <div class="tender-summary" style="margin-top: 20px;">
+            <div class="tender-summary d-none" style="margin-top: 20px;">
               <div class="buttons">
 
                 <script type="text/javascript">
@@ -737,7 +657,7 @@
                             >Запросить аудит</button>
                         </form>
                 {% else %}
-                <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
+                  <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
                     class="button contact-button">Запросить аудит</button></a>
 
                 {% endif %}
@@ -753,145 +673,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="expert-feedback" tabindex="-1" role="dialog" aria-labelledby="expert-feedback" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <h5 class="modal-title" id="expert-feedback-label">New message</h5> -->
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="feedbackform">
-
-          <div class="row align-items-center">
-            <div class="col-7">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Создать и подать заявку" id="checkbox1" name="ch1">
-                <label class="form-check-label ml-2" for="checkbox1">
-                  Создать и подать заявку
-                </label>
-              </div>
-            </div>
-            <div class="col-5">
-              <div class="form-group">
-                <input type="text" class="form-control ch1" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Создать и подать заявку"  disabled>
-              </div>
-            </div>
-          </div>
-
-          <div class="row align-items-center">
-            <div class="col-7">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Найти поставщика ТРУ" id="checkbox2" name="ch2">
-                <label class="form-check-label ml-2" for="checkbox2">
-                  Найти поставщика ТРУ
-                </label>
-              </div>
-            </div>
-            <div class="col-5">
-              <div class="form-group">
-                <input type="text" class="form-control ch2" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Найти поставщика ТРУ" disabled>
-              </div>
-            </div>
-          </div>
-
-          <div class="row align-items-center">
-            <div class="col-7">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Поиск логистики" id="checkbox3" name="ch3">
-                <label class="form-check-label ml-2" for="checkbox3">
-                  Поиск логистики
-                </label>
-              </div>
-            </div>
-            <div class="col-5">
-              <div class="form-group">
-                <input type="text" class="form-control ch3" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Поиск логистики" disabled>
-              </div>
-            </div>
-          </div>
-
-          <div class="row align-items-center">
-            <div class="col-7">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Предоставлю документы" id="checkbox4" name="ch4">
-                <label class="form-check-label ml-2" for="checkbox4">
-                  Предоставлю документы
-                </label>
-              </div>
-            </div>
-            <div class="col-5">
-              <div class="form-group">
-                <input type="text" class="form-control ch4" style="height: 35px; padding: 10px;" placeholder="Введите цену" name="Предоставлю документы" disabled>
-              </div>
-            </div>
-          </div>
-        
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
-        <button type="button" class="btn btn-primary" id="expert-preference">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="client-feedback" tabindex="-1" role="dialog" aria-labelledby="client-feedback" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <h5 class="modal-title" id="expert-feedback-label">New message</h5> -->
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="client-feedbackform">
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Буду участвовать" id="clcheckbox3" name="ch5">
-                <label class="form-check-label ml-2" for="clcheckbox3">
-                  Буду участвовать
-                </label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Буду спонсировать" id="clcheckbox4" name="ch6">
-                <label class="form-check-label ml-2" for="clcheckbox4">
-                  Буду спонсировать
-                </label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Ищу партнёра" id="clcheckbox5" name="ch7">
-                <label class="form-check-label ml-2" for="clcheckbox5">
-                  Ищу партнёра
-                </label>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Только поставка товаров, работ, услуг" id="clcheckbox6" name="ch8">
-                <label class="form-check-label ml-2" for="clcheckbox6">
-                  Только поставка товаров, работ, услуг
-                </label>
-              </div>
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
-        <button type="button" class="btn btn-primary" id="client-preference">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- this modal will show when user press participate button  -->
+{% include "blocks/feedback-modal.html" %}
 
 {% endblock content %}
 

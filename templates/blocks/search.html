@@ -16,7 +16,7 @@
               {% csrf_token %}
 
               <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-9 col-xl-10 col-sm-8">
                 {% render_field myHomeFilter.form.title class="" style="width: 100%;border: none; border-bottom: 1px solid #bfbfbf; margin-bottom: 10px;" placeholder="Наименование лота" %}
                 </div>
 
@@ -36,8 +36,8 @@
 <!--                    <input type="checkbox" name="searchby3char-home" class="form-check-input" id="searchby3char-home" checked>-->
 <!--                    <label class="form-check-label" for="searchby3char-home">search by 3 character</label>-->
 <!--                  </div>-->
-                <div class="col-md-2">
-                <button type="submit" id="pc-search-button" class="button primary-bg">Найти</button>
+                <div class="col-md-3 col-xl-2 col-sm-4">
+                  <button type="submit" id="pc-search-button" class="button primary-bg">Найти</button>
                 </div>
 
               </div>

@@ -1,128 +1,3 @@
-<!doctype html>
-<html lang="ru">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>TENDERNET - База Тендеров и Лотов Казахстана в Твоем Кармане</title>
-  <meta name="description" content="TENDERNET - База Тендеров и Лотов Казахстана в Твоем Кармане">
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/et-line.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/plyr.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/flag.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/jquery.nstSlider.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'assets/css/request.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css' %}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v22.6">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
-  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-  <script src="{% static 'assets/js/jquery.maskedinput.min.js' %}"></script>
-  <!-- <link href="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.css" rel="stylesheet"/> -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles">
-
-
-  <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
-  <script src="{% static 'js/scripts.js' %}"></script>
-  <script type="text/javascript">
-    jQuery(function ($) {
-      $(".phone").mask("8 999 999 99 99");
-    });
-  </script>
-   <!-- sweeat alert  -->
-   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
-   <!-- <script src="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.js"></script> -->
-   <!-- end sweet alert  -->
-
-
-  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-icon-57x57.png' %}">
-  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicons/apple-icon-60x60.png' %}">
-  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-icon-72x72.png' %}">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicons/apple-icon-76x76.png' %}">
-  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-icon-114x114.png' %}">
-  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicons/apple-icon-120x120.png' %}">
-  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicons/apple-icon-144x144.png' %}">
-  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicons/apple-icon-152x152.png' %}">
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicons/apple-icon-180x180.png' %}">
-  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicons/android-icon-192x192.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicons/favicon-32x32.png' %}">
-  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicons/favicon-96x96.png' %}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicons/favicon-16x16.png' %}">
-  <link rel="stylesheet" href="https://cdn.rawgit.com/mfd/09b70eb47474836f25a21660282ce0fd/raw/e06a670afcb2b861ed2ac4a1ef752d062ef6b46b/Gilroy.css">
-  <link rel="manifest" href="{% static 'images/favicons/manifest.json' %}">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-170487735-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-</script>
-<script charset="UTF-8" src="//web.webpushs.com/js/push/7c04ac6d12c86a5e337a4685661618a2_1.js" async></script>
-  <!--[if lt IE 9]>
-    <script src="{% static 'assets/js/html5shiv.min.js' %}"></script>
-    <script src="{% static 'assets/js/respond.min.js' %}"></script>
-    <![endif]-->
-
-  <style>
-    .lds-facebook {
-      display: inline-block;
-      position: relative;
-      width: 80px;
-      height: 80px;
-    }
-
-    .lds-facebook div {
-      display: inline-block;
-      position: absolute;
-      left: 8px;
-      width: 16px;
-      background: #dfc;
-      animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-    }
-
-    .lds-facebook div:nth-child(1) {
-      left: 8px;
-      animation-delay: -0.24s;
-    }
-
-    .lds-facebook div:nth-child(2) {
-      left: 32px;
-      animation-delay: -0.12s;
-    }
-
-    .lds-facebook div:nth-child(3) {
-      left: 56px;
-      animation-delay: 0;
-    }
-
-    @keyframes lds-facebook {
-      0% {
-        top: 8px;
-        height: 64px;
-      }
-
-      50%,
-      100% {
-        top: 24px;
-        height: 32px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
   <!-- Header -->
   <header class="fixed-top">
 
@@ -184,37 +59,33 @@
           <hr style="display: block!important;">
 
           {% if request.user.is_authenticated %}
-            <li class="menu-item dropdown mobile-show">
-              <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
-                aria-expanded="false" style="color: #eb3547;">Кабинет</a>
-              <ul class="dropdown-menu">
-                <li class="menu-item"><a href="{% url 'profile' %}">Личный кабинет</a></li>
-                  <li class="menu-item"><a href="/lots/favourites">Избранные лоты</a></li>
-                  <li class="menu-item"><a href="{% url 'favorite_search_list' %}">Избранные поиски</a></li>
-                  <li class="menu-item"><a href="/basket_list">Мои заявки</a></li>
-                  <li class="menu-item"><a href="{% url 'logout'%}"><i class="fa fa-times" style="color: #eb3547"></i>&nbsp;Выйти из аккаунта</a></li>
-              </ul>
-            </li>
+
+          <li class="menu-item dropdown mobile-show">
+            <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
+              aria-expanded="false" style="color: #eb3547;">Кабинет</a>
+            <ul class="dropdown-menu">
+              <li class="menu-item"><a href="{% url 'profile' %}">Личный кабинет</a></li>
+                <li class="menu-item"><a href="/lots/favourites">Избранные лоты</a></li>
+                <li class="menu-item"><a href="{% url 'favorite_search_list' %}">Избранные поиски</a></li>
+                <li class="menu-item"><a href="/basket_list">Мои заявки</a></li>
+                <li class="menu-item"><a href="{% url 'logout'%}"><i class="fa fa-times" style="color: #eb3547"></i>&nbsp;Выйти из аккаунта</a></li>
+            </ul>
+          </li>
+
           {% else %}
-            <li class="menu-item dropdown mobile-show">
-              <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
-                aria-expanded="false" style="color: #eb3547;">Кабинет</a>
-              <ul class="dropdown-menu">
-                <li class="menu-item"><a href="{% url 'login' %}">Войти</a></li>
-                <li class="menu-item"><a href="{% url 'register' %}">Регистрация</a></li>
-              </ul>
-            </li>
+
+          <li class="menu-item dropdown mobile-show">
+            <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
+              aria-expanded="false" style="color: #eb3547;">Кабинет</a>
+            <ul class="dropdown-menu">
+              <li class="menu-item"><a href="{% url 'login' %}">Войти</a></li>
+              <li class="menu-item"><a href="{% url 'register' %}">Регистрация</a></li>
+            </ul>
+          </li>
+
           {% endif %}
 
           <hr style="display: block!important;">
-
-
-
-
-
-
-
-
 
           <li class="menu-item"><a href="{% url 'index' %}">Главная</a></li>
           <li class="menu-item"><a href="{% url 'post_list' %}">Поиск лотов</a></li>
@@ -236,16 +107,15 @@
               <li class="menu-item"><a href="{% url 'favorite_search_list' %}">Избранные поиски</a></li>
             </ul>
           </li>
-
-          <!-- <li class="menu-item dropdown">
+          <li class="menu-item dropdown">
             <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true"
               aria-expanded="false">Услуги</a>
             <ul class="dropdown-menu">
               <li class="menu-item"><a href="/pko">Прохождение ПКО</a></li>
               <li class="menu-item"><a href="/iso">Сертификаты ISO</a></li>
-             <li class="menu-item"><a href="{% url 'legal' %}">Юридические услуги</a></li>
+<!--              <li class="menu-item"><a href="{% url 'legal' %}">Юридические услуги</a></li>-->
             </ul>
-          </li> -->
+          </li>
           <!-- <li class="menu-item post-tender"><a title="Получить консультацию" class="create-book btn " type="button" name="button"  ><i class="fas fa-phone-volume"></i>Получить консультацию</a></li>
             -->
 
@@ -310,9 +180,6 @@
                 <div class="form-group">
                   <input type="tel" placeholder="Номер телефона" class="form-control phone" required name="number">
                 </div>
-                <div class="form-group">
-                  <textarea name="comment" placeholder="Ваше сообщение" class="form-control" rows="5"></textarea>
-                </div>
                 <button class="button primary-bg btn-block">Отправить</button>
               </form>
               <script>
@@ -326,7 +193,6 @@
                         var data = {
                           "name": $("#consultacia-form").find("input[name=name]").val(),
                           "number": $("#consultacia-form").find("input[name=number]").val(),
-                          "comment": $("#consultacia-form").find("textarea[name=comment]").val(),
                         };
                          let csrftoken = '{{ csrf_token }}';
                         console.log(data);
@@ -354,5 +220,4 @@
 
     </div>
 
-  </header>
-  <!-- Header End -->
+</header>

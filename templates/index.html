@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% include "blocks/front-table.html" %}
 <!--{% if bbs %}
 
 <div class="section-padding-bottom alice-bg home-page">
@@ -81,7 +82,8 @@
 {% endif %}
 -->
 
-<div class="container-fluid">
+<!-- now this table will come form (blocks/front-table.html) -->
+<!-- <div class="container-fluid">
   <div class="row">
     <div class="col-12" id="table">
       <table class="table table-dark d-xl-table d-lg-table d-md-table d-none">
@@ -168,7 +170,7 @@
     </div>
 
   </div>
-</div>
+</div> -->
 
 <script>
   $(document).on("click", ".nav-links.zakaz a", function(event) {
@@ -191,5 +193,9 @@
 </script>
 
 {% endblock %}
+
+{% comment %}
 {% include "blocks/slider.html" %}
+{% endcomment %}
+
 {% include "blocks/footer.html" %}

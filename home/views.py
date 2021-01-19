@@ -89,7 +89,7 @@ def send_consultaion_query(request):
         #     request.POST.get('name'), request.POST.get('number'), user)
 
         html = render_to_string('blocks/consultation-mail.html',
-                            {'name': request.POST.get('name'), 'phone': request.POST.get('number'), 'user': user})
+                            {'name': request.POST.get('name'), 'phone': request.POST.get('number'), 'comment': request.POST.get('comment'), 'user': user})
         send_mail('consultation/query', '', 'tendernet.kz@mail.com',
               [EMAIL_MANAGER, 'tendernetkz@mail.ru', 'mdmotailab@gmail.com'], html_message=html, fail_silently=False)
 

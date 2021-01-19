@@ -43,16 +43,16 @@
           <div class="details-information section-padding-20">
             <div class="row">
               <div class="col-xl-8 col-lg-8">
-
                 <div class="card-deck mb-12 edication-background details-section">
-                    <div class="card mb-12 box-shadow">
+                    <div class="card mb-12 box-shadow border-0">
                         <div class="card-header">
                             <div class="edication-background details-section" style="background-color: #fff; padding: 0;">
                               <h4><i data-feather="book"></i>Мои заявки</h4>
                             </div>
                         </div>
+
                         <div class="card-body d-flex flex-column" id="basket-list">
-                          <table >
+                          <!-- <table >
                             {% for p in basket_posts %}
                                 <tr> {% comment %} if user want lots page then replace with this url 'post_list'{% endcomment %}
                                   <td style="font-weight: bold;">• Подача заявки на лот <a href="{{ p.lot.get_absolute_url }}" style="color: #007bff;" target="_blank">{{ p.lot.title }}</a></td>
@@ -74,10 +74,37 @@
                                   <td style="font-weight: bold;">• Нет заявок</td>
                                 </tr>
                             {% endfor %}
-                          </table>
-                          
+                          </table> -->
+
+
+                          {% for p in basket_posts %}
+                              <div class="application-wrapper">
+                                <div class="application flex-column flex-md-row flex-lg-row flex-xl-row">
+                                  <div class="headding-info mb-3 mb-xl-0 mb-md-0 mb-lg-0">
+                                    <h6>Подача заявки на лот</h6>
+                                    <p>Дата подачи {{ p.date }}</p>
+                                  </div>
+                                  <a href="{{ p.lot.get_absolute_url }}" target="_blank">
+                                    <h6 class="name  mb-3 mb-xl-0 mb-md-0 mb-lg-0 mx-md-2 mx-lg-2 mx-xl-2">
+                                      {{ p.lot.title }}
+                                    </h6>
+                                  </a>
+                                  <div class="content">
+                                    {% for item in p.preference %}
+                                      <p>{{item.name}}: {{item.value}}</p>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                              </div>
+
+                            {% empty %}
+                              <p style="font-weight: bold;">
+                                • Нет заявок
+                              </p>
+                          {% endfor %}
+                         
                           {% if total_pages > 1 %}
-                              <div class="pagination-list text-center">
+                              <div class="pagination-list text-center text-md-right text-xl-right text-lg-right">
                                 <nav class="navigation pagination">
                                   <div class="nav-links basket">
                                     {% if basket_posts.has_previous %}
