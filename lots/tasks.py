@@ -18,6 +18,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, make_aware
 from lots.utils.fetchLotsFromGraphql import fetchLotsFromGraphql
 from django.db.models import Q
+from decouple import config
 
 @shared_task
 def update_location(q):
@@ -48,7 +49,7 @@ def update_location_in_article(api_url, lot_number):
     print("function -> update_location_in_article")
     #api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + customer_bin + "/address"
 
-    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    token = config('API_KEY', default='336dfa2afbe40ef57d2d5679a61a39bb', cast=str)
     bearer_token = 'Bearer ' + token
     header = {'Authorization': bearer_token}
 
@@ -100,7 +101,7 @@ def fetch_region_location_from_goszak_1():
         print("a.numb: ", a.numb)
     if a:
         api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + a.customer_bin + "/address"
-    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    token = config('API_KEY', default='336dfa2afbe40ef57d2d5679a61a39bb', cast=str)
     bearer_token = 'Bearer ' + token
     header = {'Authorization': bearer_token}
     response = None
@@ -145,7 +146,7 @@ def fetch_region_location_from_goszak(customer_bin, lot_number, kato_list={}):
     print("lot_number: ", lot_number)
     api_url = "https://ows.goszakup.gov.kz/v3/subject/biin/" + customer_bin + "/address"
 
-    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    token = config('API_KEY', default='336dfa2afbe40ef57d2d5679a61a39bb', cast=str)
     bearer_token = 'Bearer ' + token
     header = {'Authorization': bearer_token}
 
@@ -325,7 +326,7 @@ def fetch_date_from_goszakup(trd_buy_id, lot_number):
     print("trd_buy_id: ", trd_buy_id)
     print("lot_number: ", lot_number)
 
-    token = 'bb28b5ade7629ef512a8b7b9931d04ad'
+    token = config('API_KEY', default='336dfa2afbe40ef57d2d5679a61a39bb', cast=str)
     bearer_token = 'Bearer ' + token
     header = {'Authorization': bearer_token}
 
