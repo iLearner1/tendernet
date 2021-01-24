@@ -5,6 +5,7 @@ from django.utils import  timezone
 from django.core.cache import cache
 from lots.models import Article, Unit, Cities, Regions
 from lots.insert_region_location import read_xls
+from decouple import config
 #this query will use for fetching lots from grapql server
 query = """
     query getLots($limit: Int, $after: Int) {
@@ -61,7 +62,7 @@ def get_aware_datetime(date_str):
 def fetchLotsFromGraphql():
    
     headers = {
-        'Authorization': 'Bearer bb28b5ade7629ef512a8b7b9931d04ad',
+        'Authorization': 'Bearer '+config('API_KEY', default='336dfa2afbe40ef57d2d5679a61a39bb', cast=str),
         'Content-Type': 'application/json'
     }
 

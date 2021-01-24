@@ -41,7 +41,7 @@
                     </div>
                     <div class="message">
                         {% for p in chat.preference %}
-                            <p>{{p.name}}: {{p.value}}</p>
+                            <p>{{p.name}} {{p.value}}</p>
                         {% endfor %}
                         <div class="time d-block text-right">{{ chat.date|date:"h:i"}}</div>
                     </div>
@@ -111,3 +111,32 @@
         </div>
     {% endfor %}
 </div>
+
+{% comment %}
+    <div id="request-content">
+    {% if total_pages > 1 %}
+        <div class="pagination-list text-center">
+        <nav class="navigation pagination">
+            <div class="nav-links request">
+            {% if post_requests.has_previous %}
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ post_requests.previous_page_number }}"> < </a>
+            {% endif %}
+            {% for p in post_requests.paginator.page_range %}
+                {% if post_requests.number == p %}
+                    <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+                {% elif p > post_requests.number|add:'-3' and p <= post_requests.number|add:'3' %}
+                    <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+
+                {% endif %}
+            {% endfor %}
+            {% if post_requests.has_next %}
+                <a class="next page-numbers" href="javascript:void(0);" data-page="{{ post_requests.next_page_number }}"> > </a>
+                <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
+            {% endif %}
+            </div>
+        </nav>
+        </div>
+    {% endif %}
+    </div>
+{% endcomment %}

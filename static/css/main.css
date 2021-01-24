@@ -11323,10 +11323,21 @@ span.arrow {
 .collapse-heading:not(.collapsed) span.arrow .fa-arrow-down {
   display: block !important;
 }
-
-.card.bg-light-blue {
+.card.border { 
+  border: 1px solid #EB3547 !important;
+}
+.card.border.bg-light-blue {
   border: 1px solid #001897 !important;
 }
+
+.card.bg-light-blue .collapse-heading{
+  background-color: #F4F4F4;
+}
+
+.card.border.bg-light-blue .collapse-heading{
+  background-color: transparent;
+}
+
 .item-row {
   display: flex;
   align-items: center;

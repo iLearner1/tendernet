@@ -4,7 +4,9 @@
 
 {% block content %}
 
-{% include "blocks/front-table.html" %}
+{% if all_zakaz %}
+  {% include "blocks/front-table.html" %}
+{% endif %}
 <!--{% if bbs %}
 
 <div class="section-padding-bottom alice-bg home-page">

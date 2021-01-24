@@ -19,7 +19,13 @@
                             <td>{{zakaz.lot.date|date:"d/m/Y"}}</td>
                             <td>
                                 {% for p in zakaz.preference%}
-                                <p>{{p.name}} : {{p.value}}</p>
+                                <p>
+                                    {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                        {{p.name}} : {{p.value}}
+                                    {% else %}
+                                        {{p.name}}  {{p.value}}
+                                    {% endif %}
+                                </p>
                                 {% endfor %}
                             </td>
                             <td><a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>

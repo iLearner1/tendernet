@@ -111,9 +111,22 @@ $(document).ready(function(){
         
     });
 
+    
+    //customizing front-table collaspe behavior
+    $("#accordionExample").on("show.bs.collapse", function(e){
+        var $clickedBtn = $(e.target).parent().addClass('border');
+    });
+
+    //customizing front-table collaspe behavior
+    $("#accordionExample").on("hide.bs.collapse", function(e){
+        var $clickedBtn =  $(e.target).parent().removeClass('border');
+    });
+
 
     //when expert user user press ok btn in the model at article detail this action will triggred
-    $("#expert-preference").on("click", function(e){
+    $("#expert-preference").off().on("click", function(e){
+        e.preventDefault();
+
         const data = JSON.parse($(".feedbackform-value").val());
         const url = data.url;
         delete data.url;
@@ -152,7 +165,8 @@ $(document).ready(function(){
         });
     })
 
-    $("#client-preference").on("click", function(e){
+    $("#client-preference").off().on("click", function(e){
+        e.preventDefault();
         const data = JSON.parse($(".cl-feedbackform-value").val());
         const url = data.url;
         delete data.url;

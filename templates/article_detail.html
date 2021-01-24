@@ -235,33 +235,6 @@
                   </div>
                   
                   {% include "blocks/chat.html" %}
-                  
-                  <!-- <div id="request-content">
-                    {% if total_pages > 1 %}
-                      <div class="pagination-list text-center">
-                        <nav class="navigation pagination">
-                          <div class="nav-links request">
-                            {% if post_requests.has_previous %}
-                              <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
-                              <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ post_requests.previous_page_number }}"> < </a>
-                            {% endif %}
-                            {% for p in post_requests.paginator.page_range %}
-                                {% if post_requests.number == p %}
-                                    <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
-                                {% elif p > post_requests.number|add:'-3' and p <= post_requests.number|add:'3' %}
-                                    <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
-    
-                                {% endif %}
-                            {% endfor %}
-                            {% if post_requests.has_next %}
-                              <a class="next page-numbers" href="javascript:void(0);" data-page="{{ post_requests.next_page_number }}"> > </a>
-                              <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
-                            {% endif %}
-                          </div>
-                        </nav>
-                      </div>
-                    {% endif %}
-                  </div> -->
 
                 </div>
 
@@ -421,17 +394,12 @@
                             $(this).find('thead').hide();
                           });
 
-
                           // window is less than 768px
                         } else {
-
-
                           $(".table-responsive-stack").each(function (i) {
                             $(this).find(".table-responsive-stack-thead").hide();
                             $(this).find('thead').show();
                           });
-
-
 
                         }
                         // flextable
