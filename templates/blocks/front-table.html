@@ -21,7 +21,7 @@
                                 {% for p in zakaz.preference%}
                                 <p>
                                     {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                        {{p.name}} : {{p.value}}
+                                        {{p.name}}  {{p.value}}
                                     {% else %}
                                         {{p.name}}  {{p.value}}
                                     {% endif %}
@@ -88,7 +88,11 @@
                                     </div>
                                     <div class="desc">
                                         {% for p in zakaz.preference%}
-                                            <p>{{p.name}} : {{p.value}}</p>
+                                            {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                                {{p.name}} {{p.value}}
+                                            {% else %}
+                                                {{p.name}}  {{p.value}}
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
