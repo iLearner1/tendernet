@@ -251,7 +251,7 @@ def post_list(request):
     posts = paginator.page(page_number)
     cities = Cities.objects.all()
     regions = Regions.objects.all()
-
+    regions = [region for region in regions if not region.name.isdigit()]
     total_posts = paginator.count
     posts_start_index = 0
     posts_end_index = 0
