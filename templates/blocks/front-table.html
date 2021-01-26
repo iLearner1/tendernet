@@ -88,11 +88,13 @@
                                     </div>
                                     <div class="desc">
                                         {% for p in zakaz.preference%}
-                                            {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                                {{p.name}} {{p.value}}
-                                            {% else %}
-                                                {{p.name}}  {{p.value}}
-                                            {% endif %}
+                                            <p>
+                                                {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                                    {{p.name}} {{p.value}}
+                                                {% else %}
+                                                    {{p.name}}  {{p.value}}
+                                                {% endif %}
+                                            </p>
                                         {% endfor %}
                                     </div>
                                 </div>
