@@ -54,9 +54,9 @@ def index(request):
         'all_zakaz': all_zakaz,
         'total_posts': total_posts
     }
-    return HttpResponse("just working fine")
-    # if(request.is_ajax()):
-    #     return render(request, 'blocks/home-page-zakaz-list.html', context)
+    if(request.is_ajax()):
+        return render(request, 'blocks/home-page-zakaz-list.html', context)
+
 
     return render(request, "index.html", context)
 
