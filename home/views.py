@@ -28,7 +28,6 @@ def index(request):
     myHomeFilter = ArticleFilter(
         request.GET, queryset=Article.objects.filter(date__gt=timezone.now())
     )
-    return HttpResponse('testing error log..')
     cities = Cities.objects.all()
     bbs = myHomeFilter.qs
     all_zakaz = Zakaz.objects.all()
@@ -56,8 +55,8 @@ def index(request):
         'total_posts': total_posts
     }
 
-    if(request.is_ajax()):
-        return render(request, 'blocks/home-page-zakaz-list.html', context)
+    # if(request.is_ajax()):
+    #     return render(request, 'blocks/home-page-zakaz-list.html', context)
 
     return render(request, "index.html", context)
 
