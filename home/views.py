@@ -25,6 +25,7 @@ from tn_first import settings as tn_first_settings
 from django.template.loader import render_to_string
 
 def index(request):
+    return HttpResponse('testing error log..');
     myHomeFilter = ArticleFilter(
         request.GET, queryset=Article.objects.filter(date__gt=timezone.now())
     )
