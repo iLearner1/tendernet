@@ -1,5 +1,5 @@
 import os
-
+import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 
@@ -54,7 +54,7 @@ def index(request):
         'all_zakaz': all_zakaz,
         'total_posts': total_posts
     }
-
+    return HttpResponse("just working fine")
     # if(request.is_ajax()):
     #     return render(request, 'blocks/home-page-zakaz-list.html', context)
 
