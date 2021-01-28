@@ -1,0 +1,47 @@
+<table >
+    {% for p in basket_posts %}
+        <tr> {% comment %} if user want lots page then replace with this url 'post_list'{% endcomment %}
+          <td style="font-weight: bold;">• Подача заявки на лот <a href="{{ p.lot.get_absolute_url }}" style="color: #007bff;" target="_blank">{{ p.lot.title }}</a></td>
+          <td>Дата подачи {{ p.date }} {{ p.get_status_display }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <ul>
+              {% for item in p.preference %}
+                <li>{{item.name}}: {{item.value}}</li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+
+    {% empty %}
+      <tr>
+          <td style="font-weight: bold;">• Нет заявок</td>
+        </tr>
+    {% endfor %}
+  </table>
+  
+
+<div class="pagination-list text-center">
+    <nav class="navigation pagination">
+    <div class="nav-links basket">
+        {% if basket_posts.has_previous %}
+        <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+        <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ basket_posts.previous_page_number }}"> < </a>
+        {% endif %}
+        {% for p in basket_posts.paginator.page_range %}
+            {% if basket_posts.number == p %}
+                <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+            {% elif p > basket_posts.number|add:'-3' and p <= basket_posts.number|add:'3' %}
+                <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+
+            {% endif %}
+        {% endfor %}
+        {% if basket_posts.has_next %}
+        <a class="next page-numbers" href="javascript:void(0);" data-page="{{ basket_posts.next_page_number }}"> > </a>
+        <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
+        {% endif %}
+    </div>
+    </nav>
+</div>

@@ -1,8 +1,9 @@
+{% extends 'base.html' %}
 {% load humanize %}
 {% load format_price %}
-{% include "blocks/header.html" %}
-<!-- article_detail.html -->
 
+<!-- article_detail.html -->
+{% block content %}
 <!-- Breadcrumb -->
 <div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
   <div class="container">
@@ -232,6 +233,9 @@
                     <div data-mobile-view="true" data-share-size="30" data-like-text-enable="false" data-background-alpha="0.0" data-pid="1883085" data-mode="share" data-background-color="#ffffff" data-share-shape="rectangle" data-share-counter-size="12" data-icon-color="#ffffff" data-mobile-sn-ids="fb.vk.tw.ok.wh.tm.vb." data-text-color="#000000" data-buttons-color="#FFFFFF" data-counter-background-color="#ffffff" data-share-counter-type="disable" data-orientation="horizontal" data-following-enable="false" data-sn-ids="wh.tm.em." data-preview-mobile="false" data-selection-enable="false" data-exclude-show-more="true" data-share-style="1" data-counter-background-alpha="1.0" data-top-button="false" class="uptolike-buttons" ></div>
 
                   </div>
+                  
+                  {% include "blocks/chat.html" %}
+
                 </div>
 
               </div>
@@ -240,24 +244,15 @@
 
                   <div class="tender-summary">
                     <div class="buttons">
-
-                      <script type="text/javascript">
-                        function uchastvovatFunction() {
-                          /**if (confirm("Вы действительно желаете участвовать?")) {
-                            alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер. А пока сохраните этот лот в Избранные.');
-                          } else {
-                            return false;
-                          }**/
-
-                        }
-                      </script>
-
                       {% if request.user.is_authenticated %}
                             <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
                             style="width: 100%;">
                             {% csrf_token %}
                             <button type="submit" id="submit_btn1" class="button contact-button"
-                              data-product_id1="{{ post.id }}" data-user_id1="{{ request.user.id }}" data-request_path1="{{ request.path }}"
+                              data-product_id1="{{ post.id }}" 
+                              data-user_id1="{{ request.user.id }}" 
+                              data-request_path1="{{ request.path }}"
+                              data-user_tarif="{{ request.user.profile.tarif.name }}"
                               style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
                               >
                               Участвовать
@@ -294,31 +289,21 @@
                     </div>
                   </div>
 
-                  <div class="tender-summary" style="margin-top: 20px;">
+                  <div class="tender-summary d-none" style="margin-top: 20px;">
                     <div class="buttons">
-
-                      <script type="text/javascript">
-                        function documentFunction() {
-                          /**if (confirm("Вы запрашиваете \"Аудит конкурсной документации\"\nУзнайте, какие ресурсы необходимы для участия в этом тендере.")) {
-                        alert('Спасибо за обращение. В ближайшее время с вами свяжется менеджер\nА пока сохраните этот лот в Избранные');
-                          } else {
-                            return false;
-                          }**/
-                          console.log('nice content');
-                        }
-                      </script>
-
-                      <h6 style="text-align: center; margin-bottom: 10px;">Необходимые трудовые, материальные ресурсы 
-                        для участия</h6>
+                      <h6 style="text-align: center; margin-bottom: 10px;">
+                        Необходимые трудовые, материальные ресурсы 
+                        для участия
+                      </h6>
                       {% if request.user.is_authenticated %}
-                             <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
-                                style="width: 100%;">
-                                {% csrf_token %}
-                                <button type="submit" id="submit_btn_doc" class="button contact-button"
-                                  data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
-                                  style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
-                                 >Запросить аудит</button>
-                              </form>
+                        <form id="buying_doc" class="form-inline buying_doc" action="{% url 'basket_adding_doc' %}"
+                          style="width: 100%;">
+                          {% csrf_token %}
+                          <button type="submit" id="submit_btn_doc" class="button contact-button"
+                            data-product_id="{{ post.id }}" data-user_id="{{ request.user.id }}" data-request_path="{{ request.path }}"
+                            style="display: block;width: 100%;text-align: center;margin-bottom: 10px;"
+                            >Запросить аудит</button>
+                        </form>
                       {% else %}
                       <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
                           class="button contact-button">Запросить аудит</button></a>
@@ -327,7 +312,6 @@
                       <a href="/static/files/audit_example.pdf" target="_blank">Образец аудита&nbsp;<i class="fa fa-link" style="color: #fff;"></i></a>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -410,17 +394,12 @@
                             $(this).find('thead').hide();
                           });
 
-
                           // window is less than 768px
                         } else {
-
-
                           $(".table-responsive-stack").each(function (i) {
                             $(this).find(".table-responsive-stack-thead").hide();
                             $(this).find('thead').show();
                           });
-
-
 
                         }
                         // flextable
@@ -621,7 +600,7 @@
               </div>
             </div>
 
-            <div class="tender-summary" style="margin-top: 20px;">
+            <div class="tender-summary d-none" style="margin-top: 20px;">
               <div class="buttons">
 
                 <script type="text/javascript">
@@ -646,7 +625,7 @@
                             >Запросить аудит</button>
                         </form>
                 {% else %}
-                <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
+                  <a href="{% url 'login' %}?next={{ request.path }}" target="_blank" class="un-authorized"><button
                     class="button contact-button">Запросить аудит</button></a>
 
                 {% endif %}
@@ -662,7 +641,30 @@
   </div>
 </div>
 
+<!-- this modal will show when user press participate button  -->
+{% include "blocks/feedback-modal.html" %}
+
+{% endblock content %}
 
 
+{% block jsscript%}
 
-{% include "blocks/footer.html" %}
+<script>
+  $(document).on("click", ".nav-links.request a", function(event) {
+    event.preventDefault();
+    var data = {};
+    data["page"] = parseInt($(this).attr("data-page"));
+    $.ajax({
+          method: 'GET',
+          url: "{% url 'post_detail' id=post.id slug=post.slug %}",
+          data: data,
+          success: function (resp) {
+              $("#request-content").html(resp);
+          },
+          error: function (err) {
+            console.log(err.responseText);
+          }
+    });
+  });
+</script>
+{% endblock jsscript %}

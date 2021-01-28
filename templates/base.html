@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>TENDERNET - База Тендеров и Лотов Казахстана в Твоем Кармане</title>
+  <meta name="description" content="TENDERNET - База Тендеров и Лотов Казахстана в Твоем Кармане">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/et-line.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/plyr.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/flag.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/jquery.nstSlider.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datepicker.min.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v22.6">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
+  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.maskedinput.min.js' %}"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.css" rel="stylesheet"/> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles">
+
+
+  <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  <script type="text/javascript">
+    jQuery(function ($) {
+      $(".phone").mask("8 999 999 99 99");
+    });
+  </script>
+   <!-- sweeat alert  -->
+   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+   <!-- <script src="https://cdn.jsdelivr.net/sweetalert2/4.2.4/sweetalert2.min.js"></script> -->
+   <!-- end sweet alert  -->
+
+
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/favicons/apple-icon-57x57.png' %}">
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/favicons/apple-icon-60x60.png' %}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/favicons/apple-icon-72x72.png' %}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/favicons/apple-icon-76x76.png' %}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/favicons/apple-icon-114x114.png' %}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/favicons/apple-icon-120x120.png' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/favicons/apple-icon-144x144.png' %}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/favicons/apple-icon-152x152.png' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicons/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/favicons/android-icon-192x192.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicons/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicons/favicon-96x96.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicons/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'images/favicons/manifest.json' %}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-170487735-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<script charset="UTF-8" src="//web.webpushs.com/js/push/7c04ac6d12c86a5e337a4685661618a2_1.js" async></script>
+  <!--[if lt IE 9]>
+    <script src="{% static 'assets/js/html5shiv.min.js' %}"></script>
+    <script src="{% static 'assets/js/respond.min.js' %}"></script>
+    <![endif]-->
+
+  <style>
+    .lds-facebook {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .lds-facebook div {
+      display: inline-block;
+      position: absolute;
+      left: 8px;
+      width: 16px;
+      background: #dfc;
+      animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    }
+
+    .lds-facebook div:nth-child(1) {
+      left: 8px;
+      animation-delay: -0.24s;
+    }
+
+    .lds-facebook div:nth-child(2) {
+      left: 32px;
+      animation-delay: -0.12s;
+    }
+
+    .lds-facebook div:nth-child(3) {
+      left: 56px;
+      animation-delay: 0;
+    }
+
+    @keyframes lds-facebook {
+      0% {
+        top: 8px;
+        height: 64px;
+      }
+
+      50%,
+      100% {
+        top: 24px;
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  {% include "blocks/header.html" %}
+  <!-- Header End -->
+
+ {% block content %}
+ {% endblock content %} 
+ 
+<!-- Footer -->
+<footer class="footer-bg">
+
+    <div class="footer-bottom-area">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="footer-bottom border-top">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 order-lg-1">
+                  <p class="copyright-text">
+                    <a href="tel:87172250700">8 (7172) 250-700</a>, <a href="tel:87783035500">8 (778) 303-55-00</a>, <a
+                      href="mailto:info@tendernet.kz">info@tendernet.kz</a> <br><a
+                      href="/static/media/polzovatelskoe_soglashenie.pdf" target="_blank">Пользовательское соглашение</a> </p>
+                </div>
+                <div class="col-xl-6 col-lg-6 order-lg-3">
+                  <div class="back-to-top">
+                    <a href="#">Наверх<i class="fas fa-angle-up"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    {% csrf_token %}
+  </footer>
+  <!-- Footer End -->
+  
+  {% load static %}
+  <script src="{% static 'assets/js/popper.min.js' %}"></script>
+  <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/feather.min.js' %}"></script>
+  <script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.nstSlider.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'assets/js/visible.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.countTo.js' %}"></script>
+  <script src="{% static 'assets/js/chart.js' %}"></script>
+  <script src="{% static 'assets/js/plyr.js' %}"></script>
+  <script src="{% static 'assets/js/tinymce.min.js' %}"></script>
+  <script src="{% static 'assets/js/slick.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/js/bootstrap-select.min.js"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  
+  <script type="text/javascript">
+    //translation of calender
+    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+    $.fn.datepicker.dates['ru'] = {
+      days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+      daysShort: ["ВСК", "Пнд", "Вtp", "Срд", "ЧТВ", "ПТН", "СБТ"],
+      daysMin: ["Вс", "Пн", "Bt", "Ср", "Чт", "Пт", "Сб"],
+      months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+      monthsShort: ["Янв", "Фев", "Мар", "Апр", "May", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+      today: "Сегодня",
+      clear: "Чисто",
+      format: "yyyy-mm-dd",
+      titleFormat: "yyyy-mm-dd", /* Leverages same syntax as 'format' */
+      weekStart: 0
+    };
+  
+  
+    $(document).ready(function () {
+  
+  
+       const loader = `<div class="col-md-12 text-center"><div class="lds-facebook"><div></div><div></div><div></div></div></div>`;
+        let search_query = {};
+  
+        $('.lots-search-button-pc').click(function(e) {
+          e.preventDefault();
+          console.log('lots-search-button-pc clicked');
+          submit_pc_search_form("pc");
+        });
+  
+        $('.lots-search-button-mobile').click(function(e) {
+          e.preventDefault();
+          console.log('lots-search-button-mobile clicked');
+          submit_pc_search_form("mobile");
+        });
+  
+  
+        function submit_pc_search_form(device) {
+            console.log('pc-search-button event handler');
+  
+            // deselect save to favourite button
+            // $("#main-searchform-" + device).find("#save-query-" + device).removeClass('text-warning');
+            // $("#main-searchform-" + device).find("#save-query-" + device).find('a').text('Save to Favorites');
+            // $("#main-searchform-" + device).find("#save-query-" + device).find('i').removeClass('fas').addClass('far');
+            savedId = null;
+            $("#main-searchform-" + device).find('input#savedId').val('');
+  
+           /** const text = $("#save-query-" + device).find('a').text();
+            console.log('text: ' + text);
+  
+            if(text == 'Сохранить в избранные' || text == 'Save to Favorites') {
+              console.log('text= ' + 'save to favourite');
+            }
+            else
+            {
+              console.log('text= ' + 'remove query');
+              $("#save-query-" + device).find('a').html('Сохранить в избранные');
+              $("#save-query-" + device).find('i').toggleClass('far fas');
+            } **/
+  
+            const formData = $("#main-searchform-" + device).serializeArray();
+  
+            let data = {};
+            console.log("formData");
+            console.log(formData);
+  
+            // let search_by_3char = $("#searchby3char").is(":checked");
+            // console.log("search_by_3char: " + search_by_3char);
+  
+            //formating data for query
+            // for (let item of formData) {
+            //   console.log('item.name: ' + item.name);
+            //   console.log('item.value: ' + item.value);
+            //   if (item.name == 'city' || item.name == 'region' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+            //     data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+            //   } else {
+            //     data[item.name] = item.value;
+            //   }
+            // }
+  
+            for (let item of formData) {
+              data[item.name] = item.value;
+            }
+            console.log(data);
+            // data["searchby3char"] = "0";
+            // if(search_by_3char) {
+            //   data["searchby3char"] = "1";
+            // }
+  
+            //show loader
+            $("#input-container").html(loader);
+  
+            //save query for future use
+            search_query = data;
+  
+            // data['sortBy'] = $("#orderby-mobile options:selected").val() || $("#orderby-pc options:selected").val();
+            // console.log('sortBy: ' + data['sortBy']);
+            history.pushState({}, null, location.href.split('?')[0]);
+  
+            //fetch data from server
+            $.ajax({
+              method: 'GET',
+              url: "{% url 'post_search' %}",
+              data: data,
+              success: function (resp) {
+                $("#input-container").html(resp);
+              },
+              error: function (err) {
+                console.log(err.responseText);
+              }
+            })
+        }
+        
+      $("#orderby-pc").change(function(e) {
+        console.log('orderby-pc clicked');
+        orderby_eventHandler(this.value, "pc");
+      });
+  
+      $("#orderby-mobile").change(function (e) {
+        console.log('orderby-mobile clicked');
+        orderby_eventHandler(this.value, "mobile");
+      });
+  
+      function orderby_eventHandler(sortBy, device) {
+        // let sortBy = this.value;
+        console.log("sortBy: " + sortBy);
+  
+        const formData = $("#main-searchform-" + device).serializeArray();
+        console.log("formData");
+        console.log(formData);
+  
+        let search_by_3char = $("#searchby3char").is(":checked");
+        console.log("search_by_3char: " + search_by_3char);
+  
+        let data = {};
+  
+         //formating data for query
+        for (let item of formData) {
+          console.log('item.name: ' + item.name);
+          console.log('item.value: ' + item.value);
+          if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+            data[item.name] = data[item.name] ? [...data[item.name], item.value] : [item.value];
+          } else {
+            data[item.name] = item.value;
+          }
+        }
+  
+        // data["searchby3char"] = "0";
+        // if(search_by_3char) {
+        //   data["searchby3char"] = "1";
+        // }
+  
+        search_query = data;
+  
+        //show loader
+        $("#input-container").html(loader);
+        search_query['lots'] = true;
+  
+        $.ajax({
+          method: 'GET',
+          url: "{% url 'post_search' %}",
+          data: {
+            ...search_query,
+            sortBy
+          },
+  
+          success: function (resp) {
+            $("#input-container").html(resp);
+          },
+          error: function (err) {
+            console.log(err.responseText);
+          }
+        })
+      }
+  
+  
+      let savedId = null;
+  
+      $(".multiselect").selectpicker();
+  
+      //initialize date picker here it is
+      $('.datepicker').datepicker({
+        autoclose: true,
+        language: 'ru'
+      });
+  
+      $("#save-query-pc").on("click", function(e) {
+        console.log("save-query-pc clicked");
+        e.preventDefault();
+        save_query("pc");
+      });
+  
+      $("#save-query-mobile").on("click", function(e) {
+        console.log("save-query-mobile clicked");
+        e.preventDefault();
+        save_query("mobile");
+      });
+  
+      //saving favorite search query
+      function save_query(save_query_device) {
+  
+        console.log("device: " + save_query_device);
+        //geting form data and saving to database
+        let formData = $("#main-searchform-" + save_query_device).serializeArray();
+        let formatedData = {};
+        let isValid = false;
+  
+        console.log("formData");
+        console.log(formData);
+  
+        // let search_by_3char = $("#searchby3char").is(":checked");
+        // console.log("search_by_3char: " + search_by_3char);
+  
+        // for (let item of formData) {
+        //
+        //   if (item.name == 'city' || item.name == 'subject_of_purchase' || item.name == 'statzakup') {
+        //     console.log('fetched items in below');
+        //   } else {
+        //     formatedData[item.name] = item.value;
+        //   }
+        //
+        //   if (item.name != "lots" && item.value) {
+        //     isValid = true
+        //   }
+        // }
+         for (let item of formData) {
+          formatedData[item.name] = item.value;
+  
+          if((item.name !== "lots" && item.name !== 'csrfmiddlewaretoken') && item.value !== "") {
+            isValid = true;
+          }
+        }
+  
+        // formatedData['statzakup'] = [];
+        // let purchase_methods = $("#main-searchform-" + save_query_device).find('select[name=statzakup]').find('option:selected');
+        // purchase_methods.each(function(i, item) {
+        //   if($(item).text() !="---------")
+        //   {
+        //     formatedData['statzakup'].push($(item).val());
+        //   }
+        // });
+  
+        // formatedData['city'] = [];
+        // let cities = $("#main-searchform-" + save_query_device).find('select[name=city]').find('option:selected');
+        // cities.each(function(i, item) {
+        //   formatedData['city'].push($(item).val());
+        // });
+  
+        // formatedData['subject_of_purchase'] = [];
+        // let subjects = $("#main-searchform-" + save_query_device).find('select[name=subject_of_purchase]').find('option:selected');
+        // subjects.each(function(i, item) {
+        //   formatedData['subject_of_purchase'].push($(item).val());
+        // });
+  
+        // formatedData["searchby3char"] = "0";
+        // if(search_by_3char) {
+        //   formatedData["searchby3char"] = "1";
+        // }
+  
+        // if(formatedData['subject_of_purchase'].length > 0 || formatedData['statzakup'].length > 0 || formatedData['city'].length > 0)
+        // {
+        //   isValid = true;
+        // }
+        console.log(`is valid ${isValid}`);
+        if (!isValid) {
+          // return alert('you can\'t save empty form, please provide some data');
+          return alert('Вы не можете сохранить пустую форму, пожалуйста, предоставьте некоторые данные');
+        }
+  
+  
+        //what happening here? changing save to favorites text and class
+        // const text = $(this).find('a').text();
+        const text = $("#save-query-" + save_query_device).find('a').text();
+        console.log('text: ' + text);
+  
+        if(text == 'Сохранить в избранные' || text == 'Save to Favorites') {
+          console.log('text= ' + 'save query');
+          $("#save-query-" + save_query_device).find('a').html('<i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Удалить из Избранного');
+        }
+        else
+        {
+          console.log('text= ' + 'remove query');
+          $("#save-query-" + save_query_device).find('a').html('Сохранить в избранные');
+        }
+  
+  
+        // $(this).toggleClass('text-warning');
+        $("#save-query-" + save_query_device).find('i').toggleClass('far fas');
+  
+        if (deleteFavorite(save_query_device)) {
+          return;
+        }
+  
+        console.log("formatedData");
+        console.log(formatedData);
+  
+        var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+        $.ajax({
+          method: "POST",
+          url: "{% url 'save_favorite_search' %}",
+          data: {
+            ...formatedData,
+            csrfmiddlewaretoken
+          },
+          success: function (response) {
+            savedId = response.id;
+            console.log("savedId from backend: " + savedId);
+  
+            console.log('savedId in frontend before set: ' + $("#main-searchform-" + save_query_device).find('input#savedId').val());
+  
+            $("#main-searchform-" + save_query_device).find('input#savedId').val(savedId);
+            console.log('savedId in frontend after set: ' + $("#main-searchform-" + save_query_device).find('input#savedId').val());
+            //alert('search added to favorite successfuly');
+            alert('Поиск успешно добавлен в избранное');
+          },
+  
+          error: function (err) {
+            alert(err.responseText);
+          }
+        })
+      }
+  
+     /** $('.reset-pc').click(function() {
+        console.log('reset-pc clicked');
+        $(".searchform-name-input").val("");
+        reset_search("pc");
+      });
+  
+      $('.reset-mobile').click(function() {
+        console.log('reset-mobile clicked');
+        $(".searchform-name-input").val("");
+        reset_search("mobile");
+      }); **/ 
+  
+      function reset_search(device) {
+          $("#main-searchform-" + device).find("#save-query-" + device).find('a').text('Сохранить в избранные');
+          $("#main-searchform-" + device).find("#save-query-" + device).find('i').removeClass('fas').addClass('far');
+          $("#main-searchform-" + device).find('.multiselect').selectpicker('deselectAll');
+          $('#main-searchform-' + device).find('input#savedId').val('');
+          $( "#searchby3char" ).prop( "checked", false );
+          savedId = null;
+      }
+  
+      function deleteFavorite(save_query_device) {
+        console.log('func -> deleteFavorite');
+        var csrfmiddlewaretoken = $("[name=csrfmiddlewaretoken]").val();
+        savedId = $('#main-searchform-' + save_query_device).find('input#savedId').val();
+        console.log('savedId: ' + savedId);
+        $('#main-searchform-' + save_query_device).find('input#savedId').val('');
+  
+  
+        if (savedId) {
+          $.ajax({
+            method: "POST",
+            url: "{% url 'save_favorite_search' %}",
+            data: {
+              delete_id: savedId,
+              csrfmiddlewaretoken
+            },
+            success: function (response) {
+              savedId = null;
+              alert('Поисковый запрос удален из избранного');
+            },
+  
+            error: function (err) {
+              alert(err.responseText);
+            }
+          });
+  
+          return true;
+        }
+        else {
+          console.log('not if (savedId)');
+        }
+  
+        return false;
+  
+      }
+  
+      $(".favourite-post-ajax").on("click", function(e) {
+        console.log("featured-button clicked");
+        e.preventDefault();
+        var _this = $(this);
+        var favourite_post_url = $(this).attr("data-url");
+        var id = $(this).attr("data-article_id");
+  
+        let csrftoken = '{{ csrf_token }}';
+        var data = {};
+        data['csrf_token'] = csrftoken;
+        data['id'] = id;
+  
+        $.ajax({
+           url: favourite_post_url,
+           type: 'POST',
+           data: data,
+           cache: true,
+           headers: { 'X-CSRFToken': csrftoken },
+           success: function (data) {
+               console.log(data);
+               if(data['added'])
+               {
+                 $(_this).css("background-color", "#FFC107");
+               }
+               else
+               {
+                 $(_this).css("background-color", "#fff");
+               }
+           },
+           error: function(){
+               console.log("error")
+           }
+       });
+      });
+    });
+  </script>
+  
+  <script>
+  
+  
+  </script>
+  
+  
+  <script>
+    //logout user if user in idle mode without any activity
+    //after 10 minutues with no activity user will loggedout by this script
+    let timerId;
+    //fisrt 1000 miliseconds 60 is convert to minutes 25 is convert 60 min ok
+    const interval = 1000 * 60 * 60;
+  
+    function logout() {
+  
+      let csrftoken = '{{ csrf_token }}';
+      let logout_url = "{% url 'logout' %}";
+      let login_url = "{% url 'login' %}";
+  
+      $.ajax({
+        method: 'POST',
+        url: logout_url,
+        headers: { 'X-CSRFToken': csrftoken },
+        success: function (resp) {
+          console.log(resp)
+          window.location.assign(login_url);
+        },
+        error: function (resp) {
+          console.log(resp);
+        }
+      })
+    }
+  
+    $(".page-numbers").on("click", function(event) {
+        event.preventDefault();
+        const formData = $("#main-searchform-" + "pc").serializeArray();
+        var data = {};
+        for (let item of formData) {
+          data[item.name] = item.value;
+        }
+        data["page"] = parseInt($(this).attr("data-page"));
+        $.ajax({
+              method: 'GET',
+              url: "{% url 'post_search' %}",
+              data: data,
+              success: function (resp) {
+                  $("#input-container").html(resp);
+              },
+              error: function (err) {
+                console.log(err.responseText);
+              }
+        });
+    });
+  
+    function reset() {
+      clearTimeout(timerId);
+      timerId = setTimeout(logout, interval);
+    }
+  
+  
+  
+    {% if request.user.is_authenticated %}
+      timerId = setTimeout(logout, interval);
+      $('body').mousemove(reset).click(reset).scroll(reset);
+    {% endif %}
+  </script>
+  
+    {% block jsscript %}
+      <script></script>
+    {% endblock jsscript %}
+  </body>
+  
+  </html>

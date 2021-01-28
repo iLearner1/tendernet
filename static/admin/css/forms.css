@@ -530,3 +530,6 @@ form .related-widget-wrapper ul {
 .clearable-file-input input {
     margin-top: 0;
 }
+.form-row.field-tarif_expire_date {
+    display: none;
+}

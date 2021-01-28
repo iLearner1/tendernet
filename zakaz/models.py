@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from lots.models import Article
-
+import json
 
 class Zakaz(models.Model):
     STATUS_CHOICES = [
@@ -15,11 +15,16 @@ class Zakaz(models.Model):
     lot = models.ForeignKey(Article, related_name='lot', on_delete=models.CASCADE,null=True,blank=True)
     status  =  models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     zavdate = models.DateTimeField(null=True, verbose_name='Дата завершения')
+    expert_preference = models.TextField(default="{}", verbose_name='Expert Preference')
 
     class Meta:
         ordering = ['-id']
         verbose_name_plural = 'Заявки на участие'
         verbose_name = 'Заявка на участие'
+    
+    @property
+    def preference(self):
+        return json.loads(self.expert_preference)
 
 
 

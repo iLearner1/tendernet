@@ -6,7 +6,6 @@ from django.core.cache import cache
 from lots.models import Article, Unit, Cities, Regions
 from lots.insert_region_location import read_xls
 from decouple import config
-
 #this query will use for fetching lots from grapql server
 query = """
     query getLots($limit: Int, $after: Int) {

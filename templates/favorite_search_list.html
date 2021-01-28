@@ -1,6 +1,6 @@
 {% include "blocks/header.html" %}
         <!-- Breadcrumb -->
-            <div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-20">
+            <div class="breadcrumb-top alice-bg padding-top-30 padding-bottom-30">
                 <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -161,11 +161,13 @@
 
                       {% endfor %}
                       {% else %}
-
-                       <ul>
-                          <li style="color:white;">У вас нет любимых предметов поиска</li>
-                        </ul>
-                {% endif %}
+                        <div class="item">
+                          <div class="tender-list half-grid">
+                            <p>У вас нет любимых предметов поиска</p>
+                          </div>
+                        </div>
+        
+                      {% endif %}
 
                       {% if favorite_searches.num_pages > 1 %}
                       <div class="pagination-list text-center">

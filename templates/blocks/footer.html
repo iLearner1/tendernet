@@ -495,32 +495,10 @@
     })
   }
 
-  $(".page-numbers").on("click", function(event) {
-      event.preventDefault();
-      const formData = $("#main-searchform-" + "pc").serializeArray();
-      var data = {};
-      for (let item of formData) {
-        data[item.name] = item.value;
-      }
-      data["page"] = parseInt($(this).attr("data-page"));
-      $.ajax({
-            method: 'GET',
-            url: "{% url 'post_search' %}",
-            data: data,
-            success: function (resp) {
-                $("#input-container").html(resp);
-            },
-            error: function (err) {
-              console.log(err.responseText);
-            }
-      });
-  });
-
   function reset() {
     clearTimeout(timerId);
     timerId = setTimeout(logout, interval);
   }
-
 
 
   {% if request.user.is_authenticated %}
@@ -528,6 +506,31 @@
   $('body').mousemove(reset).click(reset).scroll(reset);
   {% endif %}
 </script>
+
+  {% block jsscript %}
+    <script>
+      $(".al.page-numbers").on("click", function(event) {
+          event.preventDefault();
+          const formData = $("#main-searchform-" + "pc").serializeArray();
+          var data = {};
+          for (let item of formData) {
+            data[item.name] = item.value;
+          }
+          data["page"] = parseInt($(this).attr("data-page"));
+          $.ajax({
+                method: 'GET',
+                url: "{% url 'post_search' %}",
+                data: data,
+                success: function (resp) {
+                    $("#input-container").html(resp);
+                },
+                error: function (err) {
+                  console.log(err.responseText);
+                }
+          });
+      });
+    </script>
+  {% endblock jsscript %}
 </body>
 
 </html>

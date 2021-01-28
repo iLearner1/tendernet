@@ -243,8 +243,7 @@ def post_list(request):
 
     filters = {}
 
-    queryset = Article.objects.order_by('-date_created','-date').filter(q)
-    print(queryset)    
+    queryset = Article.objects.order_by('-date_created','-date').filter(q) 
     # sorted_lots = sorted(queryset, key=lambda item: item.title.lower())
     paginator = Paginator(queryset, 25)
     page_number = request.GET.get("page", 1)
@@ -291,6 +290,7 @@ def post_detail(request, id, slug):
     dat6 = datetime.timedelta(days=5)
     dat3 = post.date
     dat7 = dat3 - dat6
+    post_request = None
 
     is_favourite = False
     try:
@@ -312,14 +312,27 @@ def post_detail(request, id, slug):
         print("profile/tarif not found")
 
 
+    try:
+        queryset = post.lot.all().order_by('-date')
+        paginator = Paginator(queryset, 25)
+        page_number = request.GET.get("page", 1)
+        post_requests = paginator.page(page_number)
+        total_pages = paginator.num_pages
+    except Exception as e:
+        print("Exception Ocured ", e)
 
     context = {
         "post": post,
         "is_favourite": is_favourite,
         "dat3": dat3,
-        "istariff": istariff
+        "istariff": istariff,
+        "post_requests": post_requests,
+        'total_pages': total_pages
     }
-    print(post.title)
+    
+    if request.is_ajax():
+        return render(request, 'blocks/request-partial.html', context)
+
     return render(request, "article_detail.html", context)
 
 

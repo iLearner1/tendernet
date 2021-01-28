@@ -1,0 +1,149 @@
+<!-- expert modal  -->
+<div class="modal fade" id="expert-feedback" tabindex="-1" role="dialog" aria-labelledby="expert-feedback" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="expert-feedback-label">Оставить предложение</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="feedbackform">
+  
+            <div class="row align-items-center">
+              <div class="col-7">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Создать и подать заявку" id="checkbox1" name="ch1">
+                  <span class="checkmark"></span>
+                  <label class="form-check-label ml-4" for="checkbox1">
+                    Создать и подать заявку
+                  </label>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <input type="text" class="form-control ch1" placeholder="Введите цену" name="Создать и подать заявку"  disabled>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row align-items-center">
+              <div class="col-7">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Найти поставщика ТРУ" id="checkbox2" name="ch2">
+                  <span class="checkmark"></span>
+                  <label class="form-check-label ml-4" for="checkbox2">
+                    Найти поставщика ТРУ
+                  </label>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <input type="text" class="form-control ch2" placeholder="Введите цену" name="Найти поставщика ТРУ" disabled>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row align-items-center">
+              <div class="col-7">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Поиск логистики" id="checkbox3" name="ch3">
+                  <span class="checkmark"></span>
+                  <label class="form-check-label ml-4" for="checkbox3">
+                    Поиск логистики
+                  </label>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <input type="text" class="form-control ch3" placeholder="Введите цену" name="Поиск логистики" disabled>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row align-items-center">
+              <div class="col-7">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="Предоставлю документы" id="checkbox4" name="ch4">
+                  <span class="checkmark"></span>
+                  <label class="form-check-label ml-4" for="checkbox4">
+                    Предоставлю документы
+                  </label>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <input type="text" class="form-control ch4" placeholder="Введите цену" name="Предоставлю документы" disabled>
+                </div>
+              </div>
+            </div>
+          
+          </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-start pb-5">
+          <button type="button" class="btn-outline mr-4" data-dismiss="modal">Отмена</button>
+          <button type="button" class="btn-outline sm primary" id="expert-preference">Ok</button>
+        </div>
+      </div>
+    </div>
+</div>
+  
+<!-- client modal -->
+<div class="modal fade" id="client-feedback" tabindex="-1" role="dialog" aria-labelledby="client-feedback" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="expert-feedback-label">Оставить предложение</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="client-feedbackform">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Буду участвовать" id="clcheckbox3" name="ch5">
+                        <span class="checkmark"></span>
+                        <label class="form-check-label ml-4" for="clcheckbox3">
+                            Буду участвовать
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Буду спонсировать" id="clcheckbox4" name="ch6">
+                        <span class="checkmark"></span>
+                        <label class="form-check-label ml-4" for="clcheckbox4">
+                            Буду спонсировать
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Ищу партнёра" id="clcheckbox5" name="ch7">
+                        <span class="checkmark"></span>
+                        <label class="form-check-label ml-4" for="clcheckbox5">
+                            Ищу партнёра
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Только поставка товаров, работ, услуг" id="clcheckbox6" name="ch8">
+                        <span class="checkmark"></span>
+                        <label class="form-check-label ml-4" for="clcheckbox6">
+                            Только поставка товаров, работ, услуг
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-start pb-5">
+          <button type="button" class="btn-outline" data-dismiss="modal">Отмена</button>
+          <button type="button" class="btn-outline sm primary" id="client-preference">Ok</button>
+        </div>
+      </div>
+    </div>
+</div>
+  
