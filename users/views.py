@@ -1,6 +1,6 @@
 # Create your views here.
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
@@ -76,7 +76,6 @@ class LoginView(View):
     def get(self, request):
         if request.user.is_authenticated:
             return redirect('/lots')
-
         form = LoginForm()
         return render(request, "registration/login.html", {"form": form})
 
@@ -98,7 +97,8 @@ class LoginView(View):
             if user.is_active:
                 login(request, user)
                 if 'next' in request.POST and len(request.POST.get('next')) > 0:
-                    return redirect(self.request.POST.get('next', '/'))
+                    print("post params ", request.POST.get('next'))
+                    return HttpResponseRedirect(self.request.POST.get('next', '/'))
                 else:
                     return redirect(request.GET.get('next', '/'))
             else:
@@ -212,7 +212,7 @@ def edit_profile(request):
 
 def profile(request):
     if not request.user.is_authenticated:
-        return redirect(reverse('login')+'?next=/profile/?user_id=5/')
+        return redirect(reverse('login')+'?next=/profile/')
 
     current_user = None 
     if request.GET.get('user_id'):
