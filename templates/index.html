@@ -5,10 +5,7 @@
 {% block content %}
 
 
-
-    {% for zakaz in all_zakaz %}
-       {{zakaz}}
-    {% endfor %}
+{% include "blocks/front-table.html" %}
 
 <script>
   $(document).on("click", ".nav-links.zakaz a", function(event) {
