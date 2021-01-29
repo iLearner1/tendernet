@@ -12,8 +12,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for zakaz in all_zakaz%}
-                        <tr>
+                    {% for zakaz in all_zakaz %}
+                        <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
                             <td class="title"><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
                             <td>{{zakaz.lot.price}}</td>
                             <td>{{zakaz.lot.date|date:"d/m/Y"}}</td>
@@ -33,9 +33,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <!-- pc table end here  -->
-
-            <!-- starting mobile table as according collapse -->
         </div>
     </div>
 </div>
