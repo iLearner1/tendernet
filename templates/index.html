@@ -2,9 +2,38 @@
 {% include "blocks/header.html" %}
 {% include "blocks/search.html" %}
 
+{% block content %}
 
 
-{% include "blocks/front-table.html" %}
+  {% if all_zakaz %}
+    {% include "blocks/front-table.html" %}
+  {% endif %}
 
+
+<script>
+  $(document).on("click", ".nav-links.zakaz a", function(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    var data = {};
+    data["page"] = parseInt($(this).attr("data-page"));
+    $.ajax({
+          method: 'GET',
+          url: "{% url 'index' %}",
+          data: data,
+          success: function (resp) {
+              $("#table").html(resp);
+          },
+          error: function (err) {
+            console.log(err.responseText);
+          }
+    });
+  });
+</script>
+
+{% endblock %}
+
+{% comment %}
+{% include "blocks/slider.html" %}
+{% endcomment %}
 
 {% include "blocks/footer.html" %}
