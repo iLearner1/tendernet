@@ -212,7 +212,7 @@ def edit_profile(request):
 
 def profile(request):
     if not request.user.is_authenticated:
-        return redirect(reverse('login')+'?next=/profile/?user_id=5/')
+        return redirect(reverse('login')+'?next=/profile/')
 
     current_user = None 
     if request.GET.get('user_id'):
