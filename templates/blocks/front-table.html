@@ -12,7 +12,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for zakaz in all_zakaz %}
+                    {% for zakaz in all_zakaz%}
                         <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
                             <td class="title"><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
                             <td>{{zakaz.lot.price}}</td>
@@ -33,6 +33,114 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <!-- pc table end here  -->
+
+            <!-- starting mobile table as according collapse -->
+
+            <div class="accordion d-xl-none d-md-none price-accordion mt-4" id="accordionExample">
+                {% for zakaz in all_zakaz%}
+                    <div class="card {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} bg-light-blue {% endif %}">
+                        <div class="card-header" id="heading-{{forloop.counter}}">
+                            <button class="collapse-heading collapsed" data-toggle="collapse" data-target="#collapse-{{forloop.counter}}" aria-expanded="false" aria-controls="collapse-{{forloop.counter}}">
+                                <span class="title">
+                                    {{zakaz.lot.title}}
+                                </span>
+                                <span class="icon-cycle">
+                                    {% include "blocks/icon.html" %}
+                                    {{zakaz.lot.price}}
+                                </span>
+                                <span class="arrow">
+                                    <i class="fa fa-arrow-up d-none"></i> 
+                                    <i class="fa fa-arrow-down d-none"></i> 
+                                </span>
+                            </button>
+                        </div>
+                
+                        <div id="collapse-{{forloop.counter}}" class="collapse" aria-labelledby="heading-{{forloop.counter}}" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="item-row">
+                                    <div class="title">
+                                        ID лота
+                                    </div>
+                                    <div class="title">
+                                        {{zakaz.lot.id}}
+                                    </div>
+                                </div>
+                                <div class="item-row">
+                                    <div class="title">
+                                        Цена
+                                    </div>
+                                    <div class="desc">
+                                        {{zakaz.lot.price}}
+                                    </div>
+                                </div>
+                                <div class="item-row">
+                                    <div class="title">
+                                        Дата окончания
+                                    </div>
+                                    <div class="desc">
+                                        {{zakaz.lot.date|date:"d.m.Y"}}
+                                    </div>
+                                </div>
+                                <div class="item-row">
+                                    <div class="title">
+                                        Запрос пользователя
+                                    </div>
+                                    <div class="desc">
+                                        {% for p in zakaz.preference%}
+                                            <p>
+                                                {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                                    {{p.name}} {{p.value}}
+                                                {% else %}
+                                                    {{p.name}}  {{p.value}}
+                                                {% endif %}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="item-row">
+                                    <a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline btn-block">Открыть лот</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- <div class="pagination-list text-right">
+                <nav class="navigation pagination">
+                <div class="nav-links basket">
+                    <a href="#" class="prev page-numbers"><<</a>
+                    <a href="#" class="page-numbers current">1</a>
+                    <a href="#" class="next page-numbers">>></a>
+                </div>
+                </nav>
+            </div> -->
+
+            {% if total_posts > 1 %} 
+                <div class="pagination-list text-center text-md-right text-lg-right text-xl-right">
+                    <nav class="navigation pagination">
+                        <div class="nav-links zakaz">
+                        {% if all_zakaz.has_previous %}
+                            <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+                            <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.previous_page_number }}"> < </a>
+                        {% endif %}
+                        {% for p in all_zakaz.paginator.page_range %}
+                            {% if all_zakaz.number == p %}
+                                <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+                            {% elif p > all_zakaz.number|add:'-3' and p <= all_zakaz.number|add:'3' %}
+                                <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if all_zakaz.has_next %}
+                            <a class="next page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.next_page_number }}"> > </a>
+                            <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_posts }}"> >> </a>
+                        {% endif %}
+                        </div>
+                    </nav>
+                </div>
+            {% endif %}
+
         </div>
     </div>
 </div>
