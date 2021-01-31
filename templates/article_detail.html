@@ -129,7 +129,7 @@
                       {% else %}
                             <tr>
                                 <td><b>Заказчик:</b></td>
-                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                                <td><a href="{% url 'login'  %}" style="font-weight: 400;color:blue;">Для просмотра авторизуйтесь</a></td>
                               </tr>
                       {% endif %}
                       <tr>
@@ -167,7 +167,9 @@
                       {% else %}
                             <tr>
                                 <td><b>Адрес:</b></td>
-                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                                <td>
+                                  <a href="{% url 'login' %}" style="font-weight: 400;color:blue;">Для просмотра авторизуйтесь</a>
+                                </td>
                               </tr>
                       {% endif %}
                       <!--<tr>-->

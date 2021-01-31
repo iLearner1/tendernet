@@ -43,7 +43,7 @@
                         {% for p in chat.preference %}
                             <p>{{p.name}} {{p.value}}</p>
                         {% endfor %}
-                        <div class="time d-block text-right">{{ chat.date|date:"h:i"}}</div>
+                        <div class="time d-block text-right">{{ chat.date|date:"d/m/yy"}}</div>
                     </div>
                     <form action="{% url 'basket_deleting_lot' %}" method="post" class="request-delete-form">
                         {% csrf_token %}
@@ -74,7 +74,7 @@
                         {% for p in chat.preference %}
                             <p>{{p.name}}: {{p.value}}</p>
                         {% endfor %}
-                        <div class="time d-block text-right">{{ chat.date|date:"h:i"}}</div>
+                        <div class="time d-block text-right">{{ chat.date|date:"d/m/yy"}}</div>
                     </div>
                     <div class="user">
                         <p class="user-id">{{chat.klyent.id|stringformat:"06d"}}</p>

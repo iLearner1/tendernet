@@ -23,7 +23,7 @@
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="text" class="form-control ch1" placeholder="Введите цену" name="Создать и подать заявку"  disabled>
+                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch1" placeholder="Помогу подготовить заявку" name="Создать и подать заявку"  disabled>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="text" class="form-control ch2" placeholder="Введите цену" name="Найти поставщика ТРУ" disabled>
+                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch2" placeholder="Найду поставщика/подрядчика" name="Найти поставщика ТРУ" disabled>
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="text" class="form-control ch3" placeholder="Введите цену" name="Поиск логистики" disabled>
+                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch3" placeholder="Найду инвестора" name="Поиск логистики" disabled>
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="text" class="form-control ch4" placeholder="Введите цену" name="Предоставлю документы" disabled>
+                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch4" placeholder="Введите цену" name="Предоставлю документы" disabled>
                 </div>
               </div>
             </div>
@@ -130,10 +130,10 @@
                 </div>
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Только поставка товаров, работ, услуг" id="clcheckbox6" name="ch8">
+                        <input class="form-check-input" type="checkbox" value="Возьму на субподряд" id="clcheckbox6" name="ch8">
                         <span class="checkmark"></span>
                         <label class="form-check-label ml-4" for="clcheckbox6">
-                            Только поставка товаров, работ, услуг
+                          Возьму на субподряд
                         </label>
                     </div>
                 </div>

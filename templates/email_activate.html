@@ -1,10 +1,23 @@
 {% include 'blocks/header.html' %}
 
 {% block content %}
- <div style="position: relative; top: 90px; margin-bottom: 20%; text-align: left; left: 2vw;">
-    <span >Ваш адрес электронной почты был активирован.</span><br/>
-    <span>Вы можете закрыть эту страницу или перейти на &nbsp;&nbsp;<a href="/lots/"><input type="submit" style="width: fit-content;background-color: #eb3547;border: none;color: #fff;" class="btn btn-primary btn-lg" value="Поиск лотов"></a></span>
-</div>
+    <div class="container-fluid d-none d-xl-block d-lg-block d-md-block">
+        <div style="position: relative; top: 90px; margin-bottom: 20%; text-align: left;" class="px-4">
+           <span >Ваш адрес электронной почты был активирован.</span><br/>
+           <span>Вы можете закрыть эту страницу или перейти на &nbsp;&nbsp;<a href="/lots/"><input type="submit" style="width: fit-content;background-color: #eb3547;border: none;color: #fff;" class="btn btn-primary btn-lg" value="Поиск лотов"></a></span>
+       </div>
+    </div>
+    <div class="container d-xl-none d-lg-none d-md-none" style="margin: 100px 0;">
+        <div class="row">
+            <div class="col-12">
+                <p>Ваш адрес электронной почты был активирован.</p>
+                <p>Вы можете закрыть эту страницу или перейти на</p>
+                <div class="d-flex justify-content-center my-4">
+                    <a href="/lots/"><input type="submit" style="width: fit-content;background-color: #eb3547;border: none;color: #fff;" class="btn btn-primary btn-lg" value="Поиск лотов"></a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% include "blocks/footer.html" %}

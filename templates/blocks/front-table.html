@@ -21,7 +21,7 @@
                                 {% for p in zakaz.preference%}
                                 <p>
                                     {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                        {{p.name}}  {{p.value}}
+                                        {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
                                     {% else %}
                                         {{p.name}}  {{p.value}}
                                     {% endif %}

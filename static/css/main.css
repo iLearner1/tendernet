@@ -11323,6 +11323,13 @@ span.arrow {
 .collapse-heading:not(.collapsed) span.arrow .fa-arrow-down {
   display: block !important;
 }
+.collapse-heading .title {
+  width: 60%;
+}
+
+.collapse-heading .icon-cycle {
+  width: 31%;
+}
 .card.border { 
   border: 1px solid #EB3547 !important;
 }
@@ -11382,7 +11389,7 @@ span.arrow {
 .user .icon {
   width: 66px;
   height: 66px;
-  background: red;
+  background: #eb3547;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -11442,7 +11449,7 @@ span.arrow {
 }
 
 .right-conversation .user .icon {
-  background-color: #001897;
+  background-color: #4682B4;
 }
 
 div[class$="-conversation"] .action {
@@ -11470,11 +11477,11 @@ div[class$="-conversation"] .user-type {
 }
 
 .left-conversation .user-type {
-  color: #EB3547 !important;
+  color: #eb3547 !important;
 }
 
 .right-conversation .user-type {
-  color: #001897 !important;
+  color: #4682B4 !important;
 }
 
 @media (max-width: 541px) {
@@ -11547,6 +11554,7 @@ div[class$="-conversation"] .user-type {
   font-weight: normal;
   font-size: 18px;
   line-height: 21px;
+  color: #000 !important;
 }
 
 span.checkmark {
