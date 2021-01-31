@@ -30,7 +30,7 @@ def index(request):
     )
     cities = Cities.objects.all()
     bbs = myHomeFilter.qs
-    all_zakaz = Zakaz.objects.all()
+    all_zakaz = Zakaz.objects.all().order_by('lot')
     paginator = Paginator(bbs, 10)
     page = request.GET.get("page")
     try:
