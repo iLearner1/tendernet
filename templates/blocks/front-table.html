@@ -12,10 +12,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% regroup all_zakaz by lot as zakaz_list %}
+                    {% regroup all_zakaz|dictsort:"lot.title" by lot.title as zakaz_list %}
+                   
                     {% for zakaz in zakaz_list %}
                         <tr {% if zakaz.list.0.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
-                            <td class="title"><a href="{{zakaz.grouper.get_absolute_url}}">{{zakaz.grouper.title}}</a></td>
+                            <td class="title"><a href="{{zakaz.grouper.get_absolute_url}}">{{zakaz.grouper}}</a></td>
                             <td>{{zakaz.grouper.price}}</td>
                             <td>{{zakaz.grouper.date|date:"d/m/Y"}}</td>
                             <td>
@@ -41,7 +42,7 @@
             <!-- starting mobile table as according collapse -->
 
             <div class="accordion d-xl-none d-md-none price-accordion mt-4" id="accordionExample">
-                {% regroup all_zakaz by lot as zakaz_list %}
+                {% regroup all_zakaz|dictsort:"lot.title" by lot.title as zakaz_list %}
                 {% for zakaz in zakaz_list %}
                     <div class="card {% if zakaz.list.0.klyent.profile.tarif.name|first in 'EXP' %} bg-light-blue {% endif %}">
                         <div class="card-header" id="heading-{{forloop.counter}}">
