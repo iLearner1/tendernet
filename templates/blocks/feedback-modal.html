@@ -14,16 +14,16 @@
             <div class="row align-items-center">
               <div class="col-7">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="Создать и подать заявку" id="checkbox1" name="ch1">
+                  <input class="form-check-input" type="checkbox" value="Помогу подготовить заявку" id="checkbox1" name="ch1">
                   <span class="checkmark"></span>
                   <label class="form-check-label ml-4" for="checkbox1">
-                    Создать и подать заявку
+                    Помогу подготовить заявку
                   </label>
                 </div>
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch1" placeholder="Помогу подготовить заявку" name="Создать и подать заявку"  disabled>
+                  <input type="number" onkeypress="validityCheck(event)"  class="form-control ch1" placeholder="Помогу подготовить заявку" name="Помогу подготовить заявку"  disabled>
                 </div>
               </div>
             </div>
@@ -31,16 +31,16 @@
             <div class="row align-items-center">
               <div class="col-7">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="Найти поставщика ТРУ" id="checkbox2" name="ch2">
+                  <input class="form-check-input" type="checkbox" value="Найду поставщика/подрядчика" id="checkbox2" name="ch2">
                   <span class="checkmark"></span>
                   <label class="form-check-label ml-4" for="checkbox2">
-                    Найти поставщика ТРУ
+                    Найду поставщика/подрядчика
                   </label>
                 </div>
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch2" placeholder="Найду поставщика/подрядчика" name="Найти поставщика ТРУ" disabled>
+                  <input type="number" onkeypress="validityCheck(event)"  class="form-control ch2" placeholder="Найду поставщика/подрядчика" name="Найду поставщика/подрядчика" disabled>
                 </div>
               </div>
             </div>
@@ -48,16 +48,16 @@
             <div class="row align-items-center">
               <div class="col-7">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="Поиск логистики" id="checkbox3" name="ch3">
+                  <input class="form-check-input" type="checkbox" value="Найду инвестора" id="checkbox3" name="ch3">
                   <span class="checkmark"></span>
                   <label class="form-check-label ml-4" for="checkbox3">
-                    Поиск логистики
+                    Найду инвестора
                   </label>
                 </div>
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch3" placeholder="Найду инвестора" name="Поиск логистики" disabled>
+                  <input type="number" onkeypress="validityCheck(event)"  class="form-control ch3" placeholder="Найду инвестора" name="Найду инвестора" disabled>
                 </div>
               </div>
             </div>
@@ -65,16 +65,16 @@
             <div class="row align-items-center">
               <div class="col-7">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="Предоставлю документы" id="checkbox4" name="ch4">
+                  <input class="form-check-input" type="checkbox" value="Введите цену" id="checkbox4" name="ch4">
                   <span class="checkmark"></span>
                   <label class="form-check-label ml-4" for="checkbox4">
-                    Предоставлю документы
+                    Введите цену
                   </label>
                 </div>
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <input type="number" onKeyPress="if(this.value.length==6) return false;"  class="form-control ch4" placeholder="Введите цену" name="Предоставлю документы" disabled>
+                  <input type="number" onkeypress="validityCheck(event)"  class="form-control ch4" placeholder="Введите цену" name="Введите цену" disabled>
                 </div>
               </div>
             </div>
@@ -146,4 +146,12 @@
       </div>
     </div>
 </div>
-  
+
+<script>
+  function validityCheck(evt) {
+    if (evt.which < 48 || evt.which > 57 || evt.target.value.length > 5)
+    {
+        evt.preventDefault();
+    }
+  }
+</script>

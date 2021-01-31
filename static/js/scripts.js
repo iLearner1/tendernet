@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var data2;
 
-    $('.form_buying_product').on('submit', async function(e){
+    $('.form_buying_product').unbind("click").on('click', '.button.contact-button', function(e){
         e.preventDefault();
         var submit_btn = $('#submit_btn1');
         var tarif_type = submit_btn.data('user_tarif');
@@ -17,8 +17,7 @@ $(document).ready(function(){
         const key = `verify_data-${data2['user_id']}-${data2['product_id']}`;
         
         if(localStorage.getItem(key)) {
-            alert('Ваша заявка уже подана');
-            return false;
+            return alert('Ваша заявка уже подана');
         }
 
         if(tarif_type.startsWith("EXP")) {
@@ -209,7 +208,7 @@ $(document).ready(function(){
         e.preventDefault();
         swal.fire({
             title: 'error',
-            text: 'Вы должны сменить тариф на "Эксперт',
+            text: 'Вы должны сменить тариф на "Эксперт"',
             icon: 'error'
         })
     })

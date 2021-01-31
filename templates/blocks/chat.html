@@ -72,7 +72,7 @@
                     </form>
                     <div class="message">
                         {% for p in chat.preference %}
-                            <p>{{p.name}}: {{p.value}}</p>
+                            <p>{{p.name}} {% if p.value %} <span>:{{p.value}}₸</span> {% endif %}</p>
                         {% endfor %}
                         <div class="time d-block text-right">{{ chat.date|date:"d/m/yy"}}</div>
                     </div>
