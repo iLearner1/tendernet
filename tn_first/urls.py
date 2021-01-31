@@ -36,8 +36,6 @@ urlpatterns = [
 
     path('signup/', views.signup, name='register'),
     path('activate/<uidb64>/<token>/', views.Activate.as_view(), name='activate'),
-    path('activate/', views.Activate.as_view(), name='activate'),
-
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('profile/', views.profile, name="profile"),
     path('tariff/', views.tariff, name="tariff"),
