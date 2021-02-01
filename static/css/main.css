@@ -11115,25 +11115,19 @@ html {
   }
   
   .tab-content {
-  
-          width: 100%;
+    width: 100%;
   }
   
   @media (min-width:991px) {
-  
-      .tender-summary {
+    .tender-summary {
       background-color: #111c2b;
       color:#fff;
-  }
-  
-  
+    }
   }
   
   
   @media (max-width:640px) {
-  
-  
-      .tender-view-controller-wrapper, .candidate-view-controller-wrapper, .employer-view-controller-wrapper {
+    .tender-view-controller-wrapper, .candidate-view-controller-wrapper, .employer-view-controller-wrapper {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -11626,6 +11620,15 @@ span.checkmark {
   line-height: 22px;
 }
 
+.application .heading-info  {
+  width: 40%;
+}
+.application .basket-title {
+  width: 35%;
+}
+.application .content {
+  width: 25%;
+}
 .application .heading-info p {
   font-family: 'Gilroy', sans-serif;
   font-style: normal;

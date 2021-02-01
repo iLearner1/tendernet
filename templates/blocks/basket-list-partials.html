@@ -1,47 +1,50 @@
-<table >
-    {% for p in basket_posts %}
-        <tr> {% comment %} if user want lots page then replace with this url 'post_list'{% endcomment %}
-          <td style="font-weight: bold;">• Подача заявки на лот <a href="{{ p.lot.get_absolute_url }}" style="color: #007bff;" target="_blank">{{ p.lot.title }}</a></td>
-          <td>Дата подачи {{ p.date }} {{ p.get_status_display }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <ul>
-              {% for item in p.preference %}
-                <li>{{item.name}}: {{item.value}}</li>
-              {% endfor %}
-            </ul>
-          </td>
-        </tr>
+{% for p in basket_posts %}
+<div class="application-wrapper">
+  <div class="application flex-column flex-md-row flex-lg-row flex-xl-row align-items-center">
+    <div class="headding-info mb-3 mb-xl-0 mb-md-0 mb-lg-0">
+      <h6>Подача заявки на лот</h6>
+      <p>Дата подачи {{ p.date }}</p>
+    </div>
+    <a href="{{ p.lot.get_absolute_url }}" target="_blank" class="basket-title">
+      <h6 class="name  mb-3 mb-xl-0 mb-md-0 mb-lg-0 mx-md-2 mx-lg-2 mx-xl-2">
+        {{ p.lot.title }}
+      </h6>
+    </a>
+    <div class="content">
+      {% for item in p.preference %}
+        <p>{{item.name}}: {{item.value}}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
-    {% empty %}
-      <tr>
-          <td style="font-weight: bold;">• Нет заявок</td>
-        </tr>
-    {% endfor %}
-  </table>
-  
+{% empty %}
+<p style="font-weight: bold;">
+  • Нет заявок
+</p>
+{% endfor %}
 
-<div class="pagination-list text-center">
-    <nav class="navigation pagination">
+{% if total_pages > 1 %}
+<div class="pagination-list text-center text-md-right text-xl-right text-lg-right">
+  <nav class="navigation pagination">
     <div class="nav-links basket">
-        {% if basket_posts.has_previous %}
+      {% if basket_posts.has_previous %}
         <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
         <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ basket_posts.previous_page_number }}"> < </a>
-        {% endif %}
-        {% for p in basket_posts.paginator.page_range %}
-            {% if basket_posts.number == p %}
-                <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
-            {% elif p > basket_posts.number|add:'-3' and p <= basket_posts.number|add:'3' %}
-                <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+      {% endif %}
+      {% for p in basket_posts.paginator.page_range %}
+          {% if basket_posts.number == p %}
+              <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+          {% elif p > basket_posts.number|add:'-3' and p <= basket_posts.number|add:'3' %}
+              <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
 
-            {% endif %}
-        {% endfor %}
-        {% if basket_posts.has_next %}
+          {% endif %}
+      {% endfor %}
+      {% if basket_posts.has_next %}
         <a class="next page-numbers" href="javascript:void(0);" data-page="{{ basket_posts.next_page_number }}"> > </a>
         <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_pages }}"> >> </a>
-        {% endif %}
+      {% endif %}
     </div>
-    </nav>
+  </nav>
 </div>
+{% endif %}

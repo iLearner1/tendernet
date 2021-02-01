@@ -12,27 +12,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% regroup all_zakaz by lot as zakaz_list %}
+                 {% comment %}{% regroup all_zakaz by lot as zakaz_list %}{% endcomment %}   
                    
-                    {% for zakaz in zakaz_list %}
-                        <tr {% if zakaz.list.0.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
-                            <td class="title"><a href="{{zakaz.grouper.get_absolute_url}}">{{zakaz.grouper}}</a></td>
-                            <td>{{zakaz.grouper.price}}</td>
-                            <td>{{zakaz.grouper.date|date:"d/m/Y"}}</td>
+                    {% for zakaz in all_zakaz %}
+                        <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
+                            <td class="title"><a href="{{zakaz.grouper.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
+                            <td>{{zakaz.lot.price}}</td>
+                            <td>{{zakaz.lot.date|date:"d/m/Y"}}</td>
                             <td>
-                                {% for zk in zakaz.list %} 
-                                    {% for p in zk.preference%}
-                                        <p>
-                                            {% if zk.klyent.profile.tarif.name|first in 'EXP' %}
-                                                {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
-                                            {% else %}
-                                                {{p.name}}  {{p.value}}
-                                            {% endif %}
-                                        </p>
-                                    {% endfor %}
+                                {% for p in zakaz.preference%}
+                                    <p>
+                                        {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                            {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                                        {% else %}
+                                            {{p.name}}  {{p.value}}
+                                        {% endif %}
+                                    </p>
                                 {% endfor %}
                             </td>
-                            <td><a href="{{zakaz.grouper.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>
+                            <td><a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -42,17 +40,16 @@
             <!-- starting mobile table as according collapse -->
 
             <div class="accordion d-xl-none d-md-none price-accordion mt-4" id="accordionExample">
-                {% regroup all_zakaz by lot as zakaz_list %}
-                {% for zakaz in zakaz_list %}
-                    <div class="card {% if zakaz.list.0.klyent.profile.tarif.name|first in 'EXP' %} bg-light-blue {% endif %}">
+                {% for zakaz in all_zakaz %}
+                    <div class="card {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} bg-light-blue {% endif %}">
                         <div class="card-header" id="heading-{{forloop.counter}}">
                             <button class="collapse-heading collapsed" data-toggle="collapse" data-target="#collapse-{{forloop.counter}}" aria-expanded="false" aria-controls="collapse-{{forloop.counter}}">
                                 <span class="title">
-                                    {{zakaz.grouper.title}}
+                                    {{zakaz.lot.title}}
                                 </span>
                                 <span class="icon-cycle">
                                     {% include "blocks/icon.html" %}
-                                    {{zakaz.grouper.price}}
+                                    {{zakaz.lot.price}}
                                 </span>
                                 <span class="arrow">
                                     <i class="fa fa-arrow-up d-none"></i> 
@@ -68,7 +65,7 @@
                                         ID лота
                                     </div>
                                     <div class="title">
-                                        {{zakaz.grouper.id}}
+                                        {{zakaz.lot.id}}
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -76,7 +73,7 @@
                                         Цена
                                     </div>
                                     <div class="desc">
-                                        {{zakaz.grouper.price}}
+                                        {{zakaz.lot.price}}
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -84,7 +81,7 @@
                                         Дата окончания
                                     </div>
                                     <div class="desc">
-                                        {{zakaz.grouper.date|date:"d.m.Y"}}
+                                        {{zakaz.lot.date|date:"d.m.Y"}}
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -92,21 +89,19 @@
                                         Запрос пользователя
                                     </div>
                                     <div class="desc">
-                                        {% for zk in zakaz.list %} 
-                                            {% for p in zk.preference%}
-                                                <p>
-                                                    {% if zk.klyent.profile.tarif.name|first in 'EXP' %}
-                                                        {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
-                                                    {% else %}
-                                                        {{p.name}}  {{p.value}}
-                                                    {% endif %}
-                                                </p>
-                                            {% endfor %}
+                                        {% for p in zk.preference%}
+                                            <p>
+                                                {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                                    {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                                                {% else %}
+                                                    {{p.name}}  {{p.value}}
+                                                {% endif %}
+                                            </p>
                                         {% endfor %}
                                     </div>
                                 </div>
                                 <div class="item-row">
-                                    <a href="{{zakaz.grouper.get_absolute_url}}" class="btn-outline btn-block">Открыть лот</a>
+                                    <a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline btn-block">Открыть лот</a>
                                 </div>
                             </div>
                         </div>

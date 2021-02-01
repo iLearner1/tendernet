@@ -45,7 +45,11 @@
               <div class="col-xl-8 col-lg-8">
 
                 <div class="information">
-                  <h4>Информация <a href="{% url 'edit_profile' %}" style="font-weight: normal; font-size: 12px; color: #eb3547; border-bottom: 1px solid #eb3547;">[редактировать <i class="fa fa-cog"></i> ]</a></h4>
+                  <h4>Информация 
+                    {% if request.GET.user_id == user.id %}
+                      <a href="{% url 'edit_profile' %}" style="font-weight: normal; font-size: 12px; color: #eb3547; border-bottom: 1px solid #eb3547;">[редактировать <i class="fa fa-cog"></i> ]</a>
+                    {% endif %}
+                  </h4>
 
                   <table class="table">
                     <tbody>
