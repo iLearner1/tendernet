@@ -1,82 +1,134 @@
-{% load humanize %}
-<table class="table table-dark d-xl-table d-lg-table d-md-table d-none">
-  <thead>
-    <tr>
-      <th scope="col">ID of lots</th>
-      <th scope="col">Lots name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Purchase method</th>
-      <th scope="col">Subject (itemZakup)</th>
-      <th scope="col">End date</th>
-      <th scope="col">До завершения</th>
-      <th scope="col">User Request</th>
-      <th scope="col">Open</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for zakaz in all_zakaz%}
-      <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-primary" {% else %} class="bg-info" {% endif %}>
-        <td>{{zakaz.lot.id}}</td>
-        <td><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
-        <td>{{zakaz.lot.price}}</td>
-        <td>{{zakaz.lot.statzakup}}</td>
-        <td>{{zakaz.lot.itemZakup}}</td>
-        <td>{{zakaz.lot.date|date:"d/m/yy"}}</td>
-        <td>{{zakaz.lot.date|naturaltime}}</td>
-        <td>
-          {% for p in zakaz.preference%}
-            <p {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="text-right" {% else %} class="text-left" {% endif %}>{{p.name}} : {{p.value}}</p>
+<div class="col-12">
+  <table class="table d-none d-md-table d-xl-table" id="price-table">
+      <thead>
+          <tr>
+            <th scope="col">Название лота</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Дата окончания</th>
+            <th scope="col">Запрос пользователя</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+      </thead>
+      <tbody>
+       {% comment %}{% regroup all_zakaz by lot as zakaz_list %}{% endcomment %}   
+         
+          {% for zakaz in all_zakaz %}
+              <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
+                  <td class="title"><a href="{{zakaz.grouper.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
+                  <td>{{zakaz.lot.price}}</td>
+                  <td>{{zakaz.lot.date|date:"d/m/Y"}}</td>
+                  <td>
+                      {% for p in zakaz.preference%}
+                          <p>
+                              {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                  {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                              {% else %}
+                                  {{p.name}}  {{p.value}}
+                              {% endif %}
+                          </p>
+                      {% endfor %}
+                  </td>
+                  <td><a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>
+              </tr>
           {% endfor %}
-        </td>
-        <td><a href="{{zakaz.lot.get_absolute_url}}">open lots</a></td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+      </tbody>
+  </table>
+  <!-- pc table end here  -->
 
-<table class="table table-dark d-xl-none d-lg-none d-md-none d-table">
-  <thead>
-    <tr>
-      <th scope="col">Lots name</th>
-      <th scope="col">Price</th>
-      <th scope="col">User Request</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for zakaz in all_zakaz%}
-      <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-primary" {% else %} class="bg-info" {% endif %}>
-        <td><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.lotFullName}}</a></td>
-        <td>{{zakaz.lot.price}}</td>
-        <td>
-          {% for p in zakaz.preference%}
-            <p {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="text-right" {% else %} class="text-left" {% endif %}>{{p.name}} : {{p.value}}</p>
-          {% endfor %}
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <!-- starting mobile table as according collapse -->
 
-{% if total_posts %} 
-    <div class="pagination-list text-center">
-      <nav class="navigation pagination">
-        <div class="nav-links zakaz">
-          {% if all_zakaz.has_previous %}
-            <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
-            <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.previous_page_number }}"> < </a>
-          {% endif %}
-          {% for p in all_zakaz.paginator.page_range %}
-              {% if all_zakaz.number == p %}
-                  <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
-              {% elif p > all_zakaz.number|add:'-3' and p <= all_zakaz.number|add:'3' %}
-                  <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+  <div class="accordion d-xl-none d-md-none price-accordion mt-4" id="accordionExample">
+      {% for zakaz in all_zakaz %}
+          <div class="card {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} bg-light-blue {% endif %}">
+              <div class="card-header" id="heading-{{forloop.counter}}">
+                  <button class="collapse-heading collapsed" data-toggle="collapse" data-target="#collapse-{{forloop.counter}}" aria-expanded="false" aria-controls="collapse-{{forloop.counter}}">
+                      <span class="title">
+                          {{zakaz.lot.title}}
+                      </span>
+                      <span class="icon-cycle">
+                          {% include "blocks/icon.html" %}
+                          {{zakaz.lot.price}}
+                      </span>
+                      <span class="arrow">
+                          <i class="fa fa-arrow-up d-none"></i> 
+                          <i class="fa fa-arrow-down d-none"></i> 
+                      </span>
+                  </button>
+              </div>
+      
+              <div id="collapse-{{forloop.counter}}" class="collapse" aria-labelledby="heading-{{forloop.counter}}" data-parent="#accordionExample">
+                  <div class="card-body">
+                      <div class="item-row">
+                          <div class="title">
+                              ID лота
+                          </div>
+                          <div class="title">
+                              {{zakaz.lot.id}}
+                          </div>
+                      </div>
+                      <div class="item-row">
+                          <div class="title">
+                              Цена
+                          </div>
+                          <div class="desc">
+                              {{zakaz.lot.price}}
+                          </div>
+                      </div>
+                      <div class="item-row">
+                          <div class="title">
+                              Дата окончания
+                          </div>
+                          <div class="desc">
+                              {{zakaz.lot.date|date:"d.m.Y"}}
+                          </div>
+                      </div>
+                      <div class="item-row">
+                          <div class="title">
+                              Запрос пользователя
+                          </div>
+                          <div class="desc">
+                              {% for p in zk.preference%}
+                                  <p>
+                                      {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                          {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                                      {% else %}
+                                          {{p.name}}  {{p.value}}
+                                      {% endif %}
+                                  </p>
+                              {% endfor %}
+                          </div>
+                      </div>
+                      <div class="item-row">
+                          <a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline btn-block">Открыть лот</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
+
+
+  {% if total_posts > 1 %} 
+      <div class="pagination-list text-center text-md-right text-lg-right text-xl-right">
+          <nav class="navigation pagination">
+          <div class="nav-links zakaz">
+              {% if all_zakaz.has_previous %}
+                  <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
+                  <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.previous_page_number }}"> < </a>
               {% endif %}
-          {% endfor %}
-          {% if all_zakaz.has_next %}
-            <a class="next page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.next_page_number }}"> > </a>
-            <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_posts }}"> >> </a>
-          {% endif %}
-        </div>
-      </nav>
-    </div>
+              {% for p in all_zakaz.paginator.page_range %}
+                  {% if all_zakaz.number == p %}
+                      <a aria-current="page" href="javascript:void(0);"  data-page="{{ p }}" class="page-numbers current">{{ p }}</a>
+                  {% elif p > all_zakaz.number|add:'-3' and p <= all_zakaz.number|add:'3' %}
+                      <a aria-current="page" href="javascript:void(0);" data-page="{{ p }}" class="page-numbers">{{ p }}</a>
+                  {% endif %}
+              {% endfor %}
+              {% if all_zakaz.has_next %}
+                  <a class="next page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.next_page_number }}"> > </a>
+                  <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ total_posts }}"> >> </a>
+              {% endif %}
+              </div>
+          </nav>
+      </div>
   {% endif %}
+</div>

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" id="request-container">
         <div class="col-12">
             <table class="table d-none d-md-table d-xl-table" id="price-table">
                 <thead>
@@ -109,20 +109,11 @@
                 {% endfor %}
             </div>
 
-            <!-- <div class="pagination-list text-right">
-                <nav class="navigation pagination">
-                <div class="nav-links basket">
-                    <a href="#" class="prev page-numbers"><<</a>
-                    <a href="#" class="page-numbers current">1</a>
-                    <a href="#" class="next page-numbers">>></a>
-                </div>
-                </nav>
-            </div> -->
 
             {% if total_posts > 1 %} 
                 <div class="pagination-list text-center text-md-right text-lg-right text-xl-right">
                     <nav class="navigation pagination">
-                        <div class="nav-links zakaz">
+                    <div class="nav-links zakaz">
                         {% if all_zakaz.has_previous %}
                             <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
                             <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.previous_page_number }}"> < </a>
@@ -142,7 +133,6 @@
                     </nav>
                 </div>
             {% endif %}
-
         </div>
     </div>
 </div>

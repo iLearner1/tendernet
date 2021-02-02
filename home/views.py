@@ -40,7 +40,7 @@ def index(request):
     except EmptyPage:
         bbs = paginator.page(paginator.num_pages)
 
-    paginator = Paginator(all_zakaz, 25)
+    paginator = Paginator(all_zakaz, 2)
     page_number = request.GET.get("page", 1)
     all_zakaz = paginator.page(page_number)
     total_posts = paginator.num_pages
