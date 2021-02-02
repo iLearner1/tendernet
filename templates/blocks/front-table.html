@@ -4,11 +4,11 @@
             <table class="table d-none d-md-table d-xl-table" id="price-table">
                 <thead>
                     <tr>
-                      <th scope="col">Название лота</th>
-                      <th scope="col">Цена</th>
-                      <th scope="col">Дата окончания</th>
-                      <th scope="col">Запрос пользователя</th>
-                      <th scope="col">&nbsp;</th>
+                      <th scope="col" class="lot-title">Название лота</th>
+                      <th scope="col" class="lot-price">Цена</th>
+                      <th scope="col" class="lot-date">Дата окончания</th>
+                      <th scope="col" class="lot-preference">Запрос пользователя</th>
+                      <th scope="col" class="lot-request">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,14 +23,14 @@
                                 {% for p in zakaz.preference%}
                                     <p>
                                         {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                            {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                                            {{p.name}}  {% if p.value != '' %} <span>{{p.value}}₸</span> {% endif %}
                                         {% else %}
                                             {{p.name}}  {{p.value}}
                                         {% endif %}
                                     </p>
                                 {% endfor %}
                             </td>
-                            <td><a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>
+                            <td class="text-center"><a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -92,7 +92,7 @@
                                         {% for p in zk.preference%}
                                             <p>
                                                 {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                                    {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                                                    {{p.name}}  {% if p.value != '' %} <span>{{p.value}}₸</span> {% endif %}
                                                 {% else %}
                                                     {{p.name}}  {{p.value}}
                                                 {% endif %}
