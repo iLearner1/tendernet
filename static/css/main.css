@@ -11427,6 +11427,7 @@ span.arrow {
   font-weight: 300 !important;
   font-size: 18px;
   line-height: 16px;
+  color: #000 !important;
 }
 
 .left-conversation .message {
