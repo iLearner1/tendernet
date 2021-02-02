@@ -11665,3 +11665,28 @@ span.checkmark {
 .application .name {
   color: #001897;
 }
+
+.lot-title {
+  width: 258px;
+  max-width: 258px;
+}
+
+.lot-price {
+  width: 177px;
+  max-width: 177px;
+}
+
+.lot-date {
+  width: 184px;
+  max-width: 184px;
+}
+
+.lot-preference {
+  width: 343px;
+  max-width: 343px;
+}
+
+.lot-request {
+  width: 402px;
+  max-width: 402px;
+}
