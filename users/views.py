@@ -188,6 +188,7 @@ class Activate(View):
             
             return render(request, 'email_activate.html')
         else:
+            return render(request, 'email_activate.html')
             return HttpResponse('Ссылка на активации недействительна!')
 
 

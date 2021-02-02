@@ -129,7 +129,7 @@
                       {% else %}
                             <tr>
                                 <td><b>Заказчик:</b></td>
-                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                                <td><a href="{% url 'login'  %}" style="font-weight: 400;color:blue;">Для просмотра авторизуйтесь</a></td>
                               </tr>
                       {% endif %}
                       <tr>
@@ -167,7 +167,9 @@
                       {% else %}
                             <tr>
                                 <td><b>Адрес:</b></td>
-                                <td><a href="http://info.tendernet.kz/tariff" style="font-weight: 400;color:blue;">Для просмотра подключите тариф</a></td>
+                                <td>
+                                  <a href="{% url 'login' %}" style="font-weight: 400;color:blue;">Для просмотра авторизуйтесь</a>
+                                </td>
                               </tr>
                       {% endif %}
                       <!--<tr>-->
@@ -245,10 +247,10 @@
                   <div class="tender-summary">
                     <div class="buttons">
                       {% if request.user.is_authenticated %}
-                            <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
+                          <form id="form_buying_product" class="form-inline form_buying_product" action="{% url 'basket_adding_lot' %}"
                             style="width: 100%;">
                             {% csrf_token %}
-                            <button type="submit" id="submit_btn1" class="button contact-button"
+                            <button type="button" id="submit_btn1" class="button contact-button"
                               data-product_id1="{{ post.id }}" 
                               data-user_id1="{{ request.user.id }}" 
                               data-request_path1="{{ request.path }}"

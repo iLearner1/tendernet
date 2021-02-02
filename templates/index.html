@@ -19,7 +19,7 @@
           url: "{% url 'index' %}",
           data: data,
           success: function (resp) {
-              $("#table").html(resp);
+              $("#request-container").html(resp);
           },
           error: function (err) {
             console.log(err.responseText);

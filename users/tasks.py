@@ -81,7 +81,7 @@ def task_after_3days_of_expire_tarif():
 
         for profile in profiles:
             msg1 = "3 Дня назад Ваш тарифный план сменен на тарифный план Клиент"
-            msg2 = f"User {profile.user.username} tarif  expired 3 days ago";
+            msg2 = f"User {profile.user.username} tarif  expired 3 days ago"
             em1 = EmailMessage("Expired Tarif", msg1, from_email=[from_email], to=[profile.user.email])
             em2 = EmailMessage("Expired Tarif", msg2, from_email=[from_email], to=[to])
             em1.send()

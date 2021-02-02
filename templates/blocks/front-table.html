@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" id="request-container">
         <div class="col-12">
             <table class="table d-none d-md-table d-xl-table" id="price-table">
                 <thead>
@@ -12,20 +12,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for zakaz in all_zakaz%}
+                 {% comment %}{% regroup all_zakaz by lot as zakaz_list %}{% endcomment %}   
+                   
+                    {% for zakaz in all_zakaz %}
                         <tr {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} class="bg-light-blue" {% endif %}>
-                            <td class="title"><a href="{{zakaz.lot.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
+                            <td class="title"><a href="{{zakaz.grouper.get_absolute_url}}">{{zakaz.lot.title}}</a></td>
                             <td>{{zakaz.lot.price}}</td>
                             <td>{{zakaz.lot.date|date:"d/m/Y"}}</td>
                             <td>
                                 {% for p in zakaz.preference%}
-                                <p>
-                                    {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                        {{p.name}}  {{p.value}}
-                                    {% else %}
-                                        {{p.name}}  {{p.value}}
-                                    {% endif %}
-                                </p>
+                                    <p>
+                                        {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
+                                            {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
+                                        {% else %}
+                                            {{p.name}}  {{p.value}}
+                                        {% endif %}
+                                    </p>
                                 {% endfor %}
                             </td>
                             <td><a href="{{zakaz.lot.get_absolute_url}}" class="btn-outline">Открыть лот</a></td>
@@ -38,7 +40,7 @@
             <!-- starting mobile table as according collapse -->
 
             <div class="accordion d-xl-none d-md-none price-accordion mt-4" id="accordionExample">
-                {% for zakaz in all_zakaz%}
+                {% for zakaz in all_zakaz %}
                     <div class="card {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %} bg-light-blue {% endif %}">
                         <div class="card-header" id="heading-{{forloop.counter}}">
                             <button class="collapse-heading collapsed" data-toggle="collapse" data-target="#collapse-{{forloop.counter}}" aria-expanded="false" aria-controls="collapse-{{forloop.counter}}">
@@ -87,10 +89,10 @@
                                         Запрос пользователя
                                     </div>
                                     <div class="desc">
-                                        {% for p in zakaz.preference%}
+                                        {% for p in zk.preference%}
                                             <p>
                                                 {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
-                                                    {{p.name}} {{p.value}}
+                                                    {{p.name}}  {% if p.value %} <span>{{p.value}}₸</span> {% endif %}
                                                 {% else %}
                                                     {{p.name}}  {{p.value}}
                                                 {% endif %}
@@ -107,20 +109,11 @@
                 {% endfor %}
             </div>
 
-            <!-- <div class="pagination-list text-right">
-                <nav class="navigation pagination">
-                <div class="nav-links basket">
-                    <a href="#" class="prev page-numbers"><<</a>
-                    <a href="#" class="page-numbers current">1</a>
-                    <a href="#" class="next page-numbers">>></a>
-                </div>
-                </nav>
-            </div> -->
 
             {% if total_posts > 1 %} 
                 <div class="pagination-list text-center text-md-right text-lg-right text-xl-right">
                     <nav class="navigation pagination">
-                        <div class="nav-links zakaz">
+                    <div class="nav-links zakaz">
                         {% if all_zakaz.has_previous %}
                             <a class="prev page-numbers" href="javascript:void(0);" data-page="1"> << </a>
                             <a class="prev page-numbers" href="javascript:void(0);" data-page="{{ all_zakaz.previous_page_number }}"> < </a>
@@ -140,7 +133,6 @@
                     </nav>
                 </div>
             {% endif %}
-
         </div>
     </div>
 </div>
