@@ -29,6 +29,18 @@ app.conf.CELERYBEAT_SCHEDULE = {
         'task': 'lots.tasks.update_existing_lots_region_location',
         'schedule': crontab(minute='*/30'),
     },
+    "check_task_before_3days_of_expire_tarif": {
+        "task": "users.tasks.task_before_3days_of_expire_tarif",
+        "schedule": crontab(hour="6,18", minute=0)
+    },
+    "check_task_after_expire_tarif": {
+        "task": "users.tasks.task_after_expire_tarif",
+        "schedule": crontab(hour="23", minute=59)
+    },
+    "check_task_after_3days_of_expire_tarif": {
+        "task": "users.tasks.task_after_3days_of_expire_tarif",
+        "schedule": crontab(hour="14", minute=0)
+    }
 }
 if __name__ == "__main__":
     app.start()
