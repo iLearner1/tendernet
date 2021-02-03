@@ -89,7 +89,7 @@
                                         Запрос пользователя
                                     </div>
                                     <div class="desc">
-                                        {% for p in zk.preference%}
+                                        {% for p in zakaz.preference%}
                                             <p>
                                                 {% if zakaz.klyent.profile.tarif.name|first in 'EXP' %}
                                                     {{p.name}}  {% if p.value != '' %} <span>{{p.value}}₸</span> {% endif %}

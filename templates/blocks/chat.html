@@ -41,7 +41,7 @@
                     </div>
                     <div class="message">
                         {% for p in chat.preference %}
-                            <p>{{p.name}}</p>
+                            <p>{{p.name}} {{p.value}}</p>
                         {% endfor %}
                         <div class="time d-block text-right">{{ chat.date|date:"d/m/Y"}}</div>
                     </div>
