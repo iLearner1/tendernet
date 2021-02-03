@@ -162,7 +162,7 @@ def post_list(request):
             for keyword in customer_tokens:
                 customer_q |= Q(customer__contains=keyword.lower())
                 customer_q |= Q(customer__contains=keyword.upper())
-                customer_q |= Q(customer_contains=keyword.capitalize())
+                customer_q |= Q(customer__contains=keyword.capitalize())
 
                 if len(keyword) <= 5:
                     customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3])
