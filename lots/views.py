@@ -418,9 +418,7 @@ def post_search(request):
         body_tokens = request.GET.get('customer').split()
         customer_q |= Q(customer_bin=body_tokens[0])
         for keyword in body_tokens:
-            customer_q |= Q(customer__contains=keyword.lower())
-            customer_q |= Q(customer__contains=keyword.upper())
-            customer_q |= Q(customer__contains=keyword.capitalize())
+            customer_q |= Q(customer__icontains=keyword)
         
             if len(keyword) <= 5:
                 customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3])
