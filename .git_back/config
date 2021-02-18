@@ -3,6 +3,8 @@
 	filemode = true
 	bare = false
 	logallrefupdates = true
+	name=motailab
+	email=mdmotailab@gmail.com
 [remote "origin"]
 	url = https://github.com/nurzhol/tendernet.git
 	fetch = +refs/heads/*:refs/remotes/origin/*

@@ -144,3 +144,4 @@ dmypy.json
 *.db
 *.bak
 *.dat
+.git_back
