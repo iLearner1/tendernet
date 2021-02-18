@@ -399,16 +399,10 @@ def post_search(request):
             # print("3char: ", request.GET.get('searchby3char'))
             # if request.GET.get('searchby3char') == "1":
             if len(keyword) <= 5:
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3])
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].lower())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].upper())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+                title_q |= Q(title__icontains=keyword[:3])
 
             if len(keyword) >=6:
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5])
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].lower())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].upper())
-                title_q |= Q(title__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
+                title_q |= Q(title__icontains=keyword[:5])
                 
 
 
@@ -421,16 +415,10 @@ def post_search(request):
             customer_q |= Q(customer__icontains=keyword)
         
             if len(keyword) <= 5:
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3])
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].lower())
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].upper())
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:3].capitalize())
+                customer_q |= Q(customer__icontains=keyword[:3])
 
             if len(keyword) >=6:
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5])
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].lower())
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].upper())
-                customer_q |= Q(customer__iregex=r"(^|\s)%s" % keyword[:5].capitalize())
+                customer_q |= Q(customer__icontains=keyword[:5])
 
     price_q = Q()
     if 'price_min' in request.GET:
