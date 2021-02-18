@@ -135,9 +135,11 @@ def post_list(request):
         if request_object.get('title'):
             title_tokens = request_object.get('title').split()
             for keyword in title_tokens:
-                title_q |= Q(title__contains=keyword.capitalize())
-                title_q |= Q(title__contains=keyword.lower())
-                title_q |= Q(title__contains=keyword.upper())
+                title_q |= Q(title__icontains=keyword)
+                print(keyword)
+                print(title_tokens)
+                # title_q |= Q(title__contains=keyword.lower())
+                # title_q |= Q(title__contains=keyword.upper())
 
                 # if request_object.get('searchby3char-home'):
                 if len(keyword) <= 5:
@@ -233,6 +235,7 @@ def post_list(request):
             d = datetime.datetime.strptime(request_object.get('date_max'), '%Y-%m-%d')
             tz = timezone.utc
             date_max = tz.localize(d)
+            print('datemax ', date_max)
             date_max_q &= Q(date__lte=date_max)
 
     id_q = Q()
@@ -391,9 +394,7 @@ def post_search(request):
         print(title_tokens)
 
         for keyword in title_tokens:
-            title_q |= Q(title__contains=keyword.capitalize())
-            title_q |= Q(title__contains=keyword.lower())
-            title_q |= Q(title__contains=keyword.upper())
+            title_q |= Q(title__icontains=keyword)
 
             # print("3char: ", request.GET.get('searchby3char'))
             # if request.GET.get('searchby3char') == "1":
@@ -448,9 +449,7 @@ def post_search(request):
             d = datetime.datetime.strptime(request.GET.get('date_min'), '%Y-%m-%d')
             tz = timezone.utc
             date_min = tz.localize(d)
-            if date_min > datetime.datetime.now(timezone.utc):
-                date_min = datetime.datetime.now(timezone.utc)
-            date_min_q &= Q(date__gte=date_min)
+            date_min_q &= Q(date_open__gte=date_min)
 
     date_max_q = Q()
     if 'date_max' in request.GET:
