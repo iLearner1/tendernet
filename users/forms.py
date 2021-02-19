@@ -122,7 +122,7 @@ class SignupForm(forms.ModelForm):
         username = self.cleaned_data.get('username')
 
         if User.objects.filter(username=username).exists():
-            raise ValidationError("Такой Username уже существует")
+            raise ValidationError("Такой Username уже существует. Возможно Вы уже прошли регистрацию на нашем сайте. Проверьте свою почту, убедитесь не попало ли письмо в папку со спамом.")
 
         if User.objects.filter(email=email).exists():
             raise ValidationError("Такой Email уже существует")
